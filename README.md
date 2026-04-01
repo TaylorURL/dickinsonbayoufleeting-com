@@ -5,11 +5,11 @@
 <p align="center"><strong>Waterfront Dock Space Leasing — Freeport & San Leon, Texas</strong></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-0.1-blue?style=flat-square" alt="Version 0.1" />
-  <img src="https://img.shields.io/badge/React-19.1-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React 19.1" />
-  <img src="https://img.shields.io/badge/CSS-Custom_Properties-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS Custom Properties" />
-  <img src="https://img.shields.io/badge/PWA-Capable-5A0FC8?style=flat-square&logo=pwa&logoColor=white" alt="PWA Capable" />
-  <img src="https://img.shields.io/badge/Schema.org-JSON--LD-orange?style=flat-square" alt="Schema.org Structured Data" />
+  <img src="https://img.shields.io/badge/v0.1-release-1e3a5f" alt="v0.1" />
+  <img src="https://img.shields.io/badge/React-19.1-61DAFB?logo=react&logoColor=white" alt="React 19.1" />
+  <img src="https://img.shields.io/badge/CSS-Custom_Properties-1572B6?logo=css3&logoColor=white" alt="CSS Custom Properties" />
+  <img src="https://img.shields.io/badge/PWA-Capable-5A0FC8?logo=pwa&logoColor=white" alt="PWA Capable" />
+  <img src="https://img.shields.io/badge/Schema.org-JSON--LD-orange" alt="Schema.org Structured Data" />
 </p>
 
 ---
@@ -71,7 +71,7 @@ The footer assembles the full contact surface: section navigation links, both fa
 
 ## Project Stats
 
-| Metric | Count |
+| Metric | Value |
 |---|---|
 | Page Sections | 5 |
 | Physical Facilities | 2 |
