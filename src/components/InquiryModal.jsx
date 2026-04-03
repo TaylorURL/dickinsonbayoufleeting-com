@@ -242,15 +242,12 @@ function InquiryModal({ open, onClose, onSubmit }) {
             </div>
             <div className="inqFooter inqFooter--actions">
               <div className="inqActions inqActions--right">
-                <button
-                  type="button"
+                <a
+                  href={`tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`}
                   className="inqBtn inqBtn--call"
-                  onClick={() =>
-                    (window.location.href = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`)
-                  }
                 >
                   Call
-                </button>
+                </a>
                 <button
                   type="button"
                   disabled={submitting}
