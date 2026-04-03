@@ -81,7 +81,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
       messageRef.current.style.height = messageRef.current.scrollHeight + "px";
     }
   }
-  function submit(e) {
+  async function submit(e) {
     e.preventDefault();
     setAttempted(true);
     const eMap = validate();
@@ -105,11 +105,17 @@ function InquiryModal({ open, onClose, onSubmit }) {
     }
     setSubmitting(true);
     const data = { firstName, lastName, email, phone, message };
-    onSubmit && onSubmit(data);
-    setTimeout(() => {
+    try {
+      const result = onSubmit && onSubmit(data);
+      if (result && typeof result.then === "function") {
+        await result;
+      }
       setSubmitting(false);
       setSubmitted(true);
-    }, 900);
+    } catch {
+      setSubmitting(false);
+      setErrors({ submit: "Something went wrong. Please try again." });
+    }
   }
   function handleChange(setter) {
     return (ev) => {

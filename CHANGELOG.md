@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.4] - 2026-04-03
+
+- dickinsonbayoufleeting-com Release v1.0.4
+
 ## [1.0.3] - 2026-04-03
 
 - dickinsonbayoufleeting-com Release v1.0.3
