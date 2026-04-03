@@ -3,22 +3,28 @@ import "./styles/Amenities.css";
 function Amenities() {
   const amenities = [
     {
-      name: "Lorem Ipsum",
-      desc: "Dolor sit amet consectetur adipiscing elit.",
-    },
-    { name: "Sed Do", desc: "Eiusmod tempor incididunt ut labore et dolore." },
-    {
-      name: "Magna Aliqua",
-      desc: "Ut enim ad minim veniam quis nostrud exercitation.",
-    },
-    { name: "Ut Labore", desc: "Nisi ut aliquip ex ea commodo consequat." },
-    {
-      name: "Duis Aute",
-      desc: "Irure dolor in reprehenderit in voluptate velit.",
+      name: "Dedicated Slip Access",
+      desc: "Private slip assignments for reliable vessel staging and retrieval.",
     },
     {
-      name: "Excepteur Sint",
-      desc: "Occaecat cupidatat non proident sunt in culpa.",
+      name: "On-Site Assistance",
+      desc: "Trained personnel available to support docking and departure operations.",
+    },
+    {
+      name: "Waterfront Acreage",
+      desc: "Spacious five-acre lots with direct waterway access at each facility.",
+    },
+    {
+      name: "Secure Premises",
+      desc: "Gated entry and perimeter fencing to protect vessels and equipment.",
+    },
+    {
+      name: "Flexible Leasing",
+      desc: "Long-term lease options tailored to commercial and private needs.",
+    },
+    {
+      name: "Convenient Locations",
+      desc: "Facilities in Freeport and San Leon with easy Gulf Coast access.",
     },
   ];
   return (
@@ -27,7 +33,8 @@ function Amenities() {
         <div className="amenities__head">
           <h2 className="amenities__title">Amenities & Services</h2>
           <p className="amenities__subtitle">
-            Placeholder overview text for listed amenities and services offered.
+            Everything you need for safe, convenient vessel staging on the Texas
+            Gulf Coast.
           </p>
         </div>
         <div className="amenities__grid">
