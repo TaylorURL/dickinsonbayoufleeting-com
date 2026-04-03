@@ -52,33 +52,33 @@ The footer assembles the full contact surface: section navigation links, both fa
 
 ## Architecture
 
-| Layer | Technology |
-|---|---|
-| UI Framework | React 19.1 |
-| Build Tooling | Create React App (react-scripts 5) |
-| Styling | Plain CSS with CSS Custom Properties (~60 tokens in `Theme.css`) |
-| Theming | `prefers-color-scheme` → programmatic `data-theme` on `<html>` |
-| Component CSS | Colocated `.css` file per component |
-| Constants | `src/app/constants/` — facilities, leaseOptions, navLinks, sectionIds, phoneNumber |
-| Custom Hooks | `src/app/hooks/` — `useScrolled`, `useActiveSection`, `useAutoCycle` |
-| Views | Single view: `HomeView.jsx` composing all sections |
-| Event Bus | `window.dispatchEvent(new Event('inquiry:open'))` for modal decoupling |
-| Data Integrity | `LEASE_OPTIONS` derived from `FACILITIES` — single source of truth |
-| SEO | Open Graph, Twitter Card meta tags, Schema.org JSON-LD (WebSite, Organization, 2x LocalBusiness) |
-| PWA | `manifest.json` + full icon set |
+| Layer          | Technology                                                                                       |
+| -------------- | ------------------------------------------------------------------------------------------------ |
+| UI Framework   | React 19.1                                                                                       |
+| Build Tooling  | Create React App (react-scripts 5)                                                               |
+| Styling        | Plain CSS with CSS Custom Properties (~60 tokens in `Theme.css`)                                 |
+| Theming        | `prefers-color-scheme` → programmatic `data-theme` on `<html>`                                   |
+| Component CSS  | Colocated `.css` file per component                                                              |
+| Constants      | `src/app/constants/` — facilities, leaseOptions, navLinks, sectionIds, phoneNumber               |
+| Custom Hooks   | `src/app/hooks/` — `useScrolled`, `useActiveSection`, `useAutoCycle`                             |
+| Views          | Single view: `HomeView.jsx` composing all sections                                               |
+| Event Bus      | `window.dispatchEvent(new Event('inquiry:open'))` for modal decoupling                           |
+| Data Integrity | `LEASE_OPTIONS` derived from `FACILITIES` — single source of truth                               |
+| SEO            | Open Graph, Twitter Card meta tags, Schema.org JSON-LD (WebSite, Organization, 2x LocalBusiness) |
+| PWA            | `manifest.json` + full icon set                                                                  |
 
 ---
 
 ## Project Stats
 
-| Metric | Value |
-|---|---|
-| Page Sections | 5 |
-| Physical Facilities | 2 |
-| CSS Custom Property Tokens | 60+ |
-| Amenity Types | 6 |
-| Custom React Hooks | 3 |
-| Lease Tiers | 2 |
+| Metric                     | Value |
+| -------------------------- | ----- |
+| Page Sections              | 5     |
+| Physical Facilities        | 2     |
+| CSS Custom Property Tokens | 60+   |
+| Amenity Types              | 6     |
+| Custom React Hooks         | 3     |
+| Lease Tiers                | 2     |
 
 ---
 
