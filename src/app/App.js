@@ -6,8 +6,20 @@ import InquiryModal from "../components/InquiryModal";
 import "./styles/App.css";
 import "./styles/Buttons.css";
 
+const INQUIRY_ENDPOINT =
+  "https://gujgtjqqurildqurpffh.supabase.co/functions/v1/inquiry-service";
+
 function App() {
   const [inquiryOpen, setInquiryOpen] = useState(false);
+
+  const handleInquirySubmit = async (data) => {
+    const response = await fetch(INQUIRY_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) throw new Error("Inquiry submission failed");
+  };
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-color-scheme: light)");
@@ -43,7 +55,7 @@ function App() {
       <InquiryModal
         open={inquiryOpen}
         onClose={() => setInquiryOpen(false)}
-        onSubmit={() => {}}
+        onSubmit={handleInquirySubmit}
       />
     </div>
   );
