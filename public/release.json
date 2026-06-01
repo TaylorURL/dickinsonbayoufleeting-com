@@ -2,8 +2,5 @@
   "version": "1.0.3",
   "projectName": "dickinsonbayoufleeting-com",
   "branch": "main",
-  "provider": "claude-code",
-  "cleanLogs": true,
-  "cleanCss": false,
-  "hooks": {}
+  "provider": "claude-code"
 }

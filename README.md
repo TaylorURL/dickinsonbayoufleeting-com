@@ -5,7 +5,7 @@
 <p align="center"><strong>Waterfront Dock Space Leasing — Freeport & San Leon, Texas</strong></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/v0.1-release-1e3a5f" alt="v0.1" />
+  <img src="https://img.shields.io/badge/v1.0.3-release-1e3a5f" alt="v1.0.3" />
   <img src="https://img.shields.io/badge/React-19.1-61DAFB?logo=react&logoColor=white" alt="React 19.1" />
   <img src="https://img.shields.io/badge/CSS-Custom_Properties-1572B6?logo=css3&logoColor=white" alt="CSS Custom Properties" />
   <img src="https://img.shields.io/badge/PWA-Capable-5A0FC8?logo=pwa&logoColor=white" alt="PWA Capable" />
