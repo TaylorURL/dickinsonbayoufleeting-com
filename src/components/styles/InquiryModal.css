@@ -94,22 +94,23 @@
 .inqInput,
 .inqTextarea {
   background: var(--overlay-panel-soft);
-  border: 1px solid var(--layer-white-12);
-  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   padding: 12px 14px;
   font: inherit;
+  font-size: 0.95rem;
   color: var(--color-text-primary);
   resize: none;
   outline: none;
   transition:
-    border-color var(--transition-fast),
-    box-shadow var(--transition-fast);
+    border-color var(--transition-fast) var(--ease-out),
+    box-shadow var(--transition-fast) var(--ease-out);
 }
 
 .inqInput:focus,
 .inqTextarea:focus {
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 2px var(--overlay-panel-soft);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
 }
 
 .inqInput[aria-invalid="true"],
