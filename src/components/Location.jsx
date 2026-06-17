@@ -24,7 +24,8 @@ function Location() {
     <section className="location" aria-label="Location" id="location">
       <div className="location__inner">
         <div className="location__head">
-          <h2 className="location__title">Location & Access</h2>
+          <p className="eyebrow">Facilities</p>
+          <h2 className="location__title">Location &amp; Access</h2>
           <p className="location__subtitle">
             Physical site details and direct contact for lease coordination.
           </p>
