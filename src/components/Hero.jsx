@@ -1,10 +1,12 @@
 import "./styles/Hero.css";
 
+const HERO_EYEBROW = "Texas Gulf Coast · Barge Fleeting";
+const HERO_TITLE = "Premium Dock Space Leasing";
+const HERO_SUBTITLE =
+  "Long-term waterfront access with dedicated slip and on-site assistance.";
+const HERO_BADGES = ["5 Acre Waterfront", "Dedicated Slip", "On-Site Assistance"];
+
 function HeroSection() {
-  const heroTitle = "Premium Dock Space Leasing";
-  const heroSubtitle =
-    "Long-term waterfront access with dedicated slip and on-site assistance.";
-  const badges = ["5 Acre Waterfront", "Dedicated Slip", "On-Site Assistance"];
   const openInquiry = (e) => {
     e.preventDefault();
     window.dispatchEvent(new Event("inquiry:open"));
@@ -23,7 +25,6 @@ function HeroSection() {
           loop
           playsInline
           preload="metadata"
-          poster="/bg-video-poster.jpg"
           disablePictureInPicture
         >
           <source src="/videos/bg-video.mp4" type="video/mp4" />
@@ -32,12 +33,13 @@ function HeroSection() {
       </div>
       <div className="hero__inner">
         <div className="hero__panel hero__panel--minimal">
-          <h1 className="hero__title">{heroTitle}</h1>
-          <p className="hero__subtitle">{heroSubtitle}</p>
+          <p className="eyebrow hero__eyebrow">{HERO_EYEBROW}</p>
+          <h1 className="hero__title">{HERO_TITLE}</h1>
+          <p className="hero__subtitle">{HERO_SUBTITLE}</p>
           <ul className="hero__badges" aria-label="Key features">
-            {badges.map((b) => (
-              <li key={b} className="hero__badge">
-                {b}
+            {HERO_BADGES.map((badge) => (
+              <li key={badge} className="hero__badge">
+                {badge}
               </li>
             ))}
           </ul>
