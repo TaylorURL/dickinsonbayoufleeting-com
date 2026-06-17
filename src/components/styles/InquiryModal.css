@@ -42,6 +42,7 @@
   flex-direction: column;
   gap: 32px;
   height: 100%;
+  text-align: left;
 }
 
 .inqHeader {
