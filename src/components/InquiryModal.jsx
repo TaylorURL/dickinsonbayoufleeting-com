@@ -287,7 +287,18 @@ function InquiryModal({ open, onClose, onSubmit }) {
         {submitted && (
           <div className="inqResult">
             <div className="inqResult__icon" aria-hidden="true">
-              \u2713
+              <svg
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="m5 12.5 4.5 4.5L19 7" />
+              </svg>
             </div>
             <h2 className="inqResult__title">Message Sent</h2>
             <p className="inqResult__text">
