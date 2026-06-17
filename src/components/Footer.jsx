@@ -5,13 +5,6 @@ import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 
 function Footer() {
   const year = new Date().getFullYear();
-  const navLinks = NAV_LINKS.filter((l) =>
-    ["rates", "amenities", "location", "contact"].includes(l.id),
-  );
-  const locations = FACILITIES.map((f) => ({
-    name: f.name,
-    address: f.address,
-  }));
   const openInquiry = (e) => {
     e.preventDefault();
     window.dispatchEvent(new Event("inquiry:open"));
