@@ -159,9 +159,14 @@ function InquiryModal({ open, onClose, onSubmit }) {
         {!submitted && (
           <form className="inqLayout" onSubmit={submit} noValidate>
             <header className="inqHeader">
+              <p className="eyebrow">Get a Quote</p>
               <h2 id="inqTitle" className="inqHeader__title">
                 Lease Inquiry
               </h2>
+              <p id="inqDesc" className="inqHeader__subtitle">
+                Tell us about your docking needs and we&rsquo;ll respond within
+                24 hours.
+              </p>
             </header>
             <div className="inqGrid">
               <label className="inqField">
