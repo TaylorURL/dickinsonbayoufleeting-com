@@ -132,6 +132,7 @@
   flex-direction: column;
   gap: 18px;
   padding: 18px 22px 22px;
+  text-align: left;
   position: relative;
   z-index: 1;
   animation: cardIn 0.35s var(--ease-out);
