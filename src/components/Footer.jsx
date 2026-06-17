@@ -49,7 +49,7 @@ function Footer() {
           <div className="footer__col" aria-label="Navigation">
             <div className="footer__title">Navigation</div>
             <ul className="footer__list">
-              {navLinks.map((l) => (
+              {NAV_LINKS.map((l) => (
                 <li key={l.href}>
                   <a className="footer__link" href={l.href}>
                     {l.label}
