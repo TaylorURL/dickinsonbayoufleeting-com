@@ -272,7 +272,7 @@
   align-items: center;
   justify-content: center;
   box-shadow:
-    0 0 0 8px var(--color-highlight-soft),
+    0 0 0 6px rgba(63, 191, 107, 0.16),
     var(--shadow-md);
   animation: inqPop 0.45s var(--ease-out) both;
 }
