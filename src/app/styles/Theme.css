@@ -118,9 +118,13 @@
   --color-surface: #f0f6ff;
   --color-surface-alt: #e2eefb;
   --color-accent: #2f6ae0;
-  --color-accent-hover: #3d7dff;
+  --color-accent-hover: #1f56c4;
   --color-accent-soft: #d5e4fa;
+  --color-highlight: #b07d22;
+  --color-highlight-strong: #946615;
+  --color-highlight-soft: rgba(176, 125, 34, 0.14);
   --color-border: #c3d4e7;
+  --color-hairline: rgba(11, 37, 64, 0.1);
   --color-text-primary: #0b2540;
   --color-text-secondary: #2d4d72;
   --color-text-faint: #6d8297;
