@@ -3,10 +3,12 @@ import "./styles/Location.css";
 import { FACILITIES } from "../app/constants/facilities";
 import { useAutoCycle } from "../app/hooks/useAutoCycle";
 
+const FACILITY_IDS = FACILITIES.map((f) => f.id);
+const AUTO_CYCLE_MS = 6000;
+
 function Location() {
-  const ids = FACILITIES.map((f) => f.id);
   const [locked, setLocked] = useState(false);
-  const [active, setActive] = useAutoCycle(ids, 6000, locked);
+  const [active, setActive] = useAutoCycle(FACILITY_IDS, AUTO_CYCLE_MS, locked);
   const loc = FACILITIES.find((f) => f.id === active) || FACILITIES[0];
   const mapsHref = loc.coords
     ? `https://maps.google.com/?q=${loc.coords.lat},${loc.coords.lng}`
