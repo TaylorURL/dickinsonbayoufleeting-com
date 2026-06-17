@@ -171,10 +171,21 @@
   justify-content: center;
   gap: 8px;
   transition:
-    background var(--transition-fast),
-    transform var(--transition-fast),
-    box-shadow var(--transition-fast);
+    background var(--transition-fast) var(--ease-out),
+    transform var(--transition-fast) var(--ease-out),
+    box-shadow var(--transition-base) var(--ease-out);
   text-decoration: none;
+}
+
+.inqBtn:active {
+  transform: scale(0.98);
+}
+
+.inqBtn:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--overlay-panel),
+    0 0 0 4px var(--color-accent);
 }
 
 .inqBtn--primary {
