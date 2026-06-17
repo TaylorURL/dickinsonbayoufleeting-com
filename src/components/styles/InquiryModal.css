@@ -263,17 +263,35 @@
 }
 
 .inqResult__icon {
-  width: 62px;
-  height: 62px;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: var(--color-accent);
-  color: var(--color-text-on-accent);
+  background: var(--color-success);
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
-  font-weight: 700;
-  box-shadow: var(--shadow-md);
+  box-shadow:
+    0 0 0 8px var(--color-highlight-soft),
+    var(--shadow-md);
+  animation: inqPop 0.45s var(--ease-out) both;
+}
+
+@keyframes inqPop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inqResult__icon {
+    animation: none;
+  }
 }
 
 .inqResult__title {
