@@ -61,10 +61,10 @@ function Footer() {
           <div className="footer__col" aria-label="Locations">
             <div className="footer__title">Locations</div>
             <ul className="footer__list">
-              {locations.map((loc) => (
-                <li key={loc.name} className="footer__loc">
-                  <span className="footer__locName">{loc.name}</span>
-                  <span className="footer__locAddr">{loc.address}</span>
+              {FACILITIES.map((facility) => (
+                <li key={facility.name} className="footer__loc">
+                  <span className="footer__locName">{facility.name}</span>
+                  <span className="footer__locAddr">{facility.address}</span>
                 </li>
               ))}
             </ul>
