@@ -40,8 +40,29 @@
 .inqLayout {
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 32px;
   height: 100%;
+}
+
+.inqHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inqHeader__title {
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: -0.4px;
+  color: var(--color-text-primary);
+}
+
+.inqHeader__subtitle {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  max-width: 440px;
 }
 
 .inqGrid {
