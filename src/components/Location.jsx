@@ -53,6 +53,16 @@ function Location() {
                     </button>
                     {activeCard && (
                       <div className="locCard__detail">
+                        <div className="locCard__rows">
+                          <div className="locCard__row">
+                            <span className="locCard__label">Acreage</span>
+                            <span className="locCard__value">{f.acreage}</span>
+                          </div>
+                          <div className="locCard__row">
+                            <span className="locCard__label">Direct Line</span>
+                            <span className="locCard__value">{f.phone}</span>
+                          </div>
+                        </div>
                         <div className="locCard__actions">
                           <a
                             className="btn btn--inline"
