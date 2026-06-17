@@ -102,8 +102,8 @@
   );
   --gradient-accent-ring: radial-gradient(
     circle at 30% 30%,
-    rgba(61, 125, 255, 0.25),
-    rgba(61, 125, 255, 0) 60%
+    rgba(74, 141, 255, 0.22),
+    rgba(74, 141, 255, 0) 62%
   );
 
   /* Theme (dark): shadows */
