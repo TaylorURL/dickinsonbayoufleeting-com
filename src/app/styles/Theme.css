@@ -1,4 +1,50 @@
+/*
+ * Design tokens.
+ *
+ * :root holds the dark theme (the default) plus every theme-invariant token —
+ * radii, spacing scale, motion, blur, and layout dimensions. A theme block only
+ * needs to override the tokens that actually change between themes: colors,
+ * layered translucencies, overlays, gradients, and shadows.
+ */
 :root {
+  /* Invariant: radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  /* Invariant: spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 56px;
+  --space-10: 72px;
+
+  /* Invariant: motion */
+  --transition-fast: 120ms ease;
+  --transition-base: 200ms ease;
+
+  /* Invariant: blur */
+  --blur-sm: 4px;
+  --blur-md: 8px;
+  --blur-lg: 18px;
+
+  /* Invariant: layout dimensions */
+  --container-max: 1240px;
+  --nav-height: clamp(60px, 8vw, 88px);
+  --nav-logo-height: clamp(90px, 12vw, 132px);
+  --nav-logo-offset: 20px;
+  --footer-logo-height: 140px;
+
+  /* Invariant: token aliases that resolve per theme */
+  --footer-bg: var(--gradient-water);
+  --footer-border-color: var(--layer-white-12);
+
+  /* Theme (dark): colors */
   --color-app-bg: #030b18;
   --color-bg: #061528;
   --color-surface: #0d2238;
@@ -15,10 +61,14 @@
   --color-warning: #e0c264;
   --color-danger: #e87474;
   --color-link: var(--color-accent);
+
+  /* Theme (dark): layered translucencies */
   --layer-white-6: rgba(255, 255, 255, 0.06);
   --layer-white-8: rgba(255, 255, 255, 0.08);
   --layer-white-12: rgba(255, 255, 255, 0.12);
   --layer-white-16: rgba(255, 255, 255, 0.16);
+
+  /* Theme (dark): overlays */
   --overlay-hero: linear-gradient(
     180deg,
     rgba(3, 11, 24, 0.05) 0%,
@@ -29,12 +79,8 @@
   --overlay-panel-soft: rgba(13, 34, 56, 0.42);
   --overlay-panel-hero: rgba(13, 34, 56, 0.3);
   --overlay-nav: rgba(13, 34, 56, 0.6);
-  --gradient-hero: linear-gradient(
-    135deg,
-    #0e2744 0%,
-    #0a1d33 55%,
-    #061526 100%
-  );
+
+  /* Theme (dark): gradients */
   --gradient-water: linear-gradient(
     145deg,
     #0d2744 0%,
@@ -46,43 +92,11 @@
     rgba(61, 125, 255, 0.25),
     rgba(61, 125, 255, 0) 60%
   );
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
+
+  /* Theme (dark): shadows */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.25);
   --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.32);
   --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
-  --container-max: 1240px;
-  --transition-fast: 120ms ease;
-  --transition-base: 200ms ease;
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-7: 32px;
-  --space-8: 40px;
-  --space-9: 56px;
-  --space-10: 72px;
-  --blur-sm: 4px;
-  --blur-md: 8px;
-  --blur-lg: 18px;
-  --nav-height: clamp(60px, 8vw, 88px);
-  --nav-logo-height: clamp(90px, 12vw, 132px);
-  --nav-logo-offset: 20px;
-  --footer-bg: var(--gradient-water);
-  --footer-overlay: rgba(0, 0, 0, 0.18);
-  --footer-border: var(--layer-white-12);
-  --footer-section-gap: 46px;
-  --footer-col-gap: 38px;
-  --footer-inner-padding: 70px;
-  --footer-logo-height: 140px;
-  --footer-padding-y: 56px;
-  --footer-padding-y-sm: 42px;
-  --footer-gap: 48px;
-  --footer-col-gap: 32px;
-  --footer-border-color: var(--layer-white-12);
 }
 
 [data-theme="light"] {
@@ -101,11 +115,12 @@
   --color-success: #2eac5c;
   --color-warning: #c9ae42;
   --color-danger: #d05b5b;
-  --color-link: var(--color-accent);
+
   --layer-white-6: rgba(0, 0, 0, 0.06);
   --layer-white-8: rgba(0, 0, 0, 0.08);
   --layer-white-12: rgba(0, 0, 0, 0.12);
   --layer-white-16: rgba(0, 0, 0, 0.16);
+
   --overlay-hero: linear-gradient(
     180deg,
     rgba(244, 248, 255, 0.05) 0%,
@@ -116,12 +131,7 @@
   --overlay-panel-soft: rgba(226, 238, 251, 0.42);
   --overlay-panel-hero: rgba(226, 238, 251, 0.3);
   --overlay-nav: rgba(226, 238, 251, 0.6);
-  --gradient-hero: linear-gradient(
-    135deg,
-    #f0f6ff 0%,
-    #e2eefb 55%,
-    #ffffff 100%
-  );
+
   --gradient-water: linear-gradient(
     145deg,
     #e2eefb 0%,
@@ -133,41 +143,8 @@
     rgba(61, 125, 255, 0.15),
     rgba(61, 125, 255, 0) 60%
   );
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
+
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.12);
   --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.16);
-  --container-max: 1240px;
-  --transition-fast: 120ms ease;
-  --transition-base: 200ms ease;
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-7: 32px;
-  --space-8: 40px;
-  --space-9: 56px;
-  --space-10: 72px;
-  --blur-sm: 4px;
-  --blur-md: 8px;
-  --blur-lg: 18px;
-  --nav-height: clamp(60px, 8vw, 88px);
-  --nav-logo-height: clamp(90px, 12vw, 132px);
-  --nav-logo-offset: 20px;
-  --footer-bg: var(--gradient-water);
-  --footer-overlay: rgba(0, 0, 0, 0.06);
-  --footer-border: var(--layer-white-12);
-  --footer-section-gap: 46px;
-  --footer-col-gap: 38px;
-  --footer-inner-padding: 70px;
-  --footer-logo-height: 140px;
-  --footer-padding-y: 56px;
-  --footer-padding-y-sm: 42px;
-  --footer-gap: 48px;
-  --footer-col-gap: 32px;
-  --footer-border-color: var(--layer-white-12);
 }
