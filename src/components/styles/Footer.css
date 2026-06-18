@@ -209,6 +209,26 @@
   border-color: var(--color-border-strong);
 }
 
+/* ---------- Credit line ---------- */
+.footer__credit {
+  padding: var(--space-4) var(--container-pad);
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--color-text-faint);
+  letter-spacing: 0.02em;
+}
+
+.footer__creditLink {
+  color: var(--color-text-faint);
+  text-decoration: none;
+  transition: color var(--transition-fast) var(--ease-out);
+}
+
+.footer__creditLink:hover,
+.footer__creditLink:focus-visible {
+  color: var(--color-text-secondary);
+}
+
 @media (max-width: 760px) {
   .footer__container {
     grid-template-columns: 1fr;
