@@ -83,6 +83,17 @@ function Footer() {
           </a>
         </div>
       </div>
+      <div className="footer__credit">
+        Site made by{" "}
+        <a
+          href="https://taylorurl.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="footer__creditLink"
+        >
+          TaylorURL.com
+        </a>
+      </div>
     </footer>
   );
 }
