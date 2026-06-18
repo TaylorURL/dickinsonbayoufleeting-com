@@ -3,10 +3,12 @@ import "./styles/Location.css";
 import { FACILITIES } from "../app/constants/facilities";
 import { useAutoCycle } from "../app/hooks/useAutoCycle";
 
+const FACILITY_IDS = FACILITIES.map((f) => f.id);
+const AUTO_CYCLE_MS = 6000;
+
 function Location() {
-  const ids = FACILITIES.map((f) => f.id);
   const [locked, setLocked] = useState(false);
-  const [active, setActive] = useAutoCycle(ids, 6000, locked);
+  const [active, setActive] = useAutoCycle(FACILITY_IDS, AUTO_CYCLE_MS, locked);
   const loc = FACILITIES.find((f) => f.id === active) || FACILITIES[0];
   const mapsHref = loc.coords
     ? `https://maps.google.com/?q=${loc.coords.lat},${loc.coords.lng}`
@@ -22,7 +24,8 @@ function Location() {
     <section className="location" aria-label="Location" id="location">
       <div className="location__inner">
         <div className="location__head">
-          <h2 className="location__title">Location & Access</h2>
+          <p className="eyebrow">Facilities</p>
+          <h2 className="location__title">Location &amp; Access</h2>
           <p className="location__subtitle">
             Physical site details and direct contact for lease coordination.
           </p>
@@ -50,6 +53,16 @@ function Location() {
                     </button>
                     {activeCard && (
                       <div className="locCard__detail">
+                        <div className="locCard__rows">
+                          <div className="locCard__row">
+                            <span className="locCard__label">Acreage</span>
+                            <span className="locCard__value">{f.acreage}</span>
+                          </div>
+                          <div className="locCard__row">
+                            <span className="locCard__label">Direct Line</span>
+                            <span className="locCard__value">{f.phone}</span>
+                          </div>
+                        </div>
                         <div className="locCard__actions">
                           <a
                             className="btn btn--inline"

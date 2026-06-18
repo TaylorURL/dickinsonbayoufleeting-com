@@ -21,10 +21,12 @@
   height: 100%;
   backdrop-filter: blur(var(--blur-md));
   background: var(--overlay-nav);
-  border-bottom: 1px solid var(--layer-white-12);
+  border-bottom: 1px solid var(--color-hairline);
   transition:
-    background var(--transition-fast),
-    border-color var(--transition-fast);
+    background var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+  transition-timing-function: var(--ease-out);
 }
 
 .nav--scrolled .nav__inner {
@@ -39,6 +41,12 @@
   gap: 14px;
   text-decoration: none;
   height: 100%;
+  border-radius: var(--radius-sm);
+}
+
+.nav__brand:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
 }
 
 .nav__logo {
@@ -46,7 +54,7 @@
   width: auto;
   display: block;
   object-fit: contain;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.45));
   margin-top: calc(
     (var(--nav-logo-height) - var(--nav-height)) / -2 + var(--nav-logo-offset)
   );
@@ -72,12 +80,18 @@
   display: none;
   background: none;
   border: 0;
-  padding: 6px 4px;
+  padding: 8px 6px;
   cursor: pointer;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.nav__toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 .nav__toggleBar {
@@ -85,12 +99,13 @@
   height: 2px;
   background: var(--color-text-primary);
   border-radius: 2px;
+  transition: transform var(--transition-fast) var(--ease-out);
 }
 
 .nav__links {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 34px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -101,15 +116,15 @@
 }
 
 .nav__link {
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 1.6px;
+  letter-spacing: 1.8px;
   font-weight: 600;
   color: var(--color-text-secondary);
   text-decoration: none;
   position: relative;
   padding: 4px 0;
-  transition: color var(--transition-fast);
+  transition: color var(--transition-fast) var(--ease-out);
 }
 
 .nav__link:focus-visible,
@@ -117,7 +132,7 @@
   color: var(--color-text-primary);
 }
 
-.nav__link:after {
+.nav__link::after {
   content: "";
   position: absolute;
   left: 0;
@@ -125,11 +140,13 @@
   height: 2px;
   width: 0;
   background: var(--color-accent);
-  transition: width var(--transition-fast);
+  border-radius: 2px;
+  transition: width var(--transition-base) var(--ease-out);
 }
 
-.nav__link:hover:after,
-.nav__link:focus-visible:after {
+.nav__link:hover::after,
+.nav__link:focus-visible::after,
+.nav__link--active::after {
   width: 100%;
 }
 
@@ -137,44 +154,46 @@
   color: var(--color-text-primary);
 }
 
-.nav__link--active:after {
-  width: 100%;
-}
-
 .nav__action {
   background: var(--color-accent);
   color: var(--color-text-on-accent);
-  padding: 10px 18px;
+  padding: 11px 20px;
   border-radius: var(--radius-md);
   font-size: 0.7rem;
   letter-spacing: 1.4px;
+  text-transform: uppercase;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 700;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-sm);
   transition:
     background var(--transition-fast),
-    box-shadow var(--transition-fast);
+    box-shadow var(--transition-base),
+    transform var(--transition-fast);
+  transition-timing-function: var(--ease-out);
 }
 
-.nav__action:hover,
-.nav__action:focus-visible {
+.nav__action:hover {
   background: var(--color-accent-hover);
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.nav__action:active {
+  transform: scale(0.97);
+}
+
+.nav__action:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--color-bg),
+    0 0 0 4px var(--color-accent);
 }
 
 .nav__cta {
   margin-left: 12px;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-[id] {
-  scroll-margin-top: calc(var(--nav-logo-height) + 18px);
 }
 
 @media (max-width: 860px) {
@@ -197,19 +216,21 @@ html {
     border-radius: 0 0 0 var(--radius-lg);
     gap: 22px;
     transform-origin: top right;
-    transform: scale(0.9);
+    transform: scale(0.92) translateY(-6px);
     opacity: 0;
     pointer-events: none;
+    box-shadow: var(--shadow-lg);
     transition:
       opacity var(--transition-fast),
-      transform var(--transition-fast);
-    min-width: 210px;
+      transform var(--transition-base);
+    transition-timing-function: var(--ease-out);
+    min-width: 220px;
     margin-top: 0;
   }
 
   .nav__links--open {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
     pointer-events: auto;
   }
 }

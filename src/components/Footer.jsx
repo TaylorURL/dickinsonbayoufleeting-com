@@ -5,13 +5,6 @@ import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 
 function Footer() {
   const year = new Date().getFullYear();
-  const navLinks = NAV_LINKS.filter((l) =>
-    ["rates", "amenities", "location", "contact"].includes(l.id),
-  );
-  const locations = FACILITIES.map((f) => ({
-    name: f.name,
-    address: f.address,
-  }));
   const openInquiry = (e) => {
     e.preventDefault();
     window.dispatchEvent(new Event("inquiry:open"));
@@ -56,7 +49,7 @@ function Footer() {
           <div className="footer__col" aria-label="Navigation">
             <div className="footer__title">Navigation</div>
             <ul className="footer__list">
-              {navLinks.map((l) => (
+              {NAV_LINKS.map((l) => (
                 <li key={l.href}>
                   <a className="footer__link" href={l.href}>
                     {l.label}
@@ -68,10 +61,10 @@ function Footer() {
           <div className="footer__col" aria-label="Locations">
             <div className="footer__title">Locations</div>
             <ul className="footer__list">
-              {locations.map((loc) => (
-                <li key={loc.name} className="footer__loc">
-                  <span className="footer__locName">{loc.name}</span>
-                  <span className="footer__locAddr">{loc.address}</span>
+              {FACILITIES.map((facility) => (
+                <li key={facility.name} className="footer__loc">
+                  <span className="footer__locName">{facility.name}</span>
+                  <span className="footer__locAddr">{facility.address}</span>
                 </li>
               ))}
             </ul>

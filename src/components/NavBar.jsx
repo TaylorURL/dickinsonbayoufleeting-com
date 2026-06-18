@@ -17,8 +17,7 @@ function NavBar() {
     window.addEventListener("click", close);
     return () => window.removeEventListener("click", close);
   }, [open]);
-  const primaryIds = ["rates", "amenities", "location"];
-  const links = NAV_LINKS.filter((l) => primaryIds.includes(l.id));
+  const links = NAV_LINKS.filter((l) => SECTION_IDS.includes(l.id));
   const openInquiry = (e) => {
     e.preventDefault();
     window.dispatchEvent(new Event("inquiry:open"));
