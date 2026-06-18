@@ -21,12 +21,12 @@ function Location() {
     window.dispatchEvent(new Event("inquiry:open"));
   };
   return (
-    <section className="location" aria-label="Location" id="location">
-      <div className="location__inner">
-        <div className="location__head">
+    <section className="location section" aria-label="Location" id="location">
+      <div className="container">
+        <div className="section__head">
           <p className="eyebrow">Facilities</p>
-          <h2 className="location__title">Location &amp; Access</h2>
-          <p className="location__subtitle">
+          <h2 className="section__title">Location &amp; Access</h2>
+          <p className="section__subtitle">
             Physical site details and direct contact for lease coordination.
           </p>
         </div>

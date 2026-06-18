@@ -1,147 +1,103 @@
 .location {
-  padding: 96px 24px 100px;
   background: var(--color-app-bg);
-  position: relative;
 }
 
-.location__inner {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 52px;
-}
-
-.location__head {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: flex-start;
-  text-align: left;
-}
-
-.location__title {
-  margin: 0;
-  font-size: clamp(1.9rem, 3.6vw, 2.5rem);
-  letter-spacing: -0.4px;
-}
-
-.location__subtitle {
-  margin: 0;
-  font-size: 1.05rem;
-  line-height: 1.55;
-  color: var(--color-text-secondary);
-  max-width: 620px;
-}
-
+/* Two-column: facility selector + live map. */
 .location__body {
   display: grid;
-  gap: 46px;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: var(--space-7);
   align-items: start;
 }
 
 .location__col {
-  display: flex;
-  flex-direction: column;
-  gap: 26px;
+  min-width: 0;
 }
 
 .location__list {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-4);
 }
 
+/* ---------- Facility card ---------- */
 .locCard {
-  background: var(--overlay-panel-soft);
+  background: var(--color-surface);
+  background-image: var(--gradient-surface);
   border: 1px solid var(--color-border);
-  border-left: 2px solid transparent;
   border-radius: var(--radius-lg);
-  backdrop-filter: blur(var(--blur-sm));
-  position: relative;
   overflow: hidden;
   transition:
-    background var(--transition-base) var(--ease-out),
     border-color var(--transition-base) var(--ease-out),
-    box-shadow var(--transition-base) var(--ease-out),
-    transform var(--transition-base) var(--ease-out);
-}
-
-.locCard::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--gradient-accent-ring);
-  opacity: 0;
-  transition: opacity var(--transition-base) var(--ease-out);
-  pointer-events: none;
+    box-shadow var(--transition-base) var(--ease-out);
 }
 
 .locCard--active {
+  border-color: var(--color-accent-ring);
   box-shadow: var(--shadow-md);
-  background: var(--overlay-panel);
-  border-left-color: var(--color-accent);
-}
-
-.locCard--active::before {
-  opacity: 1;
 }
 
 .locCard__main {
-  appearance: none;
-  border: 0;
-  background: transparent;
   width: 100%;
-  text-align: left;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  padding: 20px 22px 18px;
+  text-align: left;
   cursor: pointer;
-  color: var(--color-text-primary);
-  font: inherit;
-  position: relative;
-  z-index: 1;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-left: 3px solid transparent;
+  padding: var(--space-5) var(--space-6);
+  font-family: inherit;
+  transition:
+    background var(--transition-fast) var(--ease-out),
+    border-color var(--transition-fast) var(--ease-out);
+}
+
+.locCard__main:hover {
+  background: var(--layer-1);
 }
 
 .locCard__main:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: -2px;
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--color-accent-ring);
+}
+
+.locCard--active .locCard__main {
+  border-left-color: var(--color-brass);
 }
 
 .locCard__name {
-  font-size: 1.05rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: -0.2px;
+  color: var(--color-text-primary);
 }
 
 .locCard__address {
-  font-size: 0.85rem;
-  letter-spacing: 0.1px;
+  font-size: 0.9rem;
   color: var(--color-text-secondary);
-  line-height: 1.45;
 }
 
+/* ---------- Expanded detail ---------- */
 .locCard__detail {
-  border-top: 1px solid var(--color-hairline);
+  padding: 0 var(--space-6) var(--space-6);
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  padding: 18px 22px 22px;
-  text-align: left;
-  position: relative;
-  z-index: 1;
-  animation: cardIn 0.35s var(--ease-out);
+  gap: var(--space-5);
+  animation: detailReveal var(--transition-slow) var(--ease-out) both;
 }
 
 .locCard__rows {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-hairline);
 }
 
 .locCard__row {
@@ -151,35 +107,39 @@
 }
 
 .locCard__label {
-  font-size: 0.58rem;
+  font-family: var(--font-display);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
-  letter-spacing: 1.4px;
   color: var(--color-text-faint);
-  font-weight: 700;
 }
 
 .locCard__value {
-  font-size: 0.92rem;
-  letter-spacing: 0.1px;
-  line-height: 1.4;
+  font-size: 0.98rem;
+  font-weight: 600;
   color: var(--color-text-primary);
 }
 
 .locCard__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;
+  gap: var(--space-3);
 }
 
+.locCard__actions .btn--primary {
+  margin-left: auto;
+}
+
+/* ---------- Map ---------- */
 .location__mapWrap {
   position: relative;
+  min-height: 420px;
+  height: 100%;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: var(--color-surface-alt);
-  min-height: 480px;
   box-shadow: var(--shadow-md);
-  border: 1px solid var(--color-border);
 }
 
 .location__map {
@@ -188,63 +148,39 @@
   width: 100%;
   height: 100%;
   border: 0;
-  filter: brightness(0.92);
+  display: block;
+  filter: saturate(0.92);
 }
 
-.locCard:hover {
-  transform: translateY(-3px);
-  border-color: var(--color-accent);
-  box-shadow: var(--shadow-sm);
+[data-theme="dark"] .location__map {
+  filter: saturate(0.85) brightness(0.92);
 }
 
-.locCard--active:hover {
-  transform: translateY(-2px);
-}
-
-@media (max-width: 1100px) {
-  .location__body {
-    grid-template-columns: 320px 1fr;
-  }
-}
-
-@media (max-width: 900px) {
-  .location__body {
-    gap: 36px;
-    grid-template-columns: 280px 1fr;
-  }
-}
-
-@media (max-width: 700px) {
-  .location {
-    padding: 64px 18px 72px;
-  }
-
-  .location__inner {
-    gap: 40px;
-  }
-
-  .location__body {
-    gap: 32px;
-    grid-template-columns: 1fr;
-  }
-
-  .location__mapWrap {
-    min-height: 380px;
-  }
-
-  .location__head {
-    align-items: center;
-    text-align: center;
-  }
-}
-
-@keyframes cardIn {
+@keyframes detailReveal {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(-6px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (max-width: 860px) {
+  .location__body {
+    grid-template-columns: 1fr;
+  }
+
+  .location__mapWrap {
+    min-height: 320px;
+    order: -1;
+  }
+}
+
+@media (max-width: 520px) {
+  .locCard__actions .btn--primary {
+    margin-left: 0;
+    width: 100%;
   }
 }

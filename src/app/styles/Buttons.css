@@ -1,75 +1,98 @@
+/* Button system — shared across hero, sections, nav, and footer. */
 .btn {
+  --btn-py: 14px;
+  --btn-px: 28px;
   position: relative;
   appearance: none;
   border: 1px solid transparent;
   cursor: pointer;
   font-family: var(--font-body);
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  padding: 13px 26px;
+  letter-spacing: 0.01em;
+  padding: var(--btn-py) var(--btn-px);
   border-radius: var(--radius-md);
-  letter-spacing: 0.2px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
-  transition:
-    background var(--transition-fast),
-    color var(--transition-fast),
-    border-color var(--transition-fast),
-    box-shadow var(--transition-base),
-    transform var(--transition-fast);
-  transition-timing-function: var(--ease-out);
+  gap: 10px;
   text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background var(--transition-fast) var(--ease-out),
+    color var(--transition-fast) var(--ease-out),
+    border-color var(--transition-fast) var(--ease-out),
+    box-shadow var(--transition-base) var(--ease-out),
+    transform var(--transition-fast) var(--ease-out);
 }
 
 .btn:focus-visible {
   outline: none;
   box-shadow:
     0 0 0 2px var(--color-bg),
-    0 0 0 4px var(--color-accent);
+    0 0 0 4px var(--color-accent-ring);
 }
 
 .btn:active {
   transform: translateY(0) scale(0.98);
 }
 
+/* Primary — solid marine blue. */
 .btn--primary {
   background: var(--color-accent);
   color: var(--color-text-on-accent);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-accent);
 }
 
-.btn--primary:hover {
-  background: var(--color-accent-hover);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover {
+    background: var(--color-accent-hover);
+    transform: translateY(-2px);
+    box-shadow:
+      var(--shadow-accent),
+      var(--shadow-md);
+  }
 }
 
+/* Ghost — hairline outline on a translucent fill. */
 .btn--ghost {
-  background: var(--layer-white-6);
+  background: var(--layer-2);
   color: var(--color-text-primary);
-  border-color: var(--color-hairline);
+  border-color: var(--color-border);
   backdrop-filter: blur(var(--blur-sm));
 }
 
-.btn--ghost:hover {
-  background: var(--layer-white-12);
-  border-color: var(--color-accent);
-  transform: translateY(-2px);
+@media (hover: hover) and (pointer: fine) {
+  .btn--ghost:hover {
+    background: var(--layer-3);
+    border-color: var(--color-border-strong);
+    transform: translateY(-2px);
+  }
 }
 
+/* Inline — compact uppercase chip for in-card actions. */
 .btn--inline {
-  background: var(--layer-white-8);
-  color: var(--color-text-primary);
-  padding: 9px 16px;
-  font-size: 0.66rem;
+  --btn-py: 10px;
+  --btn-px: 18px;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1.2px;
+  border-radius: var(--radius-sm);
+  background: var(--layer-2);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
 }
 
-.btn--inline:hover {
-  background: var(--layer-white-16);
-  transform: translateY(-1px);
+@media (hover: hover) and (pointer: fine) {
+  .btn--inline:hover {
+    background: var(--layer-3);
+    border-color: var(--color-border-strong);
+    transform: translateY(-1px);
+  }
+}
+
+/* Full-width helper for stacked card CTAs. */
+.btn--block {
+  width: 100%;
 }

@@ -6,22 +6,25 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 [id] {
-  scroll-margin-top: calc(var(--nav-logo-height) + 18px);
+  scroll-margin-top: calc(var(--nav-height) + 24px);
 }
 
 body {
   margin: 0;
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: var(--text-body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  background: var(--color-bg);
   color: var(--color-text-primary);
+  background: var(--color-app-bg);
+  background-image: var(--gradient-page);
+  background-attachment: fixed;
 }
 
 h1,
@@ -30,7 +33,17 @@ h3,
 h4 {
   font-family: var(--font-display);
   font-weight: 600;
-  line-height: 1.1;
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
 }
 
 ::selection {
@@ -43,30 +56,76 @@ code {
     source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-/* Section eyebrow — small tracked label introducing a section heading. */
+/* ---------- Shared layout primitives ---------- */
+
+/* Centered, padded content column shared by every section. */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding-inline: var(--container-pad);
+}
+
+/* Standard vertical rhythm for a page section. */
+.section {
+  padding-block: var(--section-py);
+  position: relative;
+}
+
+/* Centered intro block: eyebrow → title → subtitle. */
+.section__head {
+  max-width: 640px;
+  margin: 0 auto var(--space-9);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.section__title {
+  font-size: var(--text-h2);
+}
+
+.section__subtitle {
+  font-size: var(--text-lead);
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+  max-width: 56ch;
+}
+
+/* Section eyebrow — small tracked label introducing a heading. */
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 10px;
   margin: 0;
   font-family: var(--font-display);
-  font-size: 0.72rem;
+  font-size: var(--eyebrow-size);
   font-weight: 600;
-  letter-spacing: 2.4px;
+  letter-spacing: var(--eyebrow-tracking);
   text-transform: uppercase;
-  color: var(--color-highlight);
+  color: var(--color-brass);
 }
 
 .eyebrow::before {
   content: "";
-  width: 26px;
+  width: 24px;
   height: 2px;
   border-radius: 2px;
-  background: var(--color-highlight);
+  background: var(--color-brass);
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }
