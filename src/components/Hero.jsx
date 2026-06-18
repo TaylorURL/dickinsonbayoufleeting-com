@@ -19,7 +19,7 @@ function HeroContours() {
       aria-hidden="true"
       focusable="false"
     >
-      <g fill="none" stroke="var(--motif-line)" strokeWidth="1.4">
+      <g className="hero__contourLines" fill="none" strokeWidth="1.4">
         <path d="M-40 120 C 220 60, 420 200, 660 150 S 1040 40, 1260 130" />
         <path d="M-40 210 C 240 150, 440 290, 680 235 S 1060 130, 1260 215" />
         <path d="M-40 300 C 260 235, 460 380, 700 320 S 1080 215, 1260 300" />
@@ -27,7 +27,7 @@ function HeroContours() {
         <path d="M-40 500 C 280 445, 500 560, 740 505 S 1120 415, 1260 495" />
         <path d="M-40 600 C 300 545, 520 650, 760 600 S 1140 510, 1260 590" />
       </g>
-      <g fill="none" stroke="var(--motif-line-strong)" strokeWidth="1.6">
+      <g className="hero__contourLines hero__contourLines--strong" fill="none" strokeWidth="1.6">
         <path d="M-40 255 C 250 195, 450 335, 690 280 S 1070 175, 1260 258" />
         <path d="M-40 450 C 270 392, 490 515, 730 460 S 1110 368, 1260 448" />
       </g>
