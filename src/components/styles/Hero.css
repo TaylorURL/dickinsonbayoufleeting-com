@@ -24,6 +24,14 @@
   animation: heroDrift 1.2s var(--ease-out) both;
 }
 
+.hero__contourLines {
+  stroke: var(--motif-line);
+}
+
+.hero__contourLines--strong {
+  stroke: var(--motif-line-strong);
+}
+
 /* A single brass hairline horizon for a crafted, nautical accent. */
 .hero__horizon {
   position: absolute;
