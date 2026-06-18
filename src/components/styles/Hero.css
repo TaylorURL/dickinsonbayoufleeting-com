@@ -7,7 +7,7 @@
 
 .hero--video {
   padding: 0;
-  min-height: 86vh;
+  min-height: 90vh;
   display: flex;
 }
 
@@ -15,6 +15,7 @@
   position: absolute;
   inset: 0;
   overflow: hidden;
+  background: var(--color-app-bg);
 }
 
 .hero__video {
@@ -22,7 +23,7 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: brightness(0.85);
+  filter: brightness(0.82) saturate(1.05);
 }
 
 .hero__overlay {
@@ -42,96 +43,113 @@
 }
 
 .hero__panel {
-  max-width: 820px;
+  max-width: 760px;
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-5);
   background: var(--overlay-panel-hero);
-  padding: var(--space-8) var(--space-7) var(--space-7);
+  padding: var(--space-8) var(--space-8) var(--space-7);
   border-radius: var(--radius-lg);
   backdrop-filter: blur(var(--blur-lg));
   box-shadow: var(--shadow-lg);
   transform: translateY(8px);
-  animation: panelIn 0.8s var(--transition-base) forwards;
+  animation: panelIn 0.8s var(--ease-out) forwards;
   opacity: 0;
   border: 1px solid var(--layer-white-12);
+  border-top: 2px solid var(--color-accent);
   text-align: left;
 }
 
 .hero__panel--minimal {
-  background: var(--overlay-panel-hero);
-  box-shadow: var(--shadow-md);
-  backdrop-filter: blur(var(--blur-md));
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(var(--blur-lg));
+}
+
+.hero__eyebrow {
+  color: var(--color-highlight-strong);
+  animation: fadeSlide 0.9s 0.05s var(--ease-out) both;
 }
 
 .hero__title {
-  font-size: clamp(2.4rem, 6vw, 3.6rem);
-  line-height: 1.05;
+  font-size: clamp(2.5rem, 6vw, 3.8rem);
+  line-height: 1.04;
   margin: 0;
-  letter-spacing: 0.5px;
-  background: linear-gradient(
-    120deg,
-    var(--color-text-primary) 0%,
-    var(--color-text-secondary) 55%,
-    var(--color-text-primary) 100%
-  );
-  -webkit-background-clip: text;
-  color: transparent;
+  letter-spacing: -0.5px;
+  color: var(--color-text-primary);
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
+  animation: fadeSlide 0.9s 0.08s var(--ease-out) both;
+}
+
+[data-theme="light"] .hero__title {
+  text-shadow: none;
 }
 
 .hero__subtitle {
-  max-width: 640px;
-  font-size: 1.05rem;
-  line-height: 1.5;
+  max-width: 560px;
+  font-size: 1.15rem;
+  line-height: 1.55;
   margin: 0;
   color: var(--color-text-secondary);
-  animation: fadeSlide 0.9s 0.12s var(--transition-base) both;
+  animation: fadeSlide 0.9s 0.14s var(--ease-out) both;
   text-align: left;
 }
 
 .hero__badges {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 12px;
   padding: 0;
-  margin: 0;
+  margin: var(--space-2) 0 0;
   list-style: none;
-  animation: fadeSlide 0.9s 0.18s var(--transition-base) both;
+  animation: fadeSlide 0.9s 0.2s var(--ease-out) both;
 }
 
 .hero__badge {
-  font-size: 0.55rem;
+  font-size: 0.66rem;
   letter-spacing: 1.4px;
   text-transform: uppercase;
-  padding: 8px 14px 7px;
-  background: var(--layer-white-12);
+  padding: 9px 16px 8px 14px;
+  background: var(--layer-white-8);
+  border: 1px solid var(--color-hairline);
   border-radius: 999px;
   font-weight: 600;
-  color: var(--color-text-faint);
+  color: var(--color-text-secondary);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 9px;
   line-height: 1.1;
   transition:
-    background var(--transition-fast),
-    color var(--transition-fast);
+    background var(--transition-fast) var(--ease-out),
+    color var(--transition-fast) var(--ease-out),
+    border-color var(--transition-fast) var(--ease-out);
+}
+
+.hero__badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-highlight);
+  box-shadow: 0 0 0 3px var(--color-highlight-soft);
 }
 
 [data-theme="light"] .hero__badge {
-  background: var(--layer-white-16);
+  background: var(--layer-white-12);
   color: var(--color-text-primary);
 }
 
 .hero__badge:hover {
   background: var(--layer-white-16);
   color: var(--color-text-primary);
+  border-color: var(--color-highlight);
 }
 
 .hero__actions {
   display: flex;
   gap: var(--space-4);
   flex-wrap: wrap;
-  animation: fadeSlide 0.9s 0.25s var(--transition-base) both;
+  margin-top: var(--space-3);
+  animation: fadeSlide 0.9s 0.26s var(--ease-out) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -141,6 +159,8 @@
     transform: none;
   }
 
+  .hero__eyebrow,
+  .hero__title,
   .hero__badges,
   .hero__actions,
   .hero__subtitle {
@@ -160,15 +180,15 @@
 
 @media (max-width: 700px) {
   .hero--video {
-    min-height: 85vh;
+    min-height: 88vh;
   }
 
   .hero__inner {
     padding: 120px 18px 70px;
   }
 
-  .hero__panel {
-    gap: var(--space-5);
+  .hero__subtitle {
+    font-size: 1.05rem;
   }
 
   .hero__badges {

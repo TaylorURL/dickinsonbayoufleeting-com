@@ -13,6 +13,7 @@ function LeasePackage() {
     <section className="rate" aria-label="Pricing" id="rates">
       <div className="rate__inner">
         <div className="rate__head">
+          <p className="eyebrow">Lease Rates</p>
           <h2 className="rate__title">Lease Options</h2>
           <p className="rate__subtitle">
             Fixed-rate waterfront acreage packages. Select a facility to view
@@ -37,28 +38,25 @@ function LeasePackage() {
               </button>
             ))}
           </div>
-          <div className="leaseSubtitle" aria-live="polite">
-            {loc.subtitle}
-          </div>
           <div className="estimator__result" aria-live="polite">
-            <div className="estimator__figure">
-              ${loc.price.toLocaleString()}/mo
-            </div>
-            <div className="estimator__note">
-              {loc.acreage} • {loc.features.join(" • ")}
-            </div>
+            <p className="estimator__label">Monthly Lease</p>
+            <p className="estimator__priceRow">
+              <span className="estimator__figure">
+                ${loc.price.toLocaleString()}
+              </span>
+              <span className="estimator__period">/ month</span>
+            </p>
+            <p className="estimator__caption">
+              {loc.acreage} waterfront · {loc.subtitle}
+            </p>
             <ul className="leaseFeatureList">
-              {loc.features.map((f) => (
-                <li key={f} className="leaseFeatureList__item">
-                  {f}
+              {loc.features.map((feature) => (
+                <li key={feature} className="leaseFeatureList__item">
+                  {feature}
                 </li>
               ))}
             </ul>
-            <a
-              className="btn btn--primary"
-              href="#contact"
-              onClick={openInquiry}
-            >
+            <a className="btn btn--primary" href="#contact" onClick={openInquiry}>
               Start Lease Inquiry
             </a>
           </div>

@@ -1,60 +1,18 @@
+/*
+ * Design tokens.
+ *
+ * :root holds the dark theme (the default) plus every theme-invariant token —
+ * radii, spacing scale, motion, blur, and layout dimensions. A theme block only
+ * needs to override the tokens that actually change between themes: colors,
+ * layered translucencies, overlays, gradients, and shadows.
+ */
 :root {
-  --color-app-bg: #030b18;
-  --color-bg: #061528;
-  --color-surface: #0d2238;
-  --color-surface-alt: #14324c;
-  --color-accent: #3d7dff;
-  --color-accent-hover: #2f6ae0;
-  --color-accent-soft: #1b3d66;
-  --color-border: #2d4d72;
-  --color-text-primary: #f2f6fc;
-  --color-text-secondary: #c2d3e8;
-  --color-text-faint: #8ba2bb;
-  --color-text-on-accent: #ffffff;
-  --color-success: #3fbf6b;
-  --color-warning: #e0c264;
-  --color-danger: #e87474;
-  --color-link: var(--color-accent);
-  --layer-white-6: rgba(255, 255, 255, 0.06);
-  --layer-white-8: rgba(255, 255, 255, 0.08);
-  --layer-white-12: rgba(255, 255, 255, 0.12);
-  --layer-white-16: rgba(255, 255, 255, 0.16);
-  --overlay-hero: linear-gradient(
-    180deg,
-    rgba(3, 11, 24, 0.05) 0%,
-    rgba(3, 11, 24, 0.55) 60%,
-    rgba(3, 11, 24, 0.85) 100%
-  );
-  --overlay-panel: rgba(13, 34, 56, 0.72);
-  --overlay-panel-soft: rgba(13, 34, 56, 0.42);
-  --overlay-panel-hero: rgba(13, 34, 56, 0.3);
-  --overlay-nav: rgba(13, 34, 56, 0.6);
-  --gradient-hero: linear-gradient(
-    135deg,
-    #0e2744 0%,
-    #0a1d33 55%,
-    #061526 100%
-  );
-  --gradient-water: linear-gradient(
-    145deg,
-    #0d2744 0%,
-    #0a1d33 50%,
-    #061526 100%
-  );
-  --gradient-accent-ring: radial-gradient(
-    circle at 30% 30%,
-    rgba(61, 125, 255, 0.25),
-    rgba(61, 125, 255, 0) 60%
-  );
+  /* Invariant: radii */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 16px;
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.25);
-  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.32);
-  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
-  --container-max: 1240px;
-  --transition-fast: 120ms ease;
-  --transition-base: 200ms ease;
+
+  /* Invariant: spacing scale */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -65,24 +23,91 @@
   --space-8: 40px;
   --space-9: 56px;
   --space-10: 72px;
+
+  /* Invariant: typography */
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Helvetica Neue", sans-serif;
+
+  /* Invariant: motion */
+  --transition-fast: 120ms ease;
+  --transition-base: 200ms ease;
+  /* Strong custom ease-out — built-in CSS easings lack the intentional punch. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  /* Invariant: blur */
   --blur-sm: 4px;
   --blur-md: 8px;
   --blur-lg: 18px;
+
+  /* Invariant: layout dimensions */
+  --container-max: 1240px;
   --nav-height: clamp(60px, 8vw, 88px);
   --nav-logo-height: clamp(90px, 12vw, 132px);
   --nav-logo-offset: 20px;
-  --footer-bg: var(--gradient-water);
-  --footer-overlay: rgba(0, 0, 0, 0.18);
-  --footer-border: var(--layer-white-12);
-  --footer-section-gap: 46px;
-  --footer-col-gap: 38px;
-  --footer-inner-padding: 70px;
   --footer-logo-height: 140px;
-  --footer-padding-y: 56px;
-  --footer-padding-y-sm: 42px;
-  --footer-gap: 48px;
-  --footer-col-gap: 32px;
+
+  /* Invariant: token aliases that resolve per theme */
+  --footer-bg: var(--gradient-water);
   --footer-border-color: var(--layer-white-12);
+
+  /* Theme (dark): colors */
+  --color-app-bg: #030b18;
+  --color-bg: #061528;
+  --color-surface: #0d2238;
+  --color-surface-alt: #14324c;
+  --color-accent: #4a8dff;
+  --color-accent-hover: #6aa3ff;
+  --color-accent-soft: #1b3d66;
+  --color-highlight: #d9a441;
+  --color-highlight-strong: #e8b85a;
+  --color-highlight-soft: rgba(217, 164, 65, 0.16);
+  --color-border: #2d4d72;
+  --color-hairline: rgba(255, 255, 255, 0.08);
+  --color-text-primary: #f2f6fc;
+  --color-text-secondary: #c2d3e8;
+  --color-text-faint: #8ba2bb;
+  --color-text-on-accent: #ffffff;
+  --color-success: #3fbf6b;
+  --color-danger: #e87474;
+  --color-link: var(--color-accent);
+
+  /* Theme (dark): layered translucencies */
+  --layer-white-6: rgba(255, 255, 255, 0.06);
+  --layer-white-8: rgba(255, 255, 255, 0.08);
+  --layer-white-12: rgba(255, 255, 255, 0.12);
+  --layer-white-16: rgba(255, 255, 255, 0.16);
+
+  /* Theme (dark): overlays */
+  --overlay-hero: linear-gradient(
+    180deg,
+    rgba(3, 11, 24, 0.05) 0%,
+    rgba(3, 11, 24, 0.55) 60%,
+    rgba(3, 11, 24, 0.85) 100%
+  );
+  --overlay-panel: rgba(13, 34, 56, 0.72);
+  --overlay-panel-soft: rgba(13, 34, 56, 0.42);
+  --overlay-panel-hero: rgba(13, 34, 56, 0.3);
+  --overlay-nav: rgba(13, 34, 56, 0.6);
+
+  /* Theme (dark): gradients */
+  --gradient-water: linear-gradient(
+    145deg,
+    #0d2744 0%,
+    #0a1d33 50%,
+    #061526 100%
+  );
+  --gradient-accent-ring: radial-gradient(
+    circle at 30% 30%,
+    rgba(74, 141, 255, 0.22),
+    rgba(74, 141, 255, 0) 62%
+  );
+
+  /* Theme (dark): shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.32);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
 }
 
 [data-theme="light"] {
@@ -91,21 +116,25 @@
   --color-surface: #f0f6ff;
   --color-surface-alt: #e2eefb;
   --color-accent: #2f6ae0;
-  --color-accent-hover: #3d7dff;
+  --color-accent-hover: #1f56c4;
   --color-accent-soft: #d5e4fa;
+  --color-highlight: #b07d22;
+  --color-highlight-strong: #946615;
+  --color-highlight-soft: rgba(176, 125, 34, 0.14);
   --color-border: #c3d4e7;
+  --color-hairline: rgba(11, 37, 64, 0.1);
   --color-text-primary: #0b2540;
   --color-text-secondary: #2d4d72;
   --color-text-faint: #6d8297;
   --color-text-on-accent: #ffffff;
   --color-success: #2eac5c;
-  --color-warning: #c9ae42;
   --color-danger: #d05b5b;
-  --color-link: var(--color-accent);
+
   --layer-white-6: rgba(0, 0, 0, 0.06);
   --layer-white-8: rgba(0, 0, 0, 0.08);
   --layer-white-12: rgba(0, 0, 0, 0.12);
   --layer-white-16: rgba(0, 0, 0, 0.16);
+
   --overlay-hero: linear-gradient(
     180deg,
     rgba(244, 248, 255, 0.05) 0%,
@@ -116,12 +145,7 @@
   --overlay-panel-soft: rgba(226, 238, 251, 0.42);
   --overlay-panel-hero: rgba(226, 238, 251, 0.3);
   --overlay-nav: rgba(226, 238, 251, 0.6);
-  --gradient-hero: linear-gradient(
-    135deg,
-    #f0f6ff 0%,
-    #e2eefb 55%,
-    #ffffff 100%
-  );
+
   --gradient-water: linear-gradient(
     145deg,
     #e2eefb 0%,
@@ -133,41 +157,8 @@
     rgba(61, 125, 255, 0.15),
     rgba(61, 125, 255, 0) 60%
   );
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
+
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
   --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.12);
   --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.16);
-  --container-max: 1240px;
-  --transition-fast: 120ms ease;
-  --transition-base: 200ms ease;
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-7: 32px;
-  --space-8: 40px;
-  --space-9: 56px;
-  --space-10: 72px;
-  --blur-sm: 4px;
-  --blur-md: 8px;
-  --blur-lg: 18px;
-  --nav-height: clamp(60px, 8vw, 88px);
-  --nav-logo-height: clamp(90px, 12vw, 132px);
-  --nav-logo-offset: 20px;
-  --footer-bg: var(--gradient-water);
-  --footer-overlay: rgba(0, 0, 0, 0.06);
-  --footer-border: var(--layer-white-12);
-  --footer-section-gap: 46px;
-  --footer-col-gap: 38px;
-  --footer-inner-padding: 70px;
-  --footer-logo-height: 140px;
-  --footer-padding-y: 56px;
-  --footer-padding-y-sm: 42px;
-  --footer-gap: 48px;
-  --footer-col-gap: 32px;
-  --footer-border-color: var(--layer-white-12);
 }
