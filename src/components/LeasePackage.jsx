@@ -10,12 +10,12 @@ function LeasePackage() {
     window.dispatchEvent(new Event("inquiry:open"));
   };
   return (
-    <section className="rate" aria-label="Pricing" id="rates">
-      <div className="rate__inner">
-        <div className="rate__head">
+    <section className="rate section" aria-label="Pricing" id="rates">
+      <div className="container">
+        <div className="section__head">
           <p className="eyebrow">Lease Rates</p>
-          <h2 className="rate__title">Lease Options</h2>
-          <p className="rate__subtitle">
+          <h2 className="section__title">Lease Options</h2>
+          <p className="section__subtitle">
             Fixed-rate waterfront acreage packages. Select a facility to view
             its monthly lease details.
           </p>
