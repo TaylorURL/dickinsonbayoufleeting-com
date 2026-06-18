@@ -87,12 +87,12 @@ const AMENITIES = [
 
 function Amenities() {
   return (
-    <section className="amenities" aria-label="Amenities" id="amenities">
-      <div className="amenities__inner">
-        <div className="amenities__head">
+    <section className="amenities section" aria-label="Amenities" id="amenities">
+      <div className="container">
+        <div className="section__head">
           <p className="eyebrow">Capabilities</p>
-          <h2 className="amenities__title">Amenities &amp; Services</h2>
-          <p className="amenities__subtitle">
+          <h2 className="section__title">Amenities &amp; Services</h2>
+          <p className="section__subtitle">
             Everything you need for safe, convenient vessel staging on the Texas
             Gulf Coast.
           </p>
