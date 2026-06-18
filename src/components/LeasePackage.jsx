@@ -56,7 +56,11 @@ function LeasePackage() {
                 </li>
               ))}
             </ul>
-            <a className="btn btn--primary" href="#contact" onClick={openInquiry}>
+            <a
+              className="btn btn--primary btn--block"
+              href="#contact"
+              onClick={openInquiry}
+            >
               Start Lease Inquiry
             </a>
           </div>
