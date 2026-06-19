@@ -34,9 +34,10 @@ function ServiceArea() {
         </ul>
         <p className="serviceArea__note">
           Also serving the wider Houston Ship Channel, Galveston Bay and Gulf
-          Intracoastal Waterway corridors — including Brazoria, Galveston and
-          Harris county waterfronts. Contact us for fleeting and mooring needs
-          beyond this list.
+          Intracoastal Waterway corridors and surrounding coastal Texas
+          waterways — including Brazoria, Galveston and Harris county
+          waterfronts. Contact us for barge fleeting, marine services and
+          mooring needs beyond this list.
         </p>
       </div>
     </section>
