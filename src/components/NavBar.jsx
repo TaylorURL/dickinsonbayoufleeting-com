@@ -49,12 +49,12 @@ function NavBar() {
           >
             <img
               src="/images/DBF-Logo-White.png"
-              alt="Dickinson Bayou Fleeting"
+              alt="Dickinson Bayou Fleeting — barge fleeting and dock leasing, Galveston Bay & Houston Ship Channel"
               className="nav__logo nav__logo--dark"
             />
             <img
               src="/images/DBF-Logo-Black.png"
-              alt="Dickinson Bayou Fleeting"
+              alt="Dickinson Bayou Fleeting — barge fleeting and dock leasing, Galveston Bay & Houston Ship Channel"
               className="nav__logo nav__logo--light"
             />
           </a>
