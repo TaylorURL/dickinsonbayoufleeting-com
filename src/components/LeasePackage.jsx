@@ -14,10 +14,14 @@ function LeasePackage() {
       <div className="container">
         <div className="section__head">
           <p className="eyebrow">Lease Rates</p>
-          <h2 className="section__title">Lease Options</h2>
+          <h2 className="section__title">
+            Coastal Barge Fleeting, Marine Services & Dock Lease Options
+          </h2>
           <p className="section__subtitle">
-            Fixed-rate waterfront acreage packages. Select a facility to view
-            its monthly lease details.
+            Fixed monthly rates for five-acre coastal waterfront fleeting yards
+            on Galveston Bay and the Gulf Intracoastal Waterway. Select a
+            facility to view its monthly barge fleeting, marine services and
+            dock lease details.
           </p>
         </div>
         <div className="estimator" aria-label="Lease options selector">

@@ -20,18 +20,21 @@ function Footer() {
           >
             <img
               src="/images/DBF-Logo-White.png"
-              alt="Dickinson Bayou Fleeting"
+              alt="Dickinson Bayou Fleeting — coastal barge fleeting, marine services and waterfront dock leasing on Galveston Bay and the Houston Ship Channel"
               className="footer__logo footer__logo--dark"
             />
             <img
               src="/images/DBF-Logo-Black.png"
-              alt="Dickinson Bayou Fleeting"
+              alt="Dickinson Bayou Fleeting — coastal barge fleeting, marine services and waterfront dock leasing on Galveston Bay and the Houston Ship Channel"
               className="footer__logo footer__logo--light"
             />
           </a>
           <p className="footer__tag">
-            Long-term waterfront acreage with dedicated slip access and
-            essential dockside infrastructure.
+            Coastal barge fleeting, marine services, mooring and long-term
+            waterfront dock leasing on Galveston Bay, the Houston Ship Channel
+            and the upper Texas Gulf Coast — serving San Leon, Dickinson, Texas
+            City, Houston, League City, Kemah, Bacliff, Seabrook, La Marque,
+            Galveston and the surrounding coastal Texas waterways.
           </p>
           <div className="footer__actions">
             <a
