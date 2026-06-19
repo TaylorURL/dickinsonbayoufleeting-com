@@ -91,10 +91,13 @@ function Amenities() {
       <div className="container">
         <div className="section__head">
           <p className="eyebrow">Capabilities</p>
-          <h2 className="section__title">Amenities &amp; Services</h2>
+          <h2 className="section__title">
+            Barge Fleeting Amenities &amp; Services
+          </h2>
           <p className="section__subtitle">
-            Everything you need for safe, convenient vessel staging on the Texas
-            Gulf Coast.
+            Everything operators need for safe, reliable barge fleeting and
+            vessel staging on Galveston Bay, the Houston Ship Channel and the
+            Gulf Intracoastal Waterway.
           </p>
         </div>
         <div className="amenities__grid">
