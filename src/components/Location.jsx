@@ -100,7 +100,7 @@ function Location() {
           </div>
           <div className="location__mapWrap">
             <iframe
-              title={loc.name}
+              title={`Map of Dickinson Bayou Fleeting ${loc.name} — ${loc.address}`}
               className="location__map"
               loading="lazy"
               allowFullScreen
