@@ -12,15 +12,16 @@ function ServiceArea() {
         <div className="section__head">
           <p className="eyebrow">Coverage</p>
           <h2 className="section__title">
-            Service Area — Houston Ship Channel, Galveston Bay &amp; Upper Texas
-            Gulf Coast
+            Service Area — Houston Ship Channel, Galveston Bay &amp; Coastal
+            Upper Texas Gulf Coast
           </h2>
           <p className="section__subtitle">
             Our San Leon facility puts barges directly on Galveston Bay with
             quick access to the Houston Ship Channel and the Gulf Intracoastal
-            Waterway, and our Freeport facility extends coverage south along
-            the Intracoastal. Together they support barge fleeting, mooring and
-            long-term dock leasing throughout the upper Texas Gulf Coast.
+            Waterway, and our Freeport facility extends coastal coverage south
+            along the Intracoastal. Together they support barge fleeting,
+            marine services and long-term dock leasing throughout the coastal
+            upper Texas Gulf Coast.
           </p>
         </div>
         <ul className="serviceArea__grid" aria-label="Cities and areas served">
@@ -33,9 +34,10 @@ function ServiceArea() {
         </ul>
         <p className="serviceArea__note">
           Also serving the wider Houston Ship Channel, Galveston Bay and Gulf
-          Intracoastal Waterway corridors — including Brazoria, Galveston and
-          Harris county waterfronts. Contact us for fleeting and mooring needs
-          beyond this list.
+          Intracoastal Waterway corridors and surrounding coastal Texas
+          waterways — including Brazoria, Galveston and Harris county
+          waterfronts. Contact us for barge fleeting, marine services and
+          mooring needs beyond this list.
         </p>
       </div>
     </section>
