@@ -55,33 +55,33 @@ const AMENITY_ICONS = {
 const AMENITIES = [
   {
     icon: "slip",
-    name: "Dedicated Slip Access",
-    desc: "Private slip assignments for reliable vessel staging and retrieval.",
+    name: "Dedicated Barge Slips",
+    desc: "Private fleeting slip assignments for reliable barge staging, mooring and retrieval on Galveston Bay and the Houston Ship Channel.",
   },
   {
     icon: "assist",
-    name: "On-Site Assistance",
-    desc: "Trained personnel available to support docking and departure operations.",
+    name: "On-Site Fleeting Crew",
+    desc: "Trained personnel on site to support barge fleeting, mooring, docking and departure operations along the upper Texas Gulf Coast.",
   },
   {
     icon: "waterfront",
-    name: "Waterfront Acreage",
-    desc: "Spacious five-acre lots with direct waterway access at each facility.",
+    name: "5-Acre Waterfront Yards",
+    desc: "Spacious five-acre waterfront yards with direct access to Galveston Bay and the Gulf Intracoastal Waterway at each facility.",
   },
   {
     icon: "secure",
-    name: "Secure Premises",
-    desc: "Gated entry and perimeter fencing to protect vessels and equipment.",
+    name: "Secure Gated Premises",
+    desc: "Gated entry, perimeter fencing and round-the-clock site presence protect fleeted barges, vessels and equipment.",
   },
   {
     icon: "lease",
-    name: "Flexible Leasing",
-    desc: "Long-term lease options tailored to commercial and private needs.",
+    name: "Long-Term Fleeting Leases",
+    desc: "Fixed-rate, long-term barge fleeting and dock-lease options structured for commercial barge operators and tow companies.",
   },
   {
     icon: "location",
-    name: "Convenient Locations",
-    desc: "Facilities in Freeport and San Leon with easy Gulf Coast access.",
+    name: "Greater Houston Coverage",
+    desc: "Facilities in San Leon and Freeport TX serving Houston, Dickinson, Texas City, League City, Kemah, Bacliff, Seabrook, La Marque and Galveston.",
   },
 ];
 
