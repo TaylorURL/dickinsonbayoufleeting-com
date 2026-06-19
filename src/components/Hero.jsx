@@ -1,16 +1,17 @@
 import "./styles/Hero.css";
 
 const HERO_EYEBROW =
-  "San Leon · Dickinson · Houston Ship Channel · Galveston Bay";
+  "San Leon · Dickinson · Houston Ship Channel · Galveston Bay · Upper Texas Gulf Coast";
 const HERO_TITLE =
-  "Barge Fleeting & Waterfront Dock Leasing on Galveston Bay";
+  "Coastal Barge Fleeting, Marine Services & Waterfront Dock Leasing on Galveston Bay";
 const HERO_SUBTITLE =
-  "Long-term barge fleeting, mooring and dedicated slip access on the Houston Ship Channel and Intracoastal Waterway — serving San Leon, Dickinson, Texas City, Houston and the upper Texas Gulf Coast.";
+  "Long-term barge fleeting, marine vessel mooring and dedicated slip access on the Houston Ship Channel, Gulf Intracoastal Waterway and surrounding coastal Texas waterways — serving San Leon, Dickinson, Texas City, Houston and the upper Texas Gulf Coast.";
 const HERO_BADGES = [
   "Galveston Bay Frontage",
+  "Coastal Texas Marine Terminal",
   "5-Acre Waterfront Yards",
   "Dedicated Barge Slips",
-  "On-Site Fleeting Crew",
+  "On-Site Fleeting & Marine Crew",
 ];
 
 /**
