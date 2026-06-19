@@ -56,32 +56,32 @@ const AMENITIES = [
   {
     icon: "slip",
     name: "Dedicated Barge Slips",
-    desc: "Private fleeting slip assignments for reliable barge staging, mooring and retrieval on Galveston Bay and the Houston Ship Channel.",
+    desc: "Private fleeting slip assignments for reliable barge staging, marine vessel mooring and barge retrieval on Galveston Bay and the Houston Ship Channel.",
   },
   {
     icon: "assist",
-    name: "On-Site Fleeting Crew",
-    desc: "Trained personnel on site to support barge fleeting, mooring, docking and departure operations along the upper Texas Gulf Coast.",
+    name: "On-Site Fleeting & Marine Crew",
+    desc: "Trained marine personnel on site to support barge fleeting, mooring, docking and departure operations along the coastal upper Texas Gulf Coast.",
   },
   {
     icon: "waterfront",
-    name: "5-Acre Waterfront Yards",
-    desc: "Spacious five-acre waterfront yards with direct access to Galveston Bay and the Gulf Intracoastal Waterway at each facility.",
+    name: "5-Acre Coastal Waterfront Yards",
+    desc: "Spacious five-acre coastal waterfront yards with direct access to Galveston Bay and the Gulf Intracoastal Waterway at each marine terminal facility.",
   },
   {
     icon: "secure",
-    name: "Secure Gated Premises",
-    desc: "Gated entry, perimeter fencing and round-the-clock site presence protect fleeted barges, vessels and equipment.",
+    name: "Secure Gated Marine Premises",
+    desc: "Gated entry, perimeter fencing and round-the-clock site presence protect fleeted barges, marine vessels and equipment.",
   },
   {
     icon: "lease",
     name: "Long-Term Fleeting Leases",
-    desc: "Fixed-rate, long-term barge fleeting and dock-lease options structured for commercial barge operators and tow companies.",
+    desc: "Fixed-rate, long-term barge fleeting, marine services and dock-lease options structured for commercial barge operators, marine logistics teams and tow companies.",
   },
   {
     icon: "location",
-    name: "Greater Houston Coverage",
-    desc: "Facilities in San Leon and Freeport TX serving Houston, Dickinson, Texas City, League City, Kemah, Bacliff, Seabrook, La Marque and Galveston.",
+    name: "Coastal Texas & Greater Houston Coverage",
+    desc: "Facilities in San Leon and Freeport TX serving Houston, Dickinson, Texas City, League City, Kemah, Bacliff, Seabrook, La Marque, Galveston and the surrounding coastal Texas waterways.",
   },
 ];
 
