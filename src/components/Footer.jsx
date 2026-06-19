@@ -30,8 +30,10 @@ function Footer() {
             />
           </a>
           <p className="footer__tag">
-            Long-term waterfront acreage with dedicated slip access and
-            essential dockside infrastructure.
+            Barge fleeting, mooring and long-term waterfront dock leasing on
+            Galveston Bay and the Houston Ship Channel — serving San Leon,
+            Dickinson, Texas City, Houston, League City, Kemah, Bacliff,
+            Seabrook, La Marque and Galveston.
           </p>
           <div className="footer__actions">
             <a
