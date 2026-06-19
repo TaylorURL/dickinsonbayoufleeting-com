@@ -20,12 +20,12 @@ function Footer() {
           >
             <img
               src="/images/DBF-Logo-White.png"
-              alt="Dickinson Bayou Fleeting"
+              alt="Dickinson Bayou Fleeting — barge fleeting and waterfront dock leasing on Galveston Bay and the Houston Ship Channel"
               className="footer__logo footer__logo--dark"
             />
             <img
               src="/images/DBF-Logo-Black.png"
-              alt="Dickinson Bayou Fleeting"
+              alt="Dickinson Bayou Fleeting — barge fleeting and waterfront dock leasing on Galveston Bay and the Houston Ship Channel"
               className="footer__logo footer__logo--light"
             />
           </a>
