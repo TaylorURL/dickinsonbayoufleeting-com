@@ -26,13 +26,14 @@ function Location() {
         <div className="section__head">
           <p className="eyebrow">Facilities</p>
           <h2 className="section__title">
-            Fleeting Facility Locations &amp; Access
+            Coastal Barge Fleeting &amp; Marine Terminal Locations
           </h2>
           <p className="section__subtitle">
-            Two upper Texas Gulf Coast fleeting facilities — San Leon on
-            Galveston Bay near Dickinson, Texas City and Houston, and Freeport
-            on the Gulf Intracoastal Waterway. Physical site details and direct
-            contact for barge fleeting and dock lease coordination.
+            Two coastal upper Texas Gulf Coast marine terminal facilities — San
+            Leon on Galveston Bay near Dickinson, Texas City and Houston, and
+            Freeport on the Gulf Intracoastal Waterway. Physical site details
+            and direct contact for barge fleeting, marine services and dock
+            lease coordination.
           </p>
         </div>
         <div className="location__body">
