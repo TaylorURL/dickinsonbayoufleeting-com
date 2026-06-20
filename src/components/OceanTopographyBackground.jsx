@@ -117,18 +117,22 @@ function OceanTopographyBackground({ className = "" }) {
       const t = time * 0.001;
       const stepX = width / (cols - 1);
       const stepY = height / (rows - 1);
+      const driftX = stepX * DRIFT_AMP_X;
+      const driftY = stepY * DRIFT_AMP_Y;
       const dotR = Math.max(0.55, dpr * 0.85);
 
-      /* Dot grid — each dot offset vertically by the height field. */
+      /* Dot grid — each dot rides the flow field, drifting horizontally and
+       * vertically with row/column phase offsets that mimic an ocean
+       * current. Alpha and radius pulse with the mod channel. */
       for (let j = 0; j < rows; j++) {
         const v = j / (rows - 1);
         for (let i = 0; i < cols; i++) {
           const u = i / (cols - 1);
-          const h = heightAt(u, v, t);
-          const cx = i * stepX;
-          const cy = j * stepY + h * stepY * 0.42;
-          const alpha = Math.max(0.05, Math.min(0.46, 0.18 + (h + 1) * 0.16));
-          const r = dotR * (0.78 + (h + 1.5) * 0.22);
+          const { dx, dy, mod } = flowAt(u, v, t);
+          const cx = i * stepX + dx * driftX;
+          const cy = j * stepY + dy * driftY;
+          const alpha = Math.max(0.06, Math.min(0.48, 0.20 + (mod + 1) * 0.14));
+          const r = dotR * (0.78 + (mod + 1.5) * 0.20);
           ctx.beginPath();
           ctx.arc(cx, cy, r, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(${R},${G},${B},${alpha.toFixed(3)})`;
@@ -136,7 +140,9 @@ function OceanTopographyBackground({ className = "" }) {
         }
       }
 
-      /* Contour ridges — N horizontal polylines that ride the same field. */
+      /* Contour ridges — N horizontal polylines that undulate vertically
+       * along the same flow field, so the dot drift and the ridges read as
+       * one current. */
       ctx.lineWidth = Math.max(0.6, dpr * 0.7);
       ctx.lineJoin = "round";
       ctx.lineCap = "round";
@@ -145,9 +151,9 @@ function OceanTopographyBackground({ className = "" }) {
         ctx.beginPath();
         for (let s = 0; s <= SAMPLES_PER_LINE; s++) {
           const u = s / SAMPLES_PER_LINE;
-          const h = heightAt(u, baseY, t);
+          const { dy } = flowAt(u, baseY, t);
           const x = u * width;
-          const y = baseY * height + h * height * 0.058;
+          const y = baseY * height + dy * height * CONTOUR_AMP_Y;
           if (s === 0) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }
