@@ -3,6 +3,12 @@ import { NAV_LINKS } from "../app/constants/navLinks";
 import { FACILITIES } from "../app/constants/facilities";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 
+const FOOTER_CREDENTIALS = [
+  "Coastal Texas Marine Operator",
+  "Gulf Intracoastal Waterway Access",
+  "Houston Ship Channel Operator",
+];
+
 function Footer() {
   const year = new Date().getFullYear();
   const openInquiry = (e) => {
@@ -36,17 +42,31 @@ function Footer() {
             City, Houston, League City, Kemah, Bacliff, Seabrook, La Marque,
             Galveston and the surrounding coastal Texas waterways.
           </p>
-          <div className="footer__actions">
+          <div className="footer__contactBlock">
+            <div className="footer__contactItem">
+              <span className="footer__contactLabel">Direct Line</span>
+              <a
+                href={`tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`}
+                className="footer__phone tabular"
+              >
+                {PHONE_NUMBER}
+              </a>
+            </div>
             <a
-              href={`tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`}
-              className="footer__phone"
+              href="#contact"
+              className="footer__button"
+              onClick={openInquiry}
             >
-              {PHONE_NUMBER}
-            </a>
-            <a href="#contact" className="footer__button" onClick={openInquiry}>
-              Lease Inquiry
+              Request a Quote
             </a>
           </div>
+          <ul className="footer__credentials" aria-label="Capabilities">
+            {FOOTER_CREDENTIALS.map((c) => (
+              <li key={c} className="footer__credential">
+                {c}
+              </li>
+            ))}
+          </ul>
         </div>
         <div className="footer__cols">
           <div className="footer__col" aria-label="Navigation">
@@ -62,7 +82,7 @@ function Footer() {
             </ul>
           </div>
           <div className="footer__col" aria-label="Locations">
-            <div className="footer__title">Locations</div>
+            <div className="footer__title">Facilities</div>
             <ul className="footer__list">
               {FACILITIES.map((facility) => (
                 <li key={facility.name} className="footer__loc">
@@ -76,13 +96,29 @@ function Footer() {
       </div>
       <div className="footer__bar">
         <div className="footer__barInner">
-          <div className="footer__copy">© {year} Dickinson Bayou Fleeting</div>
+          <div className="footer__copy">
+            © {year} Dickinson Bayou Fleeting · Texas Gulf Coast Marine
+            Operations
+          </div>
           <a
             href="#overview"
             className="footer__topBtn"
             aria-label="Back to top"
           >
-            Top
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m18 15-6-6-6 6" />
+            </svg>
+            Back to Top
           </a>
         </div>
       </div>
