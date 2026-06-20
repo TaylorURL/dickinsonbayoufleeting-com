@@ -80,11 +80,15 @@ function AboutStory() {
         aria-label="Where we have been"
       >
         <div className="container">
-          <div className="section__head">
+          <div className="section__head reveal-on-scroll" ref={timelineHeadRef}>
             <p className="eyebrow eyebrow--strong mono">Where we have been</p>
             <h2 className="section__title">From one slip to a coastal operation.</h2>
           </div>
-          <ol className="aboutTimeline__list" aria-label="Company history">
+          <ol
+            className="aboutTimeline__list reveal-on-scroll"
+            aria-label="Company history"
+            ref={timelineListRef}
+          >
             {ABOUT_TIMELINE.map((t, idx) => (
               <li key={t.title} className="timelineCard">
                 <span className="timelineCard__period mono">{t.period}</span>
