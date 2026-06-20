@@ -32,7 +32,7 @@ function LeasePackage() {
           </p>
         </div>
 
-        <div className="estimator" aria-label="Lease options selector">
+        <div className="estimator reveal-on-scroll" aria-label="Lease options selector" ref={estimatorRef}>
           <div
             className="estimator__switch"
             role="tablist"
