@@ -351,9 +351,6 @@
   padding-top: var(--nav-height);
 }
 
-[data-theme="light"] .nav__drawer {
-  background: var(--color-bg);
-}
 
 .nav__drawer--open {
   opacity: 1;
