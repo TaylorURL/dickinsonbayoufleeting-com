@@ -4,8 +4,15 @@ import {
   SAFETY_PRACTICES,
   COMPLIANCE_DOCS,
 } from "../app/constants/safety";
+import { useReveal } from "../app/hooks/useReveal";
 
 function SafetyContent() {
+  const pillarsHeadRef = useReveal();
+  const pillarsGridRef = useReveal();
+  const practicesHeadRef = useReveal();
+  const practicesListRef = useReveal();
+  const docsHeadRef = useReveal();
+  const docsListRef = useReveal();
   return (
     <>
       <section
