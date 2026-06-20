@@ -1,7 +1,10 @@
 import "./styles/ServiceArea.css";
 import { SERVICE_AREA_CITIES } from "../app/constants/serviceArea";
+import { useReveal } from "../app/hooks/useReveal";
 
 function ServiceArea() {
+  const headRef = useReveal();
+  const gridRef = useReveal();
   return (
     <section
       className="serviceArea section"
@@ -10,24 +13,25 @@ function ServiceArea() {
       id="service-area"
     >
       <div className="container">
-        <div className="section__head">
-          <p className="eyebrow eyebrow--strong mono">
-            ◇ Section 03 — Coverage
-          </p>
+        <div className="section__head reveal-on-scroll" ref={headRef}>
+          <p className="eyebrow eyebrow--strong mono">Coverage</p>
           <h2 className="section__title">
-            Service area — Houston Ship Channel, Galveston Bay &amp; coastal upper Texas Gulf Coast.
+            Houston Ship Channel, Galveston Bay &amp; the upper Texas coast.
           </h2>
           <p className="section__subtitle">
-            Our San Leon facility puts barges directly on Galveston Bay with
-            quick access to the Houston Ship Channel and the Gulf Intracoastal
-            Waterway, and our Freeport facility extends coastal coverage south
-            along the Intracoastal. Together they support barge fleeting,
-            marine services and long-term dock leasing throughout the coastal
-            upper Texas Gulf Coast.
+            Our San Leon yard sits directly on Galveston Bay with quick access
+            to the Houston Ship Channel and the Gulf Intracoastal Waterway.
+            Freeport extends the same operation south along the GIWW. Together
+            the two facilities cover the customers and routes that matter on
+            the upper Texas coast.
           </p>
         </div>
 
-        <ul className="serviceArea__grid" aria-label="Cities and areas served">
+        <ul
+          className="serviceArea__grid reveal-on-scroll"
+          aria-label="Cities and areas served"
+          ref={gridRef}
+        >
           {SERVICE_AREA_CITIES.map((city, idx) => (
             <li key={city.name} className="serviceArea__item">
               <span className="serviceArea__idx mono">
@@ -40,12 +44,11 @@ function ServiceArea() {
         </ul>
 
         <p className="serviceArea__note">
-          <span className="serviceArea__noteLabel mono">FN.01 —</span>
-          Also serving the wider Houston Ship Channel, Galveston Bay and Gulf
-          Intracoastal Waterway corridors and surrounding coastal Texas
-          waterways — including Brazoria, Galveston and Harris county
-          waterfronts. Contact us for barge fleeting, marine services and
-          mooring needs beyond this list.
+          <span className="serviceArea__noteLabel mono">Note —</span>
+          We also serve the broader Houston Ship Channel, Galveston Bay and
+          Gulf Intracoastal Waterway corridors — including Brazoria, Galveston
+          and Harris county waterfronts. If you do not see your port on the
+          list, call and ask.
         </p>
       </div>
     </section>

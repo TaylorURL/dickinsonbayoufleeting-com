@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles/NavBar.css";
 import { NAV_LINKS } from "../app/constants/navLinks";
-import { SECTION_IDS } from "../app/constants/sectionIds";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 import { useScrolled } from "../app/hooks/useScrolled";
-import { useActiveSection } from "../app/hooks/useActiveSection";
+import { useRouter, normalisePath } from "../app/router/Router";
+import { Link } from "../app/router/Link";
 
 function NavBar({ surface = "dark", overHero = true }) {
   const [open, setOpen] = useState(false);
   const scrolled = useScrolled(12);
-  const [active, setActive] = useActiveSection(SECTION_IDS);
+  const { path } = useRouter();
+  const activePath = normalisePath(path);
 
-  /* When the user is at the very top, the nav is transparent over the
-   * dark cinematic hero — its dark token set always applies there.
-   * Once scrolled past the hero, the nav adopts the surface of whatever
-   * section is now underneath it so links stay legible on light bands. */
+  /* While at the very top of the home page the nav floats over the
+   * dark hero. Anywhere else (or once scrolled past it) the nav adopts
+   * the surface of whatever section is currently behind it. */
   const effectiveSurface = open ? "dark" : overHero ? "dark" : surface;
 
   useEffect(() => {
@@ -31,7 +31,11 @@ function NavBar({ surface = "dark", overHero = true }) {
     };
   }, [open]);
 
-  const links = NAV_LINKS.filter((l) => SECTION_IDS.includes(l.id));
+  /* Close the drawer on every route change. */
+  useEffect(() => {
+    setOpen(false);
+  }, [path]);
+
   const phoneHref = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`;
 
   const closeMenu = () => setOpen(false);
@@ -50,42 +54,49 @@ function NavBar({ surface = "dark", overHero = true }) {
         aria-label="Primary"
       >
         <div className="nav__inner">
-          <a
-            href="#overview"
+          <Link
+            to="/"
             className="nav__brand"
-            aria-label="Dickinson Bayou Fleeting"
+            aria-label="Dickinson Bayou Fleeting — home"
             onClick={closeMenu}
           >
             <img
               src="/images/DBF-Logo-White.png"
-              alt="Dickinson Bayou Fleeting — coastal barge fleeting, marine services & dock leasing, Galveston Bay & Houston Ship Channel"
+              alt="Dickinson Bayou Fleeting"
               className="nav__logo nav__logo--dark"
+              width="240"
+              height="240"
             />
             <img
               src="/images/DBF-Logo-Black.png"
-              alt="Dickinson Bayou Fleeting — coastal barge fleeting, marine services & dock leasing, Galveston Bay & Houston Ship Channel"
+              alt="Dickinson Bayou Fleeting"
               className="nav__logo nav__logo--light"
+              width="240"
+              height="240"
             />
             <span className="nav__brandText">
               <span className="nav__brandName">Dickinson Bayou Fleeting</span>
               <span className="nav__brandTag">
-                Coastal Barge Fleeting · Texas Gulf Coast
+                Coastal barge fleeting · Texas Gulf Coast
               </span>
             </span>
-          </a>
+          </Link>
 
           <ul className="nav__links">
-            {links.map((l) => (
-              <li key={l.href} className="nav__item">
-                <a
-                  className={`nav__link${active === l.id ? " nav__link--active" : ""}`}
-                  href={l.href}
-                  onClick={() => setActive(l.id)}
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
+            {NAV_LINKS.map((l) => {
+              const isActive = activePath === normalisePath(l.to);
+              return (
+                <li key={l.to} className="nav__item">
+                  <Link
+                    className={`nav__link${isActive ? " nav__link--active" : ""}`}
+                    to={l.to}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
           <div className="nav__actions">
@@ -106,7 +117,7 @@ function NavBar({ surface = "dark", overHero = true }) {
               </svg>
               <span className="nav__phoneNumber">{PHONE_NUMBER}</span>
             </a>
-            <a href="#rates" className="nav__action" onClick={openInquiry}>
+            <a href="#quote" className="nav__action" onClick={openInquiry}>
               Get a Quote
             </a>
           </div>
@@ -141,29 +152,30 @@ function NavBar({ surface = "dark", overHero = true }) {
         aria-label="Mobile navigation"
       >
         <ul className="nav__drawerLinks">
-          {links.map((l) => (
-            <li key={l.href} className="nav__drawerItem">
-              <a
-                className={`nav__drawerLink${active === l.id ? " nav__drawerLink--active" : ""}`}
-                href={l.href}
-                onClick={() => {
-                  setActive(l.id);
-                  closeMenu();
-                }}
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
+          {NAV_LINKS.map((l) => {
+            const isActive = activePath === normalisePath(l.to);
+            return (
+              <li key={l.to} className="nav__drawerItem">
+                <Link
+                  className={`nav__drawerLink${isActive ? " nav__drawerLink--active" : ""}`}
+                  to={l.to}
+                  onClick={closeMenu}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {l.label}
+                </Link>
+              </li>
+            );
+          })}
           <li className="nav__drawerItem nav__drawerItem--phone">
             <a className="nav__drawerPhone tabular" href={phoneHref}>
-              <span className="nav__drawerPhoneLabel">Direct Line</span>
+              <span className="nav__drawerPhoneLabel">Direct line</span>
               <span className="nav__drawerPhoneNumber">{PHONE_NUMBER}</span>
             </a>
           </li>
           <li className="nav__drawerItem">
             <a
-              href="#rates"
+              href="#quote"
               className="nav__action nav__drawerCta"
               onClick={openInquiry}
             >

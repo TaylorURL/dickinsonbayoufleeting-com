@@ -1,0 +1,195 @@
+/* ---------- Story ---------- */
+.aboutStory__blocks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-7);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-8);
+}
+
+.aboutStory__block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-right: var(--space-4);
+}
+
+.aboutStory__idx {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--color-accent);
+}
+
+.aboutStory__heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 500;
+  letter-spacing: -0.018em;
+  line-height: 1.15;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.aboutStory__body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--color-text-secondary);
+  max-width: 56ch;
+}
+
+/* ---------- Values ---------- */
+.aboutValues__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0;
+  border: 1px solid var(--color-border);
+}
+
+.valueCard {
+  position: relative;
+  padding: var(--space-7) var(--space-6);
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  background: transparent;
+  transition: background var(--transition-base) var(--ease-out);
+}
+
+.valueCard:last-child {
+  border-right: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .valueCard:hover {
+    background: var(--layer-1);
+  }
+}
+
+.valueCard::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transition: width var(--transition-base) var(--ease-out);
+}
+
+.valueCard:hover::after {
+  width: 100%;
+}
+
+.valueCard__code {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.valueCard__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.valueCard__body {
+  font-family: var(--font-body);
+  font-size: 0.96rem;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 720px) {
+  .aboutValues__grid {
+    grid-template-columns: 1fr;
+  }
+  .valueCard {
+    border-right: 0;
+  }
+  .valueCard:last-child {
+    border-bottom: 0;
+  }
+}
+
+/* ---------- Timeline ---------- */
+.aboutTimeline__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-6);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-8);
+}
+
+.timelineCard {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-areas:
+    "period rule idx"
+    "title  title title"
+    "body   body  body";
+  gap: var(--space-2) var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.timelineCard__period {
+  grid-area: period;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.timelineCard__rule {
+  grid-area: rule;
+  height: 1px;
+  background: var(--color-hairline);
+  align-self: center;
+  margin-inline: var(--space-2);
+}
+
+.timelineCard__idx {
+  grid-area: idx;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--color-text-faint);
+}
+
+.timelineCard__title {
+  grid-area: title;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.6vw, 1.3rem);
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.timelineCard__body {
+  grid-area: body;
+  font-family: var(--font-body);
+  font-size: 0.96rem;
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+}

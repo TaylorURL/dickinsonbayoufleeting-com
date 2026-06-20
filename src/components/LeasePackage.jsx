@@ -1,10 +1,13 @@
 import { useState } from "react";
 import "./styles/LeasePackage.css";
 import { LEASE_OPTIONS } from "../app/constants/leaseOptions";
+import { useReveal } from "../app/hooks/useReveal";
 
 function LeasePackage() {
   const [locationId, setLocationId] = useState(LEASE_OPTIONS[0].id);
   const loc = LEASE_OPTIONS.find((l) => l.id === locationId);
+  const headRef = useReveal();
+  const estimatorRef = useReveal();
   const openInquiry = (e) => {
     e.preventDefault();
     window.dispatchEvent(new Event("inquiry:open"));
@@ -17,30 +20,25 @@ function LeasePackage() {
       id="rates"
     >
       <div className="container">
-        <div className="section__head">
-          <p className="eyebrow eyebrow--strong mono">
-            ◇ Section 01 — Lease Rates
-          </p>
+        <div className="section__head reveal-on-scroll" ref={headRef}>
+          <p className="eyebrow eyebrow--strong mono">Lease rates</p>
           <h2 className="section__title">
             Coastal barge fleeting &amp; dock lease options.
           </h2>
           <p className="section__subtitle">
             Fixed monthly rates for five-acre coastal waterfront fleeting yards
-            on Galveston Bay and the Gulf Intracoastal Waterway. Select a
-            facility to view its barge fleeting, marine services and dock lease
-            details.
+            on Galveston Bay and the Gulf Intracoastal Waterway. Pick a facility
+            below to see what is included.
           </p>
         </div>
 
-        <div className="estimator" aria-label="Lease options selector">
+        <div className="estimator reveal-on-scroll" aria-label="Lease options selector" ref={estimatorRef}>
           <div
             className="estimator__switch"
             role="tablist"
             aria-label="Select facility"
           >
-            <span className="estimator__switchLabel mono">
-              ⌖ Facility
-            </span>
+            <span className="estimator__switchLabel mono">Facility</span>
             <div className="leaseSwitch">
               {LEASE_OPTIONS.map((l, idx) => (
                 <button
@@ -78,7 +76,7 @@ function LeasePackage() {
 
             <div className="estimator__features">
               <p className="estimator__featuresLabel mono">
-                ◇ Included with the lease
+                Included with the lease
               </p>
               <ul className="leaseFeatureList">
                 {loc.features.map((feature, idx) => (

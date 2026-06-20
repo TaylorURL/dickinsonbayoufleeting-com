@@ -1,4 +1,5 @@
 import "./styles/Amenities.css";
+import { useReveal } from "../app/hooks/useReveal";
 
 const AMENITIES = [
   {
@@ -40,6 +41,8 @@ const AMENITIES = [
 ];
 
 function Amenities() {
+  const headRef = useReveal();
+  const listRef = useReveal();
   return (
     <section
       className="amenities section"
@@ -48,10 +51,8 @@ function Amenities() {
       id="amenities"
     >
       <div className="container">
-        <div className="section__head">
-          <p className="eyebrow eyebrow--strong mono">
-            ◇ Section 02 — Capabilities
-          </p>
+        <div className="section__head reveal-on-scroll" ref={headRef}>
+          <p className="eyebrow eyebrow--strong mono">Capabilities</p>
           <h2 className="section__title">
             Barge fleeting, marine services &amp; coastal amenities.
           </h2>
@@ -62,7 +63,11 @@ function Amenities() {
           </p>
         </div>
 
-        <ol className="amenities__list" aria-label="Capability list">
+        <ol
+          className="amenities__list reveal-on-scroll"
+          aria-label="Capability list"
+          ref={listRef}
+        >
           {AMENITIES.map((amenity, idx) => (
             <li key={amenity.name} className="amenityRow">
               <span className="amenityRow__index mono" aria-hidden="true">
