@@ -1,11 +1,12 @@
 import { useEffect, useRef } from "react";
 import "./styles/OceanTopographyBackground.css";
 
-/* Procedural ocean topography — a dotted/contour field where points and
- * polylines sit on an animated 2D sine height field. Cheap (Canvas 2D,
- * deterministic, no perlin), DPR-capped at 2, frame-budgeted to ~32 FPS,
- * paused when the tab is hidden or the hero is scrolled out of view, and
- * downgraded to a single static frame when prefers-reduced-motion is set. */
+/* Procedural ocean topography — a dotted/contour field whose points and
+ * polylines ride a slow, layered flow field that reads as a coastal current.
+ * Cheap (Canvas 2D, deterministic, no perlin), DPR-capped at 2, frame-
+ * budgeted to ~32 FPS, paused when the tab is hidden or the hero is scrolled
+ * out of view, and downgraded to a single static frame when prefers-reduced-
+ * motion is set. */
 
 const COLS_DEFAULT = 56;
 const ROWS_DEFAULT = 30;
@@ -13,6 +14,12 @@ const CONTOUR_LINES = 7;
 const SAMPLES_PER_LINE = 88;
 const FRAME_INTERVAL_MS = 1000 / 32;
 const DPR_CAP = 2;
+
+/* Per-cell drift caps, expressed as fractions of grid spacing. Bounded so
+ * dots never visibly swap positions with their neighbours. */
+const DRIFT_AMP_X = 0.6;
+const DRIFT_AMP_Y = 0.48;
+const CONTOUR_AMP_Y = 0.055;
 
 function parseHex(hex) {
   const m = hex.trim().replace(/^#/, "");
@@ -28,13 +35,29 @@ function parseHex(hex) {
   return [r, g, b];
 }
 
-function heightAt(x, y, t) {
-  return (
-    Math.sin(x * 5.6 + t * 0.42) * 0.55 +
-    Math.sin(x * 2.8 + y * 4.0 - t * 0.31) * 0.4 +
-    Math.sin(x * 9.2 - y * 5.4 + t * 0.55) * 0.22 +
-    Math.cos(x * 2.0 - y * 2.9 + t * 0.17) * 0.32
-  );
+/* Flow field sampled at a normalised grid coordinate (x,y in 0..1) and time
+ * t in seconds. Returns horizontal drift, vertical undulation, and a
+ * brightness/scale modulation channel — each layered from three sine/cosine
+ * terms of differing frequency, phase, and time rate. Row- and column-
+ * dependent phases create the parallax (adjacent rows lag slightly), while
+ * the slowest terms dominate so the motion reads as a calm current rather
+ * than a busy ripple. */
+function flowAt(x, y, t) {
+  const dx =
+    Math.sin(y * 2.6 + t * 0.14) * 0.55 +
+    Math.sin(x * 1.8 + y * 1.3 - t * 0.09) * 0.30 +
+    Math.cos(x * 4.6 + y * 3.2 + t * 0.22) * 0.16;
+
+  const dy =
+    Math.sin(x * 3.1 + t * 0.12) * 0.42 +
+    Math.cos(x * 2.2 - y * 3.8 + t * 0.18) * 0.28 +
+    Math.sin(x * 6.8 + y * 4.4 - t * 0.26) * 0.14;
+
+  const mod =
+    Math.sin(x * 4.8 + y * 2.1 + t * 0.18) * 0.55 +
+    Math.cos(x * 2.4 - y * 3.6 + t * 0.24) * 0.35;
+
+  return { dx, dy, mod };
 }
 
 function OceanTopographyBackground({ className = "" }) {
