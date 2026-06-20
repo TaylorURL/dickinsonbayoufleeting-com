@@ -257,12 +257,17 @@
   box-shadow: 0 0 0 3px var(--color-accent-soft);
 }
 
-.location__mapCoords {
+.location__mapAddress {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   color: var(--color-text-faint);
+  text-align: right;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .location__mapFrame {
@@ -282,6 +287,15 @@
   border: 0;
   display: block;
   filter: grayscale(1) brightness(0.62) contrast(1.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-slow) var(--ease-out);
+  will-change: opacity;
+}
+
+.location__map--active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 [data-surface="light"] .location__map {

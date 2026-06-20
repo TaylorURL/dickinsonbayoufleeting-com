@@ -7,18 +7,22 @@ import { useReveal } from "../app/hooks/useReveal";
 const FACILITY_IDS = FACILITIES.map((f) => f.id);
 const AUTO_CYCLE_MS = 6000;
 
+const FACILITY_MAP_SRC = Object.fromEntries(
+  FACILITIES.map((f) => [
+    f.id,
+    `https://www.google.com/maps?q=${encodeURIComponent(f.address)}&output=embed`,
+  ]),
+);
+
+const buildMapsHref = (address) =>
+  `https://maps.google.com/?q=${encodeURIComponent(address)}`;
+
 function Location() {
   const [locked, setLocked] = useState(false);
   const [active, setActive] = useAutoCycle(FACILITY_IDS, AUTO_CYCLE_MS, locked);
   const headRef = useReveal();
   const bodyRef = useReveal();
   const loc = FACILITIES.find((f) => f.id === active) || FACILITIES[0];
-  const mapsHref = loc.coords
-    ? `https://maps.google.com/?q=${loc.coords.lat},${loc.coords.lng}`
-    : `https://maps.google.com/?q=${encodeURIComponent(loc.address)}`;
-  const iframeSrc = loc.coords
-    ? `https://www.google.com/maps?ll=${loc.coords.lat},${loc.coords.lng}&q=${loc.coords.lat},${loc.coords.lng}&z=15&output=embed`
-    : `https://www.google.com/maps?q=${encodeURIComponent(loc.address)}&output=embed`;
   const openInquiry = (e) => {
     e.preventDefault();
     window.dispatchEvent(new Event("inquiry:open"));
@@ -102,20 +106,11 @@ function Location() {
                               {f.phone}
                             </span>
                           </div>
-                          {f.coords && (
-                            <div className="locCard__row locCard__row--wide">
-                              <span className="locCard__label mono">Coordinates</span>
-                              <span className="locCard__value mono tabular">
-                                {f.coords.lat.toFixed(4)}° N ·{" "}
-                                {Math.abs(f.coords.lng).toFixed(4)}° W
-                              </span>
-                            </div>
-                          )}
                         </div>
                         <div className="locCard__actions">
                           <a
                             className="btn btn--inline"
-                            href={mapsHref}
+                            href={buildMapsHref(f.address)}
                             target="_blank"
                             rel="noreferrer"
                           >
@@ -149,21 +144,24 @@ function Location() {
                 <span className="location__mapDot" aria-hidden="true" />
                 {loc.shortName} facility
               </span>
-              {loc.coords && (
-                <span className="location__mapCoords mono">
-                  {loc.coords.lat.toFixed(4)}° N ·{" "}
-                  {Math.abs(loc.coords.lng).toFixed(4)}° W
-                </span>
-              )}
+              <span className="location__mapAddress mono">{loc.address}</span>
             </div>
             <div className="location__mapFrame">
-              <iframe
-                title={`Map of Dickinson Bayou Fleeting ${loc.name} — ${loc.address}`}
-                className="location__map"
-                loading="lazy"
-                allowFullScreen
-                src={iframeSrc}
-              ></iframe>
+              {FACILITIES.map((f) => {
+                const isActive = f.id === active;
+                return (
+                  <iframe
+                    key={f.id}
+                    title={`Map of Dickinson Bayou Fleeting ${f.name} — ${f.address}`}
+                    className={`location__map${isActive ? " location__map--active" : ""}`}
+                    loading="lazy"
+                    allowFullScreen
+                    src={FACILITY_MAP_SRC[f.id]}
+                    aria-hidden={!isActive}
+                    tabIndex={isActive ? 0 : -1}
+                  />
+                );
+              })}
               <span className="location__mapTickTL" aria-hidden="true" />
               <span className="location__mapTickTR" aria-hidden="true" />
               <span className="location__mapTickBL" aria-hidden="true" />
