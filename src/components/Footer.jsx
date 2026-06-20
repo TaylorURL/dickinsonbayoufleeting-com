@@ -12,10 +12,6 @@ const FOOTER_CREDENTIALS = [
 
 function Footer() {
   const year = new Date().getFullYear();
-  const openInquiry = (e) => {
-    e.preventDefault();
-    window.dispatchEvent(new Event("inquiry:open"));
-  };
   return (
     <footer className="footer" id="footer">
       <div className="footer__contact" data-surface="light">
