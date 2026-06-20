@@ -18,7 +18,7 @@ function AboutStory() {
         aria-label="Our story"
       >
         <div className="container">
-          <div className="section__head">
+          <div className="section__head reveal-on-scroll" ref={storyHeadRef}>
             <p className="eyebrow eyebrow--strong mono">Who we are</p>
             <h2 className="section__title">
               A coastal fleeting company built around two yards and the people
