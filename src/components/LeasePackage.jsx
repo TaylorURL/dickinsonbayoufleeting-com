@@ -6,6 +6,8 @@ import { useReveal } from "../app/hooks/useReveal";
 function LeasePackage() {
   const [locationId, setLocationId] = useState(LEASE_OPTIONS[0].id);
   const loc = LEASE_OPTIONS.find((l) => l.id === locationId);
+  const headRef = useReveal();
+  const estimatorRef = useReveal();
   const openInquiry = (e) => {
     e.preventDefault();
     window.dispatchEvent(new Event("inquiry:open"));
@@ -18,18 +20,15 @@ function LeasePackage() {
       id="rates"
     >
       <div className="container">
-        <div className="section__head">
-          <p className="eyebrow eyebrow--strong mono">
-            ◇ Section 01 — Lease Rates
-          </p>
+        <div className="section__head reveal-on-scroll" ref={headRef}>
+          <p className="eyebrow eyebrow--strong mono">Lease rates</p>
           <h2 className="section__title">
             Coastal barge fleeting &amp; dock lease options.
           </h2>
           <p className="section__subtitle">
             Fixed monthly rates for five-acre coastal waterfront fleeting yards
-            on Galveston Bay and the Gulf Intracoastal Waterway. Select a
-            facility to view its barge fleeting, marine services and dock lease
-            details.
+            on Galveston Bay and the Gulf Intracoastal Waterway. Pick a facility
+            below to see what is included.
           </p>
         </div>
 
