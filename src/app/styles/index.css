@@ -7,17 +7,18 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  background: var(--color-app-bg);
 }
 
 [id] {
-  scroll-margin-top: calc(var(--nav-height) + 24px);
+  scroll-margin-top: calc(var(--nav-height) + 28px);
 }
 
 body {
   margin: 0;
   font-family: var(--font-body);
   font-size: var(--text-body);
-  line-height: 1.62;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -25,7 +26,7 @@ body {
   background: var(--color-app-bg);
   background-image: var(--gradient-page);
   background-attachment: fixed;
-  font-feature-settings: "kern", "liga", "calt";
+  font-feature-settings: "kern", "liga", "calt", "ss01";
 }
 
 h1,
@@ -33,18 +34,24 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.06;
-  letter-spacing: -0.005em;
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.022em;
   margin: 0;
-  /* Optical sizing — Source Serif 4's opsz axis tunes itself for display use. */
-  font-optical-sizing: auto;
-  font-feature-settings: "kern", "liga", "calt", "ss01";
   color: var(--color-text-primary);
 }
 
 h1 {
-  font-weight: 600;
+  font-weight: 500;
+  letter-spacing: -0.028em;
+}
+
+h2 {
+  letter-spacing: -0.024em;
+}
+
+h3 {
+  font-weight: 500;
   letter-spacing: -0.012em;
 }
 
@@ -61,9 +68,10 @@ a {
   color: var(--color-text-on-accent);
 }
 
-code {
-  font-family:
-    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+code,
+.mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "calt", "ss01";
 }
 
 /* ---------- Shared layout primitives ---------- */
@@ -76,62 +84,76 @@ code {
   padding-inline: var(--container-pad);
 }
 
-/* Standard vertical rhythm for a page section. */
+/* Standard vertical rhythm for a page section — generous breathing room. */
 .section {
   padding-block: var(--section-py);
   position: relative;
+  border-top: 1px solid var(--color-hairline);
 }
 
-/* Centered intro block: eyebrow → title → subtitle. */
+/* Asymmetric intro block — left-aligned eyebrow → title → subtitle. */
 .section__head {
-  max-width: 720px;
-  margin: 0 auto var(--space-10);
-  text-align: center;
+  max-width: 980px;
+  margin: 0 0 var(--space-10);
+  text-align: left;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--space-4);
+  align-items: flex-start;
+  gap: var(--space-5);
 }
 
 .section__title {
+  font-family: var(--font-display);
   font-size: var(--text-h2);
-  letter-spacing: -0.01em;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.024em;
+  max-width: 22ch;
 }
 
 .section__subtitle {
   font-family: var(--font-body);
   font-size: var(--text-lead);
-  line-height: 1.62;
+  line-height: 1.55;
   color: var(--color-text-secondary);
-  max-width: 60ch;
+  max-width: 62ch;
   font-weight: 400;
 }
 
-/* Section eyebrow — small tracked label introducing a heading. */
+/* Section eyebrow — wide-tracked monospace micro-label with accent tick. */
 .eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 14px;
   margin: 0;
-  font-family: var(--font-ui);
+  font-family: var(--font-mono);
   font-size: var(--eyebrow-size);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: var(--eyebrow-tracking);
   text-transform: uppercase;
-  color: var(--color-brass);
-  font-feature-settings: "ss01", "cv11";
+  color: var(--color-text-faint);
 }
 
 .eyebrow::before {
   content: "";
+  display: inline-block;
   width: 28px;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--color-brass);
-  box-shadow: 0 0 12px var(--color-brass-soft);
+  height: 1px;
+  background: var(--color-accent);
 }
 
-/* Numeric strings get tabular figures for steady alignment. */
+/* Larger eyebrow variant used over the hero & primary section heads. */
+.eyebrow--strong {
+  color: var(--color-accent);
+}
+
+.eyebrow--strong::before {
+  background: var(--color-accent);
+  height: 1px;
+  width: 36px;
+}
+
+/* Numeric strings use tabular figures. */
 .tabular {
   font-variant-numeric: tabular-nums;
 }
@@ -141,7 +163,37 @@ code {
   display: block;
   width: 100%;
   height: 1px;
-  background: var(--gradient-divider);
+  background: var(--color-hairline);
+}
+
+/* Subtle on-scroll reveal — used on top-level section heads & spec rows. */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: revealRise 0.7s var(--ease-out) forwards;
+}
+
+.reveal--d1 {
+  animation-delay: 0.06s;
+}
+.reveal--d2 {
+  animation-delay: 0.14s;
+}
+.reveal--d3 {
+  animation-delay: 0.22s;
+}
+.reveal--d4 {
+  animation-delay: 0.32s;
+}
+.reveal--d5 {
+  animation-delay: 0.44s;
+}
+
+@keyframes revealRise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -155,5 +207,10 @@ code {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
   }
 }

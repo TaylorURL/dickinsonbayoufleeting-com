@@ -1,22 +1,23 @@
-/* Button system — shared across hero, sections, nav, and footer. */
+/* Button system — shared across hero, sections, nav, and footer.
+ * Sharp-cornered, mono-typeset, restrained colour. */
 .btn {
-  --btn-py: 15px;
+  --btn-py: 18px;
   --btn-px: 28px;
   position: relative;
   appearance: none;
   border: 1px solid transparent;
   cursor: pointer;
-  font-family: var(--font-ui);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   padding: var(--btn-py) var(--btn-px);
-  border-radius: var(--radius-md);
+  border-radius: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   text-decoration: none;
   white-space: nowrap;
   line-height: 1;
@@ -24,85 +25,88 @@
     background var(--transition-fast) var(--ease-out),
     color var(--transition-fast) var(--ease-out),
     border-color var(--transition-fast) var(--ease-out),
-    box-shadow var(--transition-base) var(--ease-out),
     transform var(--transition-fast) var(--ease-out);
+}
+
+.btn::after {
+  content: "→";
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  transform: translateX(0);
+  transition: transform var(--transition-base) var(--ease-out);
 }
 
 .btn:focus-visible {
   outline: none;
   box-shadow:
-    0 0 0 2px var(--color-bg),
-    0 0 0 4px var(--color-accent-ring);
+    0 0 0 1px var(--color-bg),
+    0 0 0 3px var(--color-accent-ring);
 }
 
 .btn:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(0) scale(0.99);
 }
 
-/* Primary — solid marine blue with inset highlight for dimension. */
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover::after {
+    transform: translateX(4px);
+  }
+}
+
+/* Primary — solid off-white on black; in light theme, solid black on white. */
 .btn--primary {
-  background: var(--color-accent);
+  background: var(--color-text-primary);
   color: var(--color-text-on-accent);
-  box-shadow:
-    var(--shadow-accent),
-    inset 0 1px 0 rgba(255, 255, 255, 0.16);
-  background-image: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    rgba(0, 0, 0, 0) 60%
-  );
+  border-color: var(--color-text-primary);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .btn--primary:hover {
-    background-color: var(--color-accent-hover);
-    transform: translateY(-2px);
-    box-shadow:
-      var(--shadow-accent),
-      var(--shadow-md),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-text-on-accent);
   }
 }
 
-/* Ghost — hairline outline on a translucent fill. */
+/* Ghost — hairline outline on a transparent fill. */
 .btn--ghost {
-  background: var(--layer-2);
+  background: transparent;
   color: var(--color-text-primary);
-  border-color: var(--color-border);
-  backdrop-filter: blur(var(--blur-sm));
-  -webkit-backdrop-filter: blur(var(--blur-sm));
+  border-color: var(--color-border-strong);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .btn--ghost:hover {
-    background: var(--layer-3);
-    border-color: var(--color-border-strong);
-    transform: translateY(-2px);
+    background: var(--layer-2);
+    border-color: var(--color-text-primary);
   }
 }
 
-/* Inline — compact uppercase chip for in-card actions. */
+/* Inline — compact spec-sheet action. */
 .btn--inline {
-  --btn-py: 11px;
+  --btn-py: 12px;
   --btn-px: 18px;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 1.4px;
-  border-radius: var(--radius-sm);
-  background: var(--layer-2);
-  color: var(--color-text-primary);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  background: transparent;
+  color: var(--color-text-secondary);
   border-color: var(--color-border);
+}
+
+.btn--inline::after {
+  font-size: 0.72rem;
 }
 
 @media (hover: hover) and (pointer: fine) {
   .btn--inline:hover {
-    background: var(--layer-3);
-    border-color: var(--color-border-strong);
-    transform: translateY(-1px);
+    color: var(--color-text-primary);
+    border-color: var(--color-text-primary);
   }
 }
 
-/* Full-width helper for stacked card CTAs. */
+/* Full-width helper for stacked CTAs. */
 .btn--block {
   width: 100%;
 }

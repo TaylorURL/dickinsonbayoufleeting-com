@@ -1,119 +1,146 @@
 .rate {
-  background: var(--color-app-bg);
+  background: var(--color-bg);
   position: relative;
 }
 
-/* Pricing card shell — centered, generous, premium. */
+/* ---------- Asymmetric lease shell ---------- */
 .estimator {
-  max-width: 620px;
-  margin: 0 auto;
-  background: var(--color-surface);
-  background-image: var(--gradient-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  box-shadow:
-    var(--shadow-lg),
-    var(--shadow-inset-card);
-  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: var(--space-9);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-8);
   position: relative;
-  overflow: hidden;
 }
 
-/* Brass accent strip across the top edge of the card. */
 .estimator::before {
   content: "";
   position: absolute;
-  top: 0;
+  top: -1px;
   left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--gradient-brass-rule);
+  width: 64px;
+  height: 1px;
+  background: var(--color-accent);
 }
 
-/* ---------- Card head: facility label + switch ---------- */
-.estimator__head {
+/* ---------- Switch column ---------- */
+.estimator__switch {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
   gap: var(--space-4);
-  padding: var(--space-5) var(--space-6);
-  background: var(--color-surface-soft);
-  border-bottom: 1px solid var(--color-hairline);
+  position: sticky;
+  top: calc(var(--nav-height) + var(--space-6));
+  align-self: start;
 }
 
-.estimator__headLabel {
-  font-family: var(--font-ui);
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 1.8px;
+.estimator__switchLabel {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-text-faint);
 }
 
-/* ---------- Segmented facility switch ---------- */
 .leaseSwitch {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
-  gap: var(--space-1);
-  padding: 4px;
-  background: var(--layer-2);
-  border: 1px solid var(--color-hairline);
-  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .leaseSwitch__btn {
   appearance: none;
   cursor: pointer;
-  border: 1px solid transparent;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--space-4);
   background: transparent;
   color: var(--color-text-secondary);
-  font-family: var(--font-ui);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  padding: 9px 16px;
-  border-radius: var(--radius-md);
-  transition:
-    background var(--transition-fast) var(--ease-out),
-    color var(--transition-fast) var(--ease-out),
-    box-shadow var(--transition-fast) var(--ease-out);
+  border: 0;
+  border-bottom: 1px solid var(--color-hairline);
+  padding: var(--space-5) 0;
+  text-align: left;
+  font-family: inherit;
+  position: relative;
+  transition: color var(--transition-fast) var(--ease-out);
 }
 
-.leaseSwitch__btn:hover {
+.leaseSwitch__btn:last-child {
+  border-bottom: 0;
+}
+
+.leaseSwitch__btn::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  width: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transform: translateY(-50%);
+  transition: width var(--transition-base) var(--ease-out);
+}
+
+.leaseSwitch__btn:hover,
+.leaseSwitch__btn:focus-visible {
   color: var(--color-text-primary);
+  outline: none;
 }
 
 .leaseSwitch__btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--color-accent-ring);
+  outline: 1px solid var(--color-accent-ring);
+  outline-offset: 4px;
 }
 
 .leaseSwitch__btn--active {
-  background: var(--color-surface-raised);
   color: var(--color-text-primary);
-  box-shadow: var(--shadow-sm);
 }
 
-/* ---------- Result panel ---------- */
+.leaseSwitch__btn--active::before {
+  width: 16px;
+}
+
+.leaseSwitch__btnIndex {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+}
+
+.leaseSwitch__btn--active .leaseSwitch__btnIndex {
+  color: var(--color-accent);
+}
+
+.leaseSwitch__btnName {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+}
+
+/* ---------- Result column ---------- */
 .estimator__result {
-  padding: var(--space-8) var(--space-7) var(--space-6);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: var(--space-8) var(--space-9);
+  align-items: start;
 }
 
-.estimator__priceBlock {
+.estimator__priceCol {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-3);
 }
 
-.estimator__label {
-  font-family: var(--font-ui);
+.estimator__priceLabel,
+.estimator__featuresLabel {
+  font-family: var(--font-mono);
   font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 2px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-text-faint);
 }
@@ -121,14 +148,15 @@
 .estimator__priceRow {
   display: flex;
   align-items: baseline;
-  gap: 4px;
+  gap: 6px;
+  margin-top: var(--space-2);
 }
 
 .estimator__currency {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 2.4rem);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
   font-weight: 500;
-  color: var(--color-text-secondary);
+  color: var(--color-text-faint);
   line-height: 1;
   align-self: flex-start;
   padding-top: 8px;
@@ -136,44 +164,39 @@
 
 .estimator__figure {
   font-family: var(--font-display);
-  font-size: clamp(3.4rem, 8vw, 4.4rem);
-  font-weight: 600;
-  line-height: 0.95;
-  letter-spacing: -0.03em;
+  font-size: clamp(4rem, 10vw, 6.4rem);
+  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: -0.05em;
   color: var(--color-text-primary);
 }
 
 .estimator__period {
-  font-family: var(--font-ui);
-  font-size: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
   font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--color-text-faint);
-  margin-left: 6px;
+  margin-left: 8px;
 }
 
 .estimator__caption {
-  font-family: var(--font-body);
-  font-size: 0.96rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--color-text-secondary);
-  margin-top: 4px;
-}
-
-/* ---------- Features block ---------- */
-.estimator__featuresBlock {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  padding-top: var(--space-5);
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
   border-top: 1px solid var(--color-hairline);
 }
 
-.estimator__featuresLabel {
-  font-family: var(--font-ui);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-  color: var(--color-text-faint);
+/* ---------- Features block ---------- */
+.estimator__features {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
 }
 
 .leaseFeatureList {
@@ -182,75 +205,71 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
+  border-top: 1px solid var(--color-hairline);
 }
 
 .leaseFeatureList__item {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  align-items: baseline;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.leaseFeatureList__idx {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--color-accent);
+}
+
+.leaseFeatureList__text {
   font-family: var(--font-body);
-  font-size: 0.97rem;
+  font-size: 0.98rem;
   line-height: 1.5;
   color: var(--color-text-secondary);
 }
 
-/* Circular badge holding a CSS checkmark. */
-.leaseFeatureList__item::before {
-  content: "";
-  flex: none;
-  margin-top: 2px;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--color-accent-soft);
-  border: 1px solid var(--color-accent-ring);
-}
-
-.leaseFeatureList__item::after {
-  content: "";
-  position: absolute;
-  left: 8px;
-  top: 8px;
-  width: 5px;
-  height: 9px;
-  border: solid var(--color-accent);
-  border-width: 0 2px 2px 0;
-  transform: rotate(43deg);
-}
-
-.estimator__result .btn {
-  margin-top: var(--space-3);
+/* ---------- CTA + assurance row ---------- */
+.estimator__cta {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
 }
 
 .estimator__assurance {
-  font-family: var(--font-ui);
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--color-text-faint);
-  text-align: center;
-  margin-top: -4px;
+  text-align: left;
 }
 
-@media (max-width: 540px) {
-  .estimator__head {
-    flex-direction: column;
-    align-items: stretch;
-    gap: var(--space-3);
+@media (max-width: 1080px) {
+  .estimator {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .estimator__switch {
+    position: static;
   }
 
   .estimator__result {
-    padding: var(--space-7) var(--space-5) var(--space-5);
+    grid-template-columns: 1fr;
+    gap: var(--space-7);
   }
+}
 
-  .estimator__currency {
-    font-size: 1.7rem;
-    padding-top: 6px;
-  }
-
+@media (max-width: 540px) {
   .estimator__figure {
-    font-size: 3.1rem;
+    font-size: clamp(3.4rem, 16vw, 4.6rem);
   }
 }

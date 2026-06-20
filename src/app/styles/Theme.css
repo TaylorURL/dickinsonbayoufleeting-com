@@ -1,27 +1,26 @@
 /*
- * Design tokens — "Deepwater II".
+ * Design tokens — "Blackwater".
  *
- * Premium maritime-industrial system for Dickinson Bayou Fleeting. :root holds
- * the dark theme (the default) plus every theme-invariant token: type system,
- * spacing rhythm, radii, motion, blur, and layout dimensions. Each theme block
- * only overrides what actually changes between themes — color, translucency,
- * overlays, gradients, shadows.
+ * Defense / industrial-technical visual language for Dickinson Bayou
+ * Fleeting. Near-black canvas, off-white type, a single muted steel-blue
+ * accent used sparingly, hairline rules, and a wide-grotesque + monospace
+ * pairing — sharp corners throughout.
  *
- * Type pairing: Source Serif 4 (display — industrial-technical serif with
- * opsz axis for natural large/small-display behavior) + Inter (body) +
- * Inter Tight (compact labels & eyebrows).
+ * :root holds the dark theme (default) plus every theme-invariant token:
+ * type system, spacing rhythm, radii, motion, blur, layout dimensions.
+ * Each theme block only overrides what actually changes between themes.
  */
 :root {
-  /* Invariant: radii */
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-xl: 26px;
-  --radius-2xl: 34px;
+  /* Invariant: radii — sharp, near-zero corners */
+  --radius-xs: 0px;
+  --radius-sm: 0px;
+  --radius-md: 1px;
+  --radius-lg: 2px;
+  --radius-xl: 2px;
+  --radius-2xl: 2px;
   --radius-pill: 999px;
 
-  /* Invariant: spacing scale (4px base) */
+  /* Invariant: spacing scale (4px base, slightly wider rhythm than before) */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -29,268 +28,262 @@
   --space-5: 20px;
   --space-6: 24px;
   --space-7: 32px;
-  --space-8: 40px;
-  --space-9: 56px;
-  --space-10: 72px;
-  --space-11: 96px;
-  --space-12: 128px;
+  --space-8: 44px;
+  --space-9: 64px;
+  --space-10: 88px;
+  --space-11: 120px;
+  --space-12: 160px;
 
   /* Invariant: typography */
   --font-display:
-    "Source Serif 4", "Source Serif Pro", "Iowan Old Style", "Apple Garamond",
-    Georgia, "Times New Roman", serif;
+    "Space Grotesk", "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", "Segoe UI", sans-serif;
   --font-body:
     "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
     "Helvetica Neue", sans-serif;
   --font-ui:
-    "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Roboto", sans-serif;
+    "Space Grotesk", "Inter", -apple-system, BlinkMacSystemFont,
+    "Helvetica Neue", "Segoe UI", sans-serif;
+  --font-mono:
+    "JetBrains Mono", "IBM Plex Mono", "Space Mono", ui-monospace, SFMono-Regular,
+    Menlo, Consolas, monospace;
 
-  /* Fluid display scale (tuned slightly larger for the new serif) */
-  --text-hero: clamp(2.9rem, 6.8vw, 5.3rem);
-  --text-h2: clamp(2.05rem, 3.8vw, 3.05rem);
-  --text-h3: clamp(1.2rem, 1.7vw, 1.45rem);
-  --text-lead: clamp(1.06rem, 1.5vw, 1.22rem);
+  /* Fluid display scale — confident, near-screen-height presence */
+  --text-hero: clamp(3.1rem, 8.4vw, 7.2rem);
+  --text-h2: clamp(2.1rem, 4.4vw, 3.4rem);
+  --text-h3: clamp(1.05rem, 1.4vw, 1.2rem);
+  --text-lead: clamp(1.04rem, 1.45vw, 1.2rem);
   --text-body: 1rem;
   --text-sm: 0.875rem;
   --text-xs: 0.75rem;
 
-  /* Tracked-label treatment */
-  --eyebrow-size: 0.74rem;
-  --eyebrow-tracking: 2.4px;
+  /* Tracked-label treatment — wider letter-spacing, mono-style */
+  --eyebrow-size: 0.7rem;
+  --eyebrow-tracking: 3px;
+  --mono-size: 0.74rem;
+  --mono-tracking: 0.06em;
 
   /* Invariant: motion */
-  --transition-fast: 130ms;
-  --transition-base: 220ms;
-  --transition-slow: 320ms;
-  /* Strong custom curves — built-in CSS easings lack intentional punch. */
-  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --transition-fast: 140ms;
+  --transition-base: 260ms;
+  --transition-slow: 420ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
 
   /* Invariant: blur */
   --blur-sm: 6px;
-  --blur-md: 14px;
-  --blur-lg: 26px;
+  --blur-md: 16px;
+  --blur-lg: 28px;
 
   /* Invariant: layout dimensions */
-  --container-max: 1240px;
-  --container-pad: clamp(20px, 5vw, 48px);
-  --section-py: clamp(80px, 11vw, 152px);
-  --nav-height: clamp(68px, 8vw, 88px);
-  --nav-logo-height: clamp(92px, 12vw, 132px);
-  --nav-logo-offset: 18px;
-  --footer-logo-height: 132px;
+  --container-max: 1440px;
+  --container-pad: clamp(20px, 4.5vw, 56px);
+  --section-py: clamp(96px, 13vw, 180px);
+  --nav-height: clamp(64px, 6.5vw, 80px);
+  --nav-logo-height: clamp(72px, 9vw, 104px);
+  --nav-logo-offset: 14px;
+  --footer-logo-height: 112px;
 
   /* ============ Theme: dark (default) ============ */
 
-  /* Base & surfaces — deeper, more saturated marine field */
-  --color-app-bg: #030c1a;
-  --color-bg: #061525;
-  --color-bg-alt: #0a1f34;
-  --color-surface: #0d2740;
-  --color-surface-2: #133250;
-  --color-surface-raised: #19395d;
-  --color-surface-soft: #0b1e34;
+  /* Canvas — true near-black, deepest at the edges */
+  --color-app-bg: #0a0a0a;
+  --color-bg: #0a0a0a;
+  --color-bg-alt: #0d0d0d;
+  --color-surface: #111111;
+  --color-surface-2: #141414;
+  --color-surface-raised: #181818;
+  --color-surface-soft: #0d0d0d;
+  --color-bg-deep: #050505;
 
-  /* Brand action — confident marine signal blue */
-  --color-accent: #4d8df5;
-  --color-accent-hover: #6fa6ff;
-  --color-accent-strong: #2a6cd6;
-  --color-accent-deep: #173f87;
-  --color-accent-soft: rgba(77, 141, 245, 0.14);
-  --color-accent-ring: rgba(77, 141, 245, 0.42);
+  /* Single muted technical accent — desaturated steel-blue.
+   * Used sparingly for CTAs, active states, focus rings, hairline ticks. */
+  --color-accent: #7ea4cc;
+  --color-accent-hover: #9bbcdd;
+  --color-accent-strong: #5d86b3;
+  --color-accent-deep: #2f4f76;
+  --color-accent-soft: rgba(126, 164, 204, 0.1);
+  --color-accent-ring: rgba(126, 164, 204, 0.32);
 
-  /* Premium highlight — warm brass (safety accent) */
-  --color-brass: #d8a557;
-  --color-brass-strong: #ecc079;
-  --color-brass-deep: #a07628;
-  --color-brass-soft: rgba(216, 165, 87, 0.16);
+  /* Alias for sparing warm-amber use (single highlight on hero only) */
+  --color-highlight: #c79655;
+  --color-highlight-soft: rgba(199, 150, 85, 0.14);
 
-  /* Lines */
-  --color-border: rgba(174, 199, 226, 0.13);
-  --color-border-strong: rgba(174, 199, 226, 0.22);
-  --color-hairline: rgba(174, 199, 226, 0.08);
+  /* Hairline borders — 1px low-opacity dividers */
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-strong: rgba(255, 255, 255, 0.22);
+  --color-hairline: rgba(255, 255, 255, 0.06);
 
-  /* Text */
-  --color-text-primary: #f1f6fc;
-  --color-text-secondary: #b1c4d8;
-  --color-text-faint: #7c93ac;
-  --color-text-muted: #5b738d;
-  --color-text-on-accent: #ffffff;
-  --color-text-on-brass: #1a1206;
+  /* Text — off-white primary, restrained secondaries */
+  --color-text-primary: #f2f2f2;
+  --color-text-secondary: #c8c8c8;
+  --color-text-faint: #8a8a8a;
+  --color-text-muted: #5e5e5e;
+  --color-text-on-accent: #0a0a0a;
+  --color-text-on-highlight: #0a0a0a;
 
   /* Feedback */
-  --color-success: #43c074;
-  --color-danger: #ec7a7a;
-  --color-link: var(--color-accent);
+  --color-success: #87b58f;
+  --color-danger: #d77878;
+  --color-link: var(--color-text-primary);
 
-  /* Layered translucencies (white over dark) */
-  --layer-1: rgba(255, 255, 255, 0.035);
-  --layer-2: rgba(255, 255, 255, 0.065);
-  --layer-3: rgba(255, 255, 255, 0.1);
-  --layer-4: rgba(255, 255, 255, 0.15);
+  /* Layered translucencies (white over black) */
+  --layer-1: rgba(255, 255, 255, 0.025);
+  --layer-2: rgba(255, 255, 255, 0.045);
+  --layer-3: rgba(255, 255, 255, 0.075);
+  --layer-4: rgba(255, 255, 255, 0.12);
 
   /* Surfaces & overlays */
-  --surface-glass: rgba(13, 39, 64, 0.66);
-  --overlay-nav: rgba(6, 21, 37, 0.72);
-  --overlay-scrim: rgba(3, 12, 26, 0.78);
+  --surface-glass: rgba(10, 10, 10, 0.62);
+  --overlay-nav: rgba(10, 10, 10, 0.86);
+  --overlay-scrim: rgba(0, 0, 0, 0.86);
 
-  /* Gradients — deeper page field with subtle brass warmth */
-  --gradient-page: radial-gradient(
-      120% 90% at 85% -10%,
-      rgba(77, 141, 245, 0.18) 0%,
-      rgba(77, 141, 245, 0) 55%
-    ),
-    radial-gradient(
-      90% 70% at 0% 0%,
-      rgba(216, 165, 87, 0.09) 0%,
-      rgba(216, 165, 87, 0) 50%
-    ),
-    linear-gradient(180deg, #030c1a 0%, #061525 60%, #08182a 100%);
-  --gradient-hero: radial-gradient(
-      130% 120% at 78% 8%,
-      rgba(77, 141, 245, 0.28) 0%,
-      rgba(77, 141, 245, 0) 52%
-    ),
-    radial-gradient(
-      110% 90% at 6% 92%,
-      rgba(216, 165, 87, 0.16) 0%,
-      rgba(216, 165, 87, 0) 55%
-    ),
-    linear-gradient(165deg, #051427 0%, #08203a 46%, #030c1a 100%);
-  --gradient-surface: linear-gradient(
-    160deg,
-    rgba(255, 255, 255, 0.045) 0%,
-    rgba(255, 255, 255, 0) 60%
+  /* Image treatment — cinematic dark scrims to absorb photos into the canvas */
+  --image-scrim: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.4) 0%,
+    rgba(10, 10, 10, 0.7) 60%,
+    rgba(10, 10, 10, 0.92) 100%
   );
-  --gradient-brass-rule: linear-gradient(
+  --image-scrim-horizontal: linear-gradient(
     90deg,
-    var(--color-brass) 0%,
-    var(--color-brass-strong) 18%,
-    rgba(216, 165, 87, 0) 100%
+    rgba(10, 10, 10, 0.92) 0%,
+    rgba(10, 10, 10, 0.6) 45%,
+    rgba(10, 10, 10, 0.3) 100%
+  );
+  --image-filter: grayscale(0.35) brightness(0.65) contrast(1.08);
+
+  /* Gradients used minimally — page canvas stays flat. Hero gets a subtle
+   * radial vignette only to focus the eye on the headline. */
+  --gradient-page: linear-gradient(180deg, #0a0a0a 0%, #0a0a0a 100%);
+  --gradient-hero-vignette: radial-gradient(
+      130% 90% at 50% 100%,
+      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0) 60%
+    ),
+    radial-gradient(
+      90% 70% at 78% 8%,
+      rgba(126, 164, 204, 0.06) 0%,
+      rgba(126, 164, 204, 0) 60%
+    );
+  --gradient-section-fade: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.015) 100%
   );
   --gradient-accent-rule: linear-gradient(
     90deg,
     var(--color-accent) 0%,
-    rgba(77, 141, 245, 0) 100%
+    rgba(126, 164, 204, 0) 100%
   );
   --gradient-divider: linear-gradient(
     90deg,
-    rgba(174, 199, 226, 0) 0%,
-    rgba(174, 199, 226, 0.18) 50%,
-    rgba(174, 199, 226, 0) 100%
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0) 100%
   );
 
-  /* Chart-contour motif stroke (used in hero SVG) */
-  --motif-line: rgba(140, 178, 224, 0.18);
-  --motif-line-strong: rgba(140, 178, 224, 0.32);
-
-  /* Shadows — deeper, more deliberate */
-  --shadow-sm: 0 2px 8px rgba(2, 8, 18, 0.5);
-  --shadow-md: 0 12px 32px rgba(2, 8, 18, 0.55);
-  --shadow-lg: 0 28px 68px rgba(2, 8, 18, 0.66);
-  --shadow-xl: 0 40px 110px rgba(2, 8, 18, 0.78);
-  --shadow-accent: 0 14px 34px rgba(31, 86, 196, 0.46);
-  --shadow-inset-card: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  /* Shadows — depth comes from light absence; minimal use */
+  --shadow-sm: 0 1px 0 rgba(255, 255, 255, 0.04);
+  --shadow-md: 0 20px 40px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 40px 80px rgba(0, 0, 0, 0.8);
+  --shadow-xl: 0 60px 120px rgba(0, 0, 0, 0.92);
+  --shadow-accent: none;
+  --shadow-inset-card: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
 }
 
 /* ============ Theme: light ============ */
 [data-theme="light"] {
-  --color-app-bg: #eaf1fa;
+  --color-app-bg: #f4f4f4;
   --color-bg: #ffffff;
-  --color-bg-alt: #f1f6fc;
+  --color-bg-alt: #f0f0f0;
   --color-surface: #ffffff;
-  --color-surface-2: #f3f8fe;
+  --color-surface-2: #f7f7f7;
   --color-surface-raised: #ffffff;
-  --color-surface-soft: #eef4fb;
+  --color-surface-soft: #f4f4f4;
+  --color-bg-deep: #ebebeb;
 
-  --color-accent: #1f5fd0;
-  --color-accent-hover: #1a51b4;
-  --color-accent-strong: #16448f;
-  --color-accent-deep: #0c2d63;
-  --color-accent-soft: rgba(31, 95, 208, 0.1);
-  --color-accent-ring: rgba(31, 95, 208, 0.32);
+  --color-accent: #2f4f76;
+  --color-accent-hover: #1c3a5d;
+  --color-accent-strong: #15304f;
+  --color-accent-deep: #0d1e34;
+  --color-accent-soft: rgba(47, 79, 118, 0.08);
+  --color-accent-ring: rgba(47, 79, 118, 0.28);
 
-  --color-brass: #9a6c16;
-  --color-brass-strong: #7f590c;
-  --color-brass-deep: #5e4108;
-  --color-brass-soft: rgba(154, 108, 22, 0.12);
+  --color-highlight: #8c5f1c;
+  --color-highlight-soft: rgba(140, 95, 28, 0.1);
 
-  --color-border: rgba(11, 37, 64, 0.13);
-  --color-border-strong: rgba(11, 37, 64, 0.22);
-  --color-hairline: rgba(11, 37, 64, 0.08);
+  --color-border: rgba(10, 10, 10, 0.12);
+  --color-border-strong: rgba(10, 10, 10, 0.24);
+  --color-hairline: rgba(10, 10, 10, 0.07);
 
-  --color-text-primary: #08243f;
-  --color-text-secondary: #38556f;
-  --color-text-faint: #69809a;
-  --color-text-muted: #8a9eb5;
+  --color-text-primary: #0a0a0a;
+  --color-text-secondary: #3a3a3a;
+  --color-text-faint: #6a6a6a;
+  --color-text-muted: #9a9a9a;
   --color-text-on-accent: #ffffff;
-  --color-text-on-brass: #ffffff;
+  --color-text-on-highlight: #ffffff;
 
-  --color-success: #1f9b53;
-  --color-danger: #cf5151;
+  --color-success: #2c6e3d;
+  --color-danger: #b34d4d;
 
-  --layer-1: rgba(11, 37, 64, 0.03);
-  --layer-2: rgba(11, 37, 64, 0.05);
-  --layer-3: rgba(11, 37, 64, 0.08);
-  --layer-4: rgba(11, 37, 64, 0.12);
+  --layer-1: rgba(10, 10, 10, 0.025);
+  --layer-2: rgba(10, 10, 10, 0.045);
+  --layer-3: rgba(10, 10, 10, 0.075);
+  --layer-4: rgba(10, 10, 10, 0.12);
 
-  --surface-glass: rgba(255, 255, 255, 0.82);
-  --overlay-nav: rgba(255, 255, 255, 0.84);
-  --overlay-scrim: rgba(13, 32, 54, 0.5);
+  --surface-glass: rgba(255, 255, 255, 0.78);
+  --overlay-nav: rgba(255, 255, 255, 0.92);
+  --overlay-scrim: rgba(0, 0, 0, 0.62);
 
-  --gradient-page: radial-gradient(
-      120% 90% at 85% -10%,
-      rgba(31, 95, 208, 0.1) 0%,
-      rgba(31, 95, 208, 0) 55%
-    ),
-    radial-gradient(
-      90% 70% at 0% 0%,
-      rgba(154, 108, 22, 0.06) 0%,
-      rgba(154, 108, 22, 0) 50%
-    ),
-    linear-gradient(180deg, #eaf1fa 0%, #ffffff 100%);
-  --gradient-hero: radial-gradient(
-      130% 120% at 78% 8%,
-      rgba(31, 95, 208, 0.16) 0%,
-      rgba(31, 95, 208, 0) 52%
-    ),
-    radial-gradient(
-      110% 90% at 6% 92%,
-      rgba(154, 108, 22, 0.1) 0%,
-      rgba(154, 108, 22, 0) 55%
-    ),
-    linear-gradient(165deg, #e6eef8 0%, #f4f8fd 46%, #ffffff 100%);
-  --gradient-surface: linear-gradient(
-    160deg,
-    rgba(11, 37, 64, 0.025) 0%,
-    rgba(11, 37, 64, 0) 60%
+  --image-scrim: linear-gradient(
+    180deg,
+    rgba(244, 244, 244, 0.4) 0%,
+    rgba(244, 244, 244, 0.7) 60%,
+    rgba(244, 244, 244, 0.92) 100%
   );
-  --gradient-brass-rule: linear-gradient(
+  --image-scrim-horizontal: linear-gradient(
     90deg,
-    var(--color-brass) 0%,
-    var(--color-brass-strong) 18%,
-    rgba(154, 108, 22, 0) 100%
+    rgba(244, 244, 244, 0.92) 0%,
+    rgba(244, 244, 244, 0.6) 45%,
+    rgba(244, 244, 244, 0.3) 100%
+  );
+  --image-filter: grayscale(0.4) brightness(0.95) contrast(1.05);
+
+  --gradient-page: linear-gradient(180deg, #f4f4f4 0%, #ffffff 100%);
+  --gradient-hero-vignette: radial-gradient(
+      130% 90% at 50% 100%,
+      rgba(10, 10, 10, 0.08) 0%,
+      rgba(10, 10, 10, 0) 60%
+    ),
+    radial-gradient(
+      90% 70% at 78% 8%,
+      rgba(47, 79, 118, 0.05) 0%,
+      rgba(47, 79, 118, 0) 60%
+    );
+  --gradient-section-fade: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0) 0%,
+    rgba(10, 10, 10, 0) 60%,
+    rgba(10, 10, 10, 0.015) 100%
   );
   --gradient-accent-rule: linear-gradient(
     90deg,
     var(--color-accent) 0%,
-    rgba(31, 95, 208, 0) 100%
+    rgba(47, 79, 118, 0) 100%
   );
   --gradient-divider: linear-gradient(
     90deg,
-    rgba(11, 37, 64, 0) 0%,
-    rgba(11, 37, 64, 0.16) 50%,
-    rgba(11, 37, 64, 0) 100%
+    rgba(10, 10, 10, 0) 0%,
+    rgba(10, 10, 10, 0.18) 50%,
+    rgba(10, 10, 10, 0) 100%
   );
 
-  --motif-line: rgba(31, 95, 208, 0.12);
-  --motif-line-strong: rgba(31, 95, 208, 0.22);
-
-  --shadow-sm: 0 2px 6px rgba(13, 38, 71, 0.08);
-  --shadow-md: 0 14px 36px rgba(13, 38, 71, 0.13);
-  --shadow-lg: 0 30px 70px rgba(13, 38, 71, 0.17);
-  --shadow-xl: 0 44px 110px rgba(13, 38, 71, 0.22);
-  --shadow-accent: 0 14px 34px rgba(31, 95, 208, 0.3);
-  --shadow-inset-card: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --shadow-sm: 0 1px 0 rgba(10, 10, 10, 0.04);
+  --shadow-md: 0 14px 32px rgba(10, 10, 10, 0.1);
+  --shadow-lg: 0 30px 70px rgba(10, 10, 10, 0.14);
+  --shadow-xl: 0 50px 110px rgba(10, 10, 10, 0.2);
+  --shadow-accent: none;
+  --shadow-inset-card: inset 0 0 0 1px rgba(10, 10, 10, 0.04);
 }
