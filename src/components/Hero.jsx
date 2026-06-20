@@ -52,7 +52,12 @@ function HeroSection() {
     window.dispatchEvent(new Event("inquiry:open"));
   };
   return (
-    <section className="hero" aria-label="Introduction" id="overview">
+    <section
+      className="hero"
+      data-surface="dark"
+      aria-label="Introduction"
+      id="overview"
+    >
       <div className="hero__bg" aria-hidden="true">
         <video
           className="hero__media"
