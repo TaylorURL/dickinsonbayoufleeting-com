@@ -1,15 +1,16 @@
 /* Button system — shared across hero, sections, nav, and footer. */
 .btn {
-  --btn-py: 14px;
+  --btn-py: 15px;
   --btn-px: 28px;
   position: relative;
   appearance: none;
   border: 1px solid transparent;
   cursor: pointer;
-  font-family: var(--font-body);
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   padding: var(--btn-py) var(--btn-px);
   border-radius: var(--radius-md);
   display: inline-flex;
@@ -18,6 +19,7 @@
   gap: 10px;
   text-decoration: none;
   white-space: nowrap;
+  line-height: 1;
   transition:
     background var(--transition-fast) var(--ease-out),
     color var(--transition-fast) var(--ease-out),
@@ -37,20 +39,28 @@
   transform: translateY(0) scale(0.98);
 }
 
-/* Primary — solid marine blue. */
+/* Primary — solid marine blue with inset highlight for dimension. */
 .btn--primary {
   background: var(--color-accent);
   color: var(--color-text-on-accent);
-  box-shadow: var(--shadow-accent);
+  box-shadow:
+    var(--shadow-accent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(0, 0, 0, 0) 60%
+  );
 }
 
 @media (hover: hover) and (pointer: fine) {
   .btn--primary:hover {
-    background: var(--color-accent-hover);
+    background-color: var(--color-accent-hover);
     transform: translateY(-2px);
     box-shadow:
       var(--shadow-accent),
-      var(--shadow-md);
+      var(--shadow-md),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
 }
 
@@ -60,6 +70,7 @@
   color: var(--color-text-primary);
   border-color: var(--color-border);
   backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -72,12 +83,11 @@
 
 /* Inline — compact uppercase chip for in-card actions. */
 .btn--inline {
-  --btn-py: 10px;
+  --btn-py: 11px;
   --btn-px: 18px;
   font-size: 0.7rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
+  letter-spacing: 1.4px;
   border-radius: var(--radius-sm);
   background: var(--layer-2);
   color: var(--color-text-primary);

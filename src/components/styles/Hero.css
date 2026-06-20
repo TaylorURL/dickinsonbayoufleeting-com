@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  min-height: clamp(620px, 92vh, 920px);
+  min-height: clamp(680px, 96vh, 980px);
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -20,7 +20,7 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.9;
+  opacity: 0.92;
   animation: heroDrift 1.2s var(--ease-out) both;
 }
 
@@ -32,7 +32,7 @@
   stroke: var(--motif-line-strong);
 }
 
-/* A single brass hairline horizon for a crafted, nautical accent. */
+/* Brass hairline horizon lines — primary + lower echo for depth. */
 .hero__horizon {
   position: absolute;
   left: 0;
@@ -40,7 +40,14 @@
   top: 58%;
   height: 1px;
   background: var(--gradient-brass-rule);
-  opacity: 0.7;
+  opacity: 0.75;
+}
+
+.hero__horizon--lower {
+  top: auto;
+  bottom: 22%;
+  opacity: 0.3;
+  transform: scaleX(-1);
 }
 
 /* Soft transition into the next section. */
@@ -49,7 +56,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  height: 140px;
+  height: 160px;
   background: linear-gradient(180deg, transparent 0%, var(--color-app-bg) 100%);
   pointer-events: none;
 }
@@ -61,9 +68,9 @@
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  gap: var(--space-6);
+  gap: var(--space-5);
   padding-block: calc(var(--nav-height) + var(--space-9)) var(--space-10);
-  max-width: 920px;
+  max-width: 1000px;
 }
 
 .hero__eyebrow {
@@ -72,20 +79,59 @@
 }
 
 .hero__title {
+  font-family: var(--font-display);
   font-size: var(--text-hero);
-  line-height: 1.02;
-  letter-spacing: -0.025em;
-  max-width: 16ch;
+  line-height: 1;
+  letter-spacing: -0.018em;
+  font-weight: 600;
+  max-width: 18ch;
   color: var(--color-text-primary);
   animation: heroRise 0.7s 0.1s var(--ease-out) both;
 }
 
+/* Subtle italic emphasis on a key phrase — Source Serif italics shine here. */
+.hero__titleAccent {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--color-brass-strong);
+  letter-spacing: -0.008em;
+}
+
+[data-theme="light"] .hero__titleAccent {
+  color: var(--color-brass);
+}
+
 .hero__subtitle {
+  font-family: var(--font-body);
   font-size: var(--text-lead);
-  line-height: 1.55;
-  max-width: 52ch;
+  line-height: 1.6;
+  max-width: 56ch;
   color: var(--color-text-secondary);
+  font-weight: 400;
+  margin-top: var(--space-1);
   animation: heroRise 0.7s 0.18s var(--ease-out) both;
+}
+
+.hero__locations {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin: var(--space-1) 0 0;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  animation: heroRise 0.7s 0.22s var(--ease-out) both;
+}
+
+.hero__locationsBar {
+  display: inline-block;
+  width: 20px;
+  height: 1px;
+  background: var(--color-text-faint);
+  opacity: 0.6;
 }
 
 .hero__badges {
@@ -93,7 +139,7 @@
   flex-wrap: wrap;
   gap: var(--space-3);
   padding: 0;
-  margin: var(--space-1) 0 0;
+  margin: var(--space-2) 0 0;
   list-style: none;
   animation: heroRise 0.7s 0.26s var(--ease-out) both;
 }
@@ -102,10 +148,11 @@
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  padding: 9px 16px;
+  padding: 10px 16px;
+  font-family: var(--font-ui);
   font-size: 0.74rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   line-height: 1;
   color: var(--color-text-secondary);
   background: var(--surface-glass);
@@ -127,8 +174,58 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-4);
-  margin-top: var(--space-3);
+  margin-top: var(--space-4);
   animation: heroRise 0.7s 0.34s var(--ease-out) both;
+}
+
+/* ---------- Stats strip — credibility cue ---------- */
+.hero__stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, max-content));
+  align-items: end;
+  gap: clamp(var(--space-6), 5vw, var(--space-9));
+  margin: var(--space-8) 0 0;
+  padding-top: var(--space-6);
+  padding-left: var(--space-5);
+  border-top: 1px solid var(--color-hairline);
+  position: relative;
+  animation: heroRise 0.7s 0.42s var(--ease-out) both;
+}
+
+.hero__stats::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 64px;
+  height: 1px;
+  background: var(--gradient-brass-rule);
+}
+
+.hero__stat {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 4px;
+  margin: 0;
+}
+
+.hero__statValue {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.4vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.hero__statLabel {
+  font-family: var(--font-ui);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
 }
 
 @keyframes heroRise {
@@ -148,14 +245,18 @@
     transform: translateY(10px) scale(1.02);
   }
   to {
-    opacity: 0.9;
+    opacity: 0.92;
     transform: translateY(0) scale(1);
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 720px) {
   .hero {
-    min-height: 88vh;
+    min-height: 90vh;
+  }
+
+  .hero__title {
+    max-width: 100%;
   }
 
   .hero__badge {
@@ -166,10 +267,19 @@
   .hero__actions .btn {
     flex: 1 1 auto;
   }
+
+  .hero__stats {
+    gap: var(--space-6);
+    padding-left: 0;
+  }
+
+  .hero__statValue {
+    font-size: clamp(1.6rem, 7vw, 2rem);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__contours {
-    opacity: 0.9;
+    opacity: 0.92;
   }
 }

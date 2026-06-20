@@ -1,17 +1,22 @@
 import "./styles/Hero.css";
 
-const HERO_EYEBROW =
-  "San Leon · Dickinson · Houston Ship Channel · Galveston Bay · Upper Texas Gulf Coast";
-const HERO_TITLE =
-  "Coastal Barge Fleeting, Marine Services & Waterfront Dock Leasing on Galveston Bay";
+const HERO_EYEBROW = "Established · Coastal Texas Gulf Operations";
+const HERO_LOCATIONS = "San Leon · Dickinson · Freeport · Houston Ship Channel";
+const HERO_TITLE_LEAD = "Coastal Barge Fleeting,";
+const HERO_TITLE_ACCENT = "Marine Services";
+const HERO_TITLE_TRAIL = "& Waterfront Dock Leasing.";
 const HERO_SUBTITLE =
   "Long-term barge fleeting, marine vessel mooring and dedicated slip access on the Houston Ship Channel, Gulf Intracoastal Waterway and surrounding coastal Texas waterways — serving San Leon, Dickinson, Texas City, Houston and the upper Texas Gulf Coast.";
 const HERO_BADGES = [
   "Galveston Bay Frontage",
-  "Coastal Texas Marine Terminal",
   "5-Acre Waterfront Yards",
   "Dedicated Barge Slips",
-  "On-Site Fleeting & Marine Crew",
+  "On-Site Marine Crew",
+];
+const HERO_STATS = [
+  { value: "2", label: "Coastal Facilities" },
+  { value: "5", label: "Acres per Yard" },
+  { value: "24/7", label: "On-Site Presence" },
 ];
 
 /**
@@ -27,17 +32,21 @@ function HeroContours() {
       aria-hidden="true"
       focusable="false"
     >
-      <g className="hero__contourLines" fill="none" strokeWidth="1.4">
-        <path d="M-40 120 C 220 60, 420 200, 660 150 S 1040 40, 1260 130" />
-        <path d="M-40 210 C 240 150, 440 290, 680 235 S 1060 130, 1260 215" />
-        <path d="M-40 300 C 260 235, 460 380, 700 320 S 1080 215, 1260 300" />
-        <path d="M-40 400 C 260 340, 480 470, 720 415 S 1100 320, 1260 400" />
-        <path d="M-40 500 C 280 445, 500 560, 740 505 S 1120 415, 1260 495" />
-        <path d="M-40 600 C 300 545, 520 650, 760 600 S 1140 510, 1260 590" />
+      <g className="hero__contourLines" fill="none" strokeWidth="1.3">
+        <path d="M-40 110 C 220 50, 420 190, 660 140 S 1040 30, 1260 120" />
+        <path d="M-40 195 C 240 135, 440 275, 680 220 S 1060 115, 1260 200" />
+        <path d="M-40 285 C 260 220, 460 365, 700 305 S 1080 200, 1260 285" />
+        <path d="M-40 385 C 260 325, 480 455, 720 400 S 1100 305, 1260 385" />
+        <path d="M-40 485 C 280 430, 500 545, 740 490 S 1120 400, 1260 480" />
+        <path d="M-40 585 C 300 530, 520 635, 760 585 S 1140 495, 1260 575" />
       </g>
-      <g className="hero__contourLines hero__contourLines--strong" fill="none" strokeWidth="1.6">
-        <path d="M-40 255 C 250 195, 450 335, 690 280 S 1070 175, 1260 258" />
-        <path d="M-40 450 C 270 392, 490 515, 730 460 S 1110 368, 1260 448" />
+      <g
+        className="hero__contourLines hero__contourLines--strong"
+        fill="none"
+        strokeWidth="1.6"
+      >
+        <path d="M-40 240 C 250 180, 450 320, 690 265 S 1070 160, 1260 243" />
+        <path d="M-40 435 C 270 377, 490 500, 730 445 S 1110 353, 1260 433" />
       </g>
     </svg>
   );
@@ -53,11 +62,20 @@ function HeroSection() {
       <div className="hero__bg" aria-hidden="true">
         <HeroContours />
         <span className="hero__horizon" />
+        <span className="hero__horizon hero__horizon--lower" />
       </div>
       <div className="hero__inner container">
         <p className="eyebrow hero__eyebrow">{HERO_EYEBROW}</p>
-        <h1 className="hero__title">{HERO_TITLE}</h1>
+        <h1 className="hero__title">
+          {HERO_TITLE_LEAD}{" "}
+          <span className="hero__titleAccent">{HERO_TITLE_ACCENT}</span>{" "}
+          {HERO_TITLE_TRAIL}
+        </h1>
         <p className="hero__subtitle">{HERO_SUBTITLE}</p>
+        <p className="hero__locations" aria-hidden="true">
+          <span className="hero__locationsBar" />
+          {HERO_LOCATIONS}
+        </p>
         <ul className="hero__badges" aria-label="Key features">
           {HERO_BADGES.map((badge) => (
             <li key={badge} className="hero__badge">
@@ -67,12 +85,20 @@ function HeroSection() {
         </ul>
         <div className="hero__actions">
           <a className="btn btn--primary" href="#location">
-            View Location
+            View Facilities
           </a>
           <a className="btn btn--ghost" href="#contact" onClick={openInquiry}>
-            Lease Inquiry
+            Request a Lease Quote
           </a>
         </div>
+        <dl className="hero__stats" aria-label="At a glance">
+          {HERO_STATS.map((stat) => (
+            <div key={stat.label} className="hero__stat">
+              <dt className="hero__statLabel">{stat.label}</dt>
+              <dd className="hero__statValue tabular">{stat.value}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
       <span className="hero__fade" aria-hidden="true" />
     </section>
