@@ -1,0 +1,62 @@
+.ctaStrip {
+  padding-block: var(--section-py);
+  position: relative;
+  border-top: 1px solid var(--color-hairline);
+}
+
+.ctaStrip__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) auto;
+  gap: var(--space-8);
+  align-items: end;
+  border-top: 1px solid var(--color-accent);
+  padding-top: var(--space-7);
+}
+
+.ctaStrip__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.ctaStrip__eyebrow {
+  margin: 0;
+}
+
+.ctaStrip__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.024em;
+  line-height: 1;
+  color: var(--color-text-primary);
+  max-width: 22ch;
+  margin: 0;
+}
+
+.ctaStrip__body {
+  font-family: var(--font-body);
+  font-size: var(--text-lead);
+  line-height: 1.55;
+  color: var(--color-text-secondary);
+  max-width: 56ch;
+}
+
+.ctaStrip__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+@media (max-width: 720px) {
+  .ctaStrip__inner {
+    grid-template-columns: 1fr;
+  }
+  .ctaStrip__actions {
+    width: 100%;
+  }
+  .ctaStrip__actions .btn {
+    flex: 1 1 auto;
+  }
+}
