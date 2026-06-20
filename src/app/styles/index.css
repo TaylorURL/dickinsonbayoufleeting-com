@@ -17,7 +17,7 @@ body {
   margin: 0;
   font-family: var(--font-body);
   font-size: var(--text-body);
-  line-height: 1.6;
+  line-height: 1.62;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -25,6 +25,7 @@ body {
   background: var(--color-app-bg);
   background-image: var(--gradient-page);
   background-attachment: fixed;
+  font-feature-settings: "kern", "liga", "calt";
 }
 
 h1,
@@ -33,9 +34,18 @@ h3,
 h4 {
   font-family: var(--font-display);
   font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.015em;
+  line-height: 1.06;
+  letter-spacing: -0.005em;
   margin: 0;
+  /* Optical sizing — Source Serif 4's opsz axis tunes itself for display use. */
+  font-optical-sizing: auto;
+  font-feature-settings: "kern", "liga", "calt", "ss01";
+  color: var(--color-text-primary);
+}
+
+h1 {
+  font-weight: 600;
+  letter-spacing: -0.012em;
 }
 
 p {
@@ -74,8 +84,8 @@ code {
 
 /* Centered intro block: eyebrow → title → subtitle. */
 .section__head {
-  max-width: 640px;
-  margin: 0 auto var(--space-9);
+  max-width: 720px;
+  margin: 0 auto var(--space-10);
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -85,13 +95,16 @@ code {
 
 .section__title {
   font-size: var(--text-h2);
+  letter-spacing: -0.01em;
 }
 
 .section__subtitle {
+  font-family: var(--font-body);
   font-size: var(--text-lead);
-  line-height: 1.55;
+  line-height: 1.62;
   color: var(--color-text-secondary);
-  max-width: 56ch;
+  max-width: 60ch;
+  font-weight: 400;
 }
 
 /* Section eyebrow — small tracked label introducing a heading. */
@@ -100,20 +113,35 @@ code {
   align-items: center;
   gap: 10px;
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--font-ui);
   font-size: var(--eyebrow-size);
   font-weight: 600;
   letter-spacing: var(--eyebrow-tracking);
   text-transform: uppercase;
   color: var(--color-brass);
+  font-feature-settings: "ss01", "cv11";
 }
 
 .eyebrow::before {
   content: "";
-  width: 24px;
+  width: 28px;
   height: 2px;
   border-radius: 2px;
   background: var(--color-brass);
+  box-shadow: 0 0 12px var(--color-brass-soft);
+}
+
+/* Numeric strings get tabular figures for steady alignment. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Decorative hairline divider for section seams. */
+.divider {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--gradient-divider);
 }
 
 @media (prefers-reduced-motion: reduce) {
