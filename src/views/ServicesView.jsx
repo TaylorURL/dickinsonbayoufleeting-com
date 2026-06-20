@@ -5,11 +5,14 @@ import Faq from "../components/Faq";
 import CtaStrip from "../components/CtaStrip";
 import { Link } from "../app/router/Link";
 
+function scrollToServices(e) {
+  e.preventDefault();
+  document
+    .getElementById("services-detail")
+    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 function ServicesView() {
-  const openInquiry = (e) => {
-    e.preventDefault();
-    window.dispatchEvent(new Event("inquiry:open"));
-  };
   return (
     <main>
       <PageHeader
@@ -20,13 +23,7 @@ function ServicesView() {
         <Link className="btn btn--primary" to="/contact">
           Request a quote
         </Link>
-        <a className="btn btn--ghost" href="#services-detail" onClick={(e) => {
-          e.preventDefault();
-          document.getElementById("services-detail")?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        }}>
+        <a className="btn btn--ghost" href="#services-detail" onClick={scrollToServices}>
           Jump to services
         </a>
       </PageHeader>
@@ -37,12 +34,6 @@ function ServicesView() {
         title="Not sure which service fits?"
         body="Give us a call and describe the job — we will tell you which of our services applies (or recommend a partner if it is outside our scope)."
         primary={{ label: "Send a request", to: "/contact" }}
-      />
-      <button
-        type="button"
-        style={{ display: "none" }}
-        onClick={openInquiry}
-        aria-hidden="true"
       />
     </main>
   );
