@@ -135,6 +135,7 @@ function NavBar({ surface = "dark", overHero = true }) {
       <div
         id="nav-mobile-drawer"
         className={`nav__drawer${open ? " nav__drawer--open" : ""}`}
+        data-surface="dark"
         role="dialog"
         aria-modal="true"
         aria-label="Mobile navigation"
