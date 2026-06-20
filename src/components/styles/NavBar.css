@@ -1,9 +1,9 @@
 /* ============================================================
- * NavBar — edge-to-edge fixed header.
+ * NavBar — minimal sophisticated header.
  *
- * Background, border, blur, and shadow live on .nav so the bar
- * spans the full viewport width. .nav__inner is the constrained,
- * padded content row centered inside it.
+ * Transparent over the cinematic hero, solidifies to near-black on scroll.
+ * Mono uppercase link labels with accent-tick underline grow on hover/active.
+ * Mobile drawer is a full-screen dark overlay.
  * ============================================================ */
 
 .nav {
@@ -15,24 +15,20 @@
   z-index: 50;
   display: flex;
   align-items: center;
-  font-family: var(--font-ui);
+  font-family: var(--font-mono);
   background: transparent;
   border-bottom: 1px solid transparent;
-  box-shadow: none;
-  backdrop-filter: none;
   transition:
     background var(--transition-base) var(--ease-out),
     border-color var(--transition-base) var(--ease-out),
-    box-shadow var(--transition-base) var(--ease-out),
     backdrop-filter var(--transition-base) var(--ease-out);
 }
 
 .nav--scrolled {
   background: var(--overlay-nav);
   border-bottom-color: var(--color-border);
-  box-shadow: var(--shadow-md);
-  backdrop-filter: blur(var(--blur-md)) saturate(140%);
-  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(140%);
+  backdrop-filter: blur(var(--blur-md)) saturate(120%);
+  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(120%);
 }
 
 .nav__inner {
@@ -56,11 +52,10 @@
   gap: var(--space-3);
   text-decoration: none;
   height: 100%;
-  border-radius: var(--radius-sm);
 }
 
 .nav__brand:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 1px solid var(--color-accent);
   outline-offset: 4px;
 }
 
@@ -69,14 +64,9 @@
   width: auto;
   display: block;
   object-fit: contain;
-  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.45));
   margin-top: calc(
     (var(--nav-logo-height) - var(--nav-height)) / -2 + var(--nav-logo-offset)
   );
-}
-
-[data-theme="light"] .nav__logo {
-  filter: none;
 }
 
 .nav__logo--light {
@@ -91,34 +81,36 @@
   display: none;
 }
 
-/* Brand wordmark — sits flush with the logo on wider viewports. */
+/* Brand wordmark — mono small-caps next to the logo on wider viewports. */
 .nav__brandText {
   display: none;
   flex-direction: column;
   gap: 2px;
-  padding-left: var(--space-2);
+  padding-left: var(--space-3);
+  margin-left: var(--space-1);
   border-left: 1px solid var(--color-border);
   line-height: 1.1;
 }
 
 .nav__brandName {
   font-family: var(--font-display);
-  font-size: 0.98rem;
-  font-weight: 600;
-  letter-spacing: -0.005em;
+  font-size: 0.86rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--color-text-primary);
 }
 
 .nav__brandTag {
-  font-family: var(--font-ui);
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 1.4px;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-text-faint);
 }
 
-@media (min-width: 1080px) {
+@media (min-width: 1120px) {
   .nav__brandText {
     display: flex;
   }
@@ -128,7 +120,7 @@
 .nav__links {
   display: flex;
   align-items: center;
-  gap: var(--space-8);
+  gap: var(--space-7);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -140,14 +132,14 @@
 
 .nav__link {
   position: relative;
-  font-family: var(--font-ui);
-  font-size: 0.76rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
   text-transform: uppercase;
-  letter-spacing: 1.8px;
-  font-weight: 600;
-  color: var(--color-text-secondary);
+  letter-spacing: 0.18em;
+  font-weight: 500;
+  color: var(--color-text-faint);
   text-decoration: none;
-  padding: 6px 2px;
+  padding: 8px 2px;
   transition: color var(--transition-fast) var(--ease-out);
 }
 
@@ -164,12 +156,10 @@
   content: "";
   position: absolute;
   left: 0;
-  bottom: -8px;
-  height: 2px;
+  bottom: 2px;
+  height: 1px;
   width: 0;
-  background: var(--color-brass);
-  border-radius: 2px;
-  box-shadow: 0 0 12px var(--color-brass-soft);
+  background: var(--color-accent);
   transition: width var(--transition-base) var(--ease-out);
 }
 
@@ -194,10 +184,10 @@
   display: none;
   align-items: center;
   gap: 8px;
-  font-family: var(--font-ui);
-  font-size: 0.88rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   color: var(--color-text-primary);
   text-decoration: none;
   padding: 8px 0;
@@ -205,23 +195,22 @@
 }
 
 .nav__phoneIcon {
-  color: var(--color-brass);
+  color: var(--color-accent);
   flex: none;
 }
 
 .nav__phone:hover,
 .nav__phone:focus-visible {
-  color: var(--color-brass-strong);
+  color: var(--color-accent);
   outline: none;
 }
 
 .nav__phone:focus-visible {
-  outline: 2px solid var(--color-accent-ring);
+  outline: 1px solid var(--color-accent-ring);
   outline-offset: 4px;
-  border-radius: var(--radius-sm);
 }
 
-@media (min-width: 920px) {
+@media (min-width: 960px) {
   .nav__phone {
     display: inline-flex;
   }
@@ -231,73 +220,66 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-accent);
+  background: var(--color-text-primary);
   color: var(--color-text-on-accent);
-  padding: 12px 22px;
-  border-radius: var(--radius-md);
-  font-family: var(--font-ui);
-  font-size: 0.74rem;
-  letter-spacing: 1.4px;
+  padding: 14px 22px;
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   text-decoration: none;
-  font-weight: 700;
-  box-shadow: var(--shadow-accent);
+  font-weight: 500;
+  border: 1px solid var(--color-text-primary);
   transition:
     background var(--transition-fast) var(--ease-out),
-    box-shadow var(--transition-base) var(--ease-out),
-    transform var(--transition-fast) var(--ease-out);
+    color var(--transition-fast) var(--ease-out),
+    border-color var(--transition-fast) var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .nav__action:hover {
-    background: var(--color-accent-hover);
-    transform: translateY(-2px);
-    box-shadow:
-      var(--shadow-accent),
-      var(--shadow-md);
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-text-on-accent);
   }
 }
 
 .nav__action:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
 }
 
 .nav__action:focus-visible {
-  outline: none;
-  box-shadow:
-    0 0 0 2px var(--color-bg),
-    0 0 0 4px var(--color-accent-ring);
+  outline: 1px solid var(--color-accent-ring);
+  outline-offset: 3px;
 }
 
 /* ---------- Mobile toggle ---------- */
 .nav__toggle {
   display: none;
   position: relative;
-  width: 46px;
-  height: 46px;
-  background: var(--surface-glass);
-  border: 1px solid var(--color-border);
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: 1px solid var(--color-border-strong);
   cursor: pointer;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm);
-  backdrop-filter: blur(var(--blur-sm));
-  -webkit-backdrop-filter: blur(var(--blur-sm));
+  border-radius: 0;
   padding: 0;
 }
 
 .nav__toggle:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 1px solid var(--color-accent);
   outline-offset: 2px;
 }
 
 .nav__toggleBar {
   position: absolute;
   left: 50%;
-  width: 22px;
-  height: 2px;
+  width: 18px;
+  height: 1px;
   background: var(--color-text-primary);
-  border-radius: 2px;
   transform-origin: center;
   transform: translateX(-50%);
   transition:
@@ -307,13 +289,13 @@
 }
 
 .nav__toggleBar:nth-child(1) {
-  top: 15px;
+  top: 16px;
 }
 .nav__toggleBar:nth-child(2) {
   top: 22px;
 }
 .nav__toggleBar:nth-child(3) {
-  top: 29px;
+  top: 28px;
 }
 
 .nav--open .nav__toggleBar:nth-child(1) {
@@ -328,32 +310,30 @@
   transform: translateX(-50%) rotate(-45deg);
 }
 
-/* ---------- Mobile scrim & drawer ---------- */
+/* ---------- Mobile scrim & full-screen overlay drawer ---------- */
 .nav__scrim {
   position: fixed;
   inset: 0;
   z-index: 48;
-  background: var(--overlay-scrim);
-  backdrop-filter: blur(2px);
+  background: var(--color-bg-deep);
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--transition-base) var(--ease-out);
 }
 
 .nav__scrim--visible {
-  opacity: 1;
+  opacity: 0.6;
   pointer-events: auto;
 }
 
 .nav__drawer {
   position: fixed;
-  top: var(--nav-height);
+  top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
   z-index: 49;
-  background: var(--color-bg);
-  border-bottom: 1px solid var(--color-border);
-  box-shadow: var(--shadow-lg);
+  background: var(--color-bg-deep);
   transform: translateY(-12px);
   opacity: 0;
   pointer-events: none;
@@ -363,6 +343,11 @@
     transform var(--transition-base) var(--ease-out),
     visibility 0s linear var(--transition-base);
   display: none;
+  padding-top: var(--nav-height);
+}
+
+[data-theme="light"] .nav__drawer {
+  background: var(--color-bg);
 }
 
 .nav__drawer--open {
@@ -379,93 +364,103 @@
 .nav__drawerLinks {
   list-style: none;
   margin: 0;
-  padding: var(--space-5) var(--container-pad) var(--space-7);
+  padding: var(--space-8) var(--container-pad) var(--space-9);
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: 0;
   max-width: var(--container-max);
   margin-inline: auto;
+  height: 100%;
 }
 
 .nav__drawerItem {
   display: flex;
+  border-bottom: 1px solid var(--color-hairline);
 }
 
 .nav__drawerItem--phone {
-  margin-top: var(--space-3);
+  margin-top: var(--space-6);
+  border-top: 1px solid var(--color-hairline);
 }
 
 .nav__drawerLink {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
-  min-height: 56px;
-  padding: var(--space-3) var(--space-5);
+  min-height: 72px;
+  padding: var(--space-4) 0;
   font-family: var(--font-display);
-  font-size: 1.08rem;
-  font-weight: 600;
-  letter-spacing: -0.003em;
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  font-weight: 500;
+  letter-spacing: -0.02em;
   color: var(--color-text-primary);
   text-decoration: none;
-  border-radius: var(--radius-md);
-  border: 1px solid transparent;
+  transition: color var(--transition-fast) var(--ease-out);
+}
+
+.nav__drawerLink::after {
+  content: "→";
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  color: var(--color-text-faint);
   transition:
-    background var(--transition-fast) var(--ease-out),
-    border-color var(--transition-fast) var(--ease-out),
+    transform var(--transition-base) var(--ease-out),
     color var(--transition-fast) var(--ease-out);
 }
 
 .nav__drawerLink:hover,
 .nav__drawerLink:focus-visible {
-  background: var(--layer-2);
-  border-color: var(--color-border);
+  color: var(--color-accent);
   outline: none;
 }
 
+.nav__drawerLink:hover::after,
+.nav__drawerLink:focus-visible::after,
+.nav__drawerLink--active::after {
+  transform: translateX(8px);
+  color: var(--color-accent);
+}
+
 .nav__drawerLink--active {
-  background: var(--color-accent-soft);
-  border-color: var(--color-accent-ring);
-  color: var(--color-text-primary);
+  color: var(--color-accent);
 }
 
 .nav__drawerPhone {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: var(--space-4) var(--space-5);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-  background: var(--layer-1);
+  padding: var(--space-4) 0;
   text-decoration: none;
 }
 
 .nav__drawerPhoneLabel {
-  font-family: var(--font-ui);
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 1.8px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-text-faint);
 }
 
 .nav__drawerPhoneNumber {
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-size: 1.4rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-weight: 500;
+  letter-spacing: 0.02em;
   color: var(--color-text-primary);
-  margin-top: 2px;
+  margin-top: 6px;
 }
 
 .nav__drawerCta {
   width: 100%;
-  margin-top: var(--space-2);
-  padding: 16px 22px;
-  font-size: 0.8rem;
+  margin-top: var(--space-4);
+  padding: 18px 22px;
+  font-size: 0.76rem;
 }
 
 /* ---------- Mobile breakpoint ---------- */
-@media (max-width: 920px) {
+@media (max-width: 960px) {
   .nav__toggle {
     display: inline-flex;
   }
@@ -491,11 +486,10 @@
     display: block;
   }
 
-  /* Always show the bar background on mobile so the toggle has contrast. */
   .nav {
     background: var(--overlay-nav);
     border-bottom-color: var(--color-border);
-    backdrop-filter: blur(var(--blur-md)) saturate(140%);
-    -webkit-backdrop-filter: blur(var(--blur-md)) saturate(140%);
+    backdrop-filter: blur(var(--blur-md)) saturate(120%);
+    -webkit-backdrop-filter: blur(var(--blur-md)) saturate(120%);
   }
 }
