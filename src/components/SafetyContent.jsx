@@ -92,7 +92,7 @@ function SafetyContent() {
         aria-label="Compliance documents"
       >
         <div className="container">
-          <div className="section__head">
+          <div className="section__head reveal-on-scroll" ref={docsHeadRef}>
             <p className="eyebrow eyebrow--strong mono">Documents</p>
             <h2 className="section__title">
               Paperwork available to customers.
@@ -102,7 +102,11 @@ function SafetyContent() {
               Email the office or call the direct line and we will send copies.
             </p>
           </div>
-          <ul className="complianceDocs__list" aria-label="Compliance documents">
+          <ul
+            className="complianceDocs__list reveal-on-scroll"
+            aria-label="Compliance documents"
+            ref={docsListRef}
+          >
             {COMPLIANCE_DOCS.map((doc, idx) => (
               <li key={doc} className="docRow">
                 <span className="docRow__idx mono" aria-hidden="true">
