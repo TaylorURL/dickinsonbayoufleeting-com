@@ -27,7 +27,11 @@ function ServicesList({ surface = "dark" }) {
           </p>
         </div>
 
-        <ol className="servicesList__list" aria-label="Service list">
+        <ol
+          className="servicesList__list reveal-on-scroll"
+          aria-label="Service list"
+          ref={listRef}
+        >
           {SERVICES.map((s, idx) => (
             <li key={s.id} className="serviceRow" id={s.id}>
               <span className="serviceRow__index mono" aria-hidden="true">
