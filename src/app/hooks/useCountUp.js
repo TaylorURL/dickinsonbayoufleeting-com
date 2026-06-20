@@ -28,33 +28,50 @@ export function useCountUp(target, options = {}) {
       typeof window !== "undefined" &&
       window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
-    if (reduced || !("IntersectionObserver" in window)) {
+    if (reduced) {
       setValue(target);
       return;
     }
 
+    let raf = 0;
+    const animate = () => {
+      if (startedRef.current) return;
+      startedRef.current = true;
+      const start = performance.now();
+      const step = (now) => {
+        const t = Math.min(1, (now - start) / duration);
+        const v = easeOutExpo(t) * target;
+        setValue(v);
+        if (t < 1) raf = requestAnimationFrame(step);
+      };
+      raf = requestAnimationFrame(step);
+    };
+
+    /* Hero stats are typically above the fold — if so, start immediately
+     * so the user never sees a stale 0. Otherwise defer until the row
+     * scrolls into view. */
+    const rect = el.getBoundingClientRect();
+    const alreadyVisible =
+      rect.top < window.innerHeight && rect.bottom > 0;
+    if (alreadyVisible || !("IntersectionObserver" in window)) {
+      animate();
+      return () => cancelAnimationFrame(raf);
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
-        if (startedRef.current) return;
         const entry = entries[0];
         if (!entry?.isIntersecting) return;
-        startedRef.current = true;
-        const start = performance.now();
-        let raf = 0;
-        const step = (now) => {
-          const t = Math.min(1, (now - start) / duration);
-          const v = easeOutExpo(t) * target;
-          setValue(v);
-          if (t < 1) raf = requestAnimationFrame(step);
-        };
-        raf = requestAnimationFrame(step);
+        animate();
         observer.disconnect();
-        return () => cancelAnimationFrame(raf);
       },
       { threshold: 0.4 },
     );
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      cancelAnimationFrame(raf);
+      observer.disconnect();
+    };
   }, [target, duration]);
 
   const display =
