@@ -102,10 +102,13 @@ function AppShell() {
     return () => cancelAnimationFrame(raf);
   }, [path, recomputeSurface]);
 
+  const isHome = normalisePath(path) === "/";
+
   return (
     <div className="App">
       <NavBar surface={navSurface} overHero={overHero} />
       <PageOutlet />
+      {isHome ? <ScrollSpy /> : null}
       <Footer />
       <InquiryModal
         open={inquiryOpen}
