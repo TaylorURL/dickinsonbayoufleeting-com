@@ -31,23 +31,19 @@ function Location() {
       id="location"
     >
       <div className="container">
-        <div className="section__head">
-          <p className="eyebrow eyebrow--strong mono">
-            ◇ Section 04 — Facilities
-          </p>
+        <div className="section__head reveal-on-scroll" ref={headRef}>
+          <p className="eyebrow eyebrow--strong mono">Facilities</p>
           <h2 className="section__title">
-            Coastal barge fleeting &amp; marine terminal locations.
+            Two yards, one operations desk.
           </h2>
           <p className="section__subtitle">
-            Two coastal upper Texas Gulf Coast marine terminal facilities — San
-            Leon on Galveston Bay near Dickinson, Texas City and Houston, and
-            Freeport on the Gulf Intracoastal Waterway. Physical site details
-            and direct contact for barge fleeting, marine services and dock
-            lease coordination.
+            San Leon sits on Galveston Bay near Dickinson and Texas City;
+            Freeport sits on the Gulf Intracoastal Waterway south of Houston.
+            Pick a facility for address, contact and a live map.
           </p>
         </div>
 
-        <div className="location__body">
+        <div className="location__body reveal-on-scroll" ref={bodyRef}>
           <div className="location__col">
             <ul className="location__list" aria-label="Available locations">
               {FACILITIES.map((f, idx) => {
