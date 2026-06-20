@@ -127,7 +127,7 @@ function ContactSection() {
             </ul>
           </aside>
 
-          <div className="contactSection__formWrap">
+          <div className="contactSection__formWrap reveal-on-scroll" ref={formRef}>
             {submitted ? (
               <div className="contactSection__success" role="status">
                 <span className="contactSection__successTick" aria-hidden="true">
