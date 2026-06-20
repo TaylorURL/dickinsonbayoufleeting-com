@@ -5,7 +5,6 @@ import InquiryModal from "../components/InquiryModal";
 import HomeView from "../views/HomeView";
 import ServicesView from "../views/ServicesView";
 import AboutView from "../views/AboutView";
-import SafetyView from "../views/SafetyView";
 import ContactView from "../views/ContactView";
 import { RouterProvider, useRouter, normalisePath } from "./router/Router";
 import "./styles/App.css";
@@ -46,8 +45,6 @@ function PageOutlet() {
       return <ServicesView />;
     case "/about":
       return <AboutView />;
-    case "/safety":
-      return <SafetyView />;
     case "/contact":
       return <ContactView />;
     default:

@@ -5,6 +5,5 @@ export const NAV_LINKS = [
   { label: "Home", to: "/" },
   { label: "Services", to: "/services" },
   { label: "About", to: "/about" },
-  { label: "Safety", to: "/safety" },
   { label: "Contact", to: "/contact" },
 ];
