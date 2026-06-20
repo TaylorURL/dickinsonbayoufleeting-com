@@ -38,9 +38,7 @@ function LeasePackage() {
             role="tablist"
             aria-label="Select facility"
           >
-            <span className="estimator__switchLabel mono">
-              ⌖ Facility
-            </span>
+            <span className="estimator__switchLabel mono">Facility</span>
             <div className="leaseSwitch">
               {LEASE_OPTIONS.map((l, idx) => (
                 <button
