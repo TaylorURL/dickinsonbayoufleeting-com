@@ -58,7 +58,7 @@
 
 .scrollSpy__tick {
   display: block;
-  justify-self: end;
+  flex: none;
   width: 12px;
   height: 1px;
   background: var(--color-text-faint);
