@@ -287,6 +287,15 @@
   border: 0;
   display: block;
   filter: grayscale(1) brightness(0.62) contrast(1.18);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-slow) var(--ease-out);
+  will-change: opacity;
+}
+
+.location__map--active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 [data-surface="light"] .location__map {
