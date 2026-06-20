@@ -199,97 +199,201 @@
   --shadow-inset-card: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
 }
 
-/* ============ Theme: light ============ */
-[data-theme="light"] {
-  --color-app-bg: #f4f4f4;
-  --color-bg: #ffffff;
-  --color-bg-alt: #f0f0f0;
+/* ============ Surface: light (paper) ============
+ *
+ * Applied with data-surface="light" on a section (or any wrapper).
+ * Tokens cascade to children — text, hairlines, borders, mono labels,
+ * accents and feedback colours all flip to their light-canvas variants.
+ *
+ * Accent is darkened to AA contrast on the paper background. Imagery
+ * scrims use the paper colour so photos fade into the canvas instead
+ * of into black.
+ */
+[data-surface="light"] {
+  --color-app-bg: #f4f4f2;
+  --color-bg: #f4f4f2;
+  --color-bg-alt: #ecebe7;
   --color-surface: #ffffff;
-  --color-surface-2: #f7f7f7;
+  --color-surface-2: #efeeea;
   --color-surface-raised: #ffffff;
-  --color-surface-soft: #f4f4f4;
-  --color-bg-deep: #ebebeb;
+  --color-surface-soft: #f4f4f2;
+  --color-bg-deep: #e6e5e1;
 
-  --color-accent: #2f4f76;
-  --color-accent-hover: #1c3a5d;
-  --color-accent-strong: #15304f;
-  --color-accent-deep: #0d1e34;
-  --color-accent-soft: rgba(47, 79, 118, 0.08);
-  --color-accent-ring: rgba(47, 79, 118, 0.28);
+  --color-accent: #1f4068;
+  --color-accent-hover: #173052;
+  --color-accent-strong: #122340;
+  --color-accent-deep: #0b1a30;
+  --color-accent-soft: rgba(31, 64, 104, 0.08);
+  --color-accent-ring: rgba(31, 64, 104, 0.32);
 
-  --color-highlight: #8c5f1c;
-  --color-highlight-soft: rgba(140, 95, 28, 0.1);
+  --color-highlight: #7a4f10;
+  --color-highlight-soft: rgba(122, 79, 16, 0.1);
 
-  --color-border: rgba(10, 10, 10, 0.12);
-  --color-border-strong: rgba(10, 10, 10, 0.24);
-  --color-hairline: rgba(10, 10, 10, 0.07);
+  --color-border: rgba(10, 10, 10, 0.14);
+  --color-border-strong: rgba(10, 10, 10, 0.32);
+  --color-hairline: rgba(10, 10, 10, 0.08);
 
   --color-text-primary: #0a0a0a;
-  --color-text-secondary: #3a3a3a;
-  --color-text-faint: #6a6a6a;
-  --color-text-muted: #9a9a9a;
-  --color-text-on-accent: #ffffff;
-  --color-text-on-highlight: #ffffff;
+  --color-text-secondary: #2c2c2c;
+  --color-text-faint: #555555;
+  --color-text-muted: #7d7d7d;
+  --color-text-on-accent: #f4f4f2;
+  --color-text-on-highlight: #f4f4f2;
 
   --color-success: #2c6e3d;
-  --color-danger: #b34d4d;
+  --color-danger: #a83a3a;
 
-  --layer-1: rgba(10, 10, 10, 0.025);
-  --layer-2: rgba(10, 10, 10, 0.045);
-  --layer-3: rgba(10, 10, 10, 0.075);
-  --layer-4: rgba(10, 10, 10, 0.12);
+  --layer-1: rgba(10, 10, 10, 0.03);
+  --layer-2: rgba(10, 10, 10, 0.055);
+  --layer-3: rgba(10, 10, 10, 0.085);
+  --layer-4: rgba(10, 10, 10, 0.14);
 
-  --surface-glass: rgba(255, 255, 255, 0.78);
-  --overlay-nav: rgba(255, 255, 255, 0.92);
-  --overlay-scrim: rgba(0, 0, 0, 0.62);
+  --surface-glass: rgba(244, 244, 242, 0.78);
+  --overlay-nav: rgba(244, 244, 242, 0.92);
+  --overlay-scrim: rgba(10, 10, 10, 0.56);
 
   --image-scrim: linear-gradient(
     180deg,
-    rgba(244, 244, 244, 0.4) 0%,
-    rgba(244, 244, 244, 0.7) 60%,
-    rgba(244, 244, 244, 0.92) 100%
+    rgba(244, 244, 242, 0.25) 0%,
+    rgba(244, 244, 242, 0.6) 60%,
+    rgba(244, 244, 242, 0.9) 100%
   );
   --image-scrim-horizontal: linear-gradient(
     90deg,
-    rgba(244, 244, 244, 0.92) 0%,
-    rgba(244, 244, 244, 0.6) 45%,
-    rgba(244, 244, 244, 0.3) 100%
+    rgba(244, 244, 242, 0.9) 0%,
+    rgba(244, 244, 242, 0.55) 45%,
+    rgba(244, 244, 242, 0.2) 100%
   );
-  --image-filter: grayscale(0.4) brightness(0.95) contrast(1.05);
+  --image-filter: grayscale(0.18) brightness(1.02) contrast(0.98);
 
-  --gradient-page: linear-gradient(180deg, #f4f4f4 0%, #ffffff 100%);
+  --gradient-page: linear-gradient(180deg, #f4f4f2 0%, #f4f4f2 100%);
   --gradient-hero-vignette: radial-gradient(
       130% 90% at 50% 100%,
-      rgba(10, 10, 10, 0.08) 0%,
+      rgba(10, 10, 10, 0.06) 0%,
       rgba(10, 10, 10, 0) 60%
     ),
     radial-gradient(
       90% 70% at 78% 8%,
-      rgba(47, 79, 118, 0.05) 0%,
-      rgba(47, 79, 118, 0) 60%
+      rgba(31, 64, 104, 0.05) 0%,
+      rgba(31, 64, 104, 0) 60%
     );
   --gradient-section-fade: linear-gradient(
     180deg,
     rgba(10, 10, 10, 0) 0%,
     rgba(10, 10, 10, 0) 60%,
-    rgba(10, 10, 10, 0.015) 100%
+    rgba(10, 10, 10, 0.02) 100%
   );
   --gradient-accent-rule: linear-gradient(
     90deg,
     var(--color-accent) 0%,
-    rgba(47, 79, 118, 0) 100%
+    rgba(31, 64, 104, 0) 100%
   );
   --gradient-divider: linear-gradient(
     90deg,
     rgba(10, 10, 10, 0) 0%,
-    rgba(10, 10, 10, 0.18) 50%,
+    rgba(10, 10, 10, 0.2) 50%,
     rgba(10, 10, 10, 0) 100%
   );
 
   --shadow-sm: 0 1px 0 rgba(10, 10, 10, 0.04);
-  --shadow-md: 0 14px 32px rgba(10, 10, 10, 0.1);
-  --shadow-lg: 0 30px 70px rgba(10, 10, 10, 0.14);
-  --shadow-xl: 0 50px 110px rgba(10, 10, 10, 0.2);
+  --shadow-md: 0 14px 32px rgba(10, 10, 10, 0.08);
+  --shadow-lg: 0 30px 70px rgba(10, 10, 10, 0.12);
+  --shadow-xl: 0 50px 110px rgba(10, 10, 10, 0.16);
   --shadow-accent: none;
-  --shadow-inset-card: inset 0 0 0 1px rgba(10, 10, 10, 0.04);
+  --shadow-inset-card: inset 0 0 0 1px rgba(10, 10, 10, 0.05);
+}
+
+/* Explicit dark surface — same as :root, lets us flip a wrapper back
+ * to dark inside an otherwise-light ancestor (e.g. the footer's dark
+ * lower band sitting under its light contact band). */
+[data-surface="dark"] {
+  --color-app-bg: #0a0a0a;
+  --color-bg: #0a0a0a;
+  --color-bg-alt: #0d0d0d;
+  --color-surface: #111111;
+  --color-surface-2: #141414;
+  --color-surface-raised: #181818;
+  --color-surface-soft: #0d0d0d;
+  --color-bg-deep: #050505;
+
+  --color-accent: #7ea4cc;
+  --color-accent-hover: #9bbcdd;
+  --color-accent-strong: #5d86b3;
+  --color-accent-deep: #2f4f76;
+  --color-accent-soft: rgba(126, 164, 204, 0.1);
+  --color-accent-ring: rgba(126, 164, 204, 0.32);
+
+  --color-highlight: #c79655;
+  --color-highlight-soft: rgba(199, 150, 85, 0.14);
+
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-strong: rgba(255, 255, 255, 0.22);
+  --color-hairline: rgba(255, 255, 255, 0.06);
+
+  --color-text-primary: #f2f2f2;
+  --color-text-secondary: #c8c8c8;
+  --color-text-faint: #8a8a8a;
+  --color-text-muted: #5e5e5e;
+  --color-text-on-accent: #0a0a0a;
+  --color-text-on-highlight: #0a0a0a;
+
+  --color-success: #87b58f;
+  --color-danger: #d77878;
+
+  --layer-1: rgba(255, 255, 255, 0.025);
+  --layer-2: rgba(255, 255, 255, 0.045);
+  --layer-3: rgba(255, 255, 255, 0.075);
+  --layer-4: rgba(255, 255, 255, 0.12);
+
+  --surface-glass: rgba(10, 10, 10, 0.62);
+  --overlay-nav: rgba(10, 10, 10, 0.86);
+  --overlay-scrim: rgba(0, 0, 0, 0.86);
+
+  --image-scrim: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.4) 0%,
+    rgba(10, 10, 10, 0.7) 60%,
+    rgba(10, 10, 10, 0.92) 100%
+  );
+  --image-scrim-horizontal: linear-gradient(
+    90deg,
+    rgba(10, 10, 10, 0.92) 0%,
+    rgba(10, 10, 10, 0.6) 45%,
+    rgba(10, 10, 10, 0.3) 100%
+  );
+  --image-filter: grayscale(0.35) brightness(0.65) contrast(1.08);
+
+  --gradient-page: linear-gradient(180deg, #0a0a0a 0%, #0a0a0a 100%);
+  --gradient-section-fade: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  --gradient-accent-rule: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    rgba(126, 164, 204, 0) 100%
+  );
+  --gradient-divider: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  --shadow-sm: 0 1px 0 rgba(255, 255, 255, 0.04);
+  --shadow-md: 0 20px 40px rgba(0, 0, 0, 0.7);
+  --shadow-lg: 0 40px 80px rgba(0, 0, 0, 0.8);
+  --shadow-xl: 0 60px 120px rgba(0, 0, 0, 0.92);
+  --shadow-accent: none;
+  --shadow-inset-card: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+/* Sections paint their own canvas — so an inner [data-surface] is the
+ * background a viewer actually sees, never the page colour bleeding
+ * through. Hairline seam between adjacent surfaces is intentional. */
+[data-surface] {
+  background: var(--color-bg);
+  color: var(--color-text-primary);
 }
