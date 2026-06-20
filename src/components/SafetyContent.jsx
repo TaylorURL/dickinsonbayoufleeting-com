@@ -22,7 +22,7 @@ function SafetyContent() {
         aria-label="Safety pillars"
       >
         <div className="container">
-          <div className="section__head">
+          <div className="section__head reveal-on-scroll" ref={pillarsHeadRef}>
             <p className="eyebrow eyebrow--strong mono">How we approach safety</p>
             <h2 className="section__title">
               Four pillars that hold up the daily work.
@@ -33,7 +33,11 @@ function SafetyContent() {
               things we put first.
             </p>
           </div>
-          <ul className="safetyPillars__grid" aria-label="Safety pillars">
+          <ul
+            className="safetyPillars__grid reveal-on-scroll"
+            aria-label="Safety pillars"
+            ref={pillarsGridRef}
+          >
             {SAFETY_PILLARS.map((p) => (
               <li key={p.code} className="pillarCard">
                 <span className="pillarCard__code mono">{p.code}</span>
