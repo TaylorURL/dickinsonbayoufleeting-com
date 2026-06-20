@@ -24,7 +24,11 @@ function Faq({ surface = "light" }) {
           </p>
         </div>
 
-        <ul className="faq__list" aria-label="Frequently asked questions">
+        <ul
+          className="faq__list reveal-on-scroll"
+          aria-label="Frequently asked questions"
+          ref={listRef}
+        >
           {FAQ_ITEMS.map((item, idx) => {
             const expanded = open === idx;
             return (
