@@ -1,9 +1,14 @@
 /* ============================================================
  * NavBar — minimal sophisticated header.
  *
- * Transparent over the cinematic hero, solidifies to near-black on scroll.
- * Mono uppercase link labels with accent-tick underline grow on hover/active.
- * Mobile drawer is a full-screen dark overlay.
+ * Transparent over the cinematic hero. Once scrolled past the hero,
+ * the nav adopts the surface (data-surface="light" | "dark") of the
+ * section currently behind it so links stay legible as the page
+ * alternates between dark and paper bands.
+ *
+ * Mobile drawer is always a full-screen dark overlay regardless of
+ * which surface is behind the nav — overlays default to dark so the
+ * brand reads consistently while the menu is open.
  * ============================================================ */
 
 .nav {
