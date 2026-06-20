@@ -45,15 +45,6 @@
     );
 }
 
-[data-theme="light"] .hero__scrim {
-  background:
-    linear-gradient(
-      180deg,
-      rgba(244, 244, 244, 0.55) 0%,
-      rgba(244, 244, 244, 0.7) 38%,
-      rgba(244, 244, 244, 0.92) 100%
-    );
-}
 
 .hero__vignette {
   position: absolute;

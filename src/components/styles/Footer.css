@@ -120,11 +120,11 @@
   display: none;
 }
 
-[data-theme="light"] .footer__logo--light {
+[data-surface="light"] .footer__logo--light {
   display: block;
 }
 
-[data-theme="light"] .footer__logo--dark {
+[data-surface="light"] .footer__logo--dark {
   display: none;
 }
 

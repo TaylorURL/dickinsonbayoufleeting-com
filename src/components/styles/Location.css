@@ -284,7 +284,7 @@
   filter: grayscale(1) brightness(0.62) contrast(1.18);
 }
 
-[data-theme="light"] .location__map {
+[data-surface="light"] .location__map {
   filter: grayscale(0.85) brightness(0.96) contrast(1.05);
 }
 
