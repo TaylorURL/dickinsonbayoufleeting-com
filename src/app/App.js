@@ -55,14 +55,10 @@ function App() {
 
   const recomputeSurface = useCallback(() => {
     const hero = document.getElementById("overview");
+    const nav = document.querySelector(".nav");
     const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
-    const navHeight =
-      parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue(
-          "--nav-height",
-        ),
-      ) || 72;
-    setOverHero(heroBottom > navHeight + NAV_SURFACE_PROBE_OFFSET);
+    const navBottom = nav ? nav.getBoundingClientRect().bottom : 72;
+    setOverHero(heroBottom > navBottom + NAV_SURFACE_PROBE_OFFSET);
     setNavSurface(readSurfaceUnderNav());
   }, []);
 
