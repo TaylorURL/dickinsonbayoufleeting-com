@@ -24,9 +24,11 @@ function Location() {
     <section className="location section" aria-label="Location" id="location">
       <div className="container">
         <div className="section__head">
-          <p className="eyebrow">Facilities</p>
+          <p className="eyebrow eyebrow--strong mono">
+            ◇ Section 04 — Facilities
+          </p>
           <h2 className="section__title">
-            Coastal Barge Fleeting &amp; Marine Terminal Locations
+            Coastal barge fleeting &amp; marine terminal locations.
           </h2>
           <p className="section__subtitle">
             Two coastal upper Texas Gulf Coast marine terminal facilities — San
@@ -36,6 +38,7 @@ function Location() {
             lease coordination.
           </p>
         </div>
+
         <div className="location__body">
           <div className="location__col">
             <ul className="location__list" aria-label="Available locations">
@@ -54,12 +57,12 @@ function Location() {
                         setLocked(true);
                       }}
                     >
-                      <span className="locCard__index tabular">
-                        {String(idx + 1).padStart(2, "0")}
+                      <span className="locCard__index mono">
+                        F-{String(idx + 1).padStart(2, "0")}
                       </span>
                       <span className="locCard__heading">
+                        <span className="locCard__region mono">{f.region}</span>
                         <span className="locCard__name">{f.name}</span>
-                        <span className="locCard__region">{f.region}</span>
                         <span className="locCard__address">{f.address}</span>
                       </span>
                       <span
@@ -68,15 +71,15 @@ function Location() {
                       >
                         <svg
                           viewBox="0 0 24 24"
-                          width="18"
-                          height="18"
+                          width="14"
+                          height="14"
                           fill="none"
                           stroke="currentColor"
-                          strokeWidth="1.8"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
+                          strokeWidth="1.6"
+                          strokeLinecap="square"
+                          strokeLinejoin="miter"
                         >
-                          <path d="m9 6 6 6-6 6" />
+                          <path d="M5 12h14M13 6l6 6-6 6" />
                         </svg>
                       </span>
                     </button>
@@ -84,23 +87,23 @@ function Location() {
                       <div className="locCard__detail">
                         <div className="locCard__rows">
                           <div className="locCard__row">
-                            <span className="locCard__label">Acreage</span>
+                            <span className="locCard__label mono">Acreage</span>
                             <span className="locCard__value tabular">
                               {f.acreage}
                             </span>
                           </div>
                           <div className="locCard__row">
-                            <span className="locCard__label">Direct Line</span>
-                            <span className="locCard__value tabular">
+                            <span className="locCard__label mono">Direct Line</span>
+                            <span className="locCard__value mono tabular">
                               {f.phone}
                             </span>
                           </div>
                           {f.coords && (
                             <div className="locCard__row locCard__row--wide">
-                              <span className="locCard__label">Coordinates</span>
-                              <span className="locCard__value tabular">
-                                {f.coords.lat.toFixed(4)}°N,{" "}
-                                {Math.abs(f.coords.lng).toFixed(4)}°W
+                              <span className="locCard__label mono">Coordinates</span>
+                              <span className="locCard__value mono tabular">
+                                {f.coords.lat.toFixed(4)}° N ·{" "}
+                                {Math.abs(f.coords.lng).toFixed(4)}° W
                               </span>
                             </div>
                           )}
@@ -135,18 +138,33 @@ function Location() {
               })}
             </ul>
           </div>
+
           <div className="location__mapWrap">
-            <span className="location__mapLabel" aria-hidden="true">
-              <span className="location__mapDot" />
-              {loc.shortName}
-            </span>
-            <iframe
-              title={`Map of Dickinson Bayou Fleeting ${loc.name} — ${loc.address}`}
-              className="location__map"
-              loading="lazy"
-              allowFullScreen
-              src={iframeSrc}
-            ></iframe>
+            <div className="location__mapHeader">
+              <span className="location__mapTag mono">
+                <span className="location__mapDot" aria-hidden="true" />
+                FAC · {loc.shortName}
+              </span>
+              {loc.coords && (
+                <span className="location__mapCoords mono">
+                  {loc.coords.lat.toFixed(4)}° N ·{" "}
+                  {Math.abs(loc.coords.lng).toFixed(4)}° W
+                </span>
+              )}
+            </div>
+            <div className="location__mapFrame">
+              <iframe
+                title={`Map of Dickinson Bayou Fleeting ${loc.name} — ${loc.address}`}
+                className="location__map"
+                loading="lazy"
+                allowFullScreen
+                src={iframeSrc}
+              ></iframe>
+              <span className="location__mapTickTL" aria-hidden="true" />
+              <span className="location__mapTickTR" aria-hidden="true" />
+              <span className="location__mapTickBL" aria-hidden="true" />
+              <span className="location__mapTickBR" aria-hidden="true" />
+            </div>
           </div>
         </div>
       </div>
