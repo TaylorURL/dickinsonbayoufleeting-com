@@ -241,4 +241,10 @@ code,
     opacity: 1;
     transform: none;
   }
+
+  .reveal-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
