@@ -45,8 +45,6 @@ function PageOutlet() {
       return <ServicesView />;
     case "/about":
       return <AboutView />;
-    case "/safety":
-      return <SafetyView />;
     case "/contact":
       return <ContactView />;
     default:
