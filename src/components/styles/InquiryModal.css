@@ -146,6 +146,21 @@
   border-bottom-color: var(--color-danger);
 }
 
+/* Suppress the UA autofill plate (yellow on Chromium, blue on Firefox) so
+ * autofilled values keep the modal's dark surface and text token. */
+.inqInput:-webkit-autofill,
+.inqInput:-webkit-autofill:hover,
+.inqInput:-webkit-autofill:focus,
+.inqTextarea:-webkit-autofill,
+.inqTextarea:-webkit-autofill:hover,
+.inqTextarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-text-primary);
+  caret-color: var(--color-text-primary);
+  transition:
+    border-color var(--transition-fast) var(--ease-out),
+    background-color 600000s 0s;
+}
+
 .inqErr {
   font-family: var(--font-mono);
   font-size: 0.7rem;
