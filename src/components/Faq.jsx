@@ -1,9 +1,12 @@
 import { useState } from "react";
 import "./styles/Faq.css";
 import { FAQ_ITEMS } from "../app/constants/faq";
+import { useReveal } from "../app/hooks/useReveal";
 
 function Faq({ surface = "light" }) {
   const [open, setOpen] = useState(0);
+  const headRef = useReveal();
+  const listRef = useReveal();
   return (
     <section
       className="faq section"
@@ -12,7 +15,7 @@ function Faq({ surface = "light" }) {
       id="faq"
     >
       <div className="container">
-        <div className="section__head">
+        <div className="section__head reveal-on-scroll" ref={headRef}>
           <p className="eyebrow eyebrow--strong mono">Common questions</p>
           <h2 className="section__title">Straight answers.</h2>
           <p className="section__subtitle">
