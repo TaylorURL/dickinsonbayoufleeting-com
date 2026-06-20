@@ -133,7 +133,7 @@ function Footer() {
         </div>
       </div>
 
-      <div className="footer__bar">
+      <div className="footer__bar" data-surface="dark">
         <div className="footer__barInner">
           <div className="footer__copy mono">
             © {year} · Dickinson Bayou Fleeting · Texas Gulf Coast Marine Operations
