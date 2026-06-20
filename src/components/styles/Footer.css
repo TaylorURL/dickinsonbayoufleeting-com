@@ -271,13 +271,6 @@
   color: var(--color-text-secondary);
 }
 
-.footer__locCoords {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  color: var(--color-text-faint);
-}
-
 /* ---------- Bottom bar ---------- */
 .footer__bar {
   border-top: 1px solid var(--color-hairline);
