@@ -2,7 +2,6 @@ export const ROUTES = [
   { path: "/", label: "Home", id: "home" },
   { path: "/services", label: "Services", id: "services" },
   { path: "/about", label: "About", id: "about" },
-  { path: "/safety", label: "Safety", id: "safety" },
   { path: "/contact", label: "Contact", id: "contact" },
 ];
 
