@@ -10,10 +10,11 @@ function ServiceArea() {
     >
       <div className="container">
         <div className="section__head">
-          <p className="eyebrow">Coverage</p>
+          <p className="eyebrow eyebrow--strong mono">
+            ◇ Section 03 — Coverage
+          </p>
           <h2 className="section__title">
-            Service Area — Houston Ship Channel, Galveston Bay &amp; Coastal
-            Upper Texas Gulf Coast
+            Service area — Houston Ship Channel, Galveston Bay &amp; coastal upper Texas Gulf Coast.
           </h2>
           <p className="section__subtitle">
             Our San Leon facility puts barges directly on Galveston Bay with
@@ -24,15 +25,21 @@ function ServiceArea() {
             upper Texas Gulf Coast.
           </p>
         </div>
+
         <ul className="serviceArea__grid" aria-label="Cities and areas served">
-          {SERVICE_AREA_CITIES.map((city) => (
+          {SERVICE_AREA_CITIES.map((city, idx) => (
             <li key={city.name} className="serviceArea__item">
+              <span className="serviceArea__idx mono">
+                {String(idx + 1).padStart(2, "0")}
+              </span>
               <span className="serviceArea__name">{city.name}</span>
-              <span className="serviceArea__county">{city.county}</span>
+              <span className="serviceArea__county mono">{city.county}</span>
             </li>
           ))}
         </ul>
+
         <p className="serviceArea__note">
+          <span className="serviceArea__noteLabel mono">FN.01 —</span>
           Also serving the wider Houston Ship Channel, Galveston Bay and Gulf
           Intracoastal Waterway corridors and surrounding coastal Texas
           waterways — including Brazoria, Galveston and Harris county
