@@ -23,9 +23,11 @@
   font-family: var(--font-mono);
   background: transparent;
   border-bottom: 1px solid transparent;
+  color: var(--color-text-primary);
   transition:
     background var(--transition-base) var(--ease-out),
     border-color var(--transition-base) var(--ease-out),
+    color var(--transition-base) var(--ease-out),
     backdrop-filter var(--transition-base) var(--ease-out);
 }
 
