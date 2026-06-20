@@ -1,0 +1,14 @@
+/* Procedural ocean topography canvas — fills its parent, sits behind
+ * content. The hero stack provides a dark plate underneath so the dots
+ * read as a subtle accent layer, not a fully lit field. */
+.oceanBg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  /* The accent override lets a section retune the dot colour without
+   * shadowing the rest of the surface's accent. */
+  --ocean-accent: var(--color-accent);
+}
