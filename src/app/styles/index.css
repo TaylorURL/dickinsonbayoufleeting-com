@@ -196,6 +196,34 @@ code,
   }
 }
 
+/* IntersectionObserver-driven reveal — attach via useReveal(). The
+ * element starts hidden and slides up the moment it intersects the
+ * viewport. Honoured even on the first paint because the hook flips
+ * the class synchronously when prefers-reduced-motion is set. */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-on-scroll[data-reveal-delay="1"] {
+  transition-delay: 0.06s;
+}
+.reveal-on-scroll[data-reveal-delay="2"] {
+  transition-delay: 0.14s;
+}
+.reveal-on-scroll[data-reveal-delay="3"] {
+  transition-delay: 0.22s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
