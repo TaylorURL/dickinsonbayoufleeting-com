@@ -7,7 +7,6 @@ export const FACILITIES = [
     shortName: "San Leon",
     address: "2629 Avenue R, Dickinson, TX 77539",
     region: "Galveston Bay · Houston Ship Channel · Coastal Texas",
-    coords: { lat: 29.471936, lng: -94.962547 },
     phone: PHONE_NUMBER,
     acreage: "5 Acres",
     price: 4100,
