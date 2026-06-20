@@ -55,7 +55,7 @@ function Footer() {
         </div>
       </div>
 
-      <div className="footer__main">
+      <div className="footer__main" data-surface="dark">
         <div className="container">
           <div className="footer__mainGrid">
             <div className="footer__brand">
