@@ -2,13 +2,19 @@
  * Design tokens — "Blackwater".
  *
  * Defense / industrial-technical visual language for Dickinson Bayou
- * Fleeting. Near-black canvas, off-white type, a single muted steel-blue
- * accent used sparingly, hairline rules, and a wide-grotesque + monospace
- * pairing — sharp corners throughout.
+ * Fleeting. Two surfaces are first-class: a near-black "dark" canvas and
+ * an off-white "paper" canvas. They share the same wide-grotesque +
+ * monospace pairing, hairline rules, sharp corners and one muted
+ * steel-blue accent — the accent shade shifts between the two for WCAG
+ * AA contrast.
  *
- * :root holds the dark theme (default) plus every theme-invariant token:
- * type system, spacing rhythm, radii, motion, blur, layout dimensions.
- * Each theme block only overrides what actually changes between themes.
+ * :root holds the dark surface (default) plus every surface-invariant
+ * token: type system, spacing rhythm, radii, motion, blur, layout dims.
+ *
+ * Per-section surface flipping is done with [data-surface="light"] or
+ * [data-surface="dark"] on the section element — tokens cascade to
+ * everything inside it, so the same components render correctly on
+ * either canvas without component-level forks.
  */
 :root {
   /* Invariant: radii — sharp, near-zero corners */
