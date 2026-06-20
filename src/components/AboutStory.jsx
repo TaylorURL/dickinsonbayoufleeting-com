@@ -1,7 +1,14 @@
 import "./styles/AboutStory.css";
 import { ABOUT_STORY, ABOUT_VALUES, ABOUT_TIMELINE } from "../app/constants/about";
+import { useReveal } from "../app/hooks/useReveal";
 
 function AboutStory() {
+  const storyHeadRef = useReveal();
+  const storyBlocksRef = useReveal();
+  const valuesHeadRef = useReveal();
+  const valuesGridRef = useReveal();
+  const timelineHeadRef = useReveal();
+  const timelineListRef = useReveal();
   return (
     <>
       <section
