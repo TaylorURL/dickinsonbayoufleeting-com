@@ -147,7 +147,7 @@ function Location() {
             <div className="location__mapHeader">
               <span className="location__mapTag mono">
                 <span className="location__mapDot" aria-hidden="true" />
-                FAC · {loc.shortName}
+                {loc.shortName} facility
               </span>
               {loc.coords && (
                 <span className="location__mapCoords mono">
