@@ -36,11 +36,7 @@ function Footer() {
                   {PHONE_NUMBER}
                 </a>
               </div>
-              <Link
-                to="/contact"
-                className="btn btn--primary footer__cta"
-                onClick={openInquiry}
-              >
+              <Link to="/contact" className="btn btn--primary footer__cta">
                 Request a quote
               </Link>
             </div>
