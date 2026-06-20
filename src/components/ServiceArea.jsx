@@ -5,6 +5,7 @@ function ServiceArea() {
   return (
     <section
       className="serviceArea section"
+      data-surface="light"
       aria-label="Service area"
       id="service-area"
     >

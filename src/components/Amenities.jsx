@@ -41,7 +41,12 @@ const AMENITIES = [
 
 function Amenities() {
   return (
-    <section className="amenities section" aria-label="Amenities" id="amenities">
+    <section
+      className="amenities section"
+      data-surface="dark"
+      aria-label="Amenities"
+      id="amenities"
+    >
       <div className="container">
         <div className="section__head">
           <p className="eyebrow eyebrow--strong mono">

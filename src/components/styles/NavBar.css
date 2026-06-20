@@ -1,9 +1,14 @@
 /* ============================================================
  * NavBar — minimal sophisticated header.
  *
- * Transparent over the cinematic hero, solidifies to near-black on scroll.
- * Mono uppercase link labels with accent-tick underline grow on hover/active.
- * Mobile drawer is a full-screen dark overlay.
+ * Transparent over the cinematic hero. Once scrolled past the hero,
+ * the nav adopts the surface (data-surface="light" | "dark") of the
+ * section currently behind it so links stay legible as the page
+ * alternates between dark and paper bands.
+ *
+ * Mobile drawer is always a full-screen dark overlay regardless of
+ * which surface is behind the nav — overlays default to dark so the
+ * brand reads consistently while the menu is open.
  * ============================================================ */
 
 .nav {
@@ -18,9 +23,11 @@
   font-family: var(--font-mono);
   background: transparent;
   border-bottom: 1px solid transparent;
+  color: var(--color-text-primary);
   transition:
     background var(--transition-base) var(--ease-out),
     border-color var(--transition-base) var(--ease-out),
+    color var(--transition-base) var(--ease-out),
     backdrop-filter var(--transition-base) var(--ease-out);
 }
 
@@ -73,11 +80,11 @@
   display: none;
 }
 
-[data-theme="light"] .nav__logo--light {
+.nav[data-surface="light"] .nav__logo--light {
   display: block;
 }
 
-[data-theme="light"] .nav__logo--dark {
+.nav[data-surface="light"] .nav__logo--dark {
   display: none;
 }
 
@@ -346,9 +353,6 @@
   padding-top: var(--nav-height);
 }
 
-[data-theme="light"] .nav__drawer {
-  background: var(--color-bg);
-}
 
 .nav__drawer--open {
   opacity: 1;

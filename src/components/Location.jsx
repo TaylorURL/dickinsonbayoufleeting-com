@@ -21,7 +21,12 @@ function Location() {
     window.dispatchEvent(new Event("inquiry:open"));
   };
   return (
-    <section className="location section" aria-label="Location" id="location">
+    <section
+      className="location section"
+      data-surface="dark"
+      aria-label="Location"
+      id="location"
+    >
       <div className="container">
         <div className="section__head">
           <p className="eyebrow eyebrow--strong mono">

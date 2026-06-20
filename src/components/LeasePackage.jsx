@@ -10,7 +10,12 @@ function LeasePackage() {
     window.dispatchEvent(new Event("inquiry:open"));
   };
   return (
-    <section className="rate section" aria-label="Pricing" id="rates">
+    <section
+      className="rate section"
+      data-surface="light"
+      aria-label="Pricing"
+      id="rates"
+    >
       <div className="container">
         <div className="section__head">
           <p className="eyebrow eyebrow--strong mono">

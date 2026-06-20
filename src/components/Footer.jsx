@@ -17,7 +17,7 @@ function Footer() {
   };
   return (
     <footer className="footer" id="contact">
-      <div className="footer__contact">
+      <div className="footer__contact" data-surface="light">
         <div className="container">
           <div className="footer__contactGrid">
             <div className="footer__contactCol">
@@ -55,7 +55,7 @@ function Footer() {
         </div>
       </div>
 
-      <div className="footer__main">
+      <div className="footer__main" data-surface="dark">
         <div className="container">
           <div className="footer__mainGrid">
             <div className="footer__brand">
@@ -133,7 +133,7 @@ function Footer() {
         </div>
       </div>
 
-      <div className="footer__bar">
+      <div className="footer__bar" data-surface="dark">
         <div className="footer__barInner">
           <div className="footer__copy mono">
             © {year} · Dickinson Bayou Fleeting · Texas Gulf Coast Marine Operations
@@ -161,7 +161,7 @@ function Footer() {
         </div>
       </div>
 
-      <div className="footer__credit mono">
+      <div className="footer__credit mono" data-surface="dark">
         Site made by{" "}
         <a
           href="https://taylorurl.com"
