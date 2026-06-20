@@ -56,7 +56,11 @@ function ServicesPreview() {
           ))}
         </ul>
 
-        <ul className="servicesPreview__highlights" aria-label="Why customers stay">
+        <ul
+          className="servicesPreview__highlights reveal-on-scroll"
+          aria-label="Why customers stay"
+          ref={highlightsRef}
+        >
           {SERVICE_HIGHLIGHTS.map((h, idx) => (
             <li key={h.title} className="highlight">
               <span className="highlight__idx mono">
