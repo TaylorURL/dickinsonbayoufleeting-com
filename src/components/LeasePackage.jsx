@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./styles/LeasePackage.css";
 import { LEASE_OPTIONS } from "../app/constants/leaseOptions";
+import { useReveal } from "../app/hooks/useReveal";
 
 function LeasePackage() {
   const [locationId, setLocationId] = useState(LEASE_OPTIONS[0].id);
