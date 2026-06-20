@@ -32,6 +32,15 @@ export function useReveal(options) {
       return;
     }
 
+    /* If the element is already above-the-fold at mount, reveal it
+     * straight away — otherwise the IntersectionObserver's first async
+     * tick leaves a perceptible flash of hidden content. */
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.95 && rect.bottom > 0) {
+      el.classList.add("is-revealed");
+      return;
+    }
+
     const merged = { ...DEFAULT_OPTIONS, ...options };
     const observer = new IntersectionObserver(
       (entries) => {
