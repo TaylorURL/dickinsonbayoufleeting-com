@@ -1,13 +1,14 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./styles/ScrollSpy.css";
 import { HOME_SECTIONS } from "../app/constants/homeSections";
 
 /* Right-rail section indicator for the home page.
  *
  * Two concerns intentionally kept separate:
- *   1. Active section — IntersectionObserver picks the section whose
- *      midpoint sits closest to the viewport centre. One observer, no
- *      scroll listener.
+ *   1. Active section — a single IntersectionObserver watches each
+ *      section against a 1px line at the vertical centre of the
+ *      viewport; the section currently overlapping that line is the
+ *      active one. No scroll listener.
  *   2. Adaptive contrast — the active section's [data-surface] value
  *      ("dark" | "light") drives the rail's tokens via the same theme
  *      cascade the page already uses, so the rail flips legibility as
@@ -18,10 +19,12 @@ import { HOME_SECTIONS } from "../app/constants/homeSections";
 function ScrollSpy() {
   const [activeId, setActiveId] = useState(HOME_SECTIONS[0].id);
   const [surface, setSurface] = useState("dark");
-  const ratiosRef = useRef(new Map());
 
   const sections = useMemo(
-    () => HOME_SECTIONS.filter((s) => typeof document === "undefined" || document.getElementById(s.id)),
+    () =>
+      HOME_SECTIONS.filter(
+        (s) => typeof document === "undefined" || document.getElementById(s.id),
+      ),
     [],
   );
 
@@ -30,36 +33,29 @@ function ScrollSpy() {
       return undefined;
     }
 
-    const targets = HOME_SECTIONS.map((s) => document.getElementById(s.id)).filter(Boolean);
+    const targets = HOME_SECTIONS.map((s) =>
+      document.getElementById(s.id),
+    ).filter(Boolean);
     if (!targets.length) return undefined;
-
-    const ratios = ratiosRef.current;
 
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          ratios.set(entry.target.id, entry.intersectionRatio);
-        }
-        let bestId = null;
-        let bestRatio = 0;
-        for (const [id, ratio] of ratios.entries()) {
-          if (ratio > bestRatio) {
-            bestRatio = ratio;
-            bestId = id;
-          }
-        }
-        if (bestId && bestRatio > 0) {
-          setActiveId(bestId);
-          const host = document.getElementById(bestId);
-          const tone = host?.closest("[data-surface]")?.getAttribute("data-surface");
+          if (!entry.isIntersecting) continue;
+          const id = entry.target.id;
+          setActiveId(id);
+          const tone = entry.target
+            .closest("[data-surface]")
+            ?.getAttribute("data-surface");
           setSurface(tone === "light" ? "light" : "dark");
         }
       },
       {
-        /* Centre band of the viewport — the rail floats here. Whichever
-         * section overlaps it most is the one the rail is "in". */
-        rootMargin: "-40% 0px -40% 0px",
-        threshold: [0, 0.25, 0.5, 0.75, 1],
+        /* Collapse the root to a 1px line at viewport centre. Only the
+         * section whose body crosses that line is reported intersecting,
+         * so picking the active one is unambiguous. */
+        rootMargin: "-50% 0px -50% 0px",
+        threshold: 0,
       },
     );
 
@@ -77,11 +73,7 @@ function ScrollSpy() {
   if (!sections.length) return null;
 
   return (
-    <nav
-      className="scrollSpy"
-      data-surface={surface}
-      aria-label="On this page"
-    >
+    <nav className="scrollSpy" data-surface={surface} aria-label="On this page">
       <ol className="scrollSpy__list">
         {sections.map((section, idx) => {
           const isActive = section.id === activeId;
