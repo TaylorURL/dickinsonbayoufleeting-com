@@ -35,7 +35,11 @@ function ServicesPreview() {
           </Link>
         </div>
 
-        <ul className="servicesPreview__grid" aria-label="Service summary">
+        <ul
+          className="servicesPreview__grid reveal-on-scroll"
+          aria-label="Service summary"
+          ref={gridRef}
+        >
           {SERVICES.map((s) => (
             <li key={s.id} className="serviceCard">
               <span className="serviceCard__code mono">{s.code}</span>
