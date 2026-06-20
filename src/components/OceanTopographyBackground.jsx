@@ -17,9 +17,26 @@ const DPR_CAP = 2;
 
 /* Per-cell drift caps, expressed as fractions of grid spacing. Bounded so
  * dots never visibly swap positions with their neighbours. */
-const DRIFT_AMP_X = 0.6;
-const DRIFT_AMP_Y = 0.48;
-const CONTOUR_AMP_Y = 0.055;
+const DRIFT_AMP_X = 0.55;
+const DRIFT_AMP_Y = 0.42;
+const CONTOUR_AMP_Y = 0.05;
+
+/* Layered plane-wave swells. Each entry is a traveling sinusoid with wave
+ * vector (kx, ky) in radians per unit grid, angular speed omega in rad/s,
+ * amplitude (combined max ~1.0), and a phase offset. Combining three at
+ * different directions, wavelengths and speeds produces ocean chop — a
+ * dominant long swell with cross-swell and finer surface ripple riding it.
+ * Periods (2π / omega) are ~10s / ~7.5s / ~5.5s — slow enough to read as
+ * a calm sea but fast enough to clearly travel rather than appear static. */
+const WAVES = [
+  { kx: 2.6, ky: 0.8, omega: 0.62, amp: 0.52, phase: 0.0 },
+  { kx: -1.6, ky: 2.0, omega: 0.84, amp: 0.32, phase: 1.7 },
+  { kx: 4.2, ky: -2.4, omega: 1.14, amp: 0.16, phase: 0.9 },
+];
+const WAVE_DIRS = WAVES.map((w) => {
+  const len = Math.hypot(w.kx, w.ky) || 1;
+  return { ux: w.kx / len, uy: w.ky / len };
+});
 
 function parseHex(hex) {
   const m = hex.trim().replace(/^#/, "");
@@ -36,27 +53,26 @@ function parseHex(hex) {
 }
 
 /* Flow field sampled at a normalised grid coordinate (x,y in 0..1) and time
- * t in seconds. Returns horizontal drift, vertical undulation, and a
- * brightness/scale modulation channel — each layered from three sine/cosine
- * terms of differing frequency, phase, and time rate. Row- and column-
- * dependent phases create the parallax (adjacent rows lag slightly), while
- * the slowest terms dominate so the motion reads as a calm current rather
- * than a busy ripple. */
+ * t in seconds. Sums each wave's contribution as orbital particle motion:
+ * a surface point traces a small circle as a swell passes through, with
+ * horizontal displacement along the wave's direction (cos) and vertical
+ * lift in quadrature (sin). Neighbouring dots therefore move in phase-
+ * shifted unison along the same wavefronts, so the field reads as
+ * coordinated rolling swells rather than independent jitter. */
 function flowAt(x, y, t) {
-  const dx =
-    Math.sin(y * 2.6 + t * 0.14) * 0.55 +
-    Math.sin(x * 1.8 + y * 1.3 - t * 0.09) * 0.30 +
-    Math.cos(x * 4.6 + y * 3.2 + t * 0.22) * 0.16;
-
-  const dy =
-    Math.sin(x * 3.1 + t * 0.12) * 0.42 +
-    Math.cos(x * 2.2 - y * 3.8 + t * 0.18) * 0.28 +
-    Math.sin(x * 6.8 + y * 4.4 - t * 0.26) * 0.14;
-
-  const mod =
-    Math.sin(x * 4.8 + y * 2.1 + t * 0.18) * 0.55 +
-    Math.cos(x * 2.4 - y * 3.6 + t * 0.24) * 0.35;
-
+  let dx = 0;
+  let dy = 0;
+  let mod = 0;
+  for (let i = 0; i < WAVES.length; i++) {
+    const w = WAVES[i];
+    const dir = WAVE_DIRS[i];
+    const phase = w.kx * x + w.ky * y - w.omega * t + w.phase;
+    const c = Math.cos(phase);
+    const s = Math.sin(phase);
+    dx += w.amp * c * dir.ux;
+    dy += w.amp * s;
+    mod += s * w.amp;
+  }
   return { dx, dy, mod };
 }
 
