@@ -360,10 +360,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__media {
-    display: none;
-  }
-
   .hero__metaDot {
     animation: none;
   }
