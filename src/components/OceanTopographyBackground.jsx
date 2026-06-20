@@ -1,11 +1,12 @@
 import { useEffect, useRef } from "react";
 import "./styles/OceanTopographyBackground.css";
 
-/* Procedural ocean topography — a dotted/contour field where points and
- * polylines sit on an animated 2D sine height field. Cheap (Canvas 2D,
- * deterministic, no perlin), DPR-capped at 2, frame-budgeted to ~32 FPS,
- * paused when the tab is hidden or the hero is scrolled out of view, and
- * downgraded to a single static frame when prefers-reduced-motion is set. */
+/* Procedural ocean topography — a dotted/contour field whose points and
+ * polylines ride a slow, layered flow field that reads as a coastal current.
+ * Cheap (Canvas 2D, deterministic, no perlin), DPR-capped at 2, frame-
+ * budgeted to ~32 FPS, paused when the tab is hidden or the hero is scrolled
+ * out of view, and downgraded to a single static frame when prefers-reduced-
+ * motion is set. */
 
 const COLS_DEFAULT = 56;
 const ROWS_DEFAULT = 30;
@@ -13,6 +14,12 @@ const CONTOUR_LINES = 7;
 const SAMPLES_PER_LINE = 88;
 const FRAME_INTERVAL_MS = 1000 / 32;
 const DPR_CAP = 2;
+
+/* Per-cell drift caps, expressed as fractions of grid spacing. Bounded so
+ * dots never visibly swap positions with their neighbours. */
+const DRIFT_AMP_X = 0.6;
+const DRIFT_AMP_Y = 0.48;
+const CONTOUR_AMP_Y = 0.055;
 
 function parseHex(hex) {
   const m = hex.trim().replace(/^#/, "");
@@ -28,13 +35,29 @@ function parseHex(hex) {
   return [r, g, b];
 }
 
-function heightAt(x, y, t) {
-  return (
-    Math.sin(x * 5.6 + t * 0.42) * 0.55 +
-    Math.sin(x * 2.8 + y * 4.0 - t * 0.31) * 0.4 +
-    Math.sin(x * 9.2 - y * 5.4 + t * 0.55) * 0.22 +
-    Math.cos(x * 2.0 - y * 2.9 + t * 0.17) * 0.32
-  );
+/* Flow field sampled at a normalised grid coordinate (x,y in 0..1) and time
+ * t in seconds. Returns horizontal drift, vertical undulation, and a
+ * brightness/scale modulation channel — each layered from three sine/cosine
+ * terms of differing frequency, phase, and time rate. Row- and column-
+ * dependent phases create the parallax (adjacent rows lag slightly), while
+ * the slowest terms dominate so the motion reads as a calm current rather
+ * than a busy ripple. */
+function flowAt(x, y, t) {
+  const dx =
+    Math.sin(y * 2.6 + t * 0.14) * 0.55 +
+    Math.sin(x * 1.8 + y * 1.3 - t * 0.09) * 0.30 +
+    Math.cos(x * 4.6 + y * 3.2 + t * 0.22) * 0.16;
+
+  const dy =
+    Math.sin(x * 3.1 + t * 0.12) * 0.42 +
+    Math.cos(x * 2.2 - y * 3.8 + t * 0.18) * 0.28 +
+    Math.sin(x * 6.8 + y * 4.4 - t * 0.26) * 0.14;
+
+  const mod =
+    Math.sin(x * 4.8 + y * 2.1 + t * 0.18) * 0.55 +
+    Math.cos(x * 2.4 - y * 3.6 + t * 0.24) * 0.35;
+
+  return { dx, dy, mod };
 }
 
 function OceanTopographyBackground({ className = "" }) {
@@ -94,18 +117,22 @@ function OceanTopographyBackground({ className = "" }) {
       const t = time * 0.001;
       const stepX = width / (cols - 1);
       const stepY = height / (rows - 1);
+      const driftX = stepX * DRIFT_AMP_X;
+      const driftY = stepY * DRIFT_AMP_Y;
       const dotR = Math.max(0.55, dpr * 0.85);
 
-      /* Dot grid — each dot offset vertically by the height field. */
+      /* Dot grid — each dot rides the flow field, drifting horizontally and
+       * vertically with row/column phase offsets that mimic an ocean
+       * current. Alpha and radius pulse with the mod channel. */
       for (let j = 0; j < rows; j++) {
         const v = j / (rows - 1);
         for (let i = 0; i < cols; i++) {
           const u = i / (cols - 1);
-          const h = heightAt(u, v, t);
-          const cx = i * stepX;
-          const cy = j * stepY + h * stepY * 0.42;
-          const alpha = Math.max(0.05, Math.min(0.46, 0.18 + (h + 1) * 0.16));
-          const r = dotR * (0.78 + (h + 1.5) * 0.22);
+          const { dx, dy, mod } = flowAt(u, v, t);
+          const cx = i * stepX + dx * driftX;
+          const cy = j * stepY + dy * driftY;
+          const alpha = Math.max(0.06, Math.min(0.48, 0.20 + (mod + 1) * 0.14));
+          const r = dotR * (0.78 + (mod + 1.5) * 0.20);
           ctx.beginPath();
           ctx.arc(cx, cy, r, 0, Math.PI * 2);
           ctx.fillStyle = `rgba(${R},${G},${B},${alpha.toFixed(3)})`;
@@ -113,7 +140,9 @@ function OceanTopographyBackground({ className = "" }) {
         }
       }
 
-      /* Contour ridges — N horizontal polylines that ride the same field. */
+      /* Contour ridges — N horizontal polylines that undulate vertically
+       * along the same flow field, so the dot drift and the ridges read as
+       * one current. */
       ctx.lineWidth = Math.max(0.6, dpr * 0.7);
       ctx.lineJoin = "round";
       ctx.lineCap = "round";
@@ -122,9 +151,9 @@ function OceanTopographyBackground({ className = "" }) {
         ctx.beginPath();
         for (let s = 0; s <= SAMPLES_PER_LINE; s++) {
           const u = s / SAMPLES_PER_LINE;
-          const h = heightAt(u, baseY, t);
+          const { dy } = flowAt(u, baseY, t);
           const x = u * width;
-          const y = baseY * height + h * height * 0.058;
+          const y = baseY * height + dy * height * CONTOUR_AMP_Y;
           if (s === 0) ctx.moveTo(x, y);
           else ctx.lineTo(x, y);
         }
