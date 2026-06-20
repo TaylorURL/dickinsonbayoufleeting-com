@@ -13,9 +13,11 @@ function LeasePackage() {
     <section className="rate section" aria-label="Pricing" id="rates">
       <div className="container">
         <div className="section__head">
-          <p className="eyebrow">Lease Rates</p>
+          <p className="eyebrow eyebrow--strong mono">
+            ◇ Section 01 — Lease Rates
+          </p>
           <h2 className="section__title">
-            Coastal Barge Fleeting &amp; Dock Lease Options
+            Coastal barge fleeting &amp; dock lease options.
           </h2>
           <p className="section__subtitle">
             Fixed monthly rates for five-acre coastal waterfront fleeting yards
@@ -24,15 +26,18 @@ function LeasePackage() {
             details.
           </p>
         </div>
+
         <div className="estimator" aria-label="Lease options selector">
-          <div className="estimator__head">
-            <span className="estimator__headLabel">Facility</span>
-            <div
-              className="leaseSwitch"
-              role="tablist"
-              aria-label="Select facility"
-            >
-              {LEASE_OPTIONS.map((l) => (
+          <div
+            className="estimator__switch"
+            role="tablist"
+            aria-label="Select facility"
+          >
+            <span className="estimator__switchLabel mono">
+              ⌖ Facility
+            </span>
+            <div className="leaseSwitch">
+              {LEASE_OPTIONS.map((l, idx) => (
                 <button
                   key={l.id}
                   role="tab"
@@ -40,45 +45,60 @@ function LeasePackage() {
                   className={`leaseSwitch__btn${l.id === locationId ? " leaseSwitch__btn--active" : ""}`}
                   onClick={() => setLocationId(l.id)}
                 >
-                  {l.name}
+                  <span className="leaseSwitch__btnIndex mono">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <span className="leaseSwitch__btnName">{l.name}</span>
                 </button>
               ))}
             </div>
           </div>
+
           <div className="estimator__result" aria-live="polite">
-            <div className="estimator__priceBlock">
-              <p className="estimator__label">Monthly Lease</p>
+            <div className="estimator__priceCol">
+              <p className="estimator__priceLabel mono">
+                MO/USD — Monthly Lease
+              </p>
               <p className="estimator__priceRow">
                 <span className="estimator__currency">$</span>
                 <span className="estimator__figure tabular">
                   {loc.price.toLocaleString()}
                 </span>
-                <span className="estimator__period">/ month</span>
+                <span className="estimator__period mono">/ MO</span>
               </p>
-              <p className="estimator__caption">
-                {loc.acreage} waterfront · {loc.subtitle}
+              <p className="estimator__caption mono">
+                {loc.acreage} · {loc.subtitle}
               </p>
             </div>
-            <div className="estimator__featuresBlock">
-              <p className="estimator__featuresLabel">Included with the lease</p>
+
+            <div className="estimator__features">
+              <p className="estimator__featuresLabel mono">
+                ◇ Included with the lease
+              </p>
               <ul className="leaseFeatureList">
-                {loc.features.map((feature) => (
+                {loc.features.map((feature, idx) => (
                   <li key={feature} className="leaseFeatureList__item">
-                    {feature}
+                    <span className="leaseFeatureList__idx mono">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span className="leaseFeatureList__text">{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
-            <a
-              className="btn btn--primary btn--block"
-              href="#contact"
-              onClick={openInquiry}
-            >
-              Start Lease Inquiry
-            </a>
-            <p className="estimator__assurance">
-              No hidden fees · Long-term agreements · Direct facility access
-            </p>
+
+            <div className="estimator__cta">
+              <a
+                className="btn btn--primary btn--block"
+                href="#contact"
+                onClick={openInquiry}
+              >
+                Start Lease Inquiry
+              </a>
+              <p className="estimator__assurance mono">
+                No hidden fees · Long-term agreements · Direct facility access
+              </p>
+            </div>
           </div>
         </div>
       </div>
