@@ -6,22 +6,33 @@ import InquiryModal from "../components/InquiryModal";
 import "./styles/App.css";
 import "./styles/Buttons.css";
 
-/* Sample point sits a couple of pixels below the nav so the surface
- * reading reflects whatever section the nav is actually overlapping. */
-const NAV_SURFACE_PROBE_OFFSET = 4;
+/* Sample point sits a few pixels below the rendered nav so the surface
+ * reading reflects the section the nav is overlapping — never the nav
+ * itself. The rendered height is taken live (not parsed from a clamp()
+ * CSS token) so the probe stays correct across breakpoints. */
+const NAV_SURFACE_PROBE_OFFSET = 6;
 
 function readSurfaceUnderNav() {
   if (typeof document === "undefined") return "dark";
-  const navHeight =
-    parseFloat(
-      getComputedStyle(document.documentElement).getPropertyValue("--nav-height"),
-    ) || 72;
-  const probeY = navHeight + NAV_SURFACE_PROBE_OFFSET;
+  const nav = document.querySelector(".nav");
+  const navBottom = nav ? nav.getBoundingClientRect().bottom : 72;
+  const probeY = Math.max(0, navBottom + NAV_SURFACE_PROBE_OFFSET);
   const probeX = Math.min(window.innerWidth / 2, window.innerWidth - 1);
-  const el = document.elementFromPoint(probeX, probeY);
-  if (!el) return "dark";
-  const host = el.closest("[data-surface]");
-  return host?.getAttribute("data-surface") === "light" ? "light" : "dark";
+
+  /* elementsFromPoint lets us skip the nav itself (it's z-index: 50
+   * and would otherwise be returned first if the probe ever clipped
+   * into it) and walk down to whatever section is actually behind it. */
+  const stack = document.elementsFromPoint?.(probeX, probeY) ?? [
+    document.elementFromPoint(probeX, probeY),
+  ];
+  for (const el of stack) {
+    if (!el) continue;
+    if (nav && (el === nav || nav.contains(el))) continue;
+    const host = el.closest("[data-surface]");
+    if (!host) continue;
+    return host.getAttribute("data-surface") === "light" ? "light" : "dark";
+  }
+  return "dark";
 }
 
 function App() {
