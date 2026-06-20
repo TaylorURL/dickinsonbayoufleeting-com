@@ -186,6 +186,23 @@
   border-color: var(--color-danger);
 }
 
+/* Repaint the browser autofill background to the field's own surface so
+ * Chromium's pale-yellow / Firefox's blue autofill plate never breaks the
+ * dark canvas. The 600000s background-color transition defers the UA's
+ * autofill paint indefinitely while keeping the focus ring intact. */
+.contactForm__input:-webkit-autofill,
+.contactForm__input:-webkit-autofill:hover,
+.contactForm__input:-webkit-autofill:focus,
+.contactForm__textarea:-webkit-autofill,
+.contactForm__textarea:-webkit-autofill:hover,
+.contactForm__textarea:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--color-text-primary);
+  caret-color: var(--color-text-primary);
+  transition:
+    border-color var(--transition-fast) var(--ease-out),
+    background-color 600000s 0s;
+}
+
 .contactForm__counter {
   position: absolute;
   right: 4px;
