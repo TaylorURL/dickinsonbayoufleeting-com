@@ -56,7 +56,7 @@ function SafetyContent() {
         aria-label="Daily practices"
       >
         <div className="container">
-          <div className="section__head">
+          <div className="section__head reveal-on-scroll" ref={practicesHeadRef}>
             <p className="eyebrow eyebrow--strong mono">Daily practice</p>
             <h2 className="section__title">
               What that looks like at the dock.
@@ -67,7 +67,11 @@ function SafetyContent() {
             </p>
           </div>
 
-          <ol className="safetyPractices__list" aria-label="Daily practice list">
+          <ol
+            className="safetyPractices__list reveal-on-scroll"
+            aria-label="Daily practice list"
+            ref={practicesListRef}
+          >
             {SAFETY_PRACTICES.map((p, idx) => (
               <li key={p.title} className="practiceRow">
                 <span className="practiceRow__idx mono" aria-hidden="true">
