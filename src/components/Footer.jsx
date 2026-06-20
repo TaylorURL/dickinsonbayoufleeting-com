@@ -161,7 +161,7 @@ function Footer() {
         </div>
       </div>
 
-      <div className="footer__credit mono">
+      <div className="footer__credit mono" data-surface="dark">
         Site made by{" "}
         <a
           href="https://taylorurl.com"
