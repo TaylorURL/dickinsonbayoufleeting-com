@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import InquiryModal from "../components/InquiryModal";
+import ScrollSpy from "../components/ScrollSpy";
 import HomeView from "../views/HomeView";
 import ServicesView from "../views/ServicesView";
 import AboutView from "../views/AboutView";
