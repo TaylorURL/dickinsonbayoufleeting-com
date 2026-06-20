@@ -1,11 +1,15 @@
 import "./styles/ServicesPreview.css";
 import { SERVICES, SERVICE_HIGHLIGHTS } from "../app/constants/services";
 import { Link } from "../app/router/Link";
+import { useReveal } from "../app/hooks/useReveal";
 
 /* Home-page teaser for the seven core services. The full detail page
  * lives at /services — this card grid is the surface that funnels
  * visitors to it. */
 function ServicesPreview() {
+  const headRef = useReveal();
+  const gridRef = useReveal();
+  const highlightsRef = useReveal();
   return (
     <section
       className="servicesPreview section"
@@ -14,7 +18,7 @@ function ServicesPreview() {
       aria-label="What we do"
     >
       <div className="container">
-        <div className="section__head servicesPreview__head">
+        <div className="section__head servicesPreview__head reveal-on-scroll" ref={headRef}>
           <div className="servicesPreview__headText">
             <p className="eyebrow eyebrow--strong mono">What we do</p>
             <h2 className="section__title">
