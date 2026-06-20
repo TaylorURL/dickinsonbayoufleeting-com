@@ -1,5 +1,6 @@
 import "./styles/ServiceArea.css";
 import { SERVICE_AREA_CITIES } from "../app/constants/serviceArea";
+import { useReveal } from "../app/hooks/useReveal";
 
 function ServiceArea() {
   return (
