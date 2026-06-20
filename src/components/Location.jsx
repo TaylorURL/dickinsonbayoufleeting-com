@@ -10,6 +10,8 @@ const AUTO_CYCLE_MS = 6000;
 function Location() {
   const [locked, setLocked] = useState(false);
   const [active, setActive] = useAutoCycle(FACILITY_IDS, AUTO_CYCLE_MS, locked);
+  const headRef = useReveal();
+  const bodyRef = useReveal();
   const loc = FACILITIES.find((f) => f.id === active) || FACILITIES[0];
   const mapsHref = loc.coords
     ? `https://maps.google.com/?q=${loc.coords.lat},${loc.coords.lng}`
