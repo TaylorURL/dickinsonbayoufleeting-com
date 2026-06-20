@@ -1,7 +1,10 @@
 import "./styles/ServicesList.css";
 import { SERVICES } from "../app/constants/services";
+import { useReveal } from "../app/hooks/useReveal";
 
 function ServicesList({ surface = "dark" }) {
+  const headRef = useReveal();
+  const listRef = useReveal();
   return (
     <section
       className="servicesList section"
@@ -10,7 +13,7 @@ function ServicesList({ surface = "dark" }) {
       id="services-detail"
     >
       <div className="container">
-        <div className="section__head">
+        <div className="section__head reveal-on-scroll" ref={headRef}>
           <p className="eyebrow eyebrow--strong mono">
             What we do
           </p>
