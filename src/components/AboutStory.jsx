@@ -53,11 +53,15 @@ function AboutStory() {
         aria-label="What we stand for"
       >
         <div className="container">
-          <div className="section__head">
+          <div className="section__head reveal-on-scroll" ref={valuesHeadRef}>
             <p className="eyebrow eyebrow--strong mono">How we work</p>
             <h2 className="section__title">Four things we will not compromise on.</h2>
           </div>
-          <ul className="aboutValues__grid" aria-label="Operating principles">
+          <ul
+            className="aboutValues__grid reveal-on-scroll"
+            aria-label="Operating principles"
+            ref={valuesGridRef}
+          >
             {ABOUT_VALUES.map((v) => (
               <li key={v.code} className="valueCard">
                 <span className="valueCard__code mono">{v.code}</span>
