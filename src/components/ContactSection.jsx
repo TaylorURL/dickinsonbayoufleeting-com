@@ -73,7 +73,7 @@ function ContactSection() {
     >
       <div className="container">
         <div className="contactSection__layout">
-          <aside className="contactSection__aside">
+          <aside className="contactSection__aside reveal-on-scroll" ref={asideRef}>
             <div className="section__head">
               <p className="eyebrow eyebrow--strong mono">Reach the office</p>
               <h2 className="section__title">
