@@ -78,11 +78,11 @@
   display: none;
 }
 
-[data-theme="light"] .nav__logo--light {
+.nav[data-surface="light"] .nav__logo--light {
   display: block;
 }
 
-[data-theme="light"] .nav__logo--dark {
+.nav[data-surface="light"] .nav__logo--dark {
   display: none;
 }
 
