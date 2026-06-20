@@ -23,7 +23,6 @@ export const FACILITIES = [
     shortName: "Freeport",
     address: "906 Marlin Ln, Freeport, TX 77541",
     region: "Gulf Intracoastal Waterway · Coastal Brazoria County",
-    coords: { lat: 28.968043, lng: -95.288293 },
     phone: PHONE_NUMBER,
     acreage: "5 Acres",
     price: 4800,
