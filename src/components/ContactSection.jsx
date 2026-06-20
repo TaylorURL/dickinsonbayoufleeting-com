@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import "./styles/ContactSection.css";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 import { FACILITIES } from "../app/constants/facilities";
+import { useReveal } from "../app/hooks/useReveal";
 
 const MAX_MESSAGE = 1200;
 
