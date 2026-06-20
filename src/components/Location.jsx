@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./styles/Location.css";
 import { FACILITIES } from "../app/constants/facilities";
 import { useAutoCycle } from "../app/hooks/useAutoCycle";
+import { useReveal } from "../app/hooks/useReveal";
 
 const FACILITY_IDS = FACILITIES.map((f) => f.id);
 const AUTO_CYCLE_MS = 6000;
