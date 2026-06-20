@@ -32,18 +32,17 @@
   flex-direction: column;
   gap: var(--space-3);
   pointer-events: auto;
-  border-right: 1px solid var(--color-hairline);
-  padding-right: var(--space-4);
 }
 
 .scrollSpy__item {
   display: flex;
+  justify-content: flex-end;
 }
 
 .scrollSpy__link {
   position: relative;
-  display: grid;
-  grid-template-columns: 18px auto auto;
+  display: inline-flex;
+  flex-direction: row-reverse;
   align-items: center;
   gap: var(--space-2);
   padding: 4px 0;
