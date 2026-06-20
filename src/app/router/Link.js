@@ -5,7 +5,7 @@ import { useRouter } from "./Router";
  * triggering a full document load. Modifier-clicks (cmd/ctrl/shift/middle)
  * fall through to the browser so users keep open-in-new-tab. */
 export const Link = forwardRef(function Link(
-  { to, onClick, replace = false, scroll = true, ...rest },
+  { to, onClick, replace = false, scroll = true, children, ...rest },
   ref,
 ) {
   const { navigate } = useRouter();
@@ -19,5 +19,9 @@ export const Link = forwardRef(function Link(
     navigate(to, { replace, scroll });
   };
 
-  return <a ref={ref} href={to} onClick={handle} {...rest} />;
+  return (
+    <a ref={ref} href={to} onClick={handle} {...rest}>
+      {children}
+    </a>
+  );
 });
