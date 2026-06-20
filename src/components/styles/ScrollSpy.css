@@ -81,9 +81,10 @@
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  white-space: nowrap;
   color: inherit;
   opacity: 0;
-  transform: translateX(-4px);
+  transform: translateX(6px);
   transition:
     opacity var(--transition-base) var(--ease-out),
     transform var(--transition-base) var(--ease-out),
