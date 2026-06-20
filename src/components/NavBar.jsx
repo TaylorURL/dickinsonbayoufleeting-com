@@ -46,6 +46,7 @@ function NavBar({ surface = "dark", overHero = true }) {
     <>
       <nav
         className={`nav${scrolled || open ? " nav--scrolled" : ""}${open ? " nav--open" : ""}`}
+        data-surface={effectiveSurface}
         aria-label="Primary"
       >
         <div className="nav__inner">
