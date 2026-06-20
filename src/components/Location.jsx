@@ -39,7 +39,7 @@ function Location() {
         <div className="location__body">
           <div className="location__col">
             <ul className="location__list" aria-label="Available locations">
-              {FACILITIES.map((f) => {
+              {FACILITIES.map((f, idx) => {
                 const activeCard = f.id === active;
                 return (
                   <li
@@ -54,20 +54,56 @@ function Location() {
                         setLocked(true);
                       }}
                     >
-                      <span className="locCard__name">{f.name}</span>
-                      <span className="locCard__address">{f.address}</span>
+                      <span className="locCard__index tabular">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                      <span className="locCard__heading">
+                        <span className="locCard__name">{f.name}</span>
+                        <span className="locCard__region">{f.region}</span>
+                        <span className="locCard__address">{f.address}</span>
+                      </span>
+                      <span
+                        className="locCard__chevron"
+                        aria-hidden="true"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          width="18"
+                          height="18"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="m9 6 6 6-6 6" />
+                        </svg>
+                      </span>
                     </button>
                     {activeCard && (
                       <div className="locCard__detail">
                         <div className="locCard__rows">
                           <div className="locCard__row">
                             <span className="locCard__label">Acreage</span>
-                            <span className="locCard__value">{f.acreage}</span>
+                            <span className="locCard__value tabular">
+                              {f.acreage}
+                            </span>
                           </div>
                           <div className="locCard__row">
                             <span className="locCard__label">Direct Line</span>
-                            <span className="locCard__value">{f.phone}</span>
+                            <span className="locCard__value tabular">
+                              {f.phone}
+                            </span>
                           </div>
+                          {f.coords && (
+                            <div className="locCard__row locCard__row--wide">
+                              <span className="locCard__label">Coordinates</span>
+                              <span className="locCard__value tabular">
+                                {f.coords.lat.toFixed(4)}°N,{" "}
+                                {Math.abs(f.coords.lng).toFixed(4)}°W
+                              </span>
+                            </div>
+                          )}
                         </div>
                         <div className="locCard__actions">
                           <a
@@ -76,13 +112,13 @@ function Location() {
                             target="_blank"
                             rel="noreferrer"
                           >
-                            Maps
+                            Open in Maps
                           </a>
                           <a
                             className="btn btn--inline"
                             href={`tel:1${f.phone.replace(/[^0-9]/g, "")}`}
                           >
-                            Call
+                            Call Facility
                           </a>
                           <a
                             className="btn btn--primary"
@@ -100,6 +136,10 @@ function Location() {
             </ul>
           </div>
           <div className="location__mapWrap">
+            <span className="location__mapLabel" aria-hidden="true">
+              <span className="location__mapDot" />
+              {loc.shortName}
+            </span>
             <iframe
               title={`Map of Dickinson Bayou Fleeting ${loc.name} — ${loc.address}`}
               className="location__map"

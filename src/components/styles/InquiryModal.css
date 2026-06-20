@@ -19,14 +19,16 @@
 /* ---------- Shell ---------- */
 .inqShell {
   position: relative;
-  width: min(620px, 100%);
+  width: min(640px, 100%);
   max-height: calc(100dvh - var(--space-8));
   overflow-y: auto;
   background: var(--color-surface);
   background-image: var(--gradient-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg);
+  box-shadow:
+    var(--shadow-xl),
+    var(--shadow-inset-card);
   animation: inqShellIn var(--transition-slow) var(--ease-out) both;
 }
 
@@ -34,18 +36,18 @@
   content: "";
   position: absolute;
   top: 0;
-  left: 32px;
-  right: 32px;
-  height: 2px;
+  left: 0;
+  right: 0;
+  height: 3px;
   background: var(--gradient-brass-rule);
-  border-radius: 2px;
+  border-radius: 3px 3px 0 0;
 }
 
 .inqLayout {
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  padding: var(--space-8) var(--space-7) var(--space-7);
+  padding: var(--space-9) var(--space-8) var(--space-7);
 }
 
 /* ---------- Header ---------- */
@@ -57,14 +59,17 @@
 
 .inqHeader__title {
   font-family: var(--font-display);
-  font-size: clamp(1.6rem, 3vw, 2rem);
+  font-size: clamp(1.7rem, 3.2vw, 2.15rem);
   font-weight: 600;
+  letter-spacing: -0.012em;
   color: var(--color-text-primary);
+  line-height: 1.08;
 }
 
 .inqHeader__subtitle {
-  font-size: 0.98rem;
-  line-height: 1.55;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
   color: var(--color-text-secondary);
 }
 
@@ -78,7 +83,7 @@
 .inqField {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 8px;
   position: relative;
 }
 
@@ -87,10 +92,10 @@
 }
 
 .inqField__label {
-  font-family: var(--font-display);
-  font-size: 0.72rem;
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 1.2px;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
   color: var(--color-text-faint);
 }
@@ -99,12 +104,12 @@
 .inqTextarea {
   width: 100%;
   font-family: var(--font-body);
-  font-size: 0.96rem;
+  font-size: 0.98rem;
   color: var(--color-text-primary);
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 12px 14px;
+  padding: 13px 15px;
   transition:
     border-color var(--transition-fast) var(--ease-out),
     box-shadow var(--transition-fast) var(--ease-out),
@@ -134,7 +139,7 @@
 }
 
 .inqTextarea {
-  min-height: 120px;
+  min-height: 130px;
   max-height: 320px;
   resize: vertical;
   line-height: 1.55;
@@ -147,6 +152,7 @@
 }
 
 .inqErr {
+  font-family: var(--font-ui);
   font-size: 0.74rem;
   font-weight: 600;
   color: var(--color-danger);
@@ -154,7 +160,8 @@
 
 .inqCounter {
   align-self: flex-end;
-  font-size: 0.72rem;
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
   color: var(--color-text-faint);
   font-variant-numeric: tabular-nums;
 }
@@ -180,16 +187,19 @@
 .inqBtn {
   appearance: none;
   cursor: pointer;
-  font-family: var(--font-body);
-  font-size: 0.92rem;
-  font-weight: 600;
-  padding: 12px 22px;
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 13px 22px;
   border-radius: var(--radius-md);
   border: 1px solid transparent;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  line-height: 1;
   transition:
     background var(--transition-fast) var(--ease-out),
     color var(--transition-fast) var(--ease-out),
@@ -212,12 +222,19 @@
 .inqBtn--primary {
   background: var(--color-accent);
   color: var(--color-text-on-accent);
-  box-shadow: var(--shadow-accent);
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06) 0%,
+    rgba(0, 0, 0, 0) 60%
+  );
+  box-shadow:
+    var(--shadow-accent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .inqBtn--primary:not(:disabled):hover {
-    background: var(--color-accent-hover);
+    background-color: var(--color-accent-hover);
     transform: translateY(-2px);
   }
 }
@@ -251,6 +268,7 @@
 }
 
 .inqLive {
+  font-family: var(--font-ui);
   font-size: 0.78rem;
   color: var(--color-danger);
   min-height: 1.1em;
@@ -272,24 +290,27 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 64px;
-  height: 64px;
+  width: 68px;
+  height: 68px;
   border-radius: 50%;
-  background: rgba(67, 192, 116, 0.14);
+  background: rgba(67, 192, 116, 0.16);
   color: var(--color-success);
   border: 1px solid rgba(67, 192, 116, 0.4);
+  box-shadow: 0 0 0 8px rgba(67, 192, 116, 0.05);
 }
 
 .inqResult__title {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 1.9rem);
+  font-size: clamp(1.6rem, 3vw, 2rem);
   font-weight: 600;
+  letter-spacing: -0.012em;
   color: var(--color-text-primary);
 }
 
 .inqResult__text {
+  font-family: var(--font-body);
   max-width: 44ch;
-  font-size: 0.98rem;
+  font-size: 1rem;
   line-height: 1.6;
   color: var(--color-text-secondary);
 }
@@ -332,6 +353,10 @@
 @media (max-width: 540px) {
   .inqGrid {
     grid-template-columns: 1fr;
+  }
+
+  .inqLayout {
+    padding: var(--space-7) var(--space-5) var(--space-5);
   }
 
   .inqActions--right {

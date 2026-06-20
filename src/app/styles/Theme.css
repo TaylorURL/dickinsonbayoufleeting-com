@@ -1,18 +1,24 @@
 /*
- * Design tokens — "Deepwater".
+ * Design tokens — "Deepwater II".
  *
- * A premium maritime-industrial system for Dickinson Bayou Fleeting. :root holds
- * the dark theme (the default) plus every theme-invariant token: type scale,
+ * Premium maritime-industrial system for Dickinson Bayou Fleeting. :root holds
+ * the dark theme (the default) plus every theme-invariant token: type system,
  * spacing rhythm, radii, motion, blur, and layout dimensions. Each theme block
  * only overrides what actually changes between themes — color, translucency,
- * overlays, gradients, and shadows.
+ * overlays, gradients, shadows.
+ *
+ * Type pairing: Source Serif 4 (display — industrial-technical serif with
+ * opsz axis for natural large/small-display behavior) + Inter (body) +
+ * Inter Tight (compact labels & eyebrows).
  */
 :root {
   /* Invariant: radii */
+  --radius-xs: 4px;
   --radius-sm: 6px;
   --radius-md: 12px;
   --radius-lg: 18px;
   --radius-xl: 26px;
+  --radius-2xl: 34px;
   --radius-pill: 999px;
 
   /* Invariant: spacing scale (4px base) */
@@ -30,23 +36,28 @@
   --space-12: 128px;
 
   /* Invariant: typography */
-  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-display:
+    "Source Serif 4", "Source Serif Pro", "Iowan Old Style", "Apple Garamond",
+    Georgia, "Times New Roman", serif;
   --font-body:
     "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
     "Helvetica Neue", sans-serif;
+  --font-ui:
+    "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Roboto", sans-serif;
 
-  /* Fluid display scale */
-  --text-hero: clamp(2.75rem, 6.4vw, 5rem);
-  --text-h2: clamp(2rem, 3.6vw, 2.9rem);
-  --text-h3: clamp(1.15rem, 1.6vw, 1.35rem);
+  /* Fluid display scale (tuned slightly larger for the new serif) */
+  --text-hero: clamp(2.9rem, 6.8vw, 5.3rem);
+  --text-h2: clamp(2.05rem, 3.8vw, 3.05rem);
+  --text-h3: clamp(1.2rem, 1.7vw, 1.45rem);
   --text-lead: clamp(1.06rem, 1.5vw, 1.22rem);
   --text-body: 1rem;
   --text-sm: 0.875rem;
   --text-xs: 0.75rem;
 
   /* Tracked-label treatment */
-  --eyebrow-size: 0.72rem;
-  --eyebrow-tracking: 2.6px;
+  --eyebrow-size: 0.74rem;
+  --eyebrow-tracking: 2.4px;
 
   /* Invariant: motion */
   --transition-fast: 130ms;
@@ -58,49 +69,53 @@
 
   /* Invariant: blur */
   --blur-sm: 6px;
-  --blur-md: 12px;
-  --blur-lg: 22px;
+  --blur-md: 14px;
+  --blur-lg: 26px;
 
   /* Invariant: layout dimensions */
-  --container-max: 1200px;
+  --container-max: 1240px;
   --container-pad: clamp(20px, 5vw, 48px);
-  --section-py: clamp(72px, 11vw, 144px);
-  --nav-height: clamp(64px, 8vw, 84px);
-  --nav-logo-height: clamp(88px, 12vw, 128px);
+  --section-py: clamp(80px, 11vw, 152px);
+  --nav-height: clamp(68px, 8vw, 88px);
+  --nav-logo-height: clamp(92px, 12vw, 132px);
   --nav-logo-offset: 18px;
-  --footer-logo-height: 128px;
+  --footer-logo-height: 132px;
 
   /* ============ Theme: dark (default) ============ */
 
-  /* Base & surfaces */
-  --color-app-bg: #050f1d;
-  --color-bg: #07182b;
-  --color-bg-alt: #0a1f37;
-  --color-surface: #0e2740;
-  --color-surface-2: #143251;
-  --color-surface-raised: #173a5e;
+  /* Base & surfaces — deeper, more saturated marine field */
+  --color-app-bg: #030c1a;
+  --color-bg: #061525;
+  --color-bg-alt: #0a1f34;
+  --color-surface: #0d2740;
+  --color-surface-2: #133250;
+  --color-surface-raised: #19395d;
+  --color-surface-soft: #0b1e34;
 
-  /* Brand action — marine blue */
-  --color-accent: #4d8bf0;
-  --color-accent-hover: #6ba4ff;
-  --color-accent-strong: #2f6fd6;
-  --color-accent-soft: rgba(77, 139, 240, 0.14);
-  --color-accent-ring: rgba(77, 139, 240, 0.4);
+  /* Brand action — confident marine signal blue */
+  --color-accent: #4d8df5;
+  --color-accent-hover: #6fa6ff;
+  --color-accent-strong: #2a6cd6;
+  --color-accent-deep: #173f87;
+  --color-accent-soft: rgba(77, 141, 245, 0.14);
+  --color-accent-ring: rgba(77, 141, 245, 0.42);
 
-  /* Premium highlight — brass */
-  --color-brass: #d8a64c;
-  --color-brass-strong: #ecc173;
-  --color-brass-soft: rgba(216, 166, 76, 0.16);
+  /* Premium highlight — warm brass (safety accent) */
+  --color-brass: #d8a557;
+  --color-brass-strong: #ecc079;
+  --color-brass-deep: #a07628;
+  --color-brass-soft: rgba(216, 165, 87, 0.16);
 
   /* Lines */
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-strong: rgba(255, 255, 255, 0.18);
-  --color-hairline: rgba(255, 255, 255, 0.07);
+  --color-border: rgba(174, 199, 226, 0.13);
+  --color-border-strong: rgba(174, 199, 226, 0.22);
+  --color-hairline: rgba(174, 199, 226, 0.08);
 
   /* Text */
-  --color-text-primary: #eef4fb;
-  --color-text-secondary: #aec1d6;
-  --color-text-faint: #7c93ab;
+  --color-text-primary: #f1f6fc;
+  --color-text-secondary: #b1c4d8;
+  --color-text-faint: #7c93ac;
+  --color-text-muted: #5b738d;
   --color-text-on-accent: #ffffff;
   --color-text-on-brass: #1a1206;
 
@@ -110,59 +125,73 @@
   --color-link: var(--color-accent);
 
   /* Layered translucencies (white over dark) */
-  --layer-1: rgba(255, 255, 255, 0.04);
-  --layer-2: rgba(255, 255, 255, 0.07);
-  --layer-3: rgba(255, 255, 255, 0.11);
-  --layer-4: rgba(255, 255, 255, 0.16);
+  --layer-1: rgba(255, 255, 255, 0.035);
+  --layer-2: rgba(255, 255, 255, 0.065);
+  --layer-3: rgba(255, 255, 255, 0.1);
+  --layer-4: rgba(255, 255, 255, 0.15);
 
   /* Surfaces & overlays */
-  --surface-glass: rgba(14, 39, 64, 0.66);
-  --overlay-nav: rgba(7, 24, 43, 0.72);
-  --overlay-scrim: rgba(5, 15, 29, 0.78);
+  --surface-glass: rgba(13, 39, 64, 0.66);
+  --overlay-nav: rgba(6, 21, 37, 0.72);
+  --overlay-scrim: rgba(3, 12, 26, 0.78);
 
-  /* Gradients */
+  /* Gradients — deeper page field with subtle brass warmth */
   --gradient-page: radial-gradient(
       120% 90% at 85% -10%,
-      rgba(77, 139, 240, 0.16) 0%,
-      rgba(77, 139, 240, 0) 55%
+      rgba(77, 141, 245, 0.18) 0%,
+      rgba(77, 141, 245, 0) 55%
     ),
     radial-gradient(
       90% 70% at 0% 0%,
-      rgba(216, 166, 76, 0.08) 0%,
-      rgba(216, 166, 76, 0) 50%
+      rgba(216, 165, 87, 0.09) 0%,
+      rgba(216, 165, 87, 0) 50%
     ),
-    linear-gradient(180deg, #050f1d 0%, #07182b 100%);
+    linear-gradient(180deg, #030c1a 0%, #061525 60%, #08182a 100%);
   --gradient-hero: radial-gradient(
       130% 120% at 78% 8%,
-      rgba(77, 139, 240, 0.26) 0%,
-      rgba(77, 139, 240, 0) 52%
+      rgba(77, 141, 245, 0.28) 0%,
+      rgba(77, 141, 245, 0) 52%
     ),
     radial-gradient(
       110% 90% at 6% 92%,
-      rgba(216, 166, 76, 0.14) 0%,
-      rgba(216, 166, 76, 0) 55%
+      rgba(216, 165, 87, 0.16) 0%,
+      rgba(216, 165, 87, 0) 55%
     ),
-    linear-gradient(165deg, #061528 0%, #081d34 46%, #050f1d 100%);
+    linear-gradient(165deg, #051427 0%, #08203a 46%, #030c1a 100%);
   --gradient-surface: linear-gradient(
     160deg,
-    rgba(255, 255, 255, 0.05) 0%,
+    rgba(255, 255, 255, 0.045) 0%,
     rgba(255, 255, 255, 0) 60%
   );
   --gradient-brass-rule: linear-gradient(
     90deg,
     var(--color-brass) 0%,
-    rgba(216, 166, 76, 0) 100%
+    var(--color-brass-strong) 18%,
+    rgba(216, 165, 87, 0) 100%
+  );
+  --gradient-accent-rule: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    rgba(77, 141, 245, 0) 100%
+  );
+  --gradient-divider: linear-gradient(
+    90deg,
+    rgba(174, 199, 226, 0) 0%,
+    rgba(174, 199, 226, 0.18) 50%,
+    rgba(174, 199, 226, 0) 100%
   );
 
   /* Chart-contour motif stroke (used in hero SVG) */
-  --motif-line: rgba(140, 178, 224, 0.16);
-  --motif-line-strong: rgba(140, 178, 224, 0.28);
+  --motif-line: rgba(140, 178, 224, 0.18);
+  --motif-line-strong: rgba(140, 178, 224, 0.32);
 
-  /* Shadows */
-  --shadow-sm: 0 2px 6px rgba(2, 8, 18, 0.4);
-  --shadow-md: 0 10px 28px rgba(2, 8, 18, 0.46);
-  --shadow-lg: 0 24px 60px rgba(2, 8, 18, 0.55);
-  --shadow-accent: 0 12px 30px rgba(31, 86, 196, 0.4);
+  /* Shadows — deeper, more deliberate */
+  --shadow-sm: 0 2px 8px rgba(2, 8, 18, 0.5);
+  --shadow-md: 0 12px 32px rgba(2, 8, 18, 0.55);
+  --shadow-lg: 0 28px 68px rgba(2, 8, 18, 0.66);
+  --shadow-xl: 0 40px 110px rgba(2, 8, 18, 0.78);
+  --shadow-accent: 0 14px 34px rgba(31, 86, 196, 0.46);
+  --shadow-inset-card: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 /* ============ Theme: light ============ */
@@ -173,24 +202,28 @@
   --color-surface: #ffffff;
   --color-surface-2: #f3f8fe;
   --color-surface-raised: #ffffff;
+  --color-surface-soft: #eef4fb;
 
   --color-accent: #1f5fd0;
-  --color-accent-hover: #1b51b4;
+  --color-accent-hover: #1a51b4;
   --color-accent-strong: #16448f;
+  --color-accent-deep: #0c2d63;
   --color-accent-soft: rgba(31, 95, 208, 0.1);
   --color-accent-ring: rgba(31, 95, 208, 0.32);
 
   --color-brass: #9a6c16;
   --color-brass-strong: #7f590c;
+  --color-brass-deep: #5e4108;
   --color-brass-soft: rgba(154, 108, 22, 0.12);
 
   --color-border: rgba(11, 37, 64, 0.13);
   --color-border-strong: rgba(11, 37, 64, 0.22);
   --color-hairline: rgba(11, 37, 64, 0.08);
 
-  --color-text-primary: #0b2440;
-  --color-text-secondary: #3a566f;
+  --color-text-primary: #08243f;
+  --color-text-secondary: #38556f;
   --color-text-faint: #69809a;
+  --color-text-muted: #8a9eb5;
   --color-text-on-accent: #ffffff;
   --color-text-on-brass: #ffffff;
 
@@ -203,7 +236,7 @@
   --layer-4: rgba(11, 37, 64, 0.12);
 
   --surface-glass: rgba(255, 255, 255, 0.82);
-  --overlay-nav: rgba(255, 255, 255, 0.82);
+  --overlay-nav: rgba(255, 255, 255, 0.84);
   --overlay-scrim: rgba(13, 32, 54, 0.5);
 
   --gradient-page: radial-gradient(
@@ -236,14 +269,28 @@
   --gradient-brass-rule: linear-gradient(
     90deg,
     var(--color-brass) 0%,
+    var(--color-brass-strong) 18%,
     rgba(154, 108, 22, 0) 100%
+  );
+  --gradient-accent-rule: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    rgba(31, 95, 208, 0) 100%
+  );
+  --gradient-divider: linear-gradient(
+    90deg,
+    rgba(11, 37, 64, 0) 0%,
+    rgba(11, 37, 64, 0.16) 50%,
+    rgba(11, 37, 64, 0) 100%
   );
 
   --motif-line: rgba(31, 95, 208, 0.12);
-  --motif-line-strong: rgba(31, 95, 208, 0.2);
+  --motif-line-strong: rgba(31, 95, 208, 0.22);
 
   --shadow-sm: 0 2px 6px rgba(13, 38, 71, 0.08);
-  --shadow-md: 0 12px 30px rgba(13, 38, 71, 0.12);
-  --shadow-lg: 0 26px 60px rgba(13, 38, 71, 0.16);
-  --shadow-accent: 0 12px 30px rgba(31, 95, 208, 0.28);
+  --shadow-md: 0 14px 36px rgba(13, 38, 71, 0.13);
+  --shadow-lg: 0 30px 70px rgba(13, 38, 71, 0.17);
+  --shadow-xl: 0 44px 110px rgba(13, 38, 71, 0.22);
+  --shadow-accent: 0 14px 34px rgba(31, 95, 208, 0.3);
+  --shadow-inset-card: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
