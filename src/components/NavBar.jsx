@@ -6,10 +6,16 @@ import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 import { useScrolled } from "../app/hooks/useScrolled";
 import { useActiveSection } from "../app/hooks/useActiveSection";
 
-function NavBar() {
+function NavBar({ surface = "dark", overHero = true }) {
   const [open, setOpen] = useState(false);
   const scrolled = useScrolled(12);
   const [active, setActive] = useActiveSection(SECTION_IDS);
+
+  /* When the user is at the very top, the nav is transparent over the
+   * dark cinematic hero — its dark token set always applies there.
+   * Once scrolled past the hero, the nav adopts the surface of whatever
+   * section is now underneath it so links stay legible on light bands. */
+  const effectiveSurface = open ? "dark" : overHero ? "dark" : surface;
 
   useEffect(() => {
     if (!open) return;
