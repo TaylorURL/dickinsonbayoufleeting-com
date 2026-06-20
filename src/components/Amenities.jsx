@@ -1,4 +1,5 @@
 import "./styles/Amenities.css";
+import { useReveal } from "../app/hooks/useReveal";
 
 const AMENITIES = [
   {
