@@ -17,7 +17,7 @@ function Footer() {
   };
   return (
     <footer className="footer" id="contact">
-      <div className="footer__contact">
+      <div className="footer__contact" data-surface="light">
         <div className="container">
           <div className="footer__contactGrid">
             <div className="footer__contactCol">
