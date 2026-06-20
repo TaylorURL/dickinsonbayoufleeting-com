@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import InquiryModal from "../components/InquiryModal";
+import ScrollSpy from "../components/ScrollSpy";
 import HomeView from "../views/HomeView";
 import ServicesView from "../views/ServicesView";
 import AboutView from "../views/AboutView";
@@ -101,10 +102,13 @@ function AppShell() {
     return () => cancelAnimationFrame(raf);
   }, [path, recomputeSurface]);
 
+  const isHome = normalisePath(path) === "/";
+
   return (
     <div className="App">
       <NavBar surface={navSurface} overHero={overHero} />
       <PageOutlet />
+      {isHome ? <ScrollSpy /> : null}
       <Footer />
       <InquiryModal
         open={inquiryOpen}
