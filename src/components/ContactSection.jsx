@@ -26,6 +26,8 @@ function validateForm({ firstName, lastName, email, phone, message }) {
 }
 
 function ContactSection() {
+  const asideRef = useReveal();
+  const formRef = useReveal();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
