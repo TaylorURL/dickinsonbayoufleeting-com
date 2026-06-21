@@ -115,12 +115,13 @@
 }
 
 .scrollSpy__item--active .scrollSpy__tick {
-  width: 22px;
-  background: var(--color-accent);
+  width: 26px;
+  background: var(--color-highlight);
+  box-shadow: 0 0 0 1px var(--color-highlight-soft);
 }
 
 .scrollSpy__item--active .scrollSpy__index {
-  color: var(--color-accent);
+  color: var(--color-highlight);
 }
 
 .scrollSpy__item--active .scrollSpy__label {
