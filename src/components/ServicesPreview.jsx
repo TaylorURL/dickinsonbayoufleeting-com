@@ -57,7 +57,7 @@ function ServicesPreview() {
         </ul>
 
         <ul
-          className="servicesPreview__highlights reveal-on-scroll"
+          className="servicesPreview__highlights reveal-on-scroll reveal-stagger"
           aria-label="Why customers stay"
           ref={highlightsRef}
         >
