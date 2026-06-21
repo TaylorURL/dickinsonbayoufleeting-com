@@ -94,14 +94,6 @@ function ContactSection() {
                 </dd>
               </div>
               <div className="contactSection__directItem">
-                <dt className="mono">Email</dt>
-                <dd>
-                  <a className="contactSection__directValue" href={emailHref}>
-                    office@dickinsonbayoufleeting.com
-                  </a>
-                </dd>
-              </div>
-              <div className="contactSection__directItem">
                 <dt className="mono">Operations desk</dt>
                 <dd className="contactSection__directNote">
                   Shore presence 24 / 7. The office is staffed weekdays, with
