@@ -477,7 +477,7 @@
 }
 
 /* ---------- Responsive — stack the console below the headline ---------- */
-@media (max-width: 1080px) {
+@media (max-width: 1100px) {
   .hero__frame {
     grid-template-columns: 1fr;
     grid-template-areas:
