@@ -1,6 +1,7 @@
 import "./styles/CtaStrip.css";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 import { Link } from "../app/router/Link";
+import { useReveal } from "../app/hooks/useReveal";
 
 /* Lower-page conversion strip. Reused across pages so the call-to-action
  * is consistent and the user always has a clear next step. */
@@ -10,11 +11,12 @@ function CtaStrip({
   body = "Tell us about the job and we will get back to you inside one business day. The direct line is always faster.",
   primary = { label: "Send a request", to: "/contact" },
 }) {
+  const innerRef = useReveal();
   const phoneHref = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`;
   return (
     <section className="ctaStrip" data-surface="dark" aria-label="Get in touch">
       <div className="container">
-        <div className="ctaStrip__inner">
+        <div className="ctaStrip__inner reveal-on-scroll" ref={innerRef}>
           <div className="ctaStrip__copy">
             <p className="eyebrow eyebrow--strong mono ctaStrip__eyebrow">
               {eyebrow}
