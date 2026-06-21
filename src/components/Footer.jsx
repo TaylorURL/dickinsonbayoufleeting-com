@@ -188,12 +188,6 @@ function Footer() {
                       {PHONE_NUMBER}
                     </a>
                   </li>
-                  <li className="footer__contactRow">
-                    <span className="footer__contactRowLabel mono">Email</span>
-                    <a href={emailHref} className="footer__contactRowValue">
-                      {FOOTER_EMAIL}
-                    </a>
-                  </li>
                   {FOOTER_HOURS.map((h) => (
                     <li key={h.label} className="footer__contactRow">
                       <span className="footer__contactRowLabel mono">
