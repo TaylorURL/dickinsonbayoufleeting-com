@@ -88,7 +88,7 @@ function AboutStory() {
             <h2 className="section__title">From one slip to a coastal operation.</h2>
           </div>
           <ol
-            className="aboutTimeline__list reveal-on-scroll"
+            className="aboutTimeline__list reveal-on-scroll reveal-stagger"
             aria-label="Company history"
             ref={timelineListRef}
           >
