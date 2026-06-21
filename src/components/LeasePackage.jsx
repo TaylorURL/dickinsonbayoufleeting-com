@@ -78,7 +78,7 @@ function LeasePackage() {
               <p className="estimator__featuresLabel mono">
                 Included with the lease
               </p>
-              <ul className="leaseFeatureList">
+              <ul key={loc.id} className="leaseFeatureList">
                 {loc.features.map((feature, idx) => (
                   <li key={feature} className="leaseFeatureList__item">
                     <span className="leaseFeatureList__idx mono">

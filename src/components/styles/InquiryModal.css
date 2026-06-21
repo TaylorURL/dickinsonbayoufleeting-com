@@ -23,9 +23,11 @@
   max-height: calc(100dvh - var(--space-8));
   overflow-y: auto;
   background: var(--color-bg);
+  background-image: var(--texture-hull);
+  background-size: var(--texture-hull-size);
   border: 1px solid var(--color-border-strong);
   border-radius: 0;
-  animation: inqShellIn var(--transition-slow) var(--ease-out) both;
+  animation: inqShellIn var(--transition-slow) var(--ease-water) both;
 }
 
 .inqShell::before {
@@ -33,9 +35,9 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 80px;
-  height: 1px;
-  background: var(--color-accent);
+  width: 96px;
+  height: 2px;
+  background: var(--color-highlight);
 }
 
 .inqLayout {
@@ -56,16 +58,17 @@
 
 .inqHeader .eyebrow {
   font-family: var(--font-mono);
-  color: var(--color-accent);
+  color: var(--color-highlight);
 }
 
 .inqHeader__title {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
-  font-weight: 500;
-  letter-spacing: -0.022em;
+  font-family: var(--font-condensed);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: 0.012em;
+  text-transform: uppercase;
   color: var(--color-text-primary);
-  line-height: 1;
+  line-height: 0.98;
 }
 
 .inqHeader__subtitle {
@@ -131,7 +134,7 @@
 .inqInput:focus,
 .inqTextarea:focus {
   outline: none;
-  border-bottom-color: var(--color-accent);
+  border-bottom-color: var(--color-highlight);
 }
 
 .inqTextarea {
@@ -146,8 +149,6 @@
   border-bottom-color: var(--color-danger);
 }
 
-/* Suppress the UA autofill plate (yellow on Chromium, blue on Firefox) so
- * autofilled values keep the modal's dark surface and text token. */
 .inqInput:-webkit-autofill,
 .inqInput:-webkit-autofill:hover,
 .inqInput:-webkit-autofill:focus,
@@ -218,36 +219,41 @@
   transition:
     background var(--transition-fast) var(--ease-out),
     color var(--transition-fast) var(--ease-out),
-    border-color var(--transition-fast) var(--ease-out);
+    border-color var(--transition-fast) var(--ease-out),
+    transform var(--transition-fast) var(--ease-out),
+    box-shadow var(--transition-base) var(--ease-out);
 }
 
 .inqBtn:focus-visible {
   outline: none;
   box-shadow:
     0 0 0 1px var(--color-bg),
-    0 0 0 3px var(--color-accent-ring);
+    0 0 0 3px var(--color-highlight-ring);
 }
 
 .inqBtn:active {
-  transform: scale(0.99);
+  transform: scale(0.985);
 }
 
 .inqBtn--primary {
-  background: var(--color-text-primary);
-  color: var(--color-text-on-accent);
-  border-color: var(--color-text-primary);
+  background: var(--color-highlight);
+  color: var(--color-text-on-highlight);
+  border-color: var(--color-highlight);
+  box-shadow: var(--shadow-accent);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .inqBtn--primary:not(:disabled):hover {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
+    background: var(--color-highlight-hover);
+    border-color: var(--color-highlight-hover);
+    transform: translateY(-1px);
   }
 }
 
 .inqBtn--primary:disabled {
   opacity: 0.4;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 .inqBtn--ghost {
@@ -257,7 +263,8 @@
 }
 
 .inqBtn--ghost:not(:disabled):hover {
-  border-color: var(--color-text-primary);
+  border-color: var(--color-highlight);
+  color: var(--color-highlight);
 }
 
 .inqBtn--call {
@@ -267,8 +274,8 @@
 }
 
 .inqBtn--call:hover {
-  color: var(--color-text-primary);
-  border-color: var(--color-text-primary);
+  color: var(--color-highlight);
+  border-color: var(--color-highlight);
 }
 
 .inqLive {
@@ -289,7 +296,7 @@
   gap: var(--space-4);
   padding: var(--space-10) var(--space-8) var(--space-9);
   position: relative;
-  animation: inqRise var(--transition-slow) var(--ease-out) both;
+  animation: inqRise var(--transition-slow) var(--ease-water) both;
 }
 
 .inqResult::before {
@@ -297,29 +304,31 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 80px;
-  height: 1px;
-  background: var(--color-accent);
+  width: 96px;
+  height: 2px;
+  background: var(--color-highlight);
 }
 
 .inqResult__icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  background: transparent;
-  color: var(--color-accent);
-  border: 1px solid var(--color-accent);
+  width: 64px;
+  height: 64px;
+  background: var(--color-highlight-soft);
+  color: var(--color-highlight);
+  border: 1px solid var(--color-highlight);
+  animation: inqResultIconIn 0.55s 0.15s var(--ease-spring) both;
 }
 
 .inqResult__title {
-  font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
-  font-weight: 500;
-  letter-spacing: -0.022em;
+  font-family: var(--font-condensed);
+  font-size: clamp(2rem, 3.4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: 0.012em;
+  text-transform: uppercase;
   color: var(--color-text-primary);
-  line-height: 1;
+  line-height: 0.98;
 }
 
 .inqResult__text {
@@ -346,11 +355,11 @@
 @keyframes inqShellIn {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(22px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -362,6 +371,26 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes inqResultIconIn {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inqShell,
+  .inqResult,
+  .inqResult__icon,
+  .inqModal__backdrop {
+    animation: none;
   }
 }
 

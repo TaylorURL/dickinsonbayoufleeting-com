@@ -32,7 +32,10 @@ function AboutStory() {
             </p>
           </div>
 
-          <div className="aboutStory__blocks reveal-on-scroll" ref={storyBlocksRef}>
+          <div
+            className="aboutStory__blocks reveal-on-scroll reveal-stagger"
+            ref={storyBlocksRef}
+          >
             {ABOUT_STORY.map((b, idx) => (
               <article key={b.heading} className="aboutStory__block">
                 <span className="aboutStory__idx mono">
@@ -58,7 +61,7 @@ function AboutStory() {
             <h2 className="section__title">Four things we will not compromise on.</h2>
           </div>
           <ul
-            className="aboutValues__grid reveal-on-scroll"
+            className="aboutValues__grid reveal-on-scroll reveal-stagger"
             aria-label="Operating principles"
             ref={valuesGridRef}
           >
@@ -85,7 +88,7 @@ function AboutStory() {
             <h2 className="section__title">From one slip to a coastal operation.</h2>
           </div>
           <ol
-            className="aboutTimeline__list reveal-on-scroll"
+            className="aboutTimeline__list reveal-on-scroll reveal-stagger"
             aria-label="Company history"
             ref={timelineListRef}
           >

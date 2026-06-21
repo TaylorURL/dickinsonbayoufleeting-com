@@ -64,7 +64,7 @@ function Amenities() {
         </div>
 
         <ol
-          className="amenities__list reveal-on-scroll"
+          className="amenities__list reveal-on-scroll reveal-stagger"
           aria-label="Capability list"
           ref={listRef}
         >

@@ -1,6 +1,7 @@
 /* Hero — full-bleed, near-screen-height cinematic frame.
- * Dark video plate, hairline grid overlay, large grotesque headline,
- * single sharp CTA. */
+ * Procedural ocean plate with subtle parallax, hairline grid + corner
+ * ticks overlay, condensed industrial headline, safety-orange CTA.
+ * Bottom edge bites into the next section with a wave divider. */
 
 .hero {
   position: relative;
@@ -20,29 +21,31 @@
   z-index: -1;
   background: var(--color-bg-deep);
   overflow: hidden;
+  /* Slight upscale so parallax drift never reveals an edge. */
+  height: 115%;
+  will-change: transform;
 }
 
-/* Subtle radial wash so the topography reads as something rising out
- * of the dark water — never a flat surface of dots. */
+/* Layered radial wash — top corner lifts toward the highlight to anchor
+ * the eye to the CTA, bottom darkens for legible text. */
 .hero__scrim {
   position: absolute;
   inset: 0;
   background:
     radial-gradient(
       130% 90% at 50% 110%,
-      rgba(0, 0, 0, 0.75) 0%,
+      rgba(0, 0, 0, 0.78) 0%,
       rgba(0, 0, 0, 0.45) 35%,
       rgba(0, 0, 0, 0.15) 60%,
       rgba(0, 0, 0, 0) 100%
     ),
     linear-gradient(
       180deg,
-      rgba(10, 10, 10, 0.55) 0%,
-      rgba(10, 10, 10, 0.35) 50%,
-      rgba(10, 10, 10, 0.6) 100%
+      rgba(7, 16, 28, 0.5) 0%,
+      rgba(7, 16, 28, 0.3) 50%,
+      rgba(7, 16, 28, 0.7) 100%
     );
 }
-
 
 .hero__vignette {
   position: absolute;
@@ -51,7 +54,7 @@
   pointer-events: none;
 }
 
-/* Hairline grid + corner ticks — anduril-style technical overlay. */
+/* Hairline grid + corner ticks — operations-deck technical overlay. */
 .hero__marks {
   position: absolute;
   inset: 0;
@@ -81,7 +84,7 @@
     "inner sidebar"
     "bottom bottom";
   gap: var(--space-7) var(--space-7);
-  padding-block: calc(var(--nav-height) + var(--space-9)) var(--space-9);
+  padding-block: calc(var(--nav-height) + var(--space-9)) var(--space-10);
 }
 
 .hero__topMeta {
@@ -98,22 +101,12 @@
 .hero__topMetaItem {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-size: var(--mono-size);
   font-weight: 500;
   letter-spacing: var(--mono-tracking);
   text-transform: uppercase;
   color: var(--color-text-faint);
-}
-
-.hero__metaDot {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  background: var(--color-highlight);
-  border-radius: 50%;
-  box-shadow: 0 0 0 3px var(--color-highlight-soft);
-  animation: heroPulse 2.4s var(--ease-in-out) infinite;
 }
 
 @media (max-width: 720px) {
@@ -137,24 +130,44 @@
 }
 
 .hero__eyebrow {
-  color: var(--color-accent);
-  animation: heroRise 0.8s 0.05s var(--ease-out) both;
+  color: var(--color-highlight);
+  animation: heroRise 0.9s 0.05s var(--ease-water) both;
 }
 
 .hero__title {
-  font-family: var(--font-display);
+  font-family: var(--font-condensed);
   font-size: var(--text-hero);
-  line-height: 0.93;
-  letter-spacing: -0.034em;
-  font-weight: 500;
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  font-weight: 700;
+  text-transform: uppercase;
   max-width: 22ch;
   color: var(--color-text-primary);
-  animation: heroRise 0.9s 0.1s var(--ease-out) both;
+  display: flex;
+  flex-direction: column;
+  gap: 0.04em;
+}
+
+.hero__titleLine {
+  display: block;
+  overflow: hidden;
+}
+
+.hero__titleLine > * {
+  display: inline-block;
+}
+
+.hero__titleLine:nth-child(1) {
+  animation: heroRise 1s 0.1s var(--ease-water) both;
+}
+
+.hero__titleLine:nth-child(2) {
+  animation: heroRise 1s 0.24s var(--ease-water) both;
 }
 
 .hero__titleAccent {
-  color: var(--color-accent);
-  font-weight: 500;
+  color: var(--color-highlight);
+  font-weight: 700;
 }
 
 .hero__subtitle {
@@ -164,7 +177,7 @@
   max-width: 60ch;
   color: var(--color-text-secondary);
   font-weight: 400;
-  animation: heroRise 0.9s 0.22s var(--ease-out) both;
+  animation: heroRise 0.9s 0.38s var(--ease-water) both;
 }
 
 .hero__actions {
@@ -172,7 +185,7 @@
   flex-wrap: wrap;
   gap: var(--space-3);
   margin-top: var(--space-1);
-  animation: heroRise 0.9s 0.34s var(--ease-out) both;
+  animation: heroRise 0.9s 0.5s var(--ease-water) both;
 }
 
 /* ---------- Right sidebar (facility highlights) ---------- */
@@ -182,7 +195,7 @@
   flex-direction: column;
   justify-content: center;
   align-self: center;
-  animation: heroFade 1s 0.45s var(--ease-out) both;
+  animation: heroFade 1s 0.6s var(--ease-water) both;
 }
 
 .hero__highlights {
@@ -209,7 +222,8 @@
   grid-row: 1 / 3;
   width: 6px;
   height: 6px;
-  background: var(--color-accent);
+  background: var(--color-highlight);
+  box-shadow: 0 0 0 2px var(--color-highlight-soft);
   margin-right: 2px;
   align-self: start;
   margin-top: 7px;
@@ -241,7 +255,7 @@
   grid-area: bottom;
   padding-top: var(--space-7);
   border-top: 1px solid var(--color-hairline);
-  animation: heroRise 0.9s 0.5s var(--ease-out) both;
+  animation: heroRise 0.9s 0.7s var(--ease-water) both;
 }
 
 .hero__stats {
@@ -259,10 +273,17 @@
   border-left: 1px solid var(--color-hairline);
   padding-left: var(--space-4);
   margin: 0;
+  transition: border-color var(--transition-base) var(--ease-out);
 }
 
 .hero__stat:first-child {
-  border-left: 1px solid var(--color-accent);
+  border-left: 1px solid var(--color-highlight);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero__stat:hover {
+    border-left-color: var(--color-highlight);
+  }
 }
 
 .hero__statLabel {
@@ -276,17 +297,17 @@
 }
 
 .hero__statSuffix {
-  color: var(--color-accent);
+  color: var(--color-highlight);
   font-weight: 600;
   letter-spacing: 0;
   margin-left: 0.04em;
 }
 
 .hero__statValue {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 4vw, 3.4rem);
-  font-weight: 500;
-  letter-spacing: -0.04em;
+  font-family: var(--font-condensed);
+  font-size: clamp(2.6rem, 4.4vw, 3.8rem);
+  font-weight: 700;
+  letter-spacing: 0.005em;
   line-height: 1;
   color: var(--color-text-primary);
   margin: 0;
@@ -301,7 +322,7 @@
 @keyframes heroRise {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(28px);
   }
   to {
     opacity: 1;
@@ -315,17 +336,6 @@
   }
   to {
     opacity: 1;
-  }
-}
-
-@keyframes heroPulse {
-  0%, 100% {
-    opacity: 1;
-    box-shadow: 0 0 0 3px var(--color-highlight-soft);
-  }
-  50% {
-    opacity: 0.7;
-    box-shadow: 0 0 0 6px transparent;
   }
 }
 
@@ -355,12 +365,17 @@
   }
 
   .hero__statValue {
-    font-size: clamp(2rem, 8vw, 2.6rem);
+    font-size: clamp(2.2rem, 8vw, 2.8rem);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__metaDot {
+  .hero__eyebrow,
+  .hero__titleLine,
+  .hero__subtitle,
+  .hero__actions,
+  .hero__sidebar,
+  .hero__bottom {
     animation: none;
   }
 }
