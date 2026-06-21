@@ -105,6 +105,7 @@ function Location() {
             </div>
 
             <div
+              key={activeFacility.id}
               id="location-detail"
               role="tabpanel"
               aria-labelledby={`location-tab-${activeFacility.id}`}
