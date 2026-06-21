@@ -41,8 +41,6 @@ function Footer() {
   const year = new Date().getFullYear();
   const phoneDigits = PHONE_NUMBER.replace(/[^0-9]/g, "");
   const phoneHref = `tel:1${phoneDigits}`;
-  const emailHref = `mailto:${FOOTER_EMAIL}`;
-
   return (
     <footer className="footer" id="footer">
       {/* ---------- Contact band (light surface) ---------- */}
