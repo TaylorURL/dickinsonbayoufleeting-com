@@ -61,7 +61,7 @@ function AboutStory() {
             <h2 className="section__title">Four things we will not compromise on.</h2>
           </div>
           <ul
-            className="aboutValues__grid reveal-on-scroll"
+            className="aboutValues__grid reveal-on-scroll reveal-stagger"
             aria-label="Operating principles"
             ref={valuesGridRef}
           >
