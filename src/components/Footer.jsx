@@ -2,6 +2,7 @@ import "./styles/Footer.css";
 import { NAV_LINKS } from "../app/constants/navLinks";
 import { FACILITIES } from "../app/constants/facilities";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
+import { SERVICES } from "../app/constants/services";
 import { Link } from "../app/router/Link";
 import WaveDivider from "./WaveDivider";
 
@@ -11,10 +12,42 @@ const FOOTER_CREDENTIALS = [
   "Houston Ship Channel partner",
 ];
 
+const FOOTER_SERVICES = SERVICES.slice(0, 6);
+
+const FOOTER_HOURS = [
+  { label: "Office", value: "Mon–Fri · 7a–5p CT" },
+  { label: "Operations desk", value: "24 / 7 · On-call answered" },
+];
+
+const FOOTER_EMAIL = "office@dickinsonbayoufleeting.com";
+
+function PhoneIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
+    </svg>
+  );
+}
+
 function Footer() {
   const year = new Date().getFullYear();
+  const phoneDigits = PHONE_NUMBER.replace(/[^0-9]/g, "");
+  const phoneHref = `tel:1${phoneDigits}`;
+  const emailHref = `mailto:${FOOTER_EMAIL}`;
+
   return (
     <footer className="footer" id="footer">
+      {/* ---------- Contact band (light surface) ---------- */}
       <div className="footer__contact" data-surface="light">
         <WaveDivider />
         <div className="container">
@@ -31,23 +64,9 @@ function Footer() {
             <div className="footer__contactCol footer__contactCol--actions">
               <div className="footer__contactBlock">
                 <span className="footer__contactLabel mono">Direct line</span>
-                <a
-                  href={`tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`}
-                  className="footer__phone tabular"
-                >
+                <a href={phoneHref} className="footer__phone tabular">
                   <span className="footer__phoneIcon" aria-hidden="true">
-                    <svg
-                      width="18"
-                      height="18"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z" />
-                    </svg>
+                    <PhoneIcon />
                   </span>
                   {PHONE_NUMBER}
                 </a>
@@ -60,9 +79,11 @@ function Footer() {
         </div>
       </div>
 
+      {/* ---------- Main columns (dark surface, hull-plate texture) ---------- */}
       <div className="footer__main hullPlate" data-surface="dark">
         <div className="container">
           <div className="footer__mainGrid">
+            {/* Brand block */}
             <div className="footer__brand">
               <Link
                 to="/"
@@ -103,6 +124,7 @@ function Footer() {
               </ul>
             </div>
 
+            {/* Link columns */}
             <div className="footer__cols">
               <div className="footer__col" aria-label="Pages">
                 <div className="footer__title mono">Pages</div>
@@ -110,7 +132,7 @@ function Footer() {
                   {NAV_LINKS.map((l) => (
                     <li key={l.to}>
                       <Link className="footer__link" to={l.to}>
-                        {l.label}
+                        <span>{l.label}</span>
                         <span className="footer__linkArrow mono" aria-hidden="true">
                           →
                         </span>
@@ -119,25 +141,90 @@ function Footer() {
                   ))}
                 </ul>
               </div>
+
+              <div className="footer__col" aria-label="Services">
+                <div className="footer__title mono">Services</div>
+                <ul className="footer__list footer__list--compact">
+                  {FOOTER_SERVICES.map((s) => (
+                    <li key={s.id}>
+                      <Link className="footer__sublink" to="/services">
+                        <span className="footer__sublinkCode mono">
+                          {s.code}
+                        </span>
+                        <span className="footer__sublinkName">{s.name}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
               <div className="footer__col" aria-label="Facilities">
                 <div className="footer__title mono">Facilities</div>
-                <ul className="footer__list">
+                <ul className="footer__list footer__list--locations">
                   {FACILITIES.map((facility, idx) => (
-                    <li key={facility.name} className="footer__loc">
+                    <li key={facility.id} className="footer__loc">
                       <span className="footer__locIdx mono">
                         F-{String(idx + 1).padStart(2, "0")}
                       </span>
                       <span className="footer__locName">{facility.name}</span>
-                      <span className="footer__locAddr">{facility.address}</span>
+                      <span className="footer__locRegion mono">
+                        {facility.region.split(" · ")[0]}
+                      </span>
+                      <a
+                        href={`https://maps.google.com/?q=${encodeURIComponent(facility.address)}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="footer__locAddr"
+                      >
+                        {facility.address}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="footer__col" aria-label="Get in touch">
+                <div className="footer__title mono">Get in touch</div>
+                <ul className="footer__list footer__list--contact">
+                  <li className="footer__contactRow">
+                    <span className="footer__contactRowLabel mono">Phone</span>
+                    <a href={phoneHref} className="footer__contactRowValue tabular">
+                      {PHONE_NUMBER}
+                    </a>
+                  </li>
+                  <li className="footer__contactRow">
+                    <span className="footer__contactRowLabel mono">Email</span>
+                    <a href={emailHref} className="footer__contactRowValue">
+                      {FOOTER_EMAIL}
+                    </a>
+                  </li>
+                  {FOOTER_HOURS.map((h) => (
+                    <li key={h.label} className="footer__contactRow">
+                      <span className="footer__contactRowLabel mono">
+                        {h.label}
+                      </span>
+                      <span className="footer__contactRowValue footer__contactRowValue--muted">
+                        {h.value}
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
           </div>
+
+          {/* Service-area chip strip — quick coverage at a glance */}
+          <div className="footer__coverage" aria-label="Coverage">
+            <span className="footer__coverageLabel mono">Coverage</span>
+            <span className="footer__coverageList mono">
+              Galveston Bay · Houston Ship Channel · Gulf Intracoastal Waterway
+              · Brazoria · Galveston · Harris
+            </span>
+          </div>
         </div>
       </div>
 
+      {/* ---------- Bottom bar ---------- */}
       <div className="footer__bar" data-surface="dark">
         <div className="footer__barInner">
           <div className="footer__copy mono">
