@@ -1,20 +1,18 @@
 /*
- * Design tokens — "Blackwater".
+ * Design tokens — "Tidewater".
  *
- * Defense / industrial-technical visual language for Dickinson Bayou
- * Fleeting. Two surfaces are first-class: a near-black "dark" canvas and
- * an off-white "paper" canvas. They share the same wide-grotesque +
- * monospace pairing, hairline rules, sharp corners and one muted
- * steel-blue accent — the accent shade shifts between the two for WCAG
- * AA contrast.
+ * Industrial-maritime visual language for Dickinson Bayou Fleeting.
+ * A working-waterfront aesthetic: deep navy and steel grays carry the
+ * canvas, a foam paper surface flips for daylight panels, a safety
+ * buoy-orange highlight powers CTAs and active state, and a weathered
+ * copper-rust accent appears sparingly for tier-two callouts and
+ * timeline marks. Sharp corners, hairline rules, and condensed
+ * industrial display type evoke hull-plate signage; the body face
+ * stays generous and readable for operator-grade content.
  *
- * :root holds the dark surface (default) plus every surface-invariant
- * token: type system, spacing rhythm, radii, motion, blur, layout dims.
- *
- * Per-section surface flipping is done with [data-surface="light"] or
- * [data-surface="dark"] on the section element — tokens cascade to
- * everything inside it, so the same components render correctly on
- * either canvas without component-level forks.
+ * Per-section surface flipping with [data-surface="light" | "dark"]
+ * on any wrapper — tokens cascade to descendants, so every component
+ * renders correctly on either canvas without component-level forks.
  */
 :root {
   /* Invariant: radii — sharp, near-zero corners */
@@ -26,7 +24,7 @@
   --radius-2xl: 2px;
   --radius-pill: 999px;
 
-  /* Invariant: spacing scale (4px base, slightly wider rhythm than before) */
+  /* Invariant: spacing scale (4px base) */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -40,10 +38,18 @@
   --space-11: 120px;
   --space-12: 160px;
 
-  /* Invariant: typography */
+  /* Invariant: typography
+   * - display: Space Grotesk (clean modern grotesque) for body headings
+   * - condensed: Barlow Condensed for hero/section titles — confident
+   *   industrial-signage feel without going full kitsch
+   * - body: Inter — readable for operator-grade copy
+   * - mono: JetBrains Mono — codes, eyebrows, mono labels */
   --font-display:
     "Space Grotesk", "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont,
     "Helvetica Neue", "Segoe UI", sans-serif;
+  --font-condensed:
+    "Barlow Condensed", "Oswald", "Space Grotesk", "Inter Tight",
+    -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
   --font-body:
     "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
     "Helvetica Neue", sans-serif;
@@ -55,8 +61,8 @@
     SFMono-Regular, Menlo, Consolas, monospace;
 
   /* Fluid display scale — confident, near-screen-height presence */
-  --text-hero: clamp(3.1rem, 8.4vw, 7.2rem);
-  --text-h2: clamp(2.1rem, 4.4vw, 3.4rem);
+  --text-hero: clamp(3.4rem, 9vw, 8rem);
+  --text-h2: clamp(2.2rem, 4.8vw, 3.8rem);
   --text-h3: clamp(1.05rem, 1.4vw, 1.2rem);
   --text-lead: clamp(1.04rem, 1.45vw, 1.2rem);
   --text-body: 1rem;
@@ -64,17 +70,24 @@
   --text-xs: 0.75rem;
 
   /* Tracked-label treatment — wider letter-spacing, mono-style */
-  --eyebrow-size: 0.7rem;
-  --eyebrow-tracking: 3px;
+  --eyebrow-size: 0.72rem;
+  --eyebrow-tracking: 0.32em;
   --mono-size: 0.74rem;
-  --mono-tracking: 0.06em;
+  --mono-tracking: 0.08em;
 
-  /* Invariant: motion */
-  --transition-fast: 140ms;
-  --transition-base: 260ms;
-  --transition-slow: 420ms;
+  /* Invariant: motion — smoother eased curves than browser defaults.
+   * --ease-water is a soft long-tail curve used for parallax/reveal;
+   * --ease-out is the canonical entrance curve; --ease-in-out is the
+   * morph curve for state changes; --ease-spring gives a tiny
+   * over-shoot for emphasis hits. Never use ease-in on UI. */
+  --transition-fast: 160ms;
+  --transition-base: 280ms;
+  --transition-slow: 460ms;
+  --transition-reveal: 760ms;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
+  --ease-water: cubic-bezier(0.16, 0.84, 0.32, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Invariant: blur */
   --blur-sm: 6px;
@@ -90,306 +103,384 @@
   --nav-logo-offset: 14px;
   --footer-logo-height: clamp(140px, 14vw, 200px);
 
-  /* ============ Theme: dark (default) ============ */
+  /* ============ Theme: dark (default) — deep harbor night ============ */
 
-  /* Canvas — true near-black, deepest at the edges */
-  --color-app-bg: #0a0a0a;
-  --color-bg: #0a0a0a;
-  --color-bg-alt: #0d0d0d;
-  --color-surface: #111111;
-  --color-surface-2: #141414;
-  --color-surface-raised: #181818;
-  --color-surface-soft: #0d0d0d;
-  --color-bg-deep: #050505;
+  /* Canvas — saturated navy/blackwater, deeper at the edges */
+  --color-app-bg: #07101c;
+  --color-bg: #07101c;
+  --color-bg-alt: #0a1422;
+  --color-surface: #0e1828;
+  --color-surface-2: #121e30;
+  --color-surface-raised: #16243a;
+  --color-surface-soft: #091422;
+  --color-bg-deep: #04090f;
 
-  /* Single muted technical accent — desaturated steel-blue.
-   * Used sparingly for CTAs, active states, focus rings, hairline ticks. */
-  --color-accent: #7ea4cc;
-  --color-accent-hover: #9bbcdd;
-  --color-accent-strong: #5d86b3;
-  --color-accent-deep: #2f4f76;
-  --color-accent-soft: rgba(126, 164, 204, 0.1);
-  --color-accent-ring: rgba(126, 164, 204, 0.32);
+  /* Primary accent — marine signal blue. Sits between channel buoy and
+   * deep-water hue. Used for hairline ticks, links, hover state, focus
+   * rings, secondary callouts. */
+  --color-accent: #6fa8d6;
+  --color-accent-hover: #95c1e3;
+  --color-accent-strong: #4f8cc1;
+  --color-accent-deep: #2c5a85;
+  --color-accent-soft: rgba(111, 168, 214, 0.12);
+  --color-accent-ring: rgba(111, 168, 214, 0.36);
 
-  /* Alias for sparing warm-amber use (single highlight on hero only) */
-  --color-highlight: #c79655;
-  --color-highlight-soft: rgba(199, 150, 85, 0.14);
+  /* Highlight — buoy / safety orange. The single warm signal in the
+   * palette. Powers PRIMARY CTAs, active-state pulses, hero highlights.
+   * Use sparingly — its job is to lead the eye to the next action. */
+  --color-highlight: #f0a045;
+  --color-highlight-hover: #ffb866;
+  --color-highlight-strong: #d68b30;
+  --color-highlight-soft: rgba(240, 160, 69, 0.16);
+  --color-highlight-ring: rgba(240, 160, 69, 0.36);
+
+  /* Rust — weathered copper for tier-two accents (timeline marks,
+   * specs callouts, alt-state ticks). Never used as a CTA. */
+  --color-rust: #b86a45;
+  --color-rust-soft: rgba(184, 106, 69, 0.14);
 
   /* Hairline borders — 1px low-opacity dividers */
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-strong: rgba(255, 255, 255, 0.22);
-  --color-hairline: rgba(255, 255, 255, 0.06);
+  --color-border: rgba(196, 220, 244, 0.12);
+  --color-border-strong: rgba(196, 220, 244, 0.24);
+  --color-hairline: rgba(196, 220, 244, 0.07);
 
-  /* Text — off-white primary, restrained secondaries */
-  --color-text-primary: #f2f2f2;
-  --color-text-secondary: #c8c8c8;
-  --color-text-faint: #8a8a8a;
-  --color-text-muted: #5e5e5e;
-  --color-text-on-accent: #0a0a0a;
-  --color-text-on-highlight: #0a0a0a;
+  /* Text — foam white primary, restrained secondaries */
+  --color-text-primary: #eef3f9;
+  --color-text-secondary: #c5d2e0;
+  --color-text-faint: #8b9cb0;
+  --color-text-muted: #5a6a7e;
+  --color-text-on-accent: #07101c;
+  --color-text-on-highlight: #1a0d04;
 
   /* Feedback */
   --color-success: #87b58f;
-  --color-danger: #d77878;
+  --color-danger: #e07b7b;
   --color-link: var(--color-text-primary);
 
-  /* Layered translucencies (white over black) */
-  --layer-1: rgba(255, 255, 255, 0.025);
-  --layer-2: rgba(255, 255, 255, 0.045);
-  --layer-3: rgba(255, 255, 255, 0.075);
-  --layer-4: rgba(255, 255, 255, 0.12);
+  /* Layered translucencies (light foam over deep navy) */
+  --layer-1: rgba(196, 220, 244, 0.03);
+  --layer-2: rgba(196, 220, 244, 0.055);
+  --layer-3: rgba(196, 220, 244, 0.085);
+  --layer-4: rgba(196, 220, 244, 0.14);
 
   /* Surfaces & overlays */
-  --surface-glass: rgba(10, 10, 10, 0.62);
-  --overlay-nav: rgba(10, 10, 10, 0.86);
+  --surface-glass: rgba(7, 16, 28, 0.66);
+  --overlay-nav: rgba(7, 16, 28, 0.88);
   --overlay-scrim: rgba(0, 0, 0, 0.86);
 
-  /* Image treatment — cinematic dark scrims to absorb photos into the canvas */
+  /* Image treatment — cinematic navy scrims so any photo grades into
+   * the canvas instead of standing apart. */
   --image-scrim: linear-gradient(
     180deg,
-    rgba(10, 10, 10, 0.4) 0%,
-    rgba(10, 10, 10, 0.7) 60%,
-    rgba(10, 10, 10, 0.92) 100%
+    rgba(7, 16, 28, 0.4) 0%,
+    rgba(7, 16, 28, 0.7) 60%,
+    rgba(7, 16, 28, 0.92) 100%
   );
   --image-scrim-horizontal: linear-gradient(
     90deg,
-    rgba(10, 10, 10, 0.92) 0%,
-    rgba(10, 10, 10, 0.6) 45%,
-    rgba(10, 10, 10, 0.3) 100%
+    rgba(7, 16, 28, 0.92) 0%,
+    rgba(7, 16, 28, 0.6) 45%,
+    rgba(7, 16, 28, 0.3) 100%
   );
-  --image-filter: grayscale(0.35) brightness(0.65) contrast(1.08);
+  --image-filter: grayscale(0.25) brightness(0.7) contrast(1.1)
+    sepia(0.05) hue-rotate(-8deg);
 
-  /* Gradients used minimally — page canvas stays flat. Hero gets a subtle
-   * radial vignette only to focus the eye on the headline. */
-  --gradient-page: linear-gradient(180deg, #0a0a0a 0%, #0a0a0a 100%);
+  /* Gradients — page canvas stays nearly flat; hero gets a vignette
+   * lifting toward the safety highlight to anchor the eye to the CTA. */
+  --gradient-page: linear-gradient(180deg, #07101c 0%, #050b14 100%);
   --gradient-hero-vignette:
     radial-gradient(
       130% 90% at 50% 100%,
-      rgba(0, 0, 0, 0.6) 0%,
+      rgba(0, 0, 0, 0.55) 0%,
       rgba(0, 0, 0, 0) 60%
     ),
     radial-gradient(
-      90% 70% at 78% 8%,
-      rgba(126, 164, 204, 0.06) 0%,
-      rgba(126, 164, 204, 0) 60%
+      90% 70% at 82% 6%,
+      rgba(240, 160, 69, 0.08) 0%,
+      rgba(240, 160, 69, 0) 60%
+    ),
+    radial-gradient(
+      110% 80% at 18% 92%,
+      rgba(111, 168, 214, 0.07) 0%,
+      rgba(111, 168, 214, 0) 65%
     );
   --gradient-section-fade: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 60%,
-    rgba(255, 255, 255, 0.015) 100%
+    rgba(196, 220, 244, 0) 0%,
+    rgba(196, 220, 244, 0) 60%,
+    rgba(196, 220, 244, 0.02) 100%
   );
   --gradient-accent-rule: linear-gradient(
     90deg,
-    var(--color-accent) 0%,
-    rgba(126, 164, 204, 0) 100%
+    var(--color-highlight) 0%,
+    rgba(240, 160, 69, 0) 100%
   );
   --gradient-divider: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.18) 50%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(196, 220, 244, 0) 0%,
+    rgba(196, 220, 244, 0.2) 50%,
+    rgba(196, 220, 244, 0) 100%
   );
+  --gradient-water:
+    linear-gradient(
+      180deg,
+      rgba(7, 16, 28, 0) 0%,
+      rgba(7, 16, 28, 0.4) 70%,
+      rgba(7, 16, 28, 0.7) 100%
+    );
 
   /* Shadows — depth comes from light absence; minimal use */
-  --shadow-sm: 0 1px 0 rgba(255, 255, 255, 0.04);
-  --shadow-md: 0 20px 40px rgba(0, 0, 0, 0.7);
+  --shadow-sm: 0 1px 0 rgba(196, 220, 244, 0.04);
+  --shadow-md: 0 24px 48px rgba(0, 0, 0, 0.7);
   --shadow-lg: 0 40px 80px rgba(0, 0, 0, 0.8);
   --shadow-xl: 0 60px 120px rgba(0, 0, 0, 0.92);
-  --shadow-accent: none;
-  --shadow-inset-card: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  --shadow-accent: 0 0 0 1px var(--color-highlight-soft),
+    0 18px 44px -16px rgba(240, 160, 69, 0.42);
+  --shadow-inset-card: inset 0 0 0 1px rgba(196, 220, 244, 0.025);
+
+  /* Hull-plate texture — a faint riveted-steel pattern used on tier-two
+   * surfaces and section caps. Reads as industrial signage, not noise. */
+  --texture-hull:
+    radial-gradient(
+      circle at 1px 1px,
+      rgba(196, 220, 244, 0.05) 0.6px,
+      transparent 1.4px
+    );
+  --texture-hull-size: 14px 14px;
 }
 
-/* ============ Surface: light (paper) ============
+/* ============ Surface: light (foam paper) ============
  *
- * Applied with data-surface="light" on a section (or any wrapper).
- * Tokens cascade to children — text, hairlines, borders, mono labels,
- * accents and feedback colours all flip to their light-canvas variants.
- *
- * Accent is darkened to AA contrast on the paper background. Imagery
- * scrims use the paper colour so photos fade into the canvas instead
- * of into black.
- */
+ * Daylight panel canvas. Tokens cascade to children so the same
+ * components render correctly on either band without component-level
+ * forks. Accent darkens to deep marine for AA on foam; safety
+ * highlight darkens to amber/burnt-orange to stay legible. */
 [data-surface="light"] {
-  --color-app-bg: #f4f4f2;
-  --color-bg: #f4f4f2;
-  --color-bg-alt: #ecebe7;
+  --color-app-bg: #f2f4f1;
+  --color-bg: #f2f4f1;
+  --color-bg-alt: #e8eae5;
   --color-surface: #ffffff;
-  --color-surface-2: #efeeea;
+  --color-surface-2: #edefea;
   --color-surface-raised: #ffffff;
-  --color-surface-soft: #f4f4f2;
-  --color-bg-deep: #e6e5e1;
+  --color-surface-soft: #f2f4f1;
+  --color-bg-deep: #e1e3de;
 
-  --color-accent: #1f4068;
-  --color-accent-hover: #173052;
-  --color-accent-strong: #122340;
-  --color-accent-deep: #0b1a30;
-  --color-accent-soft: rgba(31, 64, 104, 0.08);
-  --color-accent-ring: rgba(31, 64, 104, 0.32);
+  /* Primary accent on foam — deep marine, AA on the paper bg */
+  --color-accent: #16365b;
+  --color-accent-hover: #102849;
+  --color-accent-strong: #0b1d38;
+  --color-accent-deep: #06122a;
+  --color-accent-soft: rgba(22, 54, 91, 0.08);
+  --color-accent-ring: rgba(22, 54, 91, 0.32);
 
-  --color-highlight: #7a4f10;
-  --color-highlight-soft: rgba(122, 79, 16, 0.1);
+  /* Safety highlight on foam — burnt amber/copper, AA */
+  --color-highlight: #b85e1c;
+  --color-highlight-hover: #9c4f18;
+  --color-highlight-strong: #844014;
+  --color-highlight-soft: rgba(184, 94, 28, 0.1);
+  --color-highlight-ring: rgba(184, 94, 28, 0.32);
 
-  --color-border: rgba(10, 10, 10, 0.14);
-  --color-border-strong: rgba(10, 10, 10, 0.32);
-  --color-hairline: rgba(10, 10, 10, 0.08);
+  --color-rust: #8a4424;
+  --color-rust-soft: rgba(138, 68, 36, 0.1);
 
-  --color-text-primary: #0a0a0a;
-  --color-text-secondary: #2c2c2c;
-  --color-text-faint: #555555;
-  --color-text-muted: #7d7d7d;
-  --color-text-on-accent: #f4f4f2;
-  --color-text-on-highlight: #f4f4f2;
+  --color-border: rgba(7, 16, 28, 0.14);
+  --color-border-strong: rgba(7, 16, 28, 0.3);
+  --color-hairline: rgba(7, 16, 28, 0.075);
+
+  --color-text-primary: #07101c;
+  --color-text-secondary: #2a3645;
+  --color-text-faint: #51606f;
+  --color-text-muted: #7a8593;
+  --color-text-on-accent: #f2f4f1;
+  --color-text-on-highlight: #f2f4f1;
 
   --color-success: #2c6e3d;
   --color-danger: #a83a3a;
 
-  --layer-1: rgba(10, 10, 10, 0.03);
-  --layer-2: rgba(10, 10, 10, 0.055);
-  --layer-3: rgba(10, 10, 10, 0.085);
-  --layer-4: rgba(10, 10, 10, 0.14);
+  --layer-1: rgba(7, 16, 28, 0.03);
+  --layer-2: rgba(7, 16, 28, 0.055);
+  --layer-3: rgba(7, 16, 28, 0.085);
+  --layer-4: rgba(7, 16, 28, 0.14);
 
-  --surface-glass: rgba(244, 244, 242, 0.78);
-  --overlay-nav: rgba(244, 244, 242, 0.92);
-  --overlay-scrim: rgba(10, 10, 10, 0.56);
+  --surface-glass: rgba(242, 244, 241, 0.8);
+  --overlay-nav: rgba(242, 244, 241, 0.92);
+  --overlay-scrim: rgba(7, 16, 28, 0.6);
 
   --image-scrim: linear-gradient(
     180deg,
-    rgba(244, 244, 242, 0.25) 0%,
-    rgba(244, 244, 242, 0.6) 60%,
-    rgba(244, 244, 242, 0.9) 100%
+    rgba(242, 244, 241, 0.2) 0%,
+    rgba(242, 244, 241, 0.55) 60%,
+    rgba(242, 244, 241, 0.88) 100%
   );
   --image-scrim-horizontal: linear-gradient(
     90deg,
-    rgba(244, 244, 242, 0.9) 0%,
-    rgba(244, 244, 242, 0.55) 45%,
-    rgba(244, 244, 242, 0.2) 100%
+    rgba(242, 244, 241, 0.88) 0%,
+    rgba(242, 244, 241, 0.5) 45%,
+    rgba(242, 244, 241, 0.18) 100%
   );
   --image-filter: grayscale(0.18) brightness(1.02) contrast(0.98);
 
-  --gradient-page: linear-gradient(180deg, #f4f4f2 0%, #f4f4f2 100%);
+  --gradient-page: linear-gradient(180deg, #f2f4f1 0%, #ecede8 100%);
   --gradient-hero-vignette:
     radial-gradient(
       130% 90% at 50% 100%,
-      rgba(10, 10, 10, 0.06) 0%,
-      rgba(10, 10, 10, 0) 60%
+      rgba(7, 16, 28, 0.06) 0%,
+      rgba(7, 16, 28, 0) 60%
     ),
     radial-gradient(
-      90% 70% at 78% 8%,
-      rgba(31, 64, 104, 0.05) 0%,
-      rgba(31, 64, 104, 0) 60%
+      90% 70% at 82% 6%,
+      rgba(184, 94, 28, 0.06) 0%,
+      rgba(184, 94, 28, 0) 60%
     );
   --gradient-section-fade: linear-gradient(
     180deg,
-    rgba(10, 10, 10, 0) 0%,
-    rgba(10, 10, 10, 0) 60%,
-    rgba(10, 10, 10, 0.02) 100%
+    rgba(7, 16, 28, 0) 0%,
+    rgba(7, 16, 28, 0) 60%,
+    rgba(7, 16, 28, 0.02) 100%
   );
   --gradient-accent-rule: linear-gradient(
     90deg,
-    var(--color-accent) 0%,
-    rgba(31, 64, 104, 0) 100%
+    var(--color-highlight) 0%,
+    rgba(184, 94, 28, 0) 100%
   );
   --gradient-divider: linear-gradient(
     90deg,
-    rgba(10, 10, 10, 0) 0%,
-    rgba(10, 10, 10, 0.2) 50%,
-    rgba(10, 10, 10, 0) 100%
+    rgba(7, 16, 28, 0) 0%,
+    rgba(7, 16, 28, 0.18) 50%,
+    rgba(7, 16, 28, 0) 100%
   );
+  --gradient-water:
+    linear-gradient(
+      180deg,
+      rgba(242, 244, 241, 0) 0%,
+      rgba(225, 227, 222, 0.6) 80%,
+      rgba(225, 227, 222, 0.9) 100%
+    );
 
-  --shadow-sm: 0 1px 0 rgba(10, 10, 10, 0.04);
-  --shadow-md: 0 14px 32px rgba(10, 10, 10, 0.08);
-  --shadow-lg: 0 30px 70px rgba(10, 10, 10, 0.12);
-  --shadow-xl: 0 50px 110px rgba(10, 10, 10, 0.16);
-  --shadow-accent: none;
-  --shadow-inset-card: inset 0 0 0 1px rgba(10, 10, 10, 0.05);
+  --shadow-sm: 0 1px 0 rgba(7, 16, 28, 0.04);
+  --shadow-md: 0 14px 32px rgba(7, 16, 28, 0.08);
+  --shadow-lg: 0 30px 70px rgba(7, 16, 28, 0.12);
+  --shadow-xl: 0 50px 110px rgba(7, 16, 28, 0.16);
+  --shadow-accent: 0 0 0 1px var(--color-highlight-soft),
+    0 18px 44px -16px rgba(184, 94, 28, 0.34);
+  --shadow-inset-card: inset 0 0 0 1px rgba(7, 16, 28, 0.05);
+
+  --texture-hull:
+    radial-gradient(
+      circle at 1px 1px,
+      rgba(7, 16, 28, 0.05) 0.6px,
+      transparent 1.4px
+    );
 }
 
 /* Explicit dark surface — same as :root, lets us flip a wrapper back
  * to dark inside an otherwise-light ancestor (e.g. the footer's dark
  * lower band sitting under its light contact band). */
 [data-surface="dark"] {
-  --color-app-bg: #0a0a0a;
-  --color-bg: #0a0a0a;
-  --color-bg-alt: #0d0d0d;
-  --color-surface: #111111;
-  --color-surface-2: #141414;
-  --color-surface-raised: #181818;
-  --color-surface-soft: #0d0d0d;
-  --color-bg-deep: #050505;
+  --color-app-bg: #07101c;
+  --color-bg: #07101c;
+  --color-bg-alt: #0a1422;
+  --color-surface: #0e1828;
+  --color-surface-2: #121e30;
+  --color-surface-raised: #16243a;
+  --color-surface-soft: #091422;
+  --color-bg-deep: #04090f;
 
-  --color-accent: #7ea4cc;
-  --color-accent-hover: #9bbcdd;
-  --color-accent-strong: #5d86b3;
-  --color-accent-deep: #2f4f76;
-  --color-accent-soft: rgba(126, 164, 204, 0.1);
-  --color-accent-ring: rgba(126, 164, 204, 0.32);
+  --color-accent: #6fa8d6;
+  --color-accent-hover: #95c1e3;
+  --color-accent-strong: #4f8cc1;
+  --color-accent-deep: #2c5a85;
+  --color-accent-soft: rgba(111, 168, 214, 0.12);
+  --color-accent-ring: rgba(111, 168, 214, 0.36);
 
-  --color-highlight: #c79655;
-  --color-highlight-soft: rgba(199, 150, 85, 0.14);
+  --color-highlight: #f0a045;
+  --color-highlight-hover: #ffb866;
+  --color-highlight-strong: #d68b30;
+  --color-highlight-soft: rgba(240, 160, 69, 0.16);
+  --color-highlight-ring: rgba(240, 160, 69, 0.36);
 
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-strong: rgba(255, 255, 255, 0.22);
-  --color-hairline: rgba(255, 255, 255, 0.06);
+  --color-rust: #b86a45;
+  --color-rust-soft: rgba(184, 106, 69, 0.14);
 
-  --color-text-primary: #f2f2f2;
-  --color-text-secondary: #c8c8c8;
-  --color-text-faint: #8a8a8a;
-  --color-text-muted: #5e5e5e;
-  --color-text-on-accent: #0a0a0a;
-  --color-text-on-highlight: #0a0a0a;
+  --color-border: rgba(196, 220, 244, 0.12);
+  --color-border-strong: rgba(196, 220, 244, 0.24);
+  --color-hairline: rgba(196, 220, 244, 0.07);
+
+  --color-text-primary: #eef3f9;
+  --color-text-secondary: #c5d2e0;
+  --color-text-faint: #8b9cb0;
+  --color-text-muted: #5a6a7e;
+  --color-text-on-accent: #07101c;
+  --color-text-on-highlight: #1a0d04;
 
   --color-success: #87b58f;
-  --color-danger: #d77878;
+  --color-danger: #e07b7b;
 
-  --layer-1: rgba(255, 255, 255, 0.025);
-  --layer-2: rgba(255, 255, 255, 0.045);
-  --layer-3: rgba(255, 255, 255, 0.075);
-  --layer-4: rgba(255, 255, 255, 0.12);
+  --layer-1: rgba(196, 220, 244, 0.03);
+  --layer-2: rgba(196, 220, 244, 0.055);
+  --layer-3: rgba(196, 220, 244, 0.085);
+  --layer-4: rgba(196, 220, 244, 0.14);
 
-  --surface-glass: rgba(10, 10, 10, 0.62);
-  --overlay-nav: rgba(10, 10, 10, 0.86);
+  --surface-glass: rgba(7, 16, 28, 0.66);
+  --overlay-nav: rgba(7, 16, 28, 0.88);
   --overlay-scrim: rgba(0, 0, 0, 0.86);
 
   --image-scrim: linear-gradient(
     180deg,
-    rgba(10, 10, 10, 0.4) 0%,
-    rgba(10, 10, 10, 0.7) 60%,
-    rgba(10, 10, 10, 0.92) 100%
+    rgba(7, 16, 28, 0.4) 0%,
+    rgba(7, 16, 28, 0.7) 60%,
+    rgba(7, 16, 28, 0.92) 100%
   );
   --image-scrim-horizontal: linear-gradient(
     90deg,
-    rgba(10, 10, 10, 0.92) 0%,
-    rgba(10, 10, 10, 0.6) 45%,
-    rgba(10, 10, 10, 0.3) 100%
+    rgba(7, 16, 28, 0.92) 0%,
+    rgba(7, 16, 28, 0.6) 45%,
+    rgba(7, 16, 28, 0.3) 100%
   );
-  --image-filter: grayscale(0.35) brightness(0.65) contrast(1.08);
+  --image-filter: grayscale(0.25) brightness(0.7) contrast(1.1)
+    sepia(0.05) hue-rotate(-8deg);
 
-  --gradient-page: linear-gradient(180deg, #0a0a0a 0%, #0a0a0a 100%);
+  --gradient-page: linear-gradient(180deg, #07101c 0%, #050b14 100%);
   --gradient-section-fade: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 60%,
-    rgba(255, 255, 255, 0.015) 100%
+    rgba(196, 220, 244, 0) 0%,
+    rgba(196, 220, 244, 0) 60%,
+    rgba(196, 220, 244, 0.02) 100%
   );
   --gradient-accent-rule: linear-gradient(
     90deg,
-    var(--color-accent) 0%,
-    rgba(126, 164, 204, 0) 100%
+    var(--color-highlight) 0%,
+    rgba(240, 160, 69, 0) 100%
   );
   --gradient-divider: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.18) 50%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(196, 220, 244, 0) 0%,
+    rgba(196, 220, 244, 0.2) 50%,
+    rgba(196, 220, 244, 0) 100%
   );
+  --gradient-water:
+    linear-gradient(
+      180deg,
+      rgba(7, 16, 28, 0) 0%,
+      rgba(7, 16, 28, 0.4) 70%,
+      rgba(7, 16, 28, 0.7) 100%
+    );
 
-  --shadow-sm: 0 1px 0 rgba(255, 255, 255, 0.04);
-  --shadow-md: 0 20px 40px rgba(0, 0, 0, 0.7);
+  --shadow-sm: 0 1px 0 rgba(196, 220, 244, 0.04);
+  --shadow-md: 0 24px 48px rgba(0, 0, 0, 0.7);
   --shadow-lg: 0 40px 80px rgba(0, 0, 0, 0.8);
   --shadow-xl: 0 60px 120px rgba(0, 0, 0, 0.92);
-  --shadow-accent: none;
-  --shadow-inset-card: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  --shadow-accent: 0 0 0 1px var(--color-highlight-soft),
+    0 18px 44px -16px rgba(240, 160, 69, 0.42);
+  --shadow-inset-card: inset 0 0 0 1px rgba(196, 220, 244, 0.025);
+
+  --texture-hull:
+    radial-gradient(
+      circle at 1px 1px,
+      rgba(196, 220, 244, 0.05) 0.6px,
+      transparent 1.4px
+    );
+  --texture-hull-size: 14px 14px;
 }
 
 /* Sections paint their own canvas — so an inner [data-surface] is the
