@@ -5,6 +5,7 @@ import WaveDivider from "./WaveDivider";
 import { useReveal } from "../app/hooks/useReveal";
 import { useCountUp } from "../app/hooks/useCountUp";
 import { Link } from "../app/router/Link";
+import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 
 const HERO_EYEBROW = "Dickinson Bayou Fleeting · Texas Gulf Coast";
 const HERO_TITLE_LEAD = "Coastal barge fleeting,";
@@ -13,16 +14,29 @@ const HERO_TITLE_TRAIL = "& waterfront dock leasing.";
 const HERO_SUBTITLE =
   "Long-term barge fleeting, vessel mooring and dedicated slip access on Galveston Bay, the Houston Ship Channel and the Gulf Intracoastal Waterway — built around the upper Texas Gulf Coast and the towboat crews that run it.";
 
-const HERO_HIGHLIGHTS = [
-  { label: "Galveston Bay", detail: "San Leon · 5-acre coastal yard" },
-  { label: "Intracoastal", detail: "Freeport · GIWW waterfront" },
+/* The right-side credibility cluster — facility coordinates, hard
+ * operational stats and the direct line. Anchors the composition so
+ * the hero never reads as a half-finished page. */
+const HERO_FACILITIES = [
+  {
+    code: "F-01",
+    name: "San Leon",
+    region: "Galveston Bay · Houston Ship Channel",
+    coord: "29.479° N · 94.918° W",
+  },
+  {
+    code: "F-02",
+    name: "Freeport",
+    region: "Gulf Intracoastal Waterway",
+    coord: "28.948° N · 95.341° W",
+  },
 ];
 
 const HERO_STATS = [
-  { value: 2, suffix: "", label: "Coastal facilities", note: "San Leon · Freeport" },
-  { value: 10, suffix: " ac", label: "Combined waterfront acreage", note: "Two five-acre yards" },
-  { value: 24, suffix: "/7", label: "On-site operations", note: "Year-round crew presence" },
-  { value: 100, suffix: "%", label: "Direct waterfront access", note: "No third-party transit" },
+  { value: 2, suffix: "", label: "Coastal facilities" },
+  { value: 10, suffix: " ac", label: "Waterfront acreage" },
+  { value: 24, suffix: "/7", label: "Shore operations" },
+  { value: 100, suffix: "%", label: "Direct waterfront" },
 ];
 
 function HeroMarks() {
@@ -109,8 +123,10 @@ function HeroSection() {
     e.preventDefault();
     window.dispatchEvent(new Event("inquiry:open"));
   };
-  const statsRef = useReveal();
+  const consoleRef = useReveal();
   useHeroParallax(rootRef);
+
+  const telHref = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`;
 
   return (
     <section
@@ -160,29 +176,54 @@ function HeroSection() {
           </div>
         </div>
 
-        <div className="hero__sidebar" aria-hidden="true">
-          <ul className="hero__highlights">
-            {HERO_HIGHLIGHTS.map((h) => (
-              <li key={h.label} className="hero__highlight">
-                <span className="hero__highlightTick" />
-                <span className="hero__highlightLabel mono">{h.label}</span>
-                <span className="hero__highlightDetail">{h.detail}</span>
+        <aside
+          className="hero__console hullPlate"
+          aria-label="Operations console"
+          ref={consoleRef}
+        >
+          <span className="hero__consoleTickTL" aria-hidden="true" />
+          <span className="hero__consoleTickTR" aria-hidden="true" />
+          <span className="hero__consoleTickBL" aria-hidden="true" />
+          <span className="hero__consoleTickBR" aria-hidden="true" />
+
+          <header className="hero__consoleHeader">
+            <span className="hero__consoleTag mono">
+              <span className="signalDot" aria-hidden="true" />
+              Live operations
+            </span>
+            <span className="hero__consoleMeta mono">CH 16 · 24/7</span>
+          </header>
+
+          <ul className="hero__facilities" aria-label="Facilities">
+            {HERO_FACILITIES.map((f) => (
+              <li key={f.code} className="hero__facility">
+                <span className="hero__facilityCode mono">{f.code}</span>
+                <span className="hero__facilityName">{f.name}</span>
+                <span className="hero__facilityRegion mono">{f.region}</span>
+                <span className="hero__facilityCoord mono tabular">
+                  {f.coord}
+                </span>
               </li>
             ))}
           </ul>
-        </div>
 
-        <div className="hero__bottom" ref={statsRef}>
           <dl className="hero__stats" aria-label="At a glance">
             {HERO_STATS.map((stat) => (
               <div key={stat.label} className="hero__stat">
                 <dt className="hero__statLabel mono">{stat.label}</dt>
                 <StatValue value={stat.value} suffix={stat.suffix} />
-                <span className="hero__statNote">{stat.note}</span>
               </div>
             ))}
           </dl>
-        </div>
+
+          <a className="hero__directLine" href={telHref}>
+            <span className="hero__directLabel mono">Direct line</span>
+            <span className="hero__directNumber tabular">{PHONE_NUMBER}</span>
+            <span className="hero__directArrow mono" aria-hidden="true">
+              →
+            </span>
+          </a>
+        </aside>
       </div>
       <WaveDivider />
     </section>

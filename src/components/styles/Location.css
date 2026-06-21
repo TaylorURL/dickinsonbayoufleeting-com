@@ -1,22 +1,32 @@
+/* Facilities section — both yards shown side-by-side as static cards.
+ *
+ * The previous version was a tab-switcher with two Google Maps iframes
+ * fighting over a single frame, animated state transitions, a constantly
+ * pulsing signal dot and a grayscale filter being repainted on every
+ * toggle. Even with both iframes pre-mounted the toggle work hit the
+ * compositor hard on weaker devices.
+ *
+ * The replacement is a two-up grid: every yard has its own card with
+ * its own map and its own actions. No state, no rotator, no swap, no
+ * transition timeline driving layout. Each map is deferred until the
+ * section enters the viewport and then mounted once. */
+
 .location {
   background: var(--color-bg);
   position: relative;
 }
 
-/* Asymmetric two-column: facility picker + detail on the left, live map
- * on the right. Mirrors the rate-card / lease-switch composition so the
- * page reads as a coherent system rather than disparate widgets. */
-.location__body {
+.location__grid {
   display: grid;
-  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
-  gap: var(--space-9);
-  align-items: start;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-7);
+  align-items: stretch;
   border-top: 1px solid var(--color-border);
   padding-top: var(--space-8);
   position: relative;
 }
 
-.location__body::before {
+.location__grid::before {
   content: "";
   position: absolute;
   top: -1px;
@@ -26,150 +36,109 @@
   background: var(--color-highlight);
 }
 
-.location__col {
+/* ---------- Facility card ---------- */
+.facCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-7) var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-7);
-}
-
-/* ---------- Facility picker (vertical segmented tabs) ---------- */
-.locSwitch {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.locSwitch__btn {
-  appearance: none;
-  cursor: pointer;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: center;
-  gap: var(--space-4);
-  background: transparent;
-  color: var(--color-text-secondary);
-  border: 0;
-  border-bottom: 1px solid var(--color-hairline);
-  padding: var(--space-5) 0;
-  text-align: left;
-  font-family: inherit;
   position: relative;
   transition:
-    color var(--transition-fast) var(--ease-out),
-    padding-left var(--transition-base) var(--ease-out);
+    border-color var(--transition-base) var(--ease-out),
+    transform var(--transition-base) var(--ease-out);
 }
 
-.locSwitch__btn:last-child {
-  border-bottom: 0;
+@media (hover: hover) and (pointer: fine) {
+  .facCard:hover {
+    border-color: var(--color-border-strong);
+    transform: translateY(-2px);
+  }
 }
 
-.locSwitch__btn::before {
-  content: "";
-  position: absolute;
-  left: -8px;
-  top: 50%;
-  width: 0;
-  height: 2px;
-  background: var(--color-highlight);
-  transform: translateY(-50%);
-  transition: width var(--transition-base) var(--ease-water);
+.facCard__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-hairline);
 }
 
-.locSwitch__btn:hover {
-  color: var(--color-text-primary);
-  padding-left: var(--space-2);
-}
-
-.locSwitch__btn:focus-visible {
-  outline: 1px solid var(--color-highlight-ring);
-  outline-offset: 4px;
-}
-
-.locSwitch__btn--active {
-  color: var(--color-text-primary);
-}
-
-.locSwitch__btn--active::before {
-  width: 18px;
-}
-
-.locSwitch__idx {
+.facCard__code {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  color: var(--color-text-muted);
-  transition: color var(--transition-fast) var(--ease-out);
-}
-
-.locSwitch__btn--active .locSwitch__idx {
-  color: var(--color-highlight);
-}
-
-.locSwitch__name {
-  font-family: var(--font-condensed);
-  font-size: 1.3rem;
-  font-weight: 600;
-  letter-spacing: 0.012em;
-  text-transform: uppercase;
-}
-
-/* ---------- Detail panel ---------- */
-.location__detail {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  animation: locationDetailIn 0.5s var(--ease-water);
-}
-
-.location__region {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--color-highlight);
 }
 
-.location__name {
+.facCard__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.facCard__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.facCard__region {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-highlight);
+}
+
+.facCard__name {
   font-family: var(--font-condensed);
-  font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
   font-weight: 700;
   letter-spacing: 0.012em;
+  line-height: 1.05;
   text-transform: uppercase;
   color: var(--color-text-primary);
-  line-height: 1.05;
   margin-top: 2px;
 }
 
-.location__address {
+.facCard__address {
   font-family: var(--font-body);
   font-size: 1rem;
   color: var(--color-text-secondary);
-  margin-top: 2px;
 }
 
-.location__specs {
+.facCard__specs {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-5);
-  margin: var(--space-5) 0 0;
-  padding-top: var(--space-5);
+  gap: var(--space-4);
+  margin: 0;
+  padding-top: var(--space-4);
   border-top: 1px solid var(--color-hairline);
 }
 
-.location__spec {
+.facCard__spec {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   margin: 0;
 }
 
-.location__specLabel {
+.facCard__specLabel {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -177,83 +146,18 @@
   margin: 0;
 }
 
-.location__specValue {
+.facCard__specValue {
   font-family: var(--font-mono);
-  font-size: 0.96rem;
+  font-size: 0.94rem;
   letter-spacing: 0.02em;
   color: var(--color-text-primary);
   margin: 0;
 }
 
-.location__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  align-items: center;
-  margin-top: var(--space-5);
-  padding-top: var(--space-5);
-  border-top: 1px solid var(--color-hairline);
-}
-
-.location__actions .btn--primary {
-  margin-left: auto;
-}
-
-/* ---------- Map column ---------- */
-.location__mapWrap {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.location__mapHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: var(--space-3);
-  border-bottom: 1px solid var(--color-hairline);
-  gap: var(--space-3);
-}
-
-.location__mapTag {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-text-primary);
-}
-
-.location__mapDot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  background: var(--color-highlight);
-  box-shadow: 0 0 0 3px var(--color-highlight-soft);
-  border-radius: 50%;
-  animation: signalPulse 2.6s var(--ease-in-out) infinite;
-}
-
-.location__mapAddress {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--color-text-faint);
-  text-align: right;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.location__mapFrame {
+/* ---------- Map ---------- */
+.facCard__mapWrap {
   position: relative;
-  min-height: 540px;
-  height: 100%;
+  height: 280px;
   border: 1px solid var(--color-border);
   overflow: hidden;
   background: var(--color-bg-deep);
@@ -261,120 +165,117 @@
   background-size: var(--texture-hull-size);
 }
 
-/* Both iframes stay mounted once loaded. Swap is a visibility toggle —
- * no opacity transition, no compositor blending, no remount, no network
- * refetch. Filter is paid once at first paint per iframe. */
-.location__map {
+.facCard__map {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
   display: block;
+  /* Single filter pass, applied once at mount — no swap or transition. */
   filter: grayscale(1) brightness(0.58) contrast(1.22)
     sepia(0.06) hue-rotate(-10deg);
-  visibility: hidden;
-  pointer-events: none;
   z-index: 0;
 }
 
-.location__map--active {
-  visibility: visible;
-  pointer-events: auto;
-  z-index: 1;
-}
-
-[data-surface="light"] .location__map {
+[data-surface="light"] .facCard__map {
   filter: grayscale(0.85) brightness(0.96) contrast(1.05);
 }
 
-/* Corner ticks — hairline registration marks over the map frame. */
-.location__mapTickTL,
-.location__mapTickTR,
-.location__mapTickBL,
-.location__mapTickBR {
+.facCard__mapPlaceholder {
   position: absolute;
-  width: 16px;
-  height: 16px;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-faint);
+}
+
+.facCard__mapPlaceholderTag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.facCard__mapTickTL,
+.facCard__mapTickTR,
+.facCard__mapTickBL,
+.facCard__mapTickBR {
+  position: absolute;
+  width: 14px;
+  height: 14px;
   z-index: 2;
   pointer-events: none;
 }
 
-.location__mapTickTL {
+.facCard__mapTickTL {
   top: 8px;
   left: 8px;
   border-top: 1px solid var(--color-highlight);
   border-left: 1px solid var(--color-highlight);
 }
 
-.location__mapTickTR {
+.facCard__mapTickTR {
   top: 8px;
   right: 8px;
   border-top: 1px solid var(--color-highlight);
   border-right: 1px solid var(--color-highlight);
 }
 
-.location__mapTickBL {
+.facCard__mapTickBL {
   bottom: 8px;
   left: 8px;
   border-bottom: 1px solid var(--color-highlight);
   border-left: 1px solid var(--color-highlight);
 }
 
-.location__mapTickBR {
+.facCard__mapTickBR {
   bottom: 8px;
   right: 8px;
   border-bottom: 1px solid var(--color-highlight);
   border-right: 1px solid var(--color-highlight);
 }
 
-@keyframes locationDetailIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ---------- Actions ---------- */
+.facCard__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-hairline);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .location__detail {
-    animation: none;
-  }
-  .location__mapDot {
-    animation: none;
-  }
+.facCard__actions .btn--primary {
+  margin-left: auto;
 }
 
-@media (max-width: 1080px) {
-  .location__body {
+@media (max-width: 900px) {
+  .location__grid {
     grid-template-columns: 1fr;
-    gap: var(--space-7);
+    gap: var(--space-6);
   }
 
-  .location__mapWrap {
-    order: -1;
-  }
-
-  .location__mapFrame {
-    min-height: 360px;
+  .facCard__mapWrap {
+    height: 240px;
   }
 }
 
 @media (max-width: 540px) {
-  .location__specs {
-    grid-template-columns: 1fr;
-    gap: var(--space-4);
+  .facCard {
+    padding: var(--space-6) var(--space-5);
   }
 
-  .location__actions .btn--primary {
+  .facCard__specs {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .facCard__actions .btn--primary {
     margin-left: 0;
     width: 100%;
-  }
-
-  .locSwitch__btn {
-    padding: var(--space-4) 0;
   }
 }
