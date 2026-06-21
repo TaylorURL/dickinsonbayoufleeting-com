@@ -62,8 +62,6 @@ function ContactSection() {
   }
 
   const phoneHref = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`;
-  const emailHref = "mailto:office@dickinsonbayoufleeting.com";
-
   return (
     <section
       className="contactSection section"
@@ -92,14 +90,6 @@ function ContactSection() {
                 <dd>
                   <a className="contactSection__directValue tabular" href={phoneHref}>
                     {PHONE_NUMBER}
-                  </a>
-                </dd>
-              </div>
-              <div className="contactSection__directItem">
-                <dt className="mono">Email</dt>
-                <dd>
-                  <a className="contactSection__directValue" href={emailHref}>
-                    office@dickinsonbayoufleeting.com
                   </a>
                 </dd>
               </div>

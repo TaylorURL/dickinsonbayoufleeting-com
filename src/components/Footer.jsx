@@ -19,8 +19,6 @@ const FOOTER_HOURS = [
   { label: "Operations desk", value: "24 / 7 · On-call answered" },
 ];
 
-const FOOTER_EMAIL = "office@dickinsonbayoufleeting.com";
-
 function PhoneIcon() {
   return (
     <svg
@@ -43,8 +41,6 @@ function Footer() {
   const year = new Date().getFullYear();
   const phoneDigits = PHONE_NUMBER.replace(/[^0-9]/g, "");
   const phoneHref = `tel:1${phoneDigits}`;
-  const emailHref = `mailto:${FOOTER_EMAIL}`;
-
   return (
     <footer className="footer" id="footer">
       {/* ---------- Contact band (light surface) ---------- */}
@@ -190,12 +186,6 @@ function Footer() {
                     <span className="footer__contactRowLabel mono">Phone</span>
                     <a href={phoneHref} className="footer__contactRowValue tabular">
                       {PHONE_NUMBER}
-                    </a>
-                  </li>
-                  <li className="footer__contactRow">
-                    <span className="footer__contactRowLabel mono">Email</span>
-                    <a href={emailHref} className="footer__contactRowValue">
-                      {FOOTER_EMAIL}
                     </a>
                   </li>
                   {FOOTER_HOURS.map((h) => (
