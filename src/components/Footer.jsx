@@ -19,8 +19,6 @@ const FOOTER_HOURS = [
   { label: "Operations desk", value: "24 / 7 · On-call answered" },
 ];
 
-const FOOTER_EMAIL = "office@dickinsonbayoufleeting.com";
-
 function PhoneIcon() {
   return (
     <svg
