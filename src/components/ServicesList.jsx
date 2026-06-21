@@ -28,7 +28,7 @@ function ServicesList({ surface = "dark" }) {
         </div>
 
         <ol
-          className="servicesList__list reveal-on-scroll"
+          className="servicesList__list reveal-on-scroll reveal-stagger"
           aria-label="Service list"
           ref={listRef}
         >

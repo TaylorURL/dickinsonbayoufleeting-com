@@ -4,9 +4,9 @@
   overflow: hidden;
   display: flex;
   align-items: stretch;
-  min-height: 56vh;
-  min-height: 56svh;
-  padding-block: calc(var(--nav-height) + var(--space-9)) var(--space-9);
+  min-height: 62vh;
+  min-height: 62svh;
+  padding-block: calc(var(--nav-height) + var(--space-9)) var(--space-10);
   color: var(--color-text-primary);
 }
 
@@ -28,11 +28,16 @@
       rgba(0, 0, 0, 0.1) 70%,
       rgba(0, 0, 0, 0) 100%
     ),
+    radial-gradient(
+      80% 60% at 88% 14%,
+      rgba(240, 160, 69, 0.08) 0%,
+      rgba(240, 160, 69, 0) 60%
+    ),
     linear-gradient(
       180deg,
-      rgba(10, 10, 10, 0.55) 0%,
-      rgba(10, 10, 10, 0.3) 50%,
-      rgba(10, 10, 10, 0.65) 100%
+      rgba(7, 16, 28, 0.55) 0%,
+      rgba(7, 16, 28, 0.3) 50%,
+      rgba(7, 16, 28, 0.7) 100%
     );
 }
 
@@ -47,17 +52,25 @@
 }
 
 .pageHeader__eyebrow {
-  animation: pageHeaderRise 0.7s var(--ease-out) both;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  animation: pageHeaderRise 0.7s var(--ease-water) both;
+}
+
+.pageHeader__eyebrow .signalDot {
+  margin-right: 4px;
 }
 
 .pageHeader__title {
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 5.4vw, 4.4rem);
-  line-height: 1;
-  letter-spacing: -0.03em;
-  font-weight: 500;
+  font-family: var(--font-condensed);
+  font-size: clamp(2.6rem, 6vw, 5rem);
+  line-height: 0.94;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  font-weight: 700;
   max-width: 22ch;
-  animation: pageHeaderRise 0.8s 0.08s var(--ease-out) both;
+  animation: pageHeaderRise 0.9s 0.1s var(--ease-water) both;
 }
 
 .pageHeader__subtitle {
@@ -66,7 +79,7 @@
   line-height: 1.55;
   max-width: 60ch;
   color: var(--color-text-secondary);
-  animation: pageHeaderRise 0.8s 0.18s var(--ease-out) both;
+  animation: pageHeaderRise 0.9s 0.24s var(--ease-water) both;
 }
 
 .pageHeader__actions {
@@ -74,13 +87,13 @@
   flex-wrap: wrap;
   gap: var(--space-3);
   margin-top: var(--space-3);
-  animation: pageHeaderRise 0.8s 0.3s var(--ease-out) both;
+  animation: pageHeaderRise 0.9s 0.36s var(--ease-water) both;
 }
 
 @keyframes pageHeaderRise {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;

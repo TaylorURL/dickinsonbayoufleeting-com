@@ -25,7 +25,7 @@ function Faq({ surface = "light" }) {
         </div>
 
         <ul
-          className="faq__list reveal-on-scroll"
+          className="faq__list reveal-on-scroll reveal-stagger"
           aria-label="Frequently asked questions"
           ref={listRef}
         >

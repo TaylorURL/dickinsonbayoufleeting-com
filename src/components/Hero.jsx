@@ -1,5 +1,7 @@
+import { useEffect, useRef } from "react";
 import "./styles/Hero.css";
 import OceanTopographyBackground from "./OceanTopographyBackground";
+import WaveDivider from "./WaveDivider";
 import { useReveal } from "../app/hooks/useReveal";
 import { useCountUp } from "../app/hooks/useCountUp";
 import { Link } from "../app/router/Link";
@@ -51,7 +53,7 @@ function HeroMarks() {
 }
 
 function StatValue({ value, suffix }) {
-  const { ref, display } = useCountUp(value, { duration: 1400 });
+  const { ref, display } = useCountUp(value, { duration: 1600 });
   return (
     <dd className="hero__statValue tabular" ref={ref}>
       {display}
@@ -60,14 +62,59 @@ function StatValue({ value, suffix }) {
   );
 }
 
+/* Subtle parallax on the ocean plate. The plate moves at ~28% of scroll
+ * speed up to the hero's height, then pins — gives a clear water-drift
+ * feel without breaking layout. Bails on prefers-reduced-motion. */
+function useHeroParallax(rootRef) {
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const reduced = window.matchMedia?.(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    if (reduced) return;
+    const plate = root.querySelector(".hero__bg");
+    if (!plate) return;
+
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const rect = root.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      const offset = Math.max(0, -rect.top);
+      const cap = root.offsetHeight;
+      const y = Math.min(offset, cap) * 0.28;
+      plate.style.transform = `translate3d(0, ${y}px, 0)`;
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", update);
+    };
+  }, [rootRef]);
+}
+
 function HeroSection() {
+  const rootRef = useRef(null);
   const openInquiry = (e) => {
     e.preventDefault();
     window.dispatchEvent(new Event("inquiry:open"));
   };
   const statsRef = useReveal();
+  useHeroParallax(rootRef);
+
   return (
     <section
+      ref={rootRef}
       className="hero"
       data-surface="dark"
       aria-label="Introduction"
@@ -83,7 +130,7 @@ function HeroSection() {
       <div className="hero__frame container">
         <div className="hero__topMeta">
           <span className="hero__topMetaItem mono">
-            <span className="hero__metaDot" aria-hidden="true" />
+            <span className="signalDot" aria-hidden="true" />
             On the water · 24-hour operations desk
           </span>
           <span className="hero__topMetaItem mono">
@@ -96,19 +143,20 @@ function HeroSection() {
             {HERO_EYEBROW}
           </p>
           <h1 className="hero__title">
-            {HERO_TITLE_LEAD}
-            <br />
-            <span className="hero__titleAccent">{HERO_TITLE_ACCENT}</span>{" "}
-            {HERO_TITLE_TRAIL}
+            <span className="hero__titleLine">{HERO_TITLE_LEAD}</span>
+            <span className="hero__titleLine">
+              <span className="hero__titleAccent">{HERO_TITLE_ACCENT}</span>{" "}
+              {HERO_TITLE_TRAIL}
+            </span>
           </h1>
           <p className="hero__subtitle">{HERO_SUBTITLE}</p>
           <div className="hero__actions">
-            <Link className="btn btn--primary" to="/services">
-              Explore Services
-            </Link>
-            <a className="btn btn--ghost" href="#contact" onClick={openInquiry}>
+            <a className="btn btn--primary" href="#contact" onClick={openInquiry}>
               Request a Quote
             </a>
+            <Link className="btn btn--ghost" to="/services">
+              Explore Services
+            </Link>
           </div>
         </div>
 
@@ -136,6 +184,7 @@ function HeroSection() {
           </dl>
         </div>
       </div>
+      <WaveDivider />
     </section>
   );
 }

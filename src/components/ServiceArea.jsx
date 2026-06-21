@@ -28,7 +28,7 @@ function ServiceArea() {
         </div>
 
         <ul
-          className="serviceArea__grid reveal-on-scroll"
+          className="serviceArea__grid reveal-on-scroll reveal-stagger"
           aria-label="Cities and areas served"
           ref={gridRef}
         >

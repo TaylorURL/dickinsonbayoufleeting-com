@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-5);
-  border-top: 1px solid var(--color-border);
+  border-top: 2px solid var(--color-highlight);
   padding-top: var(--space-6);
 }
 
@@ -37,10 +37,11 @@
 }
 
 .contactSection__directValue {
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
-  font-weight: 500;
-  letter-spacing: -0.014em;
+  font-family: var(--font-condensed);
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
   color: var(--color-text-primary);
   text-decoration: none;
   transition: color var(--transition-fast) var(--ease-out);
@@ -48,7 +49,7 @@
 
 .contactSection__directValue:hover,
 .contactSection__directValue:focus-visible {
-  color: var(--color-accent);
+  color: var(--color-highlight);
   outline: none;
 }
 
@@ -75,12 +76,17 @@
   flex-direction: column;
   gap: 4px;
   padding-left: var(--space-3);
-  border-left: 1px solid var(--color-hairline);
-  transition: border-color var(--transition-fast) var(--ease-out);
+  border-left: 2px solid var(--color-hairline);
+  transition:
+    border-color var(--transition-fast) var(--ease-out),
+    padding-left var(--transition-base) var(--ease-out);
 }
 
-.contactSection__facility:hover {
-  border-left-color: var(--color-accent);
+@media (hover: hover) and (pointer: fine) {
+  .contactSection__facility:hover {
+    border-left-color: var(--color-highlight);
+    padding-left: var(--space-4);
+  }
 }
 
 .contactSection__facLabel {
@@ -89,13 +95,15 @@
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-highlight);
 }
 
 .contactSection__facAddr {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  letter-spacing: -0.008em;
+  font-family: var(--font-condensed);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.012em;
+  text-transform: uppercase;
   color: var(--color-text-primary);
 }
 
@@ -111,7 +119,18 @@
 .contactSection__formWrap {
   border: 1px solid var(--color-border);
   background: var(--color-surface);
-  padding: var(--space-7) var(--space-7);
+  padding: var(--space-7);
+  position: relative;
+}
+
+.contactSection__formWrap::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 84px;
+  height: 2px;
+  background: var(--color-highlight);
 }
 
 .contactForm__lede {
@@ -120,14 +139,14 @@
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-highlight);
   margin-bottom: var(--space-5);
 }
 
 .contactForm__grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-5) var(--space-5);
+  gap: var(--space-5);
 }
 
 .contactForm__field {
@@ -157,28 +176,28 @@
   background: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: 0;
-  padding: 14px 14px;
+  padding: 14px;
   font-family: var(--font-body);
   font-size: 1rem;
   color: var(--color-text-primary);
   line-height: 1.4;
   transition:
     border-color var(--transition-fast) var(--ease-out),
-    background var(--transition-fast) var(--ease-out);
+    background var(--transition-fast) var(--ease-out),
+    box-shadow var(--transition-fast) var(--ease-out);
   width: 100%;
 }
 
 .contactForm__textarea {
   resize: vertical;
   min-height: 132px;
-  font-family: var(--font-body);
 }
 
 .contactForm__input:focus-visible,
 .contactForm__textarea:focus-visible {
   outline: none;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 0 3px var(--color-accent-ring);
+  border-color: var(--color-highlight);
+  box-shadow: 0 0 0 3px var(--color-highlight-ring);
 }
 
 .contactForm__input[aria-invalid="true"],
@@ -186,10 +205,6 @@
   border-color: var(--color-danger);
 }
 
-/* Repaint the browser autofill background to the field's own surface so
- * Chromium's pale-yellow / Firefox's blue autofill plate never breaks the
- * dark canvas. The 600000s background-color transition defers the UA's
- * autofill paint indefinitely while keeping the focus ring intact. */
 .contactForm__input:-webkit-autofill,
 .contactForm__input:-webkit-autofill:hover,
 .contactForm__input:-webkit-autofill:focus,
@@ -235,24 +250,39 @@
   padding: var(--space-7);
   border: 1px solid var(--color-border);
   background: var(--color-surface);
+  animation: contactSuccessIn 0.6s var(--ease-water) both;
+  position: relative;
+}
+
+.contactSection__success::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 84px;
+  height: 2px;
+  background: var(--color-highlight);
 }
 
 .contactSection__successTick {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: var(--color-accent-soft);
-  color: var(--color-accent);
+  width: 48px;
+  height: 48px;
+  background: var(--color-highlight-soft);
+  color: var(--color-highlight);
+  border: 1px solid var(--color-highlight);
   margin-bottom: var(--space-2);
+  animation: contactSuccessTickIn 0.5s 0.15s var(--ease-spring) both;
 }
 
 .contactSection__successTitle {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
-  font-weight: 500;
-  letter-spacing: -0.014em;
+  font-family: var(--font-condensed);
+  font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: 0.012em;
+  text-transform: uppercase;
   color: var(--color-text-primary);
   margin: 0;
 }
@@ -262,6 +292,35 @@
   line-height: 1.6;
   color: var(--color-text-secondary);
   max-width: 56ch;
+}
+
+@keyframes contactSuccessIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes contactSuccessTickIn {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contactSection__success,
+  .contactSection__successTick {
+    animation: none;
+  }
 }
 
 @media (max-width: 960px) {

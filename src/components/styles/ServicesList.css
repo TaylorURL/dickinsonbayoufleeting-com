@@ -17,7 +17,9 @@
   row-gap: var(--space-2);
   padding: var(--space-8) 0;
   border-bottom: 1px solid var(--color-border);
-  transition: background var(--transition-base) var(--ease-out);
+  transition:
+    background var(--transition-base) var(--ease-out),
+    padding-left var(--transition-base) var(--ease-out);
   scroll-margin-top: calc(var(--nav-height) + var(--space-6));
 }
 
@@ -27,22 +29,24 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: 2px;
-  background: var(--color-accent);
+  width: 3px;
+  background: var(--color-highlight);
   transform: scaleY(0);
   transform-origin: top center;
-  transition: transform var(--transition-base) var(--ease-out);
+  transition: transform var(--transition-base) var(--ease-water);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .serviceRow:hover {
     background: var(--layer-1);
+    padding-left: var(--space-3);
   }
   .serviceRow:hover::after {
     transform: scaleY(1);
   }
-  .serviceRow:hover .serviceRow__code {
-    color: var(--color-accent);
+  .serviceRow:hover .serviceRow__code,
+  .serviceRow:hover .serviceRow__index {
+    color: var(--color-highlight);
   }
 }
 
@@ -56,6 +60,7 @@
   padding-left: var(--space-2);
   align-self: flex-start;
   padding-top: 6px;
+  transition: color var(--transition-fast) var(--ease-out);
 }
 
 .serviceRow__code {
@@ -70,12 +75,13 @@
 
 .serviceRow__name {
   grid-area: name;
-  font-family: var(--font-display);
-  font-size: clamp(1.15rem, 1.7vw, 1.45rem);
-  font-weight: 500;
-  letter-spacing: -0.014em;
+  font-family: var(--font-condensed);
+  font-size: clamp(1.25rem, 1.9vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: 0.012em;
+  text-transform: uppercase;
   color: var(--color-text-primary);
-  line-height: 1.2;
+  line-height: 1.1;
   margin: 0;
 }
 
@@ -92,7 +98,7 @@
   grid-area: detail;
   font-family: var(--font-body);
   font-size: 0.94rem;
-  line-height: 1.6;
+  line-height: 1.65;
   color: var(--color-text-faint);
   max-width: 64ch;
 }
