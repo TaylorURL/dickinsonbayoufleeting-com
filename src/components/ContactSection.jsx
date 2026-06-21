@@ -62,8 +62,6 @@ function ContactSection() {
   }
 
   const phoneHref = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`;
-  const emailHref = "mailto:office@dickinsonbayoufleeting.com";
-
   return (
     <section
       className="contactSection section"
