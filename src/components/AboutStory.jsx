@@ -32,7 +32,10 @@ function AboutStory() {
             </p>
           </div>
 
-          <div className="aboutStory__blocks reveal-on-scroll" ref={storyBlocksRef}>
+          <div
+            className="aboutStory__blocks reveal-on-scroll reveal-stagger"
+            ref={storyBlocksRef}
+          >
             {ABOUT_STORY.map((b, idx) => (
               <article key={b.heading} className="aboutStory__block">
                 <span className="aboutStory__idx mono">
