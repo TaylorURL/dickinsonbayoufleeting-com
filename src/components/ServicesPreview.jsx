@@ -36,7 +36,7 @@ function ServicesPreview() {
         </div>
 
         <ul
-          className="servicesPreview__grid reveal-on-scroll"
+          className="servicesPreview__grid reveal-on-scroll reveal-stagger"
           aria-label="Service summary"
           ref={gridRef}
         >
