@@ -1,3 +1,15 @@
+/* Footer — credibility-forward industrial-maritime sign-off.
+ *
+ * Three bands:
+ *   1. Light "Contact" band — direct line + primary CTA, opened with a
+ *      WaveDivider so the seam from whatever section sits above reads as
+ *      a clear waterline.
+ *   2. Dark "Main" band — hull-plate-textured surface carrying the brand
+ *      block on the left and four organised link columns on the right
+ *      (Pages, Services, Facilities, Get in touch). A coverage strip
+ *      closes the band with a one-line waterway summary.
+ *   3. Dark "Bar" — copyright + back-to-top + made-by line. */
+
 .footer {
   background: var(--color-bg);
   color: var(--color-text-secondary);
@@ -114,16 +126,18 @@
   align-self: stretch;
 }
 
-/* ---------- Main columns ---------- */
+/* ---------- Main band ---------- */
 .footer__main {
-  padding: var(--space-9) 0;
+  padding: var(--space-10) 0 var(--space-9);
   border-bottom: 1px solid var(--color-hairline);
+  position: relative;
 }
 
 .footer__mainGrid {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 2.6fr);
   gap: var(--space-10);
+  align-items: start;
 }
 
 .footer__brand {
@@ -166,9 +180,9 @@
 }
 
 .footer__tag {
-  max-width: 56ch;
+  max-width: 50ch;
   font-family: var(--font-body);
-  font-size: 0.96rem;
+  font-size: 0.94rem;
   line-height: 1.65;
   color: var(--color-text-secondary);
 }
@@ -192,7 +206,7 @@
   padding: var(--space-3) var(--space-4) var(--space-3) 0;
   margin-right: var(--space-5);
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.66rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -205,11 +219,17 @@
   font-size: 0.6rem;
 }
 
-/* ---------- Link columns ---------- */
+/* ---------- Link column grid ---------- */
 .footer__cols {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-7);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.footer__col {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .footer__title {
@@ -222,6 +242,17 @@
   margin-bottom: var(--space-5);
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--color-hairline);
+  position: relative;
+}
+
+.footer__title::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 36px;
+  height: 1px;
+  background: var(--color-highlight);
 }
 
 .footer__list {
@@ -233,13 +264,26 @@
   gap: var(--space-3);
 }
 
+.footer__list--compact {
+  gap: var(--space-2);
+}
+
+.footer__list--locations {
+  gap: var(--space-4);
+}
+
+.footer__list--contact {
+  gap: var(--space-3);
+}
+
+/* ---------- Page link (large, condensed) ---------- */
 .footer__link {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   font-family: var(--font-condensed);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
@@ -272,10 +316,51 @@
   color: var(--color-highlight);
 }
 
+/* ---------- Service sublink (code + name) ---------- */
+.footer__sublink {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: var(--space-3);
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  padding: 4px 0;
+  transition: color var(--transition-fast) var(--ease-out);
+}
+
+.footer__sublink:hover,
+.footer__sublink:focus-visible {
+  color: var(--color-text-primary);
+  outline: none;
+}
+
+.footer__sublink:hover .footer__sublinkCode,
+.footer__sublink:focus-visible .footer__sublinkCode {
+  color: var(--color-highlight);
+}
+
+.footer__sublinkCode {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  transition: color var(--transition-fast) var(--ease-out);
+}
+
+.footer__sublinkName {
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  line-height: 1.4;
+}
+
+/* ---------- Facility blocks ---------- */
 .footer__loc {
   display: grid;
   grid-template-columns: auto 1fr;
-  gap: 4px var(--space-3);
+  column-gap: var(--space-3);
+  row-gap: 2px;
   padding-bottom: var(--space-3);
   border-bottom: 1px solid var(--color-hairline);
 }
@@ -285,9 +370,9 @@
 }
 
 .footer__locIdx {
-  grid-row: 1 / 4;
+  grid-row: 1 / 5;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   font-weight: 500;
   letter-spacing: 0.14em;
   color: var(--color-highlight);
@@ -297,16 +382,104 @@
 
 .footer__locName {
   font-family: var(--font-condensed);
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--color-text-primary);
 }
 
+.footer__locRegion {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
 .footer__locAddr {
   font-family: var(--font-body);
-  font-size: 0.88rem;
+  font-size: 0.86rem;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast) var(--ease-out);
+}
+
+.footer__locAddr:hover,
+.footer__locAddr:focus-visible {
+  color: var(--color-highlight);
+  outline: none;
+}
+
+/* ---------- Get-in-touch column ---------- */
+.footer__contactRow {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.footer__contactRow:last-child {
+  border-bottom: 0;
+}
+
+.footer__contactRowLabel {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.footer__contactRowValue {
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  word-break: break-word;
+  transition: color var(--transition-fast) var(--ease-out);
+}
+
+a.footer__contactRowValue:hover,
+a.footer__contactRowValue:focus-visible {
+  color: var(--color-highlight);
+  outline: none;
+}
+
+.footer__contactRowValue--muted {
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Coverage strip ---------- */
+.footer__coverage {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin-top: var(--space-9);
+  padding: var(--space-4) 0 0;
+  border-top: 1px solid var(--color-hairline);
+}
+
+.footer__coverageLabel {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-highlight);
+}
+
+.footer__coverageList {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--color-text-secondary);
 }
 
@@ -384,9 +557,21 @@
   color: var(--color-highlight);
 }
 
-@media (max-width: 900px) {
-  .footer__contactGrid,
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px) {
   .footer__mainGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-9);
+  }
+
+  .footer__cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-7);
+  }
+}
+
+@media (max-width: 900px) {
+  .footer__contactGrid {
     grid-template-columns: 1fr;
     gap: var(--space-8);
   }
@@ -406,5 +591,10 @@
     flex-direction: column;
     align-items: flex-start;
     gap: var(--space-3);
+  }
+
+  .footer__contactRow {
+    grid-template-columns: 1fr;
+    gap: 2px;
   }
 }
