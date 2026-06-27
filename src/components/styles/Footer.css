@@ -536,25 +536,33 @@ a.footer__contactRowValue:focus-visible {
 
 /* ---------- Credit line ---------- */
 .footer__credit {
-  padding: var(--space-4) var(--container-pad);
+  padding: var(--space-3) var(--container-pad) var(--space-4);
   text-align: center;
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
   border-top: 1px solid var(--color-hairline);
 }
 
 .footer__creditLink {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
   color: var(--color-text-faint);
   text-decoration: none;
-  transition: color var(--transition-fast) var(--ease-out);
+  transition: color 150ms var(--ease-out);
+}
+
+.footer__creditBrand {
+  font-weight: 600;
 }
 
 .footer__creditLink:hover,
 .footer__creditLink:focus-visible {
   color: var(--color-highlight);
+}
+
+.footer__creditLink:focus-visible {
+  outline: 2px solid var(--color-highlight);
+  outline-offset: 3px;
 }
 
 /* ---------- Responsive ---------- */

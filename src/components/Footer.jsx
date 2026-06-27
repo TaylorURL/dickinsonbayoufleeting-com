@@ -243,15 +243,15 @@ function Footer() {
         </div>
       </div>
 
-      <div className="footer__credit mono" data-surface="dark">
-        Site made by{" "}
+      <div className="footer__credit" data-surface="dark">
         <a
-          href="https://taylorurl.com"
+          href="https://www.taylorurl.com"
           target="_blank"
           rel="noopener noreferrer"
           className="footer__creditLink"
         >
-          TaylorURL.com
+          <span className="footer__creditPrefix">Built by </span>
+          <span className="footer__creditBrand">TaylorURL</span>
         </a>
       </div>
     </footer>
