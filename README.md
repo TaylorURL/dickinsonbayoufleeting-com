@@ -7,18 +7,21 @@
 
 <h1 align="center">Dickinson Bayou Fleeting</h1>
 
+<p align="center"><b>Marketing and lead-generation site for a coastal barge fleeting and marine services company.</b></p>
 <p align="center">
-  Marketing and lead-generation site for a coastal <strong>barge fleeting</strong>, marine services and waterfront dock-leasing company on the upper Texas Gulf Coast.<br>
+  Barge fleeting, marine services, and waterfront dock-leasing on the upper Texas Gulf Coast.<br />
   Live at <a href="https://dickinsonbayoufleeting.com">dickinsonbayoufleeting.com</a>.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/React-19.1-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React 19.1">
-  <img src="https://img.shields.io/badge/Create_React_App-5-09D3AC?style=flat-square&logo=createreactapp&logoColor=white" alt="Create React App 5">
-  <img src="https://img.shields.io/badge/JavaScript-ES2022-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript">
-  <img src="https://img.shields.io/badge/CSS-Custom_Properties-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS Custom Properties">
-  <img src="https://img.shields.io/badge/Deployed_on-Vercel-000000?style=flat-square&logo=vercel&logoColor=white" alt="Deployed on Vercel">
+  <img src="https://img.shields.io/badge/React-19.1-3f7cae?style=for-the-badge&logo=react&logoColor=white" alt="React 19.1" />
+  <img src="https://img.shields.io/badge/Create_React_App-5-3f7cae?style=for-the-badge&logo=createreactapp&logoColor=white" alt="Create React App 5" />
+  <img src="https://img.shields.io/badge/JavaScript-ES2022-3f7cae?style=for-the-badge&logo=javascript&logoColor=white" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/CSS-Custom_Properties-3f7cae?style=for-the-badge&logo=css3&logoColor=white" alt="CSS Custom Properties" />
+  <img src="https://img.shields.io/badge/Deployed_on-Vercel-3f7cae?style=for-the-badge&logo=vercel&logoColor=white" alt="Deployed on Vercel" />
 </p>
+
+<br />
 
 - **Multi-page React SPA** — Home, Services, About and Contact routes served by a hand-rolled History-API router, with no React Router dependency.
 - **"Tidewater" design system** — plain CSS custom-property tokens with per-section light/dark surface flipping and a procedural Canvas ocean-topography hero, no Tailwind and no CSS-in-JS.
