@@ -7,10 +7,12 @@
 
 <h1 align="center">Dickinson Bayou Fleeting</h1>
 
-<p align="center"><b>Marketing and lead-generation site for a coastal barge fleeting and marine services company.</b></p>
 <p align="center">
-  Barge fleeting, marine services, and waterfront dock-leasing on the upper Texas Gulf Coast.<br />
-  Live at <a href="https://dickinsonbayoufleeting.com">dickinsonbayoufleeting.com</a>.
+  <b>Marketing and lead-generation site for a coastal barge fleeting and marine services company.</b>
+</p>
+<p align="center">
+  Barge fleeting, marine services, and waterfront dock-leasing on the upper<br />
+  Texas Gulf Coast. Live at <a href="https://dickinsonbayoufleeting.com">dickinsonbayoufleeting.com</a>.
 </p>
 
 <p align="center">
@@ -23,14 +25,33 @@
 
 <br />
 
-- **Multi-page React SPA** — Home, Services, About and Contact routes served by a hand-rolled History-API router, with no React Router dependency.
-- **"Tidewater" design system** — plain CSS custom-property tokens with per-section light/dark surface flipping and a procedural Canvas ocean-topography hero, no Tailwind and no CSS-in-JS.
-- **Lead-capture first** — a global inquiry modal plus a validated, phone-masked, focus-trapped contact form, click-to-call, and live facility maps drive every quote request.
+## Why Dickinson Bayou Fleeting
+
+Dickinson Bayou Fleeting runs two five-acre waterfront yards on the upper Texas Gulf Coast, and every operator who needs a slip starts with a quote. This site exists to turn that first look into a phone call: it presents the services, the two facilities, and the fixed lease rates in one place, then routes every "Request a Quote" through a single inquiry flow. It is a front-end-only Create React App — no backend, no database — built to load fast, read clean on any device, and drive contact.
+
+<table width="100%">
+  <tr>
+    <td width="33%" valign="top">
+      <h3 align="center">Multi-page React SPA</h3>
+      <p align="center">Home, Services, About, and Contact are served by a hand-rolled History-API router — no React Router dependency — behind a persistent nav, footer, and global inquiry modal.</p>
+    </td>
+    <td width="33%" valign="top">
+      <h3 align="center">"Tidewater" design system</h3>
+      <p align="center">Plain CSS custom-property tokens with per-section light/dark surface flipping and a procedural Canvas ocean-topography hero. No Tailwind, no CSS-in-JS.</p>
+    </td>
+    <td width="33%" valign="top">
+      <h3 align="center">Lead-capture first</h3>
+      <p align="center">A global inquiry modal plus a validated, phone-masked, focus-trapped contact form, click-to-call, and live facility maps drive every quote request.</p>
+    </td>
+  </tr>
+</table>
+
+<br />
 
 ## Stack
 
 | Layer | Choice |
-| --- | --- |
+| :--- | :--- |
 | UI framework | React 19.1 |
 | Tooling | Create React App (`react-scripts` 5) |
 | Routing | Custom History-API router in `src/app/router` — no React Router |
@@ -54,14 +75,22 @@ CI=true npm run build    # verify gate — matches Vercel; warnings fail the bui
 
 ## Pages
 
-Client-side routes; `NavBar`, `Footer` and the global `InquiryModal` persist across all of them.
+Client-side routes; `NavBar`, `Footer`, and the global `InquiryModal` persist across all of them.
 
 | Route | Page | Renders |
-| --- | --- | --- |
+| :--- | :--- | :--- |
 | `/` | Home | Hero, services preview, lease rates, amenities, service area, facilities + maps, CTA — with a right-rail `ScrollSpy` |
 | `/services` | Services | Seven-service catalog, lease rates, FAQ accordion, CTA |
 | `/about` | About | Company story, values, timeline, service area, CTA |
 | `/contact` | Contact | Contact form + direct lines, both facility maps |
+
+## How it works
+
+- **Persistent shell, routed body.** `AppShell` holds the `NavBar`, `Footer`, and inquiry modal; only the `PageOutlet` swaps as the History-API router matches `/`, `/services`, `/about`, or `/contact`.
+- **Decoupled inquiry flow.** Any "Request a Quote" button dispatches a `window` `inquiry:open` event; `AppShell` listens and opens the global `InquiryModal` — triggers never hold modal state.
+- **Front-end only.** There is no backend, so the modal and the Contact-page form run a short simulated send (`~600ms`), then show a success state with a phone fallback.
+- **Adaptive contrast.** Each section declares a `data-surface` of `light` or `dark`; the nav and right-rail `ScrollSpy` read the active section's surface and flip their own contrast to match.
+- **Single source of truth for data.** Facilities, services, FAQ, nav links, and lease rates live as plain constants in `src/app/constants`, so copy and pricing change in one place.
 
 ## Architecture
 
@@ -76,8 +105,6 @@ flowchart TD
     Chrome -->|"inquiry:open event"| Modal["Global InquiryModal"]
     Home -->|"Request a Quote"| Modal
 ```
-
-The inquiry modal is decoupled from its triggers: any button dispatches a `window` `inquiry:open` event and `AppShell` opens the modal. Both the modal and the Contact-page form are front-end only — there is no backend, so a submit runs a short simulated send and shows a success state with a phone fallback.
 
 ## Business details
 
@@ -111,5 +138,7 @@ dickinsonbayoufleeting-com/
 ## License
 
 Proprietary — © 2026 Trenton Taylor. All rights reserved. See [`LICENSE.md`](LICENSE.md).
+
+<br />
 
 <p align="center"><sub>Built by <a href="https://www.taylorurl.com"><strong>TaylorURL</strong></a></sub></p>
