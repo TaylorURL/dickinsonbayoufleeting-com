@@ -1,85 +1,112 @@
-<p align="center"><img src="public/images/DBF-Logo-White.png" alt="Dickinson Bayou Fleeting" width="140" /></p>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="public/images/DBF-Logo-White.png">
+    <img src="public/images/DBF-Logo-Black.png" alt="Dickinson Bayou Fleeting" width="200">
+  </picture>
+</p>
 
 <h1 align="center">Dickinson Bayou Fleeting</h1>
 
-<p align="center"><strong>Waterfront Dock Space Leasing — Freeport & San Leon, Texas</strong></p>
-
 <p align="center">
-  <img src="https://img.shields.io/badge/v1.0.3-release-1e3a5f" alt="v1.0.3" />
-  <img src="https://img.shields.io/badge/React-19.1-61DAFB?logo=react&logoColor=white" alt="React 19.1" />
-  <img src="https://img.shields.io/badge/CSS-Custom_Properties-1572B6?logo=css3&logoColor=white" alt="CSS Custom Properties" />
-  <img src="https://img.shields.io/badge/PWA-Capable-5A0FC8?logo=pwa&logoColor=white" alt="PWA Capable" />
-  <img src="https://img.shields.io/badge/Schema.org-JSON--LD-orange" alt="Schema.org Structured Data" />
+  Marketing and lead-generation site for a coastal <strong>barge fleeting</strong>, marine services and waterfront dock-leasing company on the upper Texas Gulf Coast.<br>
+  Live at <a href="https://dickinsonbayoufleeting.com">dickinsonbayoufleeting.com</a>.
 </p>
 
----
+<p align="center">
+  <img src="https://img.shields.io/badge/React-19.1-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React 19.1">
+  <img src="https://img.shields.io/badge/Create_React_App-5-09D3AC?style=flat-square&logo=createreactapp&logoColor=white" alt="Create React App 5">
+  <img src="https://img.shields.io/badge/JavaScript-ES2022-F7DF1E?style=flat-square&logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/CSS-Custom_Properties-1572B6?style=flat-square&logo=css3&logoColor=white" alt="CSS Custom Properties">
+  <img src="https://img.shields.io/badge/Deployed_on-Vercel-000000?style=flat-square&logo=vercel&logoColor=white" alt="Deployed on Vercel">
+</p>
 
-Dickinson Bayou Fleeting is a single-page marketing and lead-generation website for a Texas-based waterfront dock space leasing company operating two physical facilities — one in Freeport, TX and one in San Leon (Dickinson), TX. The site presents available lease packages, amenities, and facility locations, and drives prospective customers toward a lease inquiry form without requiring any page navigation.
+- **Multi-page React SPA** — Home, Services, About and Contact routes served by a hand-rolled History-API router, with no React Router dependency.
+- **"Tidewater" design system** — plain CSS custom-property tokens with per-section light/dark surface flipping and a procedural Canvas ocean-topography hero, no Tailwind and no CSS-in-JS.
+- **Lead-capture first** — a global inquiry modal plus a validated, phone-masked, focus-trapped contact form, click-to-call, and live facility maps drive every quote request.
 
-The site is built in React 19.1 with a full CSS custom property token system (~60 variables) that powers comprehensive dark and light theming via `prefers-color-scheme` detection — no Tailwind, no CSS-in-JS. Every component owns its colocated `.css` file and reads from shared design tokens defined in `Theme.css`, ensuring visual consistency without cross-cutting stylesheet dependencies.
+## Stack
 
----
+| Layer | Choice |
+| --- | --- |
+| UI framework | React 19.1 |
+| Tooling | Create React App (`react-scripts` 5) |
+| Routing | Custom History-API router in `src/app/router` — no React Router |
+| Styling | Plain CSS with a custom-property token system ("Tidewater"), colocated `.css` per component |
+| Theming | Fixed dark page; per-section `[data-surface="light" \| "dark"]` flipping (not `prefers-color-scheme`) |
+| Hero | Canvas 2D procedural ocean-topography animation (reduced-motion + off-screen aware) |
+| Analytics | First-party, cookieless beacon (`src/lib/sunday-analyzer`) to a hosted ingest endpoint |
+| SEO / PWA | OG + Twitter + geo meta, Schema.org JSON-LD, web manifest + full icon set, sitemap, robots |
+| Hosting | Vercel |
 
-## Navigation
+## Getting started
 
-The sticky navigation bar monitors scroll depth via a `useScrolled` hook and transitions its visual treatment once the user has scrolled past the hero. Active section highlighting is handled by an `IntersectionObserver`-based `useActiveSection` hook that tracks which page section is currently in view and updates the corresponding nav link. On mobile, a hamburger menu opens a drawer that automatically dismisses on outside clicks. The navbar renders two logo variants — white on dark backgrounds, black on light — and selects between them based on the active color scheme. The "Get Quote" call-to-action dispatches a custom `inquiry:open` window event rather than coupling directly to the modal component.
+```bash
+npm install
+npm start                # CRA dev server at localhost:3000
+npm run build            # production build to build/
+CI=true npm run build    # verify gate — matches Vercel; warnings fail the build
+```
 
-## Hero
+`react-scripts` also exposes `npm test` (Jest runner; no suites committed yet) and the one-way `npm run eject`. There is no lint/format script — this is a Create React App project, not the Vite template used by the other client sites.
 
-The hero section spans the full viewport and plays an autoplay, muted, looping MP4 background video overlaid with a gradient. Three badge pills — "5 Acre Waterfront", "Dedicated Slip", and "On-Site Assistance" — anchor the core value proposition above the primary CTAs. The video-based background communicates the waterfront setting immediately without static imagery.
+## Pages
 
-## Lease Options
+Client-side routes; `NavBar`, `Footer` and the global `InquiryModal` persist across all of them.
 
-The lease options section presents both facilities through an ARIA-compliant tab interface (`role="tablist"`) that switches between the Freeport package ($4,800/month) and the San Leon package ($4,100/month). Both represent full 5-acre waterfront packages. The tab state controls which facility's details are visible without a page reload or modal overlay, keeping the comparison direct and scannable.
-
-## Amenities
-
-Six amenity types are presented in a responsive card grid, each communicating a distinct aspect of the leasing experience. The grid layout adapts across viewport widths without JavaScript-driven breakpoint detection.
-
-## Locations
-
-The locations section surfaces both facility cards with physical addresses and GPS coordinates. An `useAutoCycle` hook automatically advances between the two facilities every 6 seconds, pausing permanently once the user manually selects a facility. The active card expands to reveal a Google Maps link, a direct call link, and a Lease CTA. An embedded Google Maps iframe updates in sync with the selected facility, providing an immediate visual geography reference without leaving the page.
-
-## Inquiry Modal
-
-The global inquiry modal is triggered by listening for the custom `inquiry:open` window event, fully decoupling it from any specific trigger component in the tree. The form collects name, email, phone, and a message (1,200 character limit with a live counter and an auto-growing textarea). Phone input is automatically masked for both US and international formats. The modal implements a full focus trap — Tab and Shift+Tab cycle only within the dialog, and Escape dismisses it. `aria-modal` and `aria-live` regions ensure screen readers receive appropriate context and feedback. On submission, the modal performs a simulated async operation and transitions to a success confirmation with a phone fallback for users who prefer direct contact.
-
-## Footer
-
-The footer assembles the full contact surface: section navigation links, both facility addresses, the company phone number, a Lease CTA, and dual logo variants. The copyright year is computed dynamically. A back-to-top control is included for single-page scroll ergonomics.
-
----
+| Route | Page | Renders |
+| --- | --- | --- |
+| `/` | Home | Hero, services preview, lease rates, amenities, service area, facilities + maps, CTA — with a right-rail `ScrollSpy` |
+| `/services` | Services | Seven-service catalog, lease rates, FAQ accordion, CTA |
+| `/about` | About | Company story, values, timeline, service area, CTA |
+| `/contact` | Contact | Contact form + direct lines, both facility maps |
 
 ## Architecture
 
-| Layer          | Technology                                                                                       |
-| -------------- | ------------------------------------------------------------------------------------------------ |
-| UI Framework   | React 19.1                                                                                       |
-| Build Tooling  | Create React App (react-scripts 5)                                                               |
-| Styling        | Plain CSS with CSS Custom Properties (~60 tokens in `Theme.css`)                                 |
-| Theming        | `prefers-color-scheme` → programmatic `data-theme` on `<html>`                                   |
-| Component CSS  | Colocated `.css` file per component                                                              |
-| Constants      | `src/app/constants/` — facilities, leaseOptions, navLinks, sectionIds, phoneNumber               |
-| Custom Hooks   | `src/app/hooks/` — `useScrolled`, `useActiveSection`, `useAutoCycle`                             |
-| Views          | Single view: `HomeView.jsx` composing all sections                                               |
-| Event Bus      | `window.dispatchEvent(new Event('inquiry:open'))` for modal decoupling                           |
-| Data Integrity | `LEASE_OPTIONS` derived from `FACILITIES` — single source of truth                               |
-| SEO            | Open Graph, Twitter Card meta tags, Schema.org JSON-LD (WebSite, Organization, 2x LocalBusiness) |
-| PWA            | `manifest.json` + full icon set                                                                  |
+```mermaid
+flowchart TD
+    Shell["AppShell — RouterProvider + analytics"] --> Chrome["NavBar + Footer (persist)"]
+    Shell --> Outlet["PageOutlet — History-API router"]
+    Outlet --> Home["/ Home"]
+    Outlet --> Services["/services"]
+    Outlet --> About["/about"]
+    Outlet --> Contact["/contact"]
+    Chrome -->|"inquiry:open event"| Modal["Global InquiryModal"]
+    Home -->|"Request a Quote"| Modal
+```
 
----
+The inquiry modal is decoupled from its triggers: any button dispatches a `window` `inquiry:open` event and `AppShell` opens the modal. Both the modal and the Contact-page form are front-end only — there is no backend, so a submit runs a short simulated send and shows a success state with a phone fallback.
 
-## Project Stats
+## Business details
 
-| Metric                     | Value |
-| -------------------------- | ----- |
-| Page Sections              | 5     |
-| Physical Facilities        | 2     |
-| CSS Custom Property Tokens | 60+   |
-| Amenity Types              | 6     |
-| Custom React Hooks         | 3     |
-| Lease Tiers                | 2     |
+- **Two yards.** San Leon — 2629 Avenue R, Dickinson, TX (Galveston Bay / Houston Ship Channel) and Freeport — 906 Marlin Ln, Freeport, TX (Gulf Intracoastal Waterway). Both are 5-acre waterfront facilities.
+- **Lease rates.** Fixed monthly: San Leon $4,100/mo, Freeport $4,800/mo, derived from a single `FACILITIES` source of truth.
+- **Services.** Long-term barge fleeting, shifting & handling, vessel mooring & lay berth, cleaning coordination, repair & survey coordination, marine logistics support, and waterfront dock leasing.
 
----
+## Project structure
 
-<p align="center"><sub>Built by <strong>Trenton Taylor</strong></sub></p>
+```
+dickinsonbayoufleeting-com/
+├── public/
+│   ├── images/            # DBF logo (black/white) + icon
+│   ├── index.html         # SEO meta, Schema.org JSON-LD, fonts, analytics beacon
+│   ├── manifest.json      # PWA manifest + icon set
+│   └── sitemap.xml, robots.txt
+├── src/
+│   ├── index.js           # React root, wrapped in SundayAnalyticsProvider
+│   ├── app/
+│   │   ├── App.js         # AppShell: nav, routed outlet, footer, inquiry modal
+│   │   ├── router/        # History-API router (Router, Link, routes)
+│   │   ├── constants/     # facilities, services, faq, navLinks, about, ...
+│   │   ├── hooks/         # useReveal, useCountUp, useScrolled
+│   │   └── styles/        # Theme.css tokens + global CSS
+│   ├── views/             # HomeView, ServicesView, AboutView, ContactView
+│   ├── components/        # section + UI components (+ colocated styles/)
+│   └── lib/sunday-analyzer/  # first-party cookieless analytics provider
+└── package.json
+```
+
+## License
+
+Proprietary — © 2026 Trenton Taylor. All rights reserved. See [`LICENSE.md`](LICENSE.md).
+
+<p align="center"><sub>Built by <a href="https://www.taylorurl.com"><strong>TaylorURL</strong></a></sub></p>
