@@ -16,11 +16,11 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/React-19.1-3f7cae?style=for-the-badge&logo=react&logoColor=white" alt="React 19.1" />
-  <img src="https://img.shields.io/badge/Create_React_App-5-3f7cae?style=for-the-badge&logo=createreactapp&logoColor=white" alt="Create React App 5" />
-  <img src="https://img.shields.io/badge/JavaScript-ES2022-3f7cae?style=for-the-badge&logo=javascript&logoColor=white" alt="JavaScript" />
-  <img src="https://img.shields.io/badge/CSS-Custom_Properties-3f7cae?style=for-the-badge&logo=css3&logoColor=white" alt="CSS Custom Properties" />
-  <img src="https://img.shields.io/badge/Deployed_on-Vercel-3f7cae?style=for-the-badge&logo=vercel&logoColor=white" alt="Deployed on Vercel" />
+  <img src="https://img.shields.io/badge/React-19.1-2563eb?style=for-the-badge&logo=react&logoColor=white" alt="React 19.1" />
+  <img src="https://img.shields.io/badge/Create_React_App-5-3b82f6?style=for-the-badge&logo=createreactapp&logoColor=white" alt="Create React App 5" />
+  <img src="https://img.shields.io/badge/JavaScript-ES2022-1f56cf?style=for-the-badge&logo=javascript&logoColor=white" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/CSS-Custom_Properties-2563eb?style=for-the-badge&logo=css3&logoColor=white" alt="CSS Custom Properties" />
+  <img src="https://img.shields.io/badge/Deployed_on-Vercel-3b82f6?style=for-the-badge&logo=vercel&logoColor=white" alt="Deployed on Vercel" />
 </p>
 
 <br />
