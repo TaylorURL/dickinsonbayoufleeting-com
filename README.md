@@ -16,11 +16,11 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/React-19.1-3f7cae?style=for-the-badge&logo=react&logoColor=white" alt="React 19.1" />
-  <img src="https://img.shields.io/badge/Create_React_App-5-3f7cae?style=for-the-badge&logo=createreactapp&logoColor=white" alt="Create React App 5" />
-  <img src="https://img.shields.io/badge/JavaScript-ES2022-3f7cae?style=for-the-badge&logo=javascript&logoColor=white" alt="JavaScript" />
-  <img src="https://img.shields.io/badge/CSS-Custom_Properties-3f7cae?style=for-the-badge&logo=css3&logoColor=white" alt="CSS Custom Properties" />
-  <img src="https://img.shields.io/badge/Deployed_on-Vercel-3f7cae?style=for-the-badge&logo=vercel&logoColor=white" alt="Deployed on Vercel" />
+  <img src="https://img.shields.io/badge/React-19.1-2563eb?style=for-the-badge&logo=react&logoColor=white" alt="React 19.1" />
+  <img src="https://img.shields.io/badge/Create_React_App-5-3b82f6?style=for-the-badge&logo=createreactapp&logoColor=white" alt="Create React App 5" />
+  <img src="https://img.shields.io/badge/JavaScript-ES2022-1f56cf?style=for-the-badge&logo=javascript&logoColor=white" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/CSS-Custom_Properties-2563eb?style=for-the-badge&logo=css3&logoColor=white" alt="CSS Custom Properties" />
+  <img src="https://img.shields.io/badge/license-proprietary-1f56cf?style=for-the-badge" alt="License" />
 </p>
 
 <br />
@@ -41,7 +41,7 @@ Dickinson Bayou Fleeting runs two five-acre waterfront yards on the upper Texas 
     </td>
     <td width="33%" valign="top">
       <h3 align="center">Lead-capture first</h3>
-      <p align="center">A global inquiry modal plus a validated, phone-masked, focus-trapped contact form, click-to-call, and live facility maps drive every quote request.</p>
+      <p align="center">A focus-trapped global inquiry modal plus a validated, phone-masked contact form, click-to-call, and live facility maps drive every quote request.</p>
     </td>
   </tr>
 </table>
@@ -60,7 +60,7 @@ Dickinson Bayou Fleeting runs two five-acre waterfront yards on the upper Texas 
 | Hero | Canvas 2D procedural ocean-topography animation (reduced-motion + off-screen aware) |
 | Analytics | First-party, cookieless beacon (`src/lib/sunday-analyzer`) to a hosted ingest endpoint |
 | SEO / PWA | OG + Twitter + geo meta, Schema.org JSON-LD, web manifest + full icon set, sitemap, robots |
-| Hosting | Vercel |
+| Hosting | Static production build (`build/`) served at [dickinsonbayoufleeting.com](https://dickinsonbayoufleeting.com) |
 
 ## Getting started
 
@@ -68,7 +68,7 @@ Dickinson Bayou Fleeting runs two five-acre waterfront yards on the upper Texas 
 npm install
 npm start                # CRA dev server at localhost:3000
 npm run build            # production build to build/
-CI=true npm run build    # verify gate — matches Vercel; warnings fail the build
+CI=true npm run build    # verify gate — warnings fail the build (CI parity)
 ```
 
 `react-scripts` also exposes `npm test` (Jest runner; no suites committed yet) and the one-way `npm run eject`. There is no lint/format script — this is a Create React App project, not the Vite template used by the other client sites.
@@ -88,7 +88,7 @@ Client-side routes; `NavBar`, `Footer`, and the global `InquiryModal` persist ac
 
 - **Persistent shell, routed body.** `AppShell` holds the `NavBar`, `Footer`, and inquiry modal; only the `PageOutlet` swaps as the History-API router matches `/`, `/services`, `/about`, or `/contact`.
 - **Decoupled inquiry flow.** Any "Request a Quote" button dispatches a `window` `inquiry:open` event; `AppShell` listens and opens the global `InquiryModal` — triggers never hold modal state.
-- **Front-end only.** There is no backend, so the modal and the Contact-page form run a short simulated send (`~600ms`), then show a success state with a phone fallback.
+- **Front-end only.** There is no backend. The Contact-page form runs a short simulated send (`~600ms`) and the global modal resolves immediately — both then land on a success state with a phone fallback.
 - **Adaptive contrast.** Each section declares a `data-surface` of `light` or `dark`; the nav and right-rail `ScrollSpy` read the active section's surface and flip their own contrast to match.
 - **Single source of truth for data.** Facilities, services, FAQ, nav links, and lease rates live as plain constants in `src/app/constants`, so copy and pricing change in one place.
 
