@@ -71,7 +71,7 @@ npm run build            # production build to build/
 CI=true npm run build    # verify gate — warnings fail the build (CI parity)
 ```
 
-`react-scripts` also exposes `npm test` (Jest runner; no suites committed yet) and the one-way `npm run eject`. There is no lint/format script — this is a Create React App project, not the Vite template used by the other client sites.
+`react-scripts` also exposes `npm test` (Jest runner; no suites committed yet) and the one-way `npm run eject`. There is no separate lint or format script — linting runs through `react-scripts` via the `react-app` ESLint config in `package.json`.
 
 ## Pages
 
