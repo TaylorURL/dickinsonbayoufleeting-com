@@ -1,6 +1,5 @@
-/* Sections rendered on the home view, in document order.
- * The right-rail scroll indicator and any future on-page chrome read
- * from this list rather than each maintaining its own copy. */
+/* Document order matters — the right-rail scroll indicator walks this list
+ * rather than keeping its own copy. */
 export const HOME_SECTIONS = [
   { id: "overview", label: "Overview" },
   { id: "services", label: "Services" },

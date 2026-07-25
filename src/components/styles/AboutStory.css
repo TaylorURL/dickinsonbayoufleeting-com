@@ -1,4 +1,3 @@
-/* ---------- Story ---------- */
 .aboutStory__blocks {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -59,7 +58,6 @@
   max-width: 56ch;
 }
 
-/* ---------- Values ---------- */
 .aboutValues__grid {
   list-style: none;
   margin: 0;
@@ -150,7 +148,6 @@
   }
 }
 
-/* ---------- Timeline ---------- */
 .aboutTimeline__list {
   list-style: none;
   margin: 0;

@@ -1,8 +1,6 @@
-/* Button system — shared across hero, sections, nav, modal, footer.
- * Sharp-cornered, mono-typeset, restrained colour. The primary action
- * always lights up in safety-buoy highlight so the eye lands on the
- * single next step. Ghost is the conservative outline for secondary
- * paths; inline is the compact spec-sheet variant. */
+/* One button per section should carry --primary. The safety-orange fill is the
+ * only warm colour in the palette, so a second one on the same screen splits
+ * the eye instead of leading it. */
 .btn {
   --btn-py: 18px;
   --btn-px: 28px;
@@ -61,8 +59,6 @@
   }
 }
 
-/* Primary — solid safety highlight, the single warm signal in the
- * palette. Always the recommended next action on a section. */
 .btn--primary {
   background: var(--color-highlight);
   color: var(--color-text-on-highlight);
@@ -86,9 +82,8 @@
     var(--shadow-accent);
 }
 
-/* Solid — the previous "primary" treatment: foam/ink on the accent
- * surface. Useful when an action sits inside an already-highlighted
- * region and the safety orange would compete. */
+/* For actions sitting inside an already-highlighted region, where the safety
+ * orange of --primary would compete rather than lead. */
 .btn--solid {
   background: var(--color-text-primary);
   color: var(--color-text-on-accent);
@@ -104,7 +99,6 @@
   }
 }
 
-/* Ghost — hairline outline on a transparent fill. */
 .btn--ghost {
   background: transparent;
   color: var(--color-text-primary);
@@ -119,7 +113,6 @@
   }
 }
 
-/* Inline — compact spec-sheet action. */
 .btn--inline {
   --btn-py: 12px;
   --btn-px: 18px;
@@ -141,7 +134,6 @@
   }
 }
 
-/* Full-width helper for stacked CTAs. */
 .btn--block {
   width: 100%;
 }

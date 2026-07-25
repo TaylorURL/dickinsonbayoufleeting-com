@@ -1,12 +1,9 @@
-/* WaveDivider — silhouette wave seam between two contrasting surfaces.
+/* Painted in the *current* section's --color-bg, so it carves into whichever
+ * band sits below. Drop it as a section's last child for a bottom seam, or pass
+ * `flip` for a top one.
  *
- * Renders an SVG wave painted in the *current* section's --color-bg, so
- * it visually carves into whichever band sits below. Drop it as the last
- * child of a section (the bottom edge will bite the next section). For
- * the top edge, pass `flip` to flip the wave vertically.
- *
- * Three layered waves with different amplitudes/phases give the seam a
- * little water-like depth without animating — performant, GPU-free. */
+ * The three layered waves are static geometry, not animation — the depth is
+ * free at runtime. */
 function WaveDivider({ flip = false, className = "" }) {
   return (
     <div

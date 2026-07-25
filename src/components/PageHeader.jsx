@@ -2,10 +2,6 @@ import "./styles/PageHeader.css";
 import OceanTopographyBackground from "./OceanTopographyBackground";
 import WaveDivider from "./WaveDivider";
 
-/* Shared page-level intro for non-home routes — keeps the cinematic
- * dark band the user expects from the brand, but is shorter and less
- * dense than the home hero. The bottom edge bites into the next
- * section with a wave divider. */
 function PageHeader({ eyebrow, title, subtitle, children }) {
   return (
     <section

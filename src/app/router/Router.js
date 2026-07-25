@@ -65,7 +65,7 @@ export function useRouter() {
   return ctx;
 }
 
-/* Normalise paths for comparison: strip trailing slash except root. */
+/* Trailing slashes are stripped so "/about" and "/about/" compare equal. */
 export function normalisePath(p) {
   if (!p) return "/";
   if (p.length > 1 && p.endsWith("/")) return p.slice(0, -1);

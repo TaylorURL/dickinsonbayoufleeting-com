@@ -31,7 +31,6 @@ function NavBar({ surface = "dark", overHero = true }) {
     };
   }, [open]);
 
-  /* Close the drawer on every route change. */
   useEffect(() => {
     setOpen(false);
   }, [path]);

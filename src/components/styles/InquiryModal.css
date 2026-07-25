@@ -16,7 +16,7 @@
   animation: inqFade var(--transition-base) var(--ease-out) both;
 }
 
-/* ---------- Sharp dark sheet ---------- */
+/* Sharp dark sheet */
 .inqShell {
   position: relative;
   width: min(680px, 100%);
@@ -47,7 +47,6 @@
   padding: var(--space-9) var(--space-8) var(--space-7);
 }
 
-/* ---------- Header ---------- */
 .inqHeader {
   display: flex;
   flex-direction: column;
@@ -78,7 +77,7 @@
   color: var(--color-text-secondary);
 }
 
-/* ---------- Fields ---------- */
+/* Fields */
 .inqGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -179,7 +178,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ---------- Footer actions ---------- */
+/* Footer actions */
 .inqFooter {
   display: flex;
   flex-direction: column;
@@ -287,7 +286,7 @@
   text-align: right;
 }
 
-/* ---------- Success state ---------- */
+/* Success state */
 .inqResult {
   display: flex;
   flex-direction: column;
