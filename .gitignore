@@ -27,6 +27,10 @@ yarn-error.log*
 .env.*
 !.env.example
 .claude/
+.idea/
+.vscode/
+.fleet/
+*.iml
 *.pem
 *.p12
 *.pfx
