@@ -36,7 +36,7 @@
   background: var(--color-highlight);
 }
 
-/* ---------- Facility card ---------- */
+/* Facility card */
 .facCard {
   display: flex;
   flex-direction: column;
@@ -154,7 +154,6 @@
   margin: 0;
 }
 
-/* ---------- Map ---------- */
 .facCard__mapWrap {
   position: relative;
   height: 280px;
@@ -238,7 +237,6 @@
   border-right: 1px solid var(--color-highlight);
 }
 
-/* ---------- Actions ---------- */
 .facCard__actions {
   display: flex;
   flex-wrap: wrap;

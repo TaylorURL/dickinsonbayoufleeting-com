@@ -1,6 +1,5 @@
-/* Top-level nav now drives the page router, not in-page anchors.
- * The Home page still has its own internal anchors, but the global
- * nav is page-to-page. */
+/* These are routes, not in-page anchors — the Home page keeps its own
+ * internal anchors separately. */
 export const NAV_LINKS = [
   { label: "Home", to: "/" },
   { label: "Services", to: "/services" },

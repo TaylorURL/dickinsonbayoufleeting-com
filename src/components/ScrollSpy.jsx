@@ -2,20 +2,15 @@ import { useEffect, useMemo, useState } from "react";
 import "./styles/ScrollSpy.css";
 import { HOME_SECTIONS } from "../app/constants/homeSections";
 
-/* Right-rail section indicator for the home page.
+/* One IntersectionObserver against a 1px line at viewport centre decides the
+ * active section — no scroll listener, and no ambiguity about which section
+ * "wins" when several are on screen.
  *
- * Two concerns intentionally kept separate:
- *   1. Active section — a single IntersectionObserver watches each
- *      section against a 1px line at the vertical centre of the
- *      viewport; the section currently overlapping that line is the
- *      active one. No scroll listener.
- *   2. Adaptive contrast — the active section's [data-surface] value
- *      ("dark" | "light") drives the rail's tokens via the same theme
- *      cascade the page already uses, so the rail flips legibility as
- *      the user scrolls between dark and paper bands.
+ * Contrast rides the active section's [data-surface] through the normal theme
+ * cascade, so the rail stays legible crossing dark and paper bands.
  *
- * Hidden on narrow viewports — the rail would crowd content on phones
- * and tablets, and the navbar still provides primary navigation. */
+ * Hidden on narrow viewports: the navbar already covers navigation there and
+ * the rail would sit on top of content. */
 function ScrollSpy() {
   const [activeId, setActiveId] = useState(HOME_SECTIONS[0].id);
   const [surface, setSurface] = useState("dark");

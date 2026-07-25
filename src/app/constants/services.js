@@ -1,6 +1,5 @@
-/* Core service catalog — used on the Services page and as a short
- * teaser on the Home page. Keep the copy plain-spoken and grounded in
- * real day-to-day work on the bayou and the Houston Ship Channel. */
+/* Shared by the Services page and the Home teaser, so edits here land in
+ * both places. */
 export const SERVICES = [
   {
     id: "fleeting",

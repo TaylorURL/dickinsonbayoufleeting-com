@@ -11,9 +11,9 @@ const buildMapsHref = (address) =>
 
 const buildTelHref = (phone) => `tel:1${phone.replace(/[^0-9]/g, "")}`;
 
-/* Defer the (heavy) Google Maps iframes until the section enters the
- * viewport. Both maps then mount once and stay mounted — no rotation,
- * no swap, no toggle, no animation driving layout. Pure static cards. */
+/* Google Maps iframes are heavy, so they stay unmounted until the section is in
+ * view. Once mounted they stay mounted — remounting them on scroll costs far
+ * more than keeping them around. */
 function useDeferredMount(rootRef) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {

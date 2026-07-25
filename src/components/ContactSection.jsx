@@ -53,9 +53,8 @@ function ContactSection() {
     setAttempted(true);
     if (Object.keys(errors).length) return;
     setSubmitting(true);
-    /* No backend wired up — preserve the existing demo behaviour
-     * (the same posture used in InquiryModal) and confirm receipt
-     * once the simulated send resolves. */
+    /* No backend. The delay exists so the submit state is visible rather than
+     * flashing straight to confirmation. */
     await new Promise((res) => setTimeout(res, 600));
     setSubmitting(false);
     setSubmitted(true);

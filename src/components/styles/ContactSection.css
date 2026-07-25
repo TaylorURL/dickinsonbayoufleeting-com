@@ -115,7 +115,6 @@
   color: var(--color-text-faint);
 }
 
-/* ---------- Form ---------- */
 .contactSection__formWrap {
   border: 1px solid var(--color-border);
   background: var(--color-surface);

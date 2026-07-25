@@ -52,7 +52,6 @@
   padding-inline: var(--container-pad);
 }
 
-/* ---------- Brand ---------- */
 .nav__brand {
   display: inline-flex;
   align-items: center;
@@ -131,7 +130,7 @@
   }
 }
 
-/* ---------- Desktop links ---------- */
+/* Desktop links */
 .nav__links {
   display: flex;
   align-items: center;
@@ -188,7 +187,7 @@
   color: var(--color-text-primary);
 }
 
-/* ---------- Right-side actions cluster ---------- */
+/* Right-side actions cluster */
 .nav__actions {
   display: flex;
   align-items: center;
@@ -283,7 +282,7 @@
     var(--shadow-accent);
 }
 
-/* ---------- Mobile toggle ---------- */
+/* Mobile toggle */
 .nav__toggle {
   display: none;
   position: relative;
@@ -349,7 +348,7 @@
   transform: translateX(-50%) rotate(-45deg);
 }
 
-/* ---------- Mobile scrim & full-screen overlay drawer ---------- */
+/* Mobile scrim & full-screen overlay drawer */
 .nav__scrim {
   position: fixed;
   inset: 0;
@@ -497,7 +496,7 @@
   font-size: 0.76rem;
 }
 
-/* ---------- Mobile breakpoint ---------- */
+/* Mobile breakpoint */
 @media (max-width: 960px) {
   .nav__toggle {
     display: inline-flex;
