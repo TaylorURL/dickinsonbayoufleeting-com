@@ -1,47 +1,43 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="public/images/DBF-Logo-White.png">
-    <img src="public/images/DBF-Logo-Black.png" alt="Dickinson Bayou Fleeting" width="200">
+    <source media="(prefers-color-scheme: dark)" srcset="public/images/DBF-Logo-White.png" />
+    <img src="public/images/DBF-Logo-Black.png" width="200" alt="Dickinson Bayou Fleeting" />
   </picture>
 </p>
 
 <h1 align="center">Dickinson Bayou Fleeting</h1>
 
 <p align="center">
-  <b>Marketing and lead-generation site for a coastal barge fleeting and marine services company.</b>
+  <b>Barge fleeting, marine services, and coastal dock leasing on the upper Texas Gulf Coast.</b>
 </p>
 <p align="center">
-  Barge fleeting, marine services, and waterfront dock-leasing on the upper<br />
-  Texas Gulf Coast. Live at <a href="https://dickinsonbayoufleeting.com">dickinsonbayoufleeting.com</a>.
+  The marketing and lead-generation site for a two-yard fleeting operation on Galveston Bay and the GIWW.<br />
+  Live at <a href="https://dickinsonbayoufleeting.com">dickinsonbayoufleeting.com</a>.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/React-19.1-2563eb?style=for-the-badge&logo=react&logoColor=white" alt="React 19.1" />
-  <img src="https://img.shields.io/badge/Create_React_App-5-3b82f6?style=for-the-badge&logo=createreactapp&logoColor=white" alt="Create React App 5" />
-  <img src="https://img.shields.io/badge/JavaScript-ES2022-1f56cf?style=for-the-badge&logo=javascript&logoColor=white" alt="JavaScript" />
-  <img src="https://img.shields.io/badge/CSS-Custom_Properties-2563eb?style=for-the-badge&logo=css3&logoColor=white" alt="CSS Custom Properties" />
-  <img src="https://img.shields.io/badge/license-proprietary-1f56cf?style=for-the-badge" alt="License" />
+  <img src="https://img.shields.io/badge/version-1.0.28-6fa8d6?style=for-the-badge" alt="Version 1.0.28" />
+  <img src="https://img.shields.io/badge/React-19-6fa8d6?style=for-the-badge&logo=react&logoColor=white" alt="React 19" />
+  <img src="https://img.shields.io/badge/Create_React_App-5-4f8cc1?style=for-the-badge&logo=createreactapp&logoColor=white" alt="Create React App 5" />
+  <img src="https://img.shields.io/badge/CSS-custom_properties-6fa8d6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS custom properties" />
+  <img src="https://img.shields.io/badge/Vercel-07101c?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
 </p>
 
 <br />
 
 ## Why Dickinson Bayou Fleeting
 
-Dickinson Bayou Fleeting runs two five-acre waterfront yards on the upper Texas Gulf Coast, and every operator who needs a slip starts with a quote. This site exists to turn that first look into a phone call: it presents the services, the two facilities, and the fixed lease rates in one place, then routes every "Request a Quote" through a single inquiry flow. It is a front-end-only Create React App — no backend, no database — built to load fast, read clean on any device, and drive contact.
+Fleeting is a phone-call business, so the site's job is to get a dispatcher to call — fast, from any page, on a phone with one bar out on the dock. That shapes everything: no framework routing, no CSS-in-JS, no cookie banner, and a quote request always one tap away. What is left is a small React bundle over a plain CSS token system.
 
 <table width="100%">
   <tr>
-    <td width="33%" valign="top">
-      <h3 align="center">Multi-page React SPA</h3>
-      <p align="center">Home, Services, About, and Contact are served by a hand-rolled History-API router — no React Router dependency — behind a persistent nav, footer, and global inquiry modal.</p>
+    <td width="50%" valign="top">
+      <h3 align="center">Lead capture from anywhere</h3>
+      <p align="center">Any button on the site dispatches an <code>inquiry:open</code> window event and the app shell opens the global inquiry modal — triggers stay decoupled from the form.</p>
     </td>
-    <td width="33%" valign="top">
-      <h3 align="center">"Tidewater" design system</h3>
-      <p align="center">Plain CSS custom-property tokens with per-section light/dark surface flipping and a procedural Canvas ocean-topography hero. No Tailwind, no CSS-in-JS.</p>
-    </td>
-    <td width="33%" valign="top">
-      <h3 align="center">Lead-capture first</h3>
-      <p align="center">A focus-trapped global inquiry modal plus a validated, phone-masked contact form, click-to-call, and live facility maps drive every quote request.</p>
+    <td width="50%" valign="top">
+      <h3 align="center">No dependency it doesn't need</h3>
+      <p align="center">Routing is a hand-rolled History-API router, styling is plain CSS custom properties, and the hero is a procedural Canvas animation — the only runtime dependency is React itself.</p>
     </td>
   </tr>
 </table>
@@ -50,17 +46,17 @@ Dickinson Bayou Fleeting runs two five-acre waterfront yards on the upper Texas 
 
 ## Stack
 
-| Layer | Choice |
+| Layer | Technology |
 | :--- | :--- |
-| UI framework | React 19.1 |
-| Tooling | Create React App (`react-scripts` 5) |
+| UI | React 19 |
+| Build & dev | Create React App (`react-scripts` 5) |
 | Routing | Custom History-API router in `src/app/router` — no React Router |
-| Styling | Plain CSS with a custom-property token system ("Tidewater"), colocated `.css` per component |
-| Theming | Fixed dark page; per-section `[data-surface="light" \| "dark"]` flipping (not `prefers-color-scheme`) |
-| Hero | Canvas 2D procedural ocean-topography animation (reduced-motion + off-screen aware) |
-| Analytics | First-party, cookieless beacon (`src/lib/sunday-analyzer`) to a hosted ingest endpoint |
-| SEO / PWA | OG + Twitter + geo meta, Schema.org JSON-LD, web manifest + full icon set, sitemap, robots |
-| Hosting | Static production build (`build/`) served at [dickinsonbayoufleeting.com](https://dickinsonbayoufleeting.com) |
+| Styling | Plain CSS with the "Tidewater" custom-property token system, colocated per component |
+| Theming | Fixed dark page; per-section `[data-surface="light" \| "dark"]` flipping |
+| Hero | Canvas 2D procedural ocean-topography animation (reduced-motion and off-screen aware) |
+| Analytics | First-party, cookieless beacon (`src/lib/sunday-analyzer`) |
+| SEO & PWA | OG / Twitter / geo meta, Schema.org JSON-LD, web manifest and icon set, sitemap, robots |
+| Hosting | Vercel |
 
 ## Getting started
 
@@ -68,35 +64,37 @@ Dickinson Bayou Fleeting runs two five-acre waterfront yards on the upper Texas 
 npm install
 npm start                # CRA dev server at localhost:3000
 npm run build            # production build to build/
-CI=true npm run build    # verify gate — warnings fail the build (CI parity)
 ```
 
-`react-scripts` also exposes `npm test` (Jest runner; no suites committed yet) and the one-way `npm run eject`. There is no separate lint or format script — linting runs through `react-scripts` via the `react-app` ESLint config in `package.json`.
+No environment configuration is required — the site has no backend and no API keys. `CI=true npm run build` matches the Vercel build, where warnings fail the build.
+
+### Scripts
+
+| Script | Does |
+| :--- | :--- |
+| `npm start` | Start the CRA dev server. |
+| `npm run build` | Production build to `build/`. |
+| `npm test` | Jest runner (no suites committed yet). |
+| `npm run eject` | One-way CRA eject. |
+
+There is no lint or format script — this is a Create React App project, not the Vite template the other client sites use.
 
 ## Pages
 
-Client-side routes; `NavBar`, `Footer`, and the global `InquiryModal` persist across all of them.
+`NavBar`, `Footer`, and the global `InquiryModal` persist across every route.
 
-| Route | Page | Renders |
-| :--- | :--- | :--- |
-| `/` | Home | Hero, services preview, lease rates, amenities, service area, facilities + maps, CTA — with a right-rail `ScrollSpy` |
-| `/services` | Services | Seven-service catalog, lease rates, FAQ accordion, CTA |
-| `/about` | About | Company story, values, timeline, service area, CTA |
-| `/contact` | Contact | Contact form + direct lines, both facility maps |
-
-## How it works
-
-- **Persistent shell, routed body.** `AppShell` holds the `NavBar`, `Footer`, and inquiry modal; only the `PageOutlet` swaps as the History-API router matches `/`, `/services`, `/about`, or `/contact`.
-- **Decoupled inquiry flow.** Any "Request a Quote" button dispatches a `window` `inquiry:open` event; `AppShell` listens and opens the global `InquiryModal` — triggers never hold modal state.
-- **Front-end only.** There is no backend. The Contact-page form runs a short simulated send (`~600ms`) and the global modal resolves immediately — both then land on a success state with a phone fallback.
-- **Adaptive contrast.** Each section declares a `data-surface` of `light` or `dark`; the nav and right-rail `ScrollSpy` read the active section's surface and flip their own contrast to match.
-- **Single source of truth for data.** Facilities, services, FAQ, nav links, and lease rates live as plain constants in `src/app/constants`, so copy and pricing change in one place.
+| Route | Renders |
+| :--- | :--- |
+| `/` | Hero, services preview, lease rates, amenities, service area, facilities + maps, CTA — with a right-rail `ScrollSpy` |
+| `/services` | Seven-service catalog, lease rates, FAQ accordion, CTA |
+| `/about` | Company story, values, timeline, service area, CTA |
+| `/contact` | Contact form, direct lines, both facility maps |
 
 ## Architecture
 
 ```mermaid
 flowchart TD
-    Shell["AppShell — RouterProvider + analytics"] --> Chrome["NavBar + Footer (persist)"]
+    Shell["AppShell — router provider + analytics"] --> Chrome["NavBar + Footer, persistent"]
     Shell --> Outlet["PageOutlet — History-API router"]
     Outlet --> Home["/ Home"]
     Outlet --> Services["/services"]
@@ -106,39 +104,42 @@ flowchart TD
     Home -->|"Request a Quote"| Modal
 ```
 
-## Business details
+## How it works
 
-- **Two yards.** San Leon — 2629 Avenue R, Dickinson, TX (Galveston Bay / Houston Ship Channel) and Freeport — 906 Marlin Ln, Freeport, TX (Gulf Intracoastal Waterway). Both are 5-acre waterfront facilities.
-- **Lease rates.** Fixed monthly: San Leon $4,100/mo, Freeport $4,800/mo, derived from a single `FACILITIES` source of truth.
-- **Services.** Long-term barge fleeting, shifting & handling, vessel mooring & lay berth, cleaning coordination, repair & survey coordination, marine logistics support, and waterfront dock leasing.
+- **The router is three files.** `Router.js`, `Link.js`, and a `routes.js` table drive History-API navigation; React Router is not in the dependency tree.
+- **Content lives in constants.** Facilities, services, lease options, FAQ, nav links, service area, and about copy are each a module under `src/app/constants` — the views only render them.
+- **Forms are front-end only.** There is no backend, so the inquiry modal and the contact form run a short simulated send and then show a success state with a phone fallback.
+- **The hero draws itself.** `OceanTopographyBackground` animates contour bands on a Canvas 2D context, pausing off-screen and honoring `prefers-reduced-motion`.
+- **Two yards, one source of truth.** San Leon (2629 Avenue R, Dickinson, TX) at $4,100/month and Freeport (906 Marlin Ln, Freeport, TX) at $4,800/month — both 5-acre waterfront facilities — come from the single `FACILITIES` table that feeds the lease cards, maps, and contact page.
 
 ## Project structure
 
 ```
 dickinsonbayoufleeting-com/
 ├── public/
-│   ├── images/            # DBF logo (black/white) + icon
-│   ├── index.html         # SEO meta, Schema.org JSON-LD, fonts, analytics beacon
-│   ├── manifest.json      # PWA manifest + icon set
+│   ├── images/                DBF logo (black/white) + icon
+│   ├── index.html             SEO meta, Schema.org JSON-LD, fonts
+│   ├── manifest.json          PWA manifest + icon set
 │   └── sitemap.xml, robots.txt
-├── src/
-│   ├── index.js           # React root, wrapped in SundayAnalyticsProvider
-│   ├── app/
-│   │   ├── App.js         # AppShell: nav, routed outlet, footer, inquiry modal
-│   │   ├── router/        # History-API router (Router, Link, routes)
-│   │   ├── constants/     # facilities, services, faq, navLinks, about, ...
-│   │   ├── hooks/         # useReveal, useCountUp, useScrolled
-│   │   └── styles/        # Theme.css tokens + global CSS
-│   ├── views/             # HomeView, ServicesView, AboutView, ContactView
-│   ├── components/        # section + UI components (+ colocated styles/)
-│   └── lib/sunday-analyzer/  # first-party cookieless analytics provider
-└── package.json
+└── src/
+    ├── index.js               React root, wrapped in SundayAnalyticsProvider
+    ├── app/
+    │   ├── App.js             AppShell — nav, routed outlet, footer, inquiry modal
+    │   ├── router/            History-API router (Router, Link, routes)
+    │   ├── constants/         facilities, services, leaseOptions, faq, navLinks, …
+    │   ├── hooks/             useReveal, useCountUp, useScrolled
+    │   └── styles/            Theme.css tokens + global CSS
+    ├── views/                 HomeView, ServicesView, AboutView, ContactView
+    ├── components/            Section and UI components (+ colocated styles/)
+    └── lib/sunday-analyzer/   First-party cookieless analytics provider
 ```
 
 ## License
 
-Proprietary — © 2026 Trenton Taylor. All rights reserved. See [`LICENSE.md`](LICENSE.md).
+Copyright (c) 2026 Trenton Taylor. All rights reserved. See [LICENSE.md](LICENSE.md).
 
 <br />
 
-<p align="center"><sub>Built by <a href="https://www.taylorurl.com"><strong>TaylorURL</strong></a></sub></p>
+<p align="center">
+  <sub>Built by <a href="https://taylorurl.com">TaylorURL</a> — custom sites for local businesses.</sub>
+</p>

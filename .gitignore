@@ -23,17 +23,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-.idea/
-.vscode/
-*.iml
-*.sql
-
 # Secrets and local tooling state — never commit
 .env.*
 !.env.example
+.claude/
 *.pem
 *.p12
 *.pfx
 id_rsa
 id_ed25519
-.claude/
