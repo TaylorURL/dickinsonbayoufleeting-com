@@ -76,9 +76,8 @@ code,
   font-feature-settings: "calt", "ss01";
 }
 
-/* ---------- Shared layout primitives ---------- */
+/* Shared layout primitives */
 
-/* Centered, padded content column shared by every section. */
 .container {
   width: 100%;
   max-width: var(--container-max);
@@ -86,14 +85,12 @@ code,
   padding-inline: var(--container-pad);
 }
 
-/* Standard vertical rhythm for a page section — generous breathing room. */
 .section {
   padding-block: var(--section-py);
   position: relative;
   border-top: 1px solid var(--color-hairline);
 }
 
-/* Asymmetric intro block — left-aligned eyebrow → title → subtitle. */
 .section__head {
   max-width: 980px;
   margin: 0 0 var(--space-10);
@@ -126,7 +123,6 @@ code,
   letter-spacing: 0;
 }
 
-/* Section eyebrow — wide-tracked monospace micro-label with accent tick. */
 .eyebrow {
   display: inline-flex;
   align-items: center;
@@ -148,7 +144,6 @@ code,
   background: var(--color-highlight);
 }
 
-/* Larger eyebrow variant used over the hero & primary section heads. */
 .eyebrow--strong {
   color: var(--color-highlight);
 }
@@ -159,12 +154,10 @@ code,
   width: 36px;
 }
 
-/* Numeric strings use tabular figures. */
 .tabular {
   font-variant-numeric: tabular-nums;
 }
 
-/* Decorative hairline divider for section seams. */
 .divider {
   display: block;
   width: 100%;
@@ -172,15 +165,13 @@ code,
   background: var(--color-hairline);
 }
 
-/* ---------- Reveal system ----------
- * Two complementary systems:
- *   .reveal              — synchronous CSS animation, fires on paint
- *   .reveal-on-scroll    — IntersectionObserver-driven; hidden until
- *                          .is-revealed flips (set by useReveal()).
+/* Two reveal paths. `.reveal` animates on paint and needs no JS; use it for
+ * above-the-fold content. `.reveal-on-scroll` stays hidden until useReveal()
+ * flips `.is-revealed`, so anything using it will never appear if the observer
+ * fails to run.
  *
- * Children inside a .reveal-on-scroll can carry .reveal-on-scroll__item
- * to stagger their appearance off the parent's reveal — keeps stagger
- * declarative without forcing each child to bind its own observer. */
+ * `.reveal-on-scroll__item` staggers children off the parent's reveal, which
+ * saves binding an observer per child. */
 .reveal {
   opacity: 0;
   transform: translateY(14px);
@@ -237,9 +228,8 @@ code,
   transition-delay: 0.38s;
 }
 
-/* Stagger — every direct child of a .reveal-stagger gets its own
- * incremental delay once the parent reveals. Caps at 12 children;
- * after that, all remaining children share the last delay. */
+/* Delays are enumerated per child up to 12; beyond that everything shares the
+ * last delay rather than trailing off into an unusably long cascade. */
 .reveal-stagger > * {
   opacity: 0;
   transform: translateY(22px);
@@ -268,12 +258,10 @@ code,
 .reveal-stagger > *:nth-child(12) { transition-delay: 0.70s; }
 .reveal-stagger > *:nth-child(n+13) { transition-delay: 0.74s; }
 
-/* ---------- Nautical motifs ---------- */
+/* Nautical motifs */
 
-/* Wave-edge divider — sits at the seam between contrasting surfaces.
- * Renders an SVG wave silhouette in the section's own --color-bg, so
- * it visually "bites into" the band below it. Mount via <WaveDivider />
- * (see src/components/WaveDivider.jsx). */
+/* Painted in the section's own --color-bg, which is what makes the wave bite
+ * into the band below rather than sit on top of it. Mount via <WaveDivider />. */
 .waveDivider {
   display: block;
   width: 100%;
@@ -295,15 +283,12 @@ code,
   transform: scaleY(-1);
 }
 
-/* Hull-plate texture utility — apply to any block to add the subtle
- * riveted-steel dot field. Reads as industrial signage, not noise. */
 .hullPlate {
   background-image: var(--texture-hull);
   background-size: var(--texture-hull-size);
   background-position: 0 0;
 }
 
-/* Pulsing buoy / signal dot — used in headers and live tags. */
 .signalDot {
   display: inline-block;
   width: 8px;
@@ -325,8 +310,8 @@ code,
   }
 }
 
-/* Subtle water-shimmer for hero strips — slow drift across the seam,
- * never fast enough to read as movement out of the corner of an eye. */
+/* Deliberately slow — fast enough to notice in peripheral vision and it reads
+ * as a glitch rather than water. */
 @keyframes shimmerDrift {
   0%   { background-position: 0% 0; }
   100% { background-position: 200% 0; }

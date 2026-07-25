@@ -3,8 +3,6 @@ import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 import { Link } from "../app/router/Link";
 import { useReveal } from "../app/hooks/useReveal";
 
-/* Lower-page conversion strip. Reused across pages so the call-to-action
- * is consistent and the user always has a clear next step. */
 function CtaStrip({
   eyebrow = "Ready to talk",
   title = "Looking for a slip or a long-term lease?",

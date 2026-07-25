@@ -14,9 +14,6 @@ const HERO_TITLE_TRAIL = "& waterfront dock leasing.";
 const HERO_SUBTITLE =
   "Long-term barge fleeting, vessel mooring and dedicated slip access on Galveston Bay, the Houston Ship Channel and the Gulf Intracoastal Waterway — built around the upper Texas Gulf Coast and the towboat crews that run it.";
 
-/* The right-side credibility cluster — facility coordinates, hard
- * operational stats and the direct line. Anchors the composition so
- * the hero never reads as a half-finished page. */
 const HERO_FACILITIES = [
   {
     code: "F-01",
@@ -76,9 +73,8 @@ function StatValue({ value, suffix }) {
   );
 }
 
-/* Subtle parallax on the ocean plate. The plate moves at ~28% of scroll
- * speed up to the hero's height, then pins — gives a clear water-drift
- * feel without breaking layout. Bails on prefers-reduced-motion. */
+/* The plate tracks at ~28% of scroll speed and pins once past the hero, so the
+ * drift never pulls it out of its own frame. No-ops under reduced-motion. */
 function useHeroParallax(rootRef) {
   useEffect(() => {
     const root = rootRef.current;

@@ -3,9 +3,6 @@ import { SERVICES, SERVICE_HIGHLIGHTS } from "../app/constants/services";
 import { Link } from "../app/router/Link";
 import { useReveal } from "../app/hooks/useReveal";
 
-/* Home-page teaser for the seven core services. The full detail page
- * lives at /services — this card grid is the surface that funnels
- * visitors to it. */
 function ServicesPreview() {
   const headRef = useReveal();
   const gridRef = useReveal();

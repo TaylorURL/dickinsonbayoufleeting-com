@@ -1,21 +1,14 @@
 /*
- * Design tokens — "Tidewater".
+ * Design tokens. The important mechanic here is [data-surface="light"|"dark"]:
+ * set it on any wrapper and every token below cascades to its descendants, so
+ * components never need a light/dark fork of their own.
  *
- * Industrial-maritime visual language for Dickinson Bayou Fleeting.
- * A working-waterfront aesthetic: deep navy and steel grays carry the
- * canvas, a foam paper surface flips for daylight panels, a safety
- * buoy-orange highlight powers CTAs and active state, and a weathered
- * copper-rust accent appears sparingly for tier-two callouts and
- * timeline marks. Sharp corners, hairline rules, and condensed
- * industrial display type evoke hull-plate signage; the body face
- * stays generous and readable for operator-grade content.
- *
- * Per-section surface flipping with [data-surface="light" | "dark"]
- * on any wrapper — tokens cascade to descendants, so every component
- * renders correctly on either canvas without component-level forks.
+ * Colour roles are load-bearing. Highlight (safety orange) is reserved for the
+ * primary action; accent carries links and focus; rust is tier-two only. Reach
+ * for the wrong one and the page stops telling the eye where to go.
  */
 :root {
-  /* Invariant: radii — sharp, near-zero corners */
+  /* Near-zero by design — sharp corners are the whole look. */
   --radius-xs: 0px;
   --radius-sm: 0px;
   --radius-md: 1px;
@@ -24,7 +17,7 @@
   --radius-2xl: 2px;
   --radius-pill: 999px;
 
-  /* Invariant: spacing scale (4px base) */
+  /* 4px base */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -38,12 +31,8 @@
   --space-11: 120px;
   --space-12: 160px;
 
-  /* Invariant: typography
-   * - display: Space Grotesk (clean modern grotesque) for body headings
-   * - condensed: Barlow Condensed for hero/section titles — confident
-   *   industrial-signage feel without going full kitsch
-   * - body: Inter — readable for operator-grade copy
-   * - mono: JetBrains Mono — codes, eyebrows, mono labels */
+  /* Condensed is for hero and section titles only; display carries body
+   * headings. Swapping them makes long headings unreadable. */
   --font-display:
     "Space Grotesk", "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont,
     "Helvetica Neue", "Segoe UI", sans-serif;
@@ -60,7 +49,7 @@
     "JetBrains Mono", "IBM Plex Mono", "Space Mono", ui-monospace,
     SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Fluid display scale — confident, near-screen-height presence */
+  /* Fluid display scale */
   --text-hero: clamp(3.4rem, 9vw, 8rem);
   --text-h2: clamp(2.2rem, 4.8vw, 3.8rem);
   --text-h3: clamp(1.05rem, 1.4vw, 1.2rem);
@@ -69,17 +58,15 @@
   --text-sm: 0.875rem;
   --text-xs: 0.75rem;
 
-  /* Tracked-label treatment — wider letter-spacing, mono-style */
+  /* Tracked labels */
   --eyebrow-size: 0.72rem;
   --eyebrow-tracking: 0.32em;
   --mono-size: 0.74rem;
   --mono-tracking: 0.08em;
 
-  /* Invariant: motion — smoother eased curves than browser defaults.
-   * --ease-water is a soft long-tail curve used for parallax/reveal;
-   * --ease-out is the canonical entrance curve; --ease-in-out is the
-   * morph curve for state changes; --ease-spring gives a tiny
-   * over-shoot for emphasis hits. Never use ease-in on UI. */
+  /* --ease-out for entrances, --ease-in-out for state morphs, --ease-water for
+   * parallax and reveals, --ease-spring only for emphasis hits. Never ease-in
+   * on UI — it makes interactions feel like they lag the input. */
   --transition-fast: 160ms;
   --transition-base: 280ms;
   --transition-slow: 460ms;
@@ -89,12 +76,12 @@
   --ease-water: cubic-bezier(0.16, 0.84, 0.32, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Invariant: blur */
+  /* Blur */
   --blur-sm: 6px;
   --blur-md: 16px;
   --blur-lg: 28px;
 
-  /* Invariant: layout dimensions */
+  /* Layout dimensions */
   --container-max: 1440px;
   --container-pad: clamp(20px, 4.5vw, 56px);
   --section-py: clamp(96px, 13vw, 180px);
@@ -103,9 +90,9 @@
   --nav-logo-offset: 14px;
   --footer-logo-height: clamp(140px, 14vw, 200px);
 
-  /* ============ Theme: dark (default) — deep harbor night ============ */
+  /* Dark theme (default) */
 
-  /* Canvas — saturated navy/blackwater, deeper at the edges */
+  /* Canvas */
   --color-app-bg: #07101c;
   --color-bg: #07101c;
   --color-bg-alt: #0a1422;
@@ -115,9 +102,7 @@
   --color-surface-soft: #091422;
   --color-bg-deep: #04090f;
 
-  /* Primary accent — marine signal blue. Sits between channel buoy and
-   * deep-water hue. Used for hairline ticks, links, hover state, focus
-   * rings, secondary callouts. */
+  /* Links, hover, focus rings, hairline ticks. */
   --color-accent: #6fa8d6;
   --color-accent-hover: #95c1e3;
   --color-accent-strong: #4f8cc1;
@@ -125,26 +110,24 @@
   --color-accent-soft: rgba(111, 168, 214, 0.12);
   --color-accent-ring: rgba(111, 168, 214, 0.36);
 
-  /* Highlight — buoy / safety orange. The single warm signal in the
-   * palette. Powers PRIMARY CTAs, active-state pulses, hero highlights.
-   * Use sparingly — its job is to lead the eye to the next action. */
+  /* The only warm colour on the page. Primary CTAs and active state, nothing
+   * else — spend it twice on a screen and it stops meaning anything. */
   --color-highlight: #f0a045;
   --color-highlight-hover: #ffb866;
   --color-highlight-strong: #d68b30;
   --color-highlight-soft: rgba(240, 160, 69, 0.16);
   --color-highlight-ring: rgba(240, 160, 69, 0.36);
 
-  /* Rust — weathered copper for tier-two accents (timeline marks,
-   * specs callouts, alt-state ticks). Never used as a CTA. */
+  /* Tier-two accents only — timeline marks, spec callouts. Never a CTA. */
   --color-rust: #b86a45;
   --color-rust-soft: rgba(184, 106, 69, 0.14);
 
-  /* Hairline borders — 1px low-opacity dividers */
+  /* Hairline borders */
   --color-border: rgba(196, 220, 244, 0.12);
   --color-border-strong: rgba(196, 220, 244, 0.24);
   --color-hairline: rgba(196, 220, 244, 0.07);
 
-  /* Text — foam white primary, restrained secondaries */
+  /* Text */
   --color-text-primary: #eef3f9;
   --color-text-secondary: #c5d2e0;
   --color-text-faint: #8b9cb0;
@@ -157,7 +140,7 @@
   --color-danger: #e07b7b;
   --color-link: var(--color-text-primary);
 
-  /* Layered translucencies (light foam over deep navy) */
+  /* Layered translucencies */
   --layer-1: rgba(196, 220, 244, 0.03);
   --layer-2: rgba(196, 220, 244, 0.055);
   --layer-3: rgba(196, 220, 244, 0.085);
@@ -168,8 +151,8 @@
   --overlay-nav: rgba(7, 16, 28, 0.88);
   --overlay-scrim: rgba(0, 0, 0, 0.86);
 
-  /* Image treatment — cinematic navy scrims so any photo grades into
-   * the canvas instead of standing apart. */
+  /* Scrims grade photos into the canvas; without them stock imagery reads as
+   * pasted on. */
   --image-scrim: linear-gradient(
     180deg,
     rgba(7, 16, 28, 0.4) 0%,
@@ -185,8 +168,8 @@
   --image-filter: grayscale(0.25) brightness(0.7) contrast(1.1)
     sepia(0.05) hue-rotate(-8deg);
 
-  /* Gradients — page canvas stays nearly flat; hero gets a vignette
-   * lifting toward the safety highlight to anchor the eye to the CTA. */
+  /* The page canvas stays nearly flat on purpose; only the hero vignette lifts,
+   * and it lifts toward the highlight so the eye lands on the CTA. */
   --gradient-page: linear-gradient(180deg, #07101c 0%, #050b14 100%);
   --gradient-hero-vignette:
     radial-gradient(
@@ -229,7 +212,7 @@
       rgba(7, 16, 28, 0.7) 100%
     );
 
-  /* Shadows — depth comes from light absence; minimal use */
+  /* Depth comes from absence of light, so these stay minimal. */
   --shadow-sm: 0 1px 0 rgba(196, 220, 244, 0.04);
   --shadow-md: 0 24px 48px rgba(0, 0, 0, 0.7);
   --shadow-lg: 0 40px 80px rgba(0, 0, 0, 0.8);
@@ -238,8 +221,8 @@
     0 18px 44px -16px rgba(240, 160, 69, 0.42);
   --shadow-inset-card: inset 0 0 0 1px rgba(196, 220, 244, 0.025);
 
-  /* Hull-plate texture — a faint riveted-steel pattern used on tier-two
-   * surfaces and section caps. Reads as industrial signage, not noise. */
+  /* Keep this faint. Pushed any stronger it stops reading as riveted steel and
+   * starts reading as noise. */
   --texture-hull:
     radial-gradient(
       circle at 1px 1px,
@@ -249,12 +232,8 @@
   --texture-hull-size: 14px 14px;
 }
 
-/* ============ Surface: light (foam paper) ============
- *
- * Daylight panel canvas. Tokens cascade to children so the same
- * components render correctly on either band without component-level
- * forks. Accent darkens to deep marine for AA on foam; safety
- * highlight darkens to amber/burnt-orange to stay legible. */
+/* Light surface. Accent and highlight both darken here — the dark-theme values
+ * fail AA contrast against foam paper. */
 [data-surface="light"] {
   --color-app-bg: #f2f4f1;
   --color-bg: #f2f4f1;
@@ -265,7 +244,6 @@
   --color-surface-soft: #f2f4f1;
   --color-bg-deep: #e1e3de;
 
-  /* Primary accent on foam — deep marine, AA on the paper bg */
   --color-accent: #16365b;
   --color-accent-hover: #102849;
   --color-accent-strong: #0b1d38;
@@ -273,7 +251,6 @@
   --color-accent-soft: rgba(22, 54, 91, 0.08);
   --color-accent-ring: rgba(22, 54, 91, 0.32);
 
-  /* Safety highlight on foam — burnt amber/copper, AA */
   --color-highlight: #b85e1c;
   --color-highlight-hover: #9c4f18;
   --color-highlight-strong: #844014;
@@ -373,9 +350,8 @@
     );
 }
 
-/* Explicit dark surface — same as :root, lets us flip a wrapper back
- * to dark inside an otherwise-light ancestor (e.g. the footer's dark
- * lower band sitting under its light contact band). */
+/* Duplicates :root so a wrapper can flip back to dark inside a light ancestor —
+ * the footer's dark lower band under its light contact band needs this. */
 [data-surface="dark"] {
   --color-app-bg: #07101c;
   --color-bg: #07101c;
@@ -483,9 +459,9 @@
   --texture-hull-size: 14px 14px;
 }
 
-/* Sections paint their own canvas — so an inner [data-surface] is the
- * background a viewer actually sees, never the page colour bleeding
- * through. Hairline seam between adjacent surfaces is intentional. */
+/* Each surface paints its own background rather than letting the page colour
+ * show through, so nesting one inside another actually changes what you see.
+ * The hairline seam where two meet is intentional. */
 [data-surface] {
   background: var(--color-bg);
   color: var(--color-text-primary);

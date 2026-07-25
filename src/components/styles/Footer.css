@@ -1,14 +1,6 @@
-/* Footer — credibility-forward industrial-maritime sign-off.
- *
- * Three bands:
- *   1. Light "Contact" band — direct line + primary CTA, opened with a
- *      WaveDivider so the seam from whatever section sits above reads as
- *      a clear waterline.
- *   2. Dark "Main" band — hull-plate-textured surface carrying the brand
- *      block on the left and four organised link columns on the right
- *      (Pages, Services, Facilities, Get in touch). A coverage strip
- *      closes the band with a one-line waterway summary.
- *   3. Dark "Bar" — copyright + back-to-top + made-by line. */
+/* Three bands, alternating surface: light contact, dark main, dark bar. The
+ * light band is why the footer opens with a WaveDivider — the seam has to read
+ * as a waterline against whatever section sits above it. */
 
 .footer {
   background: var(--color-bg);
@@ -17,7 +9,7 @@
   border-top: 1px solid var(--color-border);
 }
 
-/* ---------- Contact band ---------- */
+/* Contact band */
 .footer__contact {
   padding: 0 0 var(--space-9);
   border-bottom: 1px solid var(--color-border);
@@ -126,7 +118,7 @@
   align-self: stretch;
 }
 
-/* ---------- Main band ---------- */
+/* Main band */
 .footer__main {
   padding: var(--space-10) 0 var(--space-9);
   border-bottom: 1px solid var(--color-hairline);
@@ -187,7 +179,6 @@
   color: var(--color-text-secondary);
 }
 
-/* ---------- Credentials ---------- */
 .footer__credentials {
   display: flex;
   flex-wrap: wrap;
@@ -219,7 +210,7 @@
   font-size: 0.6rem;
 }
 
-/* ---------- Link column grid ---------- */
+/* Link column grid */
 .footer__cols {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -276,7 +267,7 @@
   gap: var(--space-3);
 }
 
-/* ---------- Page link (large, condensed) ---------- */
+/* Page link (large, condensed) */
 .footer__link {
   display: inline-flex;
   align-items: center;
@@ -316,7 +307,7 @@
   color: var(--color-highlight);
 }
 
-/* ---------- Service sublink (code + name) ---------- */
+/* Service sublink (code + name) */
 .footer__sublink {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -355,7 +346,7 @@
   line-height: 1.4;
 }
 
-/* ---------- Facility blocks ---------- */
+/* Facility blocks */
 .footer__loc {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -412,7 +403,7 @@
   outline: none;
 }
 
-/* ---------- Get-in-touch column ---------- */
+/* Get-in-touch column */
 .footer__contactRow {
   display: grid;
   grid-template-columns: 90px 1fr;
@@ -454,7 +445,7 @@ a.footer__contactRowValue:focus-visible {
   color: var(--color-text-secondary);
 }
 
-/* ---------- Coverage strip ---------- */
+/* Coverage strip */
 .footer__coverage {
   display: flex;
   flex-wrap: wrap;
@@ -483,7 +474,7 @@ a.footer__contactRowValue:focus-visible {
   color: var(--color-text-secondary);
 }
 
-/* ---------- Bottom bar ---------- */
+/* Bottom bar */
 .footer__bar {
   border-top: 1px solid var(--color-hairline);
 }
@@ -534,7 +525,7 @@ a.footer__contactRowValue:focus-visible {
   transform: translateY(-2px);
 }
 
-/* ---------- Credit line ---------- */
+/* Credit line */
 .footer__credit {
   padding: var(--space-3) var(--container-pad) var(--space-4);
   text-align: center;
@@ -565,7 +556,7 @@ a.footer__contactRowValue:focus-visible {
   outline-offset: 3px;
 }
 
-/* ---------- Responsive ---------- */
+/* Responsive */
 @media (max-width: 1240px) {
   .footer__mainGrid {
     grid-template-columns: 1fr;

@@ -43,7 +43,7 @@ function Footer() {
   const phoneHref = `tel:1${phoneDigits}`;
   return (
     <footer className="footer" id="footer">
-      {/* ---------- Contact band (light surface) ---------- */}
+      {/* Contact band (light surface) */}
       <div className="footer__contact" data-surface="light">
         <WaveDivider />
         <div className="container">
@@ -75,7 +75,7 @@ function Footer() {
         </div>
       </div>
 
-      {/* ---------- Main columns (dark surface, hull-plate texture) ---------- */}
+      {/* Main columns (dark surface, hull-plate texture) */}
       <div className="footer__main hullPlate" data-surface="dark">
         <div className="container">
           <div className="footer__mainGrid">
@@ -214,7 +214,7 @@ function Footer() {
         </div>
       </div>
 
-      {/* ---------- Bottom bar ---------- */}
+      {/* Bottom bar */}
       <div className="footer__bar" data-surface="dark">
         <div className="footer__barInner">
           <div className="footer__copy mono">
