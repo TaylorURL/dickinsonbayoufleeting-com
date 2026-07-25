@@ -53,6 +53,18 @@ function PageOutlet() {
   }
 }
 
+const INQUIRY_ENDPOINT =
+  "https://gujgtjqqurildqurpffh.supabase.co/functions/v1/inquiry-service";
+
+async function submitInquiry(data) {
+  const response = await fetch(INQUIRY_ENDPOINT, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) throw new Error("Inquiry submission failed");
+}
+
 function AppShell() {
   const [inquiryOpen, setInquiryOpen] = useState(false);
   const [navSurface, setNavSurface] = useState("dark");
@@ -113,7 +125,7 @@ function AppShell() {
       <InquiryModal
         open={inquiryOpen}
         onClose={() => setInquiryOpen(false)}
-        onSubmit={() => {}}
+        onSubmit={submitInquiry}
       />
     </div>
   );
