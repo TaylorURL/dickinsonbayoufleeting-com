@@ -27,3 +27,13 @@ yarn-error.log*
 .vscode/
 *.iml
 *.sql
+
+# Secrets and local tooling state — never commit
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+.claude/
