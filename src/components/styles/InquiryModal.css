@@ -16,7 +16,6 @@
   animation: inqFade var(--transition-base) var(--ease-out) both;
 }
 
-/* Sharp dark sheet */
 .inqShell {
   position: relative;
   width: min(680px, 100%);
@@ -77,7 +76,6 @@
   color: var(--color-text-secondary);
 }
 
-/* Fields */
 .inqGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -178,7 +176,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Footer actions */
 .inqFooter {
   display: flex;
   flex-direction: column;
@@ -286,7 +283,6 @@
   text-align: right;
 }
 
-/* Success state */
 .inqResult {
   display: flex;
   flex-direction: column;

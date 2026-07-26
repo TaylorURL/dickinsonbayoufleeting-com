@@ -1,15 +1,10 @@
-/* ============================================================
- * NavBar — operations-grade header.
+/* Transparent over the hero. Once scrolled past it the nav adopts the surface
+ * (data-surface="light" | "dark") of whatever section is behind it, so links
+ * stay legible as the page alternates between dark and foam bands.
  *
- * Transparent over the cinematic hero. Once scrolled past the hero,
- * the nav adopts the surface (data-surface="light" | "dark") of the
- * section currently behind it so links stay legible as the page
- * alternates between dark and foam bands.
- *
- * Mobile drawer is always a full-screen dark overlay regardless of
- * which surface is behind the nav — overlays default to dark so the
- * brand reads consistently while the menu is open.
- * ============================================================ */
+ * The mobile drawer stays a full-screen dark overlay whatever surface the nav
+ * is currently wearing — a drawer that changed colour with the page behind it
+ * would make the brand read differently every time it opened. */
 
 .nav {
   position: fixed;
@@ -130,7 +125,6 @@
   }
 }
 
-/* Desktop links */
 .nav__links {
   display: flex;
   align-items: center;
@@ -187,7 +181,6 @@
   color: var(--color-text-primary);
 }
 
-/* Right-side actions cluster */
 .nav__actions {
   display: flex;
   align-items: center;
@@ -282,7 +275,6 @@
     var(--shadow-accent);
 }
 
-/* Mobile toggle */
 .nav__toggle {
   display: none;
   position: relative;
@@ -348,7 +340,6 @@
   transform: translateX(-50%) rotate(-45deg);
 }
 
-/* Mobile scrim & full-screen overlay drawer */
 .nav__scrim {
   position: fixed;
   inset: 0;
@@ -496,7 +487,6 @@
   font-size: 0.76rem;
 }
 
-/* Mobile breakpoint */
 @media (max-width: 960px) {
   .nav__toggle {
     display: inline-flex;
