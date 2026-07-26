@@ -49,7 +49,6 @@
     "JetBrains Mono", "IBM Plex Mono", "Space Mono", ui-monospace,
     SFMono-Regular, Menlo, Consolas, monospace;
 
-  /* Fluid display scale */
   --text-hero: clamp(3.4rem, 9vw, 8rem);
   --text-h2: clamp(2.2rem, 4.8vw, 3.8rem);
   --text-h3: clamp(1.05rem, 1.4vw, 1.2rem);
@@ -58,7 +57,6 @@
   --text-sm: 0.875rem;
   --text-xs: 0.75rem;
 
-  /* Tracked labels */
   --eyebrow-size: 0.72rem;
   --eyebrow-tracking: 0.32em;
   --mono-size: 0.74rem;
@@ -76,12 +74,10 @@
   --ease-water: cubic-bezier(0.16, 0.84, 0.32, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Blur */
   --blur-sm: 6px;
   --blur-md: 16px;
   --blur-lg: 28px;
 
-  /* Layout dimensions */
   --container-max: 1440px;
   --container-pad: clamp(20px, 4.5vw, 56px);
   --section-py: clamp(96px, 13vw, 180px);
@@ -92,7 +88,6 @@
 
   /* Dark theme (default) */
 
-  /* Canvas */
   --color-app-bg: #07101c;
   --color-bg: #07101c;
   --color-bg-alt: #0a1422;
@@ -122,12 +117,10 @@
   --color-rust: #b86a45;
   --color-rust-soft: rgba(184, 106, 69, 0.14);
 
-  /* Hairline borders */
   --color-border: rgba(196, 220, 244, 0.12);
   --color-border-strong: rgba(196, 220, 244, 0.24);
   --color-hairline: rgba(196, 220, 244, 0.07);
 
-  /* Text */
   --color-text-primary: #eef3f9;
   --color-text-secondary: #c5d2e0;
   --color-text-faint: #8b9cb0;
@@ -135,18 +128,15 @@
   --color-text-on-accent: #07101c;
   --color-text-on-highlight: #1a0d04;
 
-  /* Feedback */
   --color-success: #87b58f;
   --color-danger: #e07b7b;
   --color-link: var(--color-text-primary);
 
-  /* Layered translucencies */
   --layer-1: rgba(196, 220, 244, 0.03);
   --layer-2: rgba(196, 220, 244, 0.055);
   --layer-3: rgba(196, 220, 244, 0.085);
   --layer-4: rgba(196, 220, 244, 0.14);
 
-  /* Surfaces & overlays */
   --surface-glass: rgba(7, 16, 28, 0.66);
   --overlay-nav: rgba(7, 16, 28, 0.88);
   --overlay-scrim: rgba(0, 0, 0, 0.86);
