@@ -79,7 +79,6 @@ function Footer() {
       <div className="footer__main hullPlate" data-surface="dark">
         <div className="container">
           <div className="footer__mainGrid">
-            {/* Brand block */}
             <div className="footer__brand">
               <Link
                 to="/"
@@ -120,7 +119,6 @@ function Footer() {
               </ul>
             </div>
 
-            {/* Link columns */}
             <div className="footer__cols">
               <div className="footer__col" aria-label="Pages">
                 <div className="footer__title mono">Pages</div>
@@ -214,7 +212,6 @@ function Footer() {
         </div>
       </div>
 
-      {/* Bottom bar */}
       <div className="footer__bar" data-surface="dark">
         <div className="footer__barInner">
           <div className="footer__copy mono">

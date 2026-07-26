@@ -76,8 +76,6 @@ code,
   font-feature-settings: "calt", "ss01";
 }
 
-/* Shared layout primitives */
-
 .container {
   width: 100%;
   max-width: var(--container-max);
@@ -257,8 +255,6 @@ code,
 .reveal-stagger > *:nth-child(11) { transition-delay: 0.64s; }
 .reveal-stagger > *:nth-child(12) { transition-delay: 0.70s; }
 .reveal-stagger > *:nth-child(n+13) { transition-delay: 0.74s; }
-
-/* Nautical motifs */
 
 /* Painted in the section's own --color-bg, which is what makes the wave bite
  * into the band below rather than sit on top of it. Mount via <WaveDivider />. */

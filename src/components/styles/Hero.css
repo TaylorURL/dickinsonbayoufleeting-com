@@ -10,7 +10,6 @@
   color: var(--color-text-primary);
 }
 
-/* Background plate */
 .hero__bg {
   position: absolute;
   inset: 0;
@@ -111,7 +110,6 @@
   }
 }
 
-/* Inner content stack */
 .hero__inner {
   grid-area: inner;
   display: flex;
@@ -182,7 +180,6 @@
   animation: heroRise 0.9s 0.5s var(--ease-water) both;
 }
 
-/* Right console — operations panel */
 .hero__console {
   grid-area: console;
   position: relative;
@@ -267,7 +264,6 @@
   color: var(--color-text-faint);
 }
 
-/* Facility roster */
 .hero__facilities {
   list-style: none;
   margin: 0;
@@ -334,7 +330,6 @@
   color: var(--color-text-faint);
 }
 
-/* Stats grid (2x2) */
 .hero__stats {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -386,7 +381,6 @@
   margin-left: 0.04em;
 }
 
-/* Direct-line CTA inside the console */
 .hero__directLine {
   display: grid;
   grid-template-columns: auto 1fr auto;
@@ -468,7 +462,6 @@
   }
 }
 
-/* Responsive — stack the console below the headline */
 @media (max-width: 1100px) {
   .hero__frame {
     grid-template-columns: 1fr;

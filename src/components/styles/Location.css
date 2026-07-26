@@ -1,15 +1,9 @@
-/* Facilities section — both yards shown side-by-side as static cards.
- *
- * The previous version was a tab-switcher with two Google Maps iframes
- * fighting over a single frame, animated state transitions, a constantly
- * pulsing signal dot and a grayscale filter being repainted on every
- * toggle. Even with both iframes pre-mounted the toggle work hit the
- * compositor hard on weaker devices.
- *
- * The replacement is a two-up grid: every yard has its own card with
- * its own map and its own actions. No state, no rotator, no swap, no
- * transition timeline driving layout. Each map is deferred until the
- * section enters the viewport and then mounted once. */
+/* Facilities section. Both yards sit side by side as static cards, each with
+ * its own map and actions, rather than sharing one frame behind a tab switch.
+ * There is deliberately no state, no rotator and no transition timeline here:
+ * animating between two live Google Maps iframes pins the compositor on weaker
+ * devices. Maps are deferred until the section enters the viewport, then
+ * mounted once and left alone. */
 
 .location {
   background: var(--color-bg);
@@ -36,7 +30,6 @@
   background: var(--color-highlight);
 }
 
-/* Facility card */
 .facCard {
   display: flex;
   flex-direction: column;

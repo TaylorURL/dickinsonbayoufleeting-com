@@ -1,15 +1,10 @@
-/* ============================================================
- * ScrollSpy — right-rail vertical section indicator.
+/* Right-rail section indicator, fixed against the right edge and vertically
+ * centred. It adopts the surface (data-surface="light" | "dark") of whichever
+ * full-bleed section it overlaps so the labels stay legible across dark and
+ * paper bands.
  *
- * Fixed against the right edge, vertically centred. Adopts the
- * surface (data-surface="light" | "dark") of whichever full-bleed
- * section it currently overlaps so the labels stay legible as the
- * page alternates between dark and paper bands.
- *
- * Hidden below 1024px — at that width the rail competes with the
- * content rather than annotating it, and the navbar carries all
- * primary navigation on mobile.
- * ============================================================ */
+ * Hidden below 1024px: at that width the rail competes with the content
+ * instead of annotating it, and the navbar already carries navigation. */
 
 .scrollSpy {
   position: fixed;

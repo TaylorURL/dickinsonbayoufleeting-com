@@ -9,7 +9,6 @@
   border-top: 1px solid var(--color-border);
 }
 
-/* Contact band */
 .footer__contact {
   padding: 0 0 var(--space-9);
   border-bottom: 1px solid var(--color-border);
@@ -118,7 +117,6 @@
   align-self: stretch;
 }
 
-/* Main band */
 .footer__main {
   padding: var(--space-10) 0 var(--space-9);
   border-bottom: 1px solid var(--color-hairline);
@@ -210,7 +208,6 @@
   font-size: 0.6rem;
 }
 
-/* Link column grid */
 .footer__cols {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -267,7 +264,6 @@
   gap: var(--space-3);
 }
 
-/* Page link (large, condensed) */
 .footer__link {
   display: inline-flex;
   align-items: center;
@@ -307,7 +303,6 @@
   color: var(--color-highlight);
 }
 
-/* Service sublink (code + name) */
 .footer__sublink {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -346,7 +341,6 @@
   line-height: 1.4;
 }
 
-/* Facility blocks */
 .footer__loc {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -403,7 +397,6 @@
   outline: none;
 }
 
-/* Get-in-touch column */
 .footer__contactRow {
   display: grid;
   grid-template-columns: 90px 1fr;
@@ -445,7 +438,6 @@ a.footer__contactRowValue:focus-visible {
   color: var(--color-text-secondary);
 }
 
-/* Coverage strip */
 .footer__coverage {
   display: flex;
   flex-wrap: wrap;
@@ -474,7 +466,6 @@ a.footer__contactRowValue:focus-visible {
   color: var(--color-text-secondary);
 }
 
-/* Bottom bar */
 .footer__bar {
   border-top: 1px solid var(--color-hairline);
 }
@@ -525,7 +516,6 @@ a.footer__contactRowValue:focus-visible {
   transform: translateY(-2px);
 }
 
-/* Credit line */
 .footer__credit {
   padding: var(--space-3) var(--container-pad) var(--space-4);
   text-align: center;
@@ -556,7 +546,6 @@ a.footer__contactRowValue:focus-visible {
   outline-offset: 3px;
 }
 
-/* Responsive */
 @media (max-width: 1240px) {
   .footer__mainGrid {
     grid-template-columns: 1fr;
