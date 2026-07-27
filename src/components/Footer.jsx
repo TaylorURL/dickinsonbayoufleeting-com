@@ -43,7 +43,6 @@ function Footer() {
   const phoneHref = `tel:1${phoneDigits}`;
   return (
     <footer className="footer" id="footer">
-      {/* Contact band (light surface) */}
       <div className="footer__contact" data-surface="light">
         <WaveDivider />
         <div className="container">
@@ -75,7 +74,6 @@ function Footer() {
         </div>
       </div>
 
-      {/* Main columns (dark surface, hull-plate texture) */}
       <div className="footer__main hullPlate" data-surface="dark">
         <div className="container">
           <div className="footer__mainGrid">
@@ -201,7 +199,6 @@ function Footer() {
             </div>
           </div>
 
-          {/* Service-area chip strip — quick coverage at a glance */}
           <div className="footer__coverage" aria-label="Coverage">
             <span className="footer__coverageLabel mono">Coverage</span>
             <span className="footer__coverageList mono">
