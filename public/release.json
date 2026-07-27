@@ -1,6 +1,5 @@
 {
   "version": "1.0.26",
   "projectName": "dickinsonbayoufleeting-com",
-  "branch": "main",
-  "provider": "claude-code"
+  "branch": "main"
 }
