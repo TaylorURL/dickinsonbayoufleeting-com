@@ -29,6 +29,7 @@ yarn-error.log*
 .env.*
 !.env.example
 .claude/
+CLAUDE.md
 .idea/
 .vscode/
 .fleet/
