@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.30-6fa8d6?style=for-the-badge" alt="Version 1.0.30" />
+  <img src="https://img.shields.io/badge/version-1.0.34-6fa8d6?style=for-the-badge" alt="Version 1.0.34" />
   <img src="https://img.shields.io/badge/React-19-6fa8d6?style=for-the-badge&logo=react&logoColor=white" alt="React 19" />
   <img src="https://img.shields.io/badge/Create_React_App-5-4f8cc1?style=for-the-badge&logo=createreactapp&logoColor=white" alt="Create React App 5" />
   <img src="https://img.shields.io/badge/CSS-custom_properties-6fa8d6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS custom properties" />
