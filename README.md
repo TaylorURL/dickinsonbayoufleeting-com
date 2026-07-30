@@ -37,7 +37,7 @@ Fleeting is a phone-call business, so the site's job is to get a dispatcher to c
     </td>
     <td width="50%" valign="top">
       <h3 align="center">No dependency it doesn't need</h3>
-      <p align="center">Routing is a hand-rolled History-API router, styling is plain CSS custom properties, and the hero is a procedural Canvas animation — the only runtime dependency is React itself.</p>
+      <p align="center">Routing is a hand-rolled History-API router, styling is plain CSS custom properties, and the hero is a procedural Canvas animation — the only library in the shipped bundle is React itself.</p>
     </td>
   </tr>
 </table>
@@ -119,7 +119,8 @@ dickinsonbayoufleeting-com/
 ├── public/
 │   ├── images/                DBF logo (black/white) + icon
 │   ├── index.html             SEO meta, Schema.org JSON-LD, fonts
-│   ├── manifest.json          PWA manifest + icon set
+│   ├── manifest.json          PWA manifest (+ site.webmanifest, icon set)
+│   ├── release.json           Deployed version marker
 │   └── sitemap.xml, robots.txt
 └── src/
     ├── index.js               React root, wrapped in SundayAnalyticsProvider
