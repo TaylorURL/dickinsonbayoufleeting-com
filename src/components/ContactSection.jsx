@@ -1,11 +1,13 @@
 import { useCallback, useMemo, useState } from "react";
-import "./styles/ContactSection.css";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 import { FACILITIES } from "../app/constants/facilities";
-import { useReveal } from "../app/hooks/useReveal";
 import InquiryFields from "./InquiryFields";
 import InquiryErrorSummary from "./InquiryErrorSummary";
 import { CheckIcon } from "./Icons";
+import Button from "./ui/Button";
+import { Container, Eyebrow, Section } from "./ui/Layout";
+import { FIELD } from "./ui/Field";
+import { Reveal } from "./ui/Reveal";
 import {
   formatPhone,
   inquiryErrorMessage,
@@ -16,9 +18,14 @@ import {
 const MAX_MESSAGE = 1200;
 const FORM_ID = "contactForm";
 
+// The rule across the top of the panel, which is the one mark that says the
+// form is the thing on this band to act on.
+const PANEL_RULE =
+  "before:absolute before:-top-px before:left-0 before:h-accent before:w-rule-long before:bg-highlight before:content-['']";
+
+const MICRO = "font-mono text-xs font-medium uppercase tracking-label";
+
 function ContactSection() {
-  const asideRef = useReveal();
-  const formRef = useReveal();
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
@@ -78,82 +85,80 @@ function ContactSection() {
   }
 
   const phoneHref = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`;
+
   return (
-    <section
-      className="contactSection section"
-      data-surface="light"
-      id="contact"
-      aria-label="Contact"
-    >
-      <div className="container">
-        <div className="contactSection__layout">
-          <aside
-            className="contactSection__aside reveal-on-scroll"
-            ref={asideRef}
-          >
-            <div className="section__head">
-              <p className="eyebrow eyebrow--strong mono">Reach the office</p>
-              <h2 className="section__title">
+    <Section surface="light" id="contact" aria-label="Contact">
+      <Container>
+        <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-7 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:gap-9">
+          <Reveal as="aside" className="flex flex-col gap-7">
+            <div className="flex max-w-head flex-col items-start gap-5">
+              <Eyebrow strong>Reach the office</Eyebrow>
+              <h2 className="min-w-0 max-w-title text-h2 text-primary">
                 Talk to a person who knows the dock.
               </h2>
-              <p className="section__subtitle">
+              <p className="max-w-prose text-lead text-secondary">
                 Single-barge job or year-long lease, we are happy to talk. Phone
                 is fastest. The form goes straight to the operations desk.
               </p>
             </div>
 
-            <dl className="contactSection__directList">
-              <div className="contactSection__directItem">
-                <dt className="mono">Direct Line</dt>
+            <dl className="m-0 flex flex-col gap-5 border-t-2 border-highlight p-0 pt-6">
+              <div className="flex flex-col gap-1">
+                <dt className={`${MICRO} text-faint`}>Direct Line</dt>
                 <dd>
                   <a
-                    className="contactSection__directValue tabular"
                     href={phoneHref}
+                    className="inline-flex min-h-control-sm items-center whitespace-nowrap font-condensed text-h5 font-bold uppercase tabular-nums tracking-normal text-primary no-underline transition-colors duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none active:scale-[0.99]"
                   >
                     {PHONE_NUMBER}
                   </a>
                 </dd>
               </div>
-              <div className="contactSection__directItem">
-                <dt className="mono">Operations Desk</dt>
-                <dd className="contactSection__directNote">
+              <div className="flex flex-col gap-1">
+                <dt className={`${MICRO} text-faint`}>Operations Desk</dt>
+                <dd className="max-w-prose-tight text-md text-secondary">
                   Shore presence 24 / 7. The office is staffed weekdays, with
                   the on-call line monitored at all other hours.
                 </dd>
               </div>
             </dl>
 
-            <ul className="contactSection__facilityList">
+            <ul className="m-0 grid list-none grid-cols-[minmax(0,1fr)] gap-4 border-t border-border p-0 pt-6 sm:grid-cols-2">
               {FACILITIES.map((f) => (
-                <li key={f.id} className="contactSection__facility">
-                  <span className="contactSection__facLabel mono">
+                <li
+                  key={f.id}
+                  className="flex flex-col gap-1 border-l-2 border-hairline pl-3 transition-colors duration-quick ease-settle hover:border-highlight"
+                >
+                  <span className={`${MICRO} text-highlight`}>
                     {f.shortName} Facility
                   </span>
-                  <span className="contactSection__facAddr">{f.address}</span>
-                  <span className="contactSection__facRegion mono">
+                  <span className="font-condensed text-lg font-semibold uppercase tracking-normal text-primary">
+                    {f.address}
+                  </span>
+                  <span className="font-mono text-xs font-medium tracking-label text-faint">
                     {f.region}
                   </span>
                 </li>
               ))}
             </ul>
-          </aside>
+          </Reveal>
 
-          <div
-            className="contactSection__formWrap reveal-on-scroll"
-            ref={formRef}
-          >
+          <Reveal>
             {submitted ? (
-              <div className="contactSection__success" role="status">
+              <div
+                role="status"
+                className={`relative flex animate-rise flex-col gap-3 border border-border bg-surface p-7 motion-reduce:animate-none ${PANEL_RULE} before:top-0`}
+              >
                 <span
-                  className="contactSection__successTick"
                   aria-hidden="true"
+                  className="mb-2 inline-flex h-control w-control animate-rise-1 items-center justify-center border border-highlight bg-highlight-soft text-highlight motion-reduce:animate-none"
                 >
                   <CheckIcon size={22} />
                 </span>
-                <h3 className="contactSection__successTitle">
+                <h3 className="m-0 text-h4 font-bold text-primary">
                   We have your note.
                 </h3>
-                <p className="contactSection__successBody">
+                <p className="max-w-prose-tight text-base text-secondary">
                   Someone will reach back inside one business day. If your
                   timeline is tighter than that, please call {PHONE_NUMBER}. The
                   on-call line is always answered.
@@ -161,25 +166,26 @@ function ContactSection() {
               </div>
             ) : (
               <form
-                className="contactForm"
                 onSubmit={submit}
                 noValidate
                 aria-label="Quote Request"
+                className={`relative border border-border bg-surface p-6 md:p-7 ${PANEL_RULE}`}
               >
-                <p className="contactForm__lede mono">Send a Note</p>
-                <p className="contactForm__required">
+                <p className="mb-5 font-mono text-xs font-medium tracking-normal text-highlight">
+                  Send a Note
+                </p>
+                <p className="mb-5 font-body text-sm text-faint">
                   All fields are required.
                 </p>
                 {attempted ? (
                   <InquiryErrorSummary
-                    block="contactForm"
+                    className="mb-5"
                     idPrefix={FORM_ID}
                     errors={errors}
                   />
                 ) : null}
-                <div className="contactForm__grid">
+                <div className="grid grid-cols-[minmax(0,1fr)] gap-5 xs:grid-cols-2">
                   <InquiryFields
-                    block="contactForm"
                     idPrefix={FORM_ID}
                     values={values}
                     errors={errors}
@@ -187,36 +193,35 @@ function ContactSection() {
                     onChange={change}
                     onBlur={blur}
                     counter={
-                      <span className="contactForm__counter mono">
+                      <span className={FIELD.counter}>
                         {values.message.length} / {MAX_MESSAGE}
                       </span>
                     }
                   />
                 </div>
 
-                <div className="contactForm__actions">
-                  <a href={phoneHref} className="btn btn--ghost">
+                <div className="mt-6 flex flex-col-reverse flex-wrap items-stretch justify-end gap-3 xs:flex-row xs:items-center">
+                  <Button variant="ghost" href={phoneHref}>
                     Call Instead
-                  </a>
-                  <button
-                    type="submit"
-                    className="btn btn--primary"
-                    disabled={submitting}
-                  >
+                  </Button>
+                  <Button variant="primary" type="submit" disabled={submitting}>
                     {submitting ? "Sending…" : "Send Request"}
-                  </button>
+                  </Button>
                 </div>
                 {submitError ? (
-                  <p className="contactForm__submitErr" role="alert">
+                  <p
+                    role="alert"
+                    className="mt-3 font-body text-sm leading-normal text-danger"
+                  >
                     {submitError}
                   </p>
                 ) : null}
               </form>
             )}
-          </div>
+          </Reveal>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }
 

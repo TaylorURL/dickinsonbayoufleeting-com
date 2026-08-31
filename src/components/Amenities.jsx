@@ -1,5 +1,6 @@
-import "./styles/Amenities.css";
-import { useReveal } from "../app/hooks/useReveal";
+import { BAND, Container, Section, SectionHead } from "./ui/Layout";
+import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
+import { ROW, ROW_INNER, ROW_MARKER, SLOT } from "./ui/Row";
 
 const AMENITIES = [
   {
@@ -40,48 +41,64 @@ const AMENITIES = [
   },
 ];
 
+// The rules are lines drawn across the list, not borders on its boxes: a ruled
+// list is one surface with lines across it, not a stack of panels that happen
+// to touch.
 function Amenities() {
-  const headRef = useReveal();
-  const listRef = useReveal();
   return (
-    <section
-      className="amenities section"
-      data-surface="dark"
-      aria-label="Amenities"
-      id="amenities"
-    >
-      <div className="container">
-        <div className="section__head reveal-on-scroll" ref={headRef}>
-          <p className="eyebrow eyebrow--strong mono">Capabilities</p>
-          <h2 className="section__title">
-            Barge fleeting, marine services &amp; coastal amenities.
-          </h2>
-          <p className="section__subtitle">
-            Everything operators need for safe barge fleeting, vessel staging
-            and fleet support on Galveston Bay and the Gulf Intracoastal
-            Waterway.
-          </p>
-        </div>
+    <Section surface="dark" id="amenities" aria-label="Amenities">
+      <Container className={BAND}>
+        <Reveal>
+          <SectionHead
+            eyebrow="Capabilities"
+            title="Barge fleeting, marine services & coastal amenities."
+            subtitle="Everything operators need for safe barge fleeting, vessel staging and fleet support on Galveston Bay and the Gulf Intracoastal Waterway."
+          />
+        </Reveal>
 
-        <ol
-          className="amenities__list reveal-on-scroll reveal-stagger"
+        <Stagger
+          as="ol"
           aria-label="Capability List"
-          ref={listRef}
+          className="m-0 list-none border-t border-border p-0"
         >
           {AMENITIES.map((amenity, idx) => (
-            <li key={amenity.name} className="amenityRow">
-              <span className="amenityRow__index mono" aria-hidden="true">
-                {String(idx + 1).padStart(2, "0")}
-              </span>
-              <span className="amenityRow__code mono">{amenity.code}</span>
-              <h3 className="amenityRow__name">{amenity.name}</h3>
-              <p className="amenityRow__desc">{amenity.desc}</p>
-              <span className="amenityRow__meta mono">{amenity.meta}</span>
+            <li
+              key={amenity.name}
+              className={`border-b border-border ${staggerChild(idx)}`}
+            >
+              <div className={`${ROW} ${ROW_INNER} ${ROW_MARKER} py-6 lg:py-7`}>
+                <span
+                  aria-hidden="true"
+                  className={`${SLOT.index} font-mono text-xs font-medium tracking-control text-muted`}
+                >
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className={`${SLOT.code} font-mono text-xs font-medium tracking-control text-faint`}
+                >
+                  {amenity.code}
+                </span>
+                <h3
+                  className={`${SLOT.name} m-0 text-h6 text-primary lg:row-span-2`}
+                >
+                  {amenity.name}
+                </h3>
+                <p
+                  className={`${SLOT.detail} max-w-prose text-md text-secondary`}
+                >
+                  {amenity.desc}
+                </p>
+                <span
+                  className={`${SLOT.meta} whitespace-nowrap font-mono text-xs font-medium uppercase tracking-label text-muted`}
+                >
+                  {amenity.meta}
+                </span>
+              </div>
             </li>
           ))}
-        </ol>
-      </div>
-    </section>
+        </Stagger>
+      </Container>
+    </Section>
   );
 }
 

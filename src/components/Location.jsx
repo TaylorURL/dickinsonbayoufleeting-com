@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import "./styles/Location.css";
 import { FACILITIES } from "../app/constants/facilities";
-import { useReveal } from "../app/hooks/useReveal";
+import Button from "./ui/Button";
+import { BAND, Container, Section, SectionHead } from "./ui/Layout";
+import { Reveal } from "./ui/Reveal";
 
 const buildEmbedSrc = (address) =>
   `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
@@ -12,7 +13,7 @@ const buildMapsHref = (address) =>
 const buildTelHref = (phone) => `tel:1${phone.replace(/[^0-9]/g, "")}`;
 
 // Google Maps iframes are heavy, so they stay unmounted until the section is in
-// view. Once mounted they stay mounted — remounting them on scroll costs far
+// view. Once mounted they stay mounted - remounting them on scroll costs far
 // more than keeping them around. The margin starts the fetch a screen-and-a-bit
 // early, so the map is usually there before the section is.
 const rootMargin = "240px 0px";
@@ -20,6 +21,15 @@ const rootMargin = "240px 0px";
 // How long the plate waits for the map host before it stops waiting and offers
 // the address instead.
 const MAP_TIMEOUT_MS = 8000;
+
+const MICRO = "font-mono text-2xs font-medium uppercase tracking-label";
+const TICK = "pointer-events-none absolute z-overlay h-icon-sm w-icon-sm";
+
+// One filter pass, applied once at mount. The paper band lightens it, because
+// the dark grade reads as a hole in a light card.
+const MAP_GRADE =
+  "[filter:grayscale(1)_brightness(0.58)_contrast(1.22)_sepia(0.06)_hue-rotate(-10deg)] [[data-surface='light']_&]:[filter:grayscale(0.85)_brightness(0.96)_contrast(1.05)]";
+
 function useDeferredMount(rootRef) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -59,68 +69,78 @@ function FacilityCard({ facility, index, mapsMounted }) {
   // hidden over the map, so nothing downstream has to reason about a box that
   // is still there and no longer means anything.
   const [plateRetired, setPlateRetired] = useState(false);
+
   useEffect(() => {
     if (!mapsMounted || mapState !== "loading") return undefined;
     const timer = setTimeout(() => setMapState("failed"), MAP_TIMEOUT_MS);
     return () => clearTimeout(timer);
   }, [mapsMounted, mapState]);
+
   const openInquiry = (e) => {
     e.preventDefault();
     window.dispatchEvent(new Event("inquiry:open"));
   };
+
   const mapTitle = `Map of Dickinson Bayou Fleeting ${facility.name}, ${facility.address}`;
+
   return (
-    <article className="facCard" id={facility.id} aria-label={facility.name}>
-      <header className="facCard__header">
-        <span className="facCard__code mono">
+    <article
+      id={facility.id}
+      aria-label={facility.name}
+      className="relative flex min-w-0 flex-col gap-5 border border-border bg-surface px-5 py-6 transition-[border-color,transform] duration-settle ease-settle hover:-translate-y-1 motion-reduce:transition-none xs:px-6 xs:py-7"
+    >
+      <header className="flex items-center justify-between gap-3 border-b border-hairline pb-4">
+        <span className="font-mono text-xs font-medium uppercase tracking-label text-highlight">
           F-{String(index + 1).padStart(2, "0")}
         </span>
-        <span className="facCard__tag mono">
-          <span className="signalDot" aria-hidden="true" />
-          On-Site Crew
-        </span>
+        <span className={`${MICRO} text-faint`}>On-Site Crew</span>
       </header>
 
-      <div className="facCard__body">
-        <p className="facCard__region mono">{facility.region}</p>
-        <h3 className="facCard__name">{facility.name}</h3>
-        <p className="facCard__address">{facility.address}</p>
+      <div className="flex flex-col gap-1">
+        <p className={`${MICRO} text-highlight`}>{facility.region}</p>
+        <h3 className="font-condensed text-h5 font-bold uppercase tracking-normal text-primary">
+          {facility.name}
+        </h3>
+        <p className="font-body text-base text-secondary">{facility.address}</p>
       </div>
 
-      <dl className="facCard__specs">
-        <div className="facCard__spec">
-          <dt className="facCard__specLabel mono">Direct Line</dt>
-          <dd className="facCard__specValue mono tabular">{facility.phone}</dd>
+      <dl className="m-0 grid grid-cols-[minmax(0,1fr)] gap-3 border-t border-hairline pt-4 xs:grid-cols-2 xs:gap-4">
+        <div className="m-0 flex flex-col gap-1">
+          <dt className={`${MICRO} m-0 text-faint`}>Direct Line</dt>
+          <dd className="m-0 whitespace-nowrap font-mono text-md tabular-nums text-primary">
+            {facility.phone}
+          </dd>
         </div>
-        <div className="facCard__spec">
-          <dt className="facCard__specLabel mono">Acreage</dt>
-          <dd className="facCard__specValue mono tabular">
+        <div className="m-0 flex flex-col gap-1">
+          <dt className={`${MICRO} m-0 text-faint`}>Acreage</dt>
+          <dd className="m-0 whitespace-nowrap font-mono text-md tabular-nums text-primary">
             {facility.acreage}
           </dd>
         </div>
       </dl>
 
-      <div className="facCard__mapWrap" aria-busy={mapState === "loading"}>
-        {/* The wrap holds --map-height-sm, then --map-height from 901px, so the
-            box is at its final size before the embed measures anything. */}
-        <span className="facCard__mapTickTL" aria-hidden="true" />
-        <span className="facCard__mapTickTR" aria-hidden="true" />
-        <span className="facCard__mapTickBL" aria-hidden="true" />
-        <span className="facCard__mapTickBR" aria-hidden="true" />
+      {/* The wrap holds its short height, then the tall one from the medium
+          step, so the box is at its final size before the embed measures
+          anything. */}
+      <div
+        aria-busy={mapState === "loading"}
+        className="relative h-map-sm overflow-hidden border border-border bg-bg-deep bg-hull bg-hull-grid [min-height:var(--map-height-sm)] md:h-map md:[min-height:var(--map-height)]"
+      >
         {mapsMounted ? (
           <iframe
             title={mapTitle}
-            className="facCard__map"
             loading="lazy"
             allowFullScreen
             src={buildEmbedSrc(facility.address)}
             onLoad={() => setMapState("ready")}
             onError={() => setMapState("failed")}
+            className={`absolute inset-0 z-base block h-full w-full animate-arrive border-0 motion-reduce:animate-none ${MAP_GRADE}`}
           />
         ) : null}
+
         {plateRetired ? null : (
           <div
-            className="facCard__mapPlaceholder"
+            data-placeholder
             data-state={mapState}
             aria-hidden={mapState === "ready"}
             onTransitionEnd={(e) => {
@@ -128,78 +148,95 @@ function FacilityCard({ facility, index, mapsMounted }) {
                 setPlateRetired(true);
               }
             }}
+            className="visible absolute inset-0 z-raised flex items-center justify-center gap-0 bg-bg-deep bg-hull bg-hull-grid text-faint opacity-100 transition-[opacity,visibility] duration-settle ease-settle data-[state=ready]:invisible data-[state=ready]:opacity-0 data-[state=ready]:delay-[0ms,280ms]"
           >
             {mapState === "failed" ? (
               <a
-                className="facCard__mapFallback"
                 href={buildMapsHref(facility.address)}
                 target="_blank"
                 rel="noreferrer"
+                className="flex flex-col items-center gap-3 p-5 text-center text-secondary no-underline transition-colors duration-quick ease-settle hover:text-highlight focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.99]"
               >
-                <span className="facCard__mapFallbackAddr">
+                <span className="max-w-prose-tight font-body text-sm leading-normal">
                   {facility.address}
                 </span>
-                <span className="facCard__mapPlaceholderTag mono">
+                <span className="font-mono text-xs font-medium uppercase tracking-label">
                   Open in Maps
                 </span>
               </a>
             ) : (
-              <span className="facCard__mapPlaceholderTag mono">
+              <span className="font-mono text-xs font-medium uppercase tracking-label">
                 Loading map · {facility.shortName}
               </span>
             )}
           </div>
         )}
+
+        <span
+          aria-hidden="true"
+          className={`${TICK} left-2 top-2 border-l border-t border-highlight`}
+        />
+        <span
+          aria-hidden="true"
+          className={`${TICK} right-2 top-2 border-r border-t border-highlight`}
+        />
+        <span
+          aria-hidden="true"
+          className={`${TICK} bottom-2 left-2 border-b border-l border-highlight`}
+        />
+        <span
+          aria-hidden="true"
+          className={`${TICK} bottom-2 right-2 border-b border-r border-highlight`}
+        />
       </div>
 
-      <div className="facCard__actions">
-        <a
-          className="btn btn--inline"
+      <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-hairline pt-4">
+        <Button
+          variant="inline"
           href={buildMapsHref(facility.address)}
           target="_blank"
           rel="noreferrer"
         >
           Open in Maps
-        </a>
-        <a className="btn btn--inline" href={buildTelHref(facility.phone)}>
+        </Button>
+        <Button variant="inline" href={buildTelHref(facility.phone)}>
           Call Facility
-        </a>
-        <a className="btn btn--solid" href="#contact" onClick={openInquiry}>
+        </Button>
+        <Button
+          variant="solid"
+          href="#contact"
+          onClick={openInquiry}
+          className="w-full xs:ml-auto xs:w-auto"
+        >
           Lease Inquiry
-        </a>
+        </Button>
       </div>
     </article>
   );
 }
 
+// Both yards sit side by side as static cards, each with its own map and
+// actions, rather than sharing one frame behind a tab switch. There is no
+// state, no rotator and no transition timeline here: animating between two live
+// Google Maps iframes pins the compositor on weaker devices.
 function Location() {
   const rootRef = useRef(null);
-  const headRef = useReveal();
-  const bodyRef = useReveal();
   const mapsMounted = useDeferredMount(rootRef);
 
   return (
-    <section
-      ref={rootRef}
-      className="location section"
-      data-surface="dark"
-      aria-label="Facilities"
-      id="location"
-    >
-      <div className="container">
-        <div className="section__head reveal-on-scroll" ref={headRef}>
-          <p className="eyebrow eyebrow--strong mono">Facilities</p>
-          <h2 className="section__title">Two yards, one operations desk.</h2>
-          <p className="section__subtitle">
-            San Leon sits on Galveston Bay; Freeport sits on the Gulf
-            Intracoastal Waterway south of Houston. One desk dispatches both.
-          </p>
-        </div>
+    <Section ref={rootRef} surface="dark" id="location" aria-label="Facilities">
+      <Container className={BAND}>
+        <Reveal>
+          <SectionHead
+            eyebrow="Facilities"
+            title="Two yards, one operations desk."
+            subtitle="San Leon sits on Galveston Bay; Freeport sits on the Gulf Intracoastal Waterway south of Houston. One desk dispatches both."
+          />
+        </Reveal>
 
-        <div
-          className="location__grid reveal-on-scroll"
-          ref={bodyRef}
+        <Reveal
           aria-label="Facility Roster"
+          className="relative grid grid-cols-[minmax(0,1fr)] items-stretch gap-6 border-t border-border pt-8 before:absolute before:-top-px before:left-0 before:h-accent before:w-rule-long before:bg-highlight before:content-[''] md:grid-cols-2 md:gap-7"
         >
           {FACILITIES.map((facility, idx) => (
             <FacilityCard
@@ -209,9 +246,9 @@ function Location() {
               mapsMounted={mapsMounted}
             />
           ))}
-        </div>
-      </div>
-    </section>
+        </Reveal>
+      </Container>
+    </Section>
   );
 }
 

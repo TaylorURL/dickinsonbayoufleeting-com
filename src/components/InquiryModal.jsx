@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
-import "./styles/InquiryModal.css";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 import InquiryFields from "./InquiryFields";
 import InquiryErrorSummary from "./InquiryErrorSummary";
 import { CheckIcon } from "./Icons";
+import Button from "./ui/Button";
+import { HULL_PLATE } from "./ui/Layout";
 import { formatPhone, validateInquiry } from "../app/constants/inquiryForm";
 
 // The panel animates in; taking focus before it lands makes the browser scroll
@@ -13,6 +14,12 @@ const FORM_ID = "inqForm";
 // Long enough for the panel to finish leaving before its fields are emptied.
 const CLEAR_AFTER_CLOSE_MS = 250;
 const MAX_MESSAGE = 1200;
+
+// The rule across the top of the panel, the same mark the contact form carries.
+const PANEL_RULE =
+  "before:absolute before:left-0 before:top-0 before:h-accent before:w-rule-wide before:bg-highlight before:content-['']";
+
+const GUTTER = "px-5 xs:px-8";
 
 function InquiryModal({ open, onClose, onSubmit }) {
   const panelRef = useRef(null);
@@ -51,6 +58,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
     }, FOCUS_SETTLE_MS);
     return () => clearTimeout(timer);
   }, [open]);
+
   useEffect(() => {
     function onKey(e) {
       if (e.key === "Escape" && open) {
@@ -79,6 +87,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onClose]);
+
   const change = useCallback((key, raw) => {
     const value =
       key === "phone"
@@ -120,6 +129,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
       );
     }
   }
+
   const hasContent = Object.values(values).some((value) => value.trim() !== "");
 
   // Closing a panel with a half-written note in it should ask first: the note
@@ -160,82 +170,103 @@ function InquiryModal({ open, onClose, onSubmit }) {
 
   return (
     <div
-      className="inqModal"
       role="dialog"
       aria-modal="true"
       aria-labelledby="inqTitle"
       aria-describedby="inqDesc"
+      className="fixed inset-0 z-modal flex items-center justify-center gap-0 p-5"
     >
+      {/* A real button, so the dialog can be dismissed from the keyboard as
+          well as by clicking beside it. Nothing is written inside it, so its
+          name lives on the element rather than in the markup. */}
       <button
         type="button"
-        className="inqModal__backdrop"
         onClick={!submitting ? requestClose : undefined}
         disabled={submitting}
         aria-label="Close Lease Inquiry"
+        className="absolute inset-0 animate-arrive appearance-none border-0 bg-overlay-scrim backdrop-blur-sm transition-opacity duration-quick ease-settle hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-highlight active:opacity-90 disabled:cursor-not-allowed motion-reduce:animate-none"
       />
+
       <div
-        className="inqShell"
-        data-done={submitted}
         ref={panelRef}
+        data-done={submitted}
         data-phase={submitted ? "done" : "form"}
+        className={`relative max-h-[calc(100dvh-theme(spacing.8))] w-[min(680px,100%)] animate-rise overflow-y-auto overscroll-contain rounded-none border border-border-strong bg-bg motion-reduce:animate-none ${HULL_PLATE} ${PANEL_RULE}`}
       >
         {confirmingDiscard ? (
+          // The panel scrolls, so the question sticks to its top edge and stays
+          // on screen wherever the reader had got to. It sits over the note it
+          // is asking about, which is what makes clear which words are at
+          // stake.
           <div
-            className="inqDiscard"
             role="alertdialog"
             aria-label="Discard Note"
+            className={`sticky top-0 z-overlay flex flex-wrap items-center justify-between gap-4 border-b border-danger bg-surface py-5 ${GUTTER}`}
           >
-            <p className="inqDiscard__ask">Discard this note?</p>
-            <div className="inqDiscard__actions">
-              <button
-                type="button"
-                className="inqBtn inqBtn--ghost"
+            <p className="font-condensed text-h6 uppercase text-primary">
+              Discard this note?
+            </p>
+            <div className="flex gap-3">
+              <Button
+                variant="ghost"
+                arrow={false}
                 onClick={() => setConfirmingDiscard(false)}
               >
                 Keep Editing
-              </button>
-              <button
-                type="button"
-                className="inqBtn inqBtn--primary"
-                onClick={resetAndClose}
-              >
+              </Button>
+              <Button variant="primary" arrow={false} onClick={resetAndClose}>
                 Discard
-              </button>
+              </Button>
             </div>
           </div>
         ) : null}
+
         <button
           type="button"
-          className="inqShell__close"
           onClick={requestClose}
           disabled={submitting}
           aria-label="Close Lease Inquiry"
+          className="sticky top-3 z-raised float-right -mb-control-sm mr-3 mt-3 inline-flex h-control-sm w-control-sm items-center justify-center rounded-none border border-field-border bg-transparent text-faint transition-[color,border-color] duration-quick ease-settle hover:enabled:border-highlight hover:enabled:text-highlight focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.96] disabled:cursor-not-allowed disabled:opacity-50"
         >
-          <span className="inqShell__closeMark" aria-hidden="true" />
+          {/* Two rules crossed, so the mark inherits the button's colour and
+              needs no second asset to keep in step with the theme. */}
+          <span
+            aria-hidden="true"
+            className="relative block h-icon-sm w-icon-sm before:absolute before:left-0 before:top-1/2 before:h-px before:w-full before:rotate-45 before:bg-current before:content-[''] after:absolute after:left-0 after:top-1/2 after:h-px after:w-full after:-rotate-45 after:bg-current after:content-['']"
+          />
         </button>
+
         {!submitted && (
-          <form className="inqLayout" onSubmit={submit} noValidate>
-            <header className="inqHeader">
-              <p className="eyebrow">Get a Quote</p>
-              <h2 id="inqTitle" className="inqTitle">
+          <form onSubmit={submit} noValidate className="flex flex-col gap-7">
+            <header
+              className={`flex flex-col gap-3 border-b border-hairline pb-4 pt-7 xs:pt-9 ${GUTTER}`}
+            >
+              <p className="font-mono text-xs font-medium uppercase tracking-eyebrow text-highlight">
+                Get a Quote
+              </p>
+              <h2 id="inqTitle" className="text-h3 font-bold text-primary">
                 Lease Inquiry
               </h2>
-              <p id="inqDesc" className="inqLede">
+              <p id="inqDesc" className="font-body text-base text-secondary">
                 Tell us about your docking needs and we&rsquo;ll respond within
                 24 hours.
               </p>
             </header>
-            <p className="inqRequired">All fields are required.</p>
+
+            <p className={`font-body text-sm text-faint ${GUTTER}`}>
+              All fields are required.
+            </p>
+
             {attempted ? (
               <InquiryErrorSummary
-                block="inq"
+                className={`mx-5 xs:mx-8`}
                 idPrefix={FORM_ID}
                 errors={errors}
               />
             ) : null}
-            <div className="inqGrid">
+
+            <div className={`grid grid-cols-2 gap-5 ${GUTTER}`}>
               <InquiryFields
-                block="inq"
                 idPrefix={FORM_ID}
                 values={values}
                 errors={errors}
@@ -244,62 +275,75 @@ function InquiryModal({ open, onClose, onSubmit }) {
                 onBlur={blur}
                 firstFieldRef={firstFieldRef}
                 counter={
-                  <span className="inqCounter" aria-live="polite">
+                  <span
+                    aria-live="polite"
+                    className="self-end font-mono text-xs tabular-nums text-muted"
+                  >
                     {values.message.length}/{MAX_MESSAGE}
                   </span>
                 }
               />
             </div>
-            <div className="inqFooter inqFooter--actions">
-              <div className="inqActions inqActions--right">
-                <a
+
+            <div
+              className={`flex flex-col gap-3 border-t border-hairline pb-5 pt-5 xs:pb-7 ${GUTTER}`}
+            >
+              <div className="flex flex-wrap items-center justify-end gap-3">
+                <Button
+                  variant="inline"
+                  arrow={false}
                   href={`tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`}
-                  className="inqBtn inqBtn--call"
                 >
                   Call
-                </a>
-                <button
-                  type="button"
+                </Button>
+                <Button
+                  variant="ghost"
+                  arrow={false}
                   disabled={submitting}
-                  className="inqBtn inqBtn--ghost"
                   onClick={requestClose}
                 >
                   Cancel
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="primary"
+                  arrow={false}
                   type="submit"
                   disabled={submitting}
-                  className="inqBtn inqBtn--primary"
-                  data-busy={submitting}
                 >
-                  {submitting ? "Sending\u2026" : "Submit"}
-                </button>
+                  {submitting ? "Sending…" : "Submit"}
+                </Button>
               </div>
+              {submitError ? (
+                <p
+                  role="alert"
+                  className="font-body text-sm leading-normal text-danger"
+                >
+                  {submitError}
+                </p>
+              ) : null}
             </div>
-            {submitError ? (
-              <p className="inqSubmitErr" role="alert">
-                {submitError}
-              </p>
-            ) : null}
           </form>
         )}
+
         {submitted && (
-          <div className="inqResult">
-            <div className="inqResult__icon" aria-hidden="true">
+          <div
+            className={`relative flex animate-rise flex-col items-start gap-4 pb-9 pt-10 motion-reduce:animate-none ${GUTTER}`}
+          >
+            <div
+              aria-hidden="true"
+              className="inline-flex h-control w-control animate-rise-2 items-center justify-center border border-highlight bg-highlight-soft text-highlight motion-reduce:animate-none"
+            >
               <CheckIcon size={30} strokeWidth="2.5" />
             </div>
-            <h2 className="inqResult__title">Message Sent</h2>
-            <p className="inqResult__text">
+            <h2 className="text-h3 font-bold text-primary">Message Sent</h2>
+            <p className="max-w-prose-tight font-body text-base text-secondary">
               We will reach out within 24 hours. You can also call{" "}
               {PHONE_NUMBER} any time for immediate assistance.
             </p>
-            <div className="inqResult__actions">
-              <button
-                className="inqBtn inqBtn--primary"
-                onClick={resetAndClose}
-              >
+            <div className="mt-3">
+              <Button variant="primary" arrow={false} onClick={resetAndClose}>
                 Close
-              </button>
+              </Button>
             </div>
           </div>
         )}
@@ -307,4 +351,5 @@ function InquiryModal({ open, onClose, onSubmit }) {
     </div>
   );
 }
+
 export default InquiryModal;

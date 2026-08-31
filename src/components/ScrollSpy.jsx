@@ -1,15 +1,22 @@
 import { useEffect, useMemo, useState } from "react";
-import "./styles/ScrollSpy.css";
 import { HOME_SECTIONS } from "../app/constants/homeSections";
 
 // Collapses the observer root to a 1px line at viewport centre. Only the
-// section whose body crosses that line reports as intersecting, so picking
-// the active one is unambiguous.
+// section whose body crosses that line reports as intersecting, so picking the
+// active one is unambiguous.
 const rootMargin = "-50% 0px -50% 0px";
 
+// The tick is laid out at its longest and scaled down, so it extends on the
+// compositor rather than reflowing the rail on every hover.
+const TICK =
+  "block h-px w-icon-sm flex-none origin-right bg-current transition-transform duration-settle ease-settle motion-reduce:transition-none";
+
+const FADE =
+  "opacity-0 transition-opacity duration-settle ease-settle group-hover/link:opacity-100 group-focus-visible/link:opacity-100 motion-reduce:transition-none";
+
 // One IntersectionObserver against a 1px line at viewport centre decides the
-// active section — no scroll listener, and no ambiguity about which section
-// "wins" when several are on screen.
+// active section - no scroll listener, and no ambiguity about which section
+// wins when several are on screen.
 //
 // Contrast rides the active section's [data-surface] through the normal theme
 // cascade, so the rail stays legible crossing dark and paper bands.
@@ -18,9 +25,9 @@ const rootMargin = "-50% 0px -50% 0px";
 // the rail would sit on top of content.
 //
 // `generation` is the shell's count of routes that have reached the page. The
-// rail reads the document for its sections, and the route it belongs to
-// arrives after the shell around it, so a rail that looked once at mount finds
-// nothing and stays empty for the whole visit.
+// rail reads the document for its sections, and the route it belongs to arrives
+// after the shell around it, so a rail that looked once at mount finds nothing
+// and stays empty for the whole visit.
 function ScrollSpy({ generation = 0 }) {
   const [activeId, setActiveId] = useState(HOME_SECTIONS[0].id);
   const [surface, setSurface] = useState("dark");
@@ -48,8 +55,7 @@ function ScrollSpy({ generation = 0 }) {
       (entries) => {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
-          const id = entry.target.id;
-          setActiveId(id);
+          setActiveId(entry.target.id);
           const tone = entry.target
             .closest("[data-surface]")
             ?.getAttribute("data-surface");
@@ -66,26 +72,45 @@ function ScrollSpy({ generation = 0 }) {
   if (!sections.length) return null;
 
   return (
-    <nav className="scrollSpy" data-surface={surface} aria-label="On This Page">
-      <ol className="scrollSpy__list">
+    <nav
+      data-surface={surface}
+      aria-label="On This Page"
+      className="pointer-events-none fixed right-[clamp(20px,2.4vw,36px)] top-1/2 z-rail hidden -translate-y-1/2 bg-transparent font-mono transition-colors duration-settle ease-settle lg:block"
+    >
+      <ol className="pointer-events-auto m-0 flex list-none flex-col gap-3 p-0">
         {sections.map((section, idx) => {
           const isActive = section.id === activeId;
           return (
-            <li
-              key={section.id}
-              className="scrollSpy__item"
-              data-active={isActive}
-            >
+            <li key={section.id} className="flex justify-end gap-0">
               <a
                 href={`#${section.id}`}
-                className="scrollSpy__link"
                 aria-current={isActive ? "true" : undefined}
+                className={`group/link relative inline-flex flex-row-reverse items-center gap-2 py-1 no-underline transition-colors duration-settle ease-settle hover:text-primary focus-visible:text-primary focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight active:scale-[0.97] ${
+                  isActive ? "text-primary" : "text-faint"
+                }`}
               >
-                <span className="scrollSpy__tick" aria-hidden="true" />
-                <span className="scrollSpy__index mono">
+                <span
+                  aria-hidden="true"
+                  className={`${TICK} ${
+                    isActive
+                      ? "scale-x-[1.85] text-highlight"
+                      : "scale-x-[0.55] group-hover/link:scale-x-[0.8] group-focus-visible/link:scale-x-[0.8]"
+                  }`}
+                />
+                <span
+                  className={`text-3xs font-medium uppercase tracking-label transition-colors duration-settle ease-settle ${
+                    isActive ? "text-highlight" : "text-muted"
+                  }`}
+                >
                   {String(idx + 1).padStart(2, "0")}
                 </span>
-                <span className="scrollSpy__label mono">{section.label}</span>
+                <span
+                  className={`whitespace-nowrap text-2xs font-medium uppercase tracking-control text-current ${
+                    isActive ? "opacity-100" : FADE
+                  }`}
+                >
+                  {section.label}
+                </span>
               </a>
             </li>
           );

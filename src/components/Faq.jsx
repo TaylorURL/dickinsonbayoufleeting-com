@@ -1,67 +1,89 @@
 import { useState } from "react";
-import "./styles/Faq.css";
 import { FAQ_ITEMS } from "../app/constants/faq";
-import { useReveal } from "../app/hooks/useReveal";
 import { ChevronDownIcon } from "./Icons";
+import { BAND, Container, Section, SectionHead } from "./ui/Layout";
+import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
+
+// The rule between two questions belongs to the row, not the button: the
+// buttons stand back from it so two stacked targets keep a gap between them and
+// a thumb landing near the line opens the question it was aimed at.
+const TOGGLE = [
+  "group grid w-full items-center gap-5 border-0 bg-transparent font-body text-primary",
+  "grid-cols-[minmax(0,1fr)_auto] sm:grid-cols-[theme(spacing.index)_minmax(0,1fr)_auto]",
+  "my-1 py-5 pl-3 pr-4",
+  "transition-transform duration-settle ease-settle hover:translate-x-1 active:scale-[0.99] motion-reduce:transition-none",
+  "focus-visible:outline focus-visible:outline-1 focus-visible:-outline-offset-1 focus-visible:outline-highlight-ring",
+].join(" ");
 
 function Faq({ surface = "light" }) {
   const [open, setOpen] = useState(0);
-  const headRef = useReveal();
-  const listRef = useReveal();
-  return (
-    <section
-      className="faq section"
-      data-surface={surface}
-      aria-label="Frequently Asked Questions"
-      id="faq"
-    >
-      <div className="container">
-        <div className="section__head reveal-on-scroll" ref={headRef}>
-          <p className="eyebrow eyebrow--strong mono">Common questions</p>
-          <h2 className="section__title">Straight answers.</h2>
-          <p className="section__subtitle">
-            The questions dispatchers and operators ask us most. If you have one
-            that is not here, the operations desk is one call away.
-          </p>
-        </div>
 
-        <ul
-          className="faq__list reveal-on-scroll reveal-stagger"
+  return (
+    <Section surface={surface} id="faq" aria-label="Frequently Asked Questions">
+      <Container className={BAND}>
+        <Reveal>
+          <SectionHead
+            eyebrow="Common questions"
+            title="Straight answers."
+            subtitle="The questions dispatchers and operators ask us most. If you have one that is not here, the operations desk is one call away."
+          />
+        </Reveal>
+
+        <Stagger
+          as="ul"
           aria-label="Frequently Asked Questions"
-          ref={listRef}
+          className="m-0 list-none border-t border-border p-0"
         >
           {FAQ_ITEMS.map((item, idx) => {
             const expanded = open === idx;
             return (
-              <li key={item.q} className="faqItem" data-open={expanded}>
+              <li
+                key={item.q}
+                data-open={expanded}
+                className={`relative border-b border-border transition-colors duration-quick ease-settle data-[open=true]:bg-layer-1 before:absolute before:bottom-0 before:left-0 before:top-0 before:w-marker before:origin-center before:scale-y-0 before:bg-highlight before:transition-transform before:duration-settle before:ease-swell before:content-[''] data-[open=true]:before:scale-y-100 motion-reduce:before:transition-none ${staggerChild(idx)}`}
+              >
                 <button
-                  className="faqItem__toggle"
+                  type="button"
+                  className={TOGGLE}
                   aria-expanded={expanded}
                   aria-controls={`faq-answer-${idx}`}
                   onClick={() => setOpen(expanded ? -1 : idx)}
                 >
-                  <span className="faqItem__index mono">
+                  <span
+                    className={`hidden font-mono text-xs font-medium tracking-control transition-colors duration-quick ease-settle group-hover:text-highlight sm:block ${
+                      expanded ? "text-highlight" : "text-faint"
+                    }`}
+                  >
                     {String(idx + 1).padStart(2, "0")}
                   </span>
-                  <span className="faqItem__q">{item.q}</span>
-                  <span className="faqItem__chev" aria-hidden="true">
+                  <span className="text-left font-condensed text-h6 font-semibold uppercase tracking-normal text-primary">
+                    {item.q}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className={`inline-flex h-icon-lg w-icon-lg items-center justify-center border transition-[transform,color,border-color] duration-settle ease-swell group-hover:text-highlight motion-reduce:transition-none ${
+                      expanded
+                        ? "rotate-180 border-highlight text-highlight"
+                        : "border-hairline text-faint"
+                    }`}
+                  >
                     <ChevronDownIcon />
                   </span>
                 </button>
                 <div
                   id={`faq-answer-${idx}`}
-                  className="faqItem__answer"
                   role="region"
                   hidden={!expanded}
+                  className="max-w-prose animate-rise pb-6 pl-3 pr-4 text-base leading-loose text-secondary motion-reduce:animate-none sm:pl-answer-indent"
                 >
                   <p>{item.a}</p>
                 </div>
               </li>
             );
           })}
-        </ul>
-      </div>
-    </section>
+        </Stagger>
+      </Container>
+    </Section>
   );
 }
 

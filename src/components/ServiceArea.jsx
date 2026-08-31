@@ -1,52 +1,58 @@
-import "./styles/ServiceArea.css";
 import { SERVICE_AREA_CITIES } from "../app/constants/serviceArea";
-import { useReveal } from "../app/hooks/useReveal";
+import { BAND, Container, Section, SectionHead } from "./ui/Layout";
+import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
+
+// The rule under a cell fills from the left as the pointer crosses it, which is
+// the cell's whole hover: the ground stays put so twelve cells do not all
+// change colour at once as the pointer travels the grid.
+const CELL_RULE =
+  "after:absolute after:-bottom-px after:left-0 after:h-accent after:w-full after:origin-left after:scale-x-0 after:bg-highlight after:transition-transform after:duration-settle after:ease-swell after:content-[''] hover:after:scale-x-100 motion-reduce:after:transition-none";
 
 function ServiceArea() {
-  const headRef = useReveal();
-  const gridRef = useReveal();
   return (
-    <section
-      className="serviceArea section"
-      data-surface="light"
-      aria-label="Service Area"
-      id="service-area"
-    >
-      <div className="container">
-        <div className="section__head reveal-on-scroll" ref={headRef}>
-          <p className="eyebrow eyebrow--strong mono">Coverage</p>
-          <h2 className="section__title">
-            Galveston Bay, the Ship Channel, the GIWW.
-          </h2>
-          <p className="section__subtitle">
-            San Leon sits on Galveston Bay with quick access to the Ship
-            Channel. Freeport extends the same operation south along the GIWW.
-          </p>
-        </div>
+    <Section surface="light" id="service-area" aria-label="Service Area">
+      <Container className={BAND}>
+        <Reveal>
+          <SectionHead
+            eyebrow="Coverage"
+            title="Galveston Bay, the Ship Channel, the GIWW."
+            subtitle="San Leon sits on Galveston Bay with quick access to the Ship Channel. Freeport extends the same operation south along the GIWW."
+          />
+        </Reveal>
 
-        <ul
-          className="serviceArea__grid reveal-on-scroll reveal-stagger"
+        <Stagger
+          as="ul"
           aria-label="Cities and Areas Served"
-          ref={gridRef}
+          className="m-0 grid list-none grid-cols-2 gap-0 border-t border-border p-0 md:grid-cols-3 lg:grid-cols-4"
         >
           {SERVICE_AREA_CITIES.map((city, idx) => (
-            <li key={city.name} className="serviceArea__item">
-              <span className="serviceArea__idx mono">
-                {String(idx + 1).padStart(2, "0")}
-              </span>
-              <span className="serviceArea__name">{city.name}</span>
-              <span className="serviceArea__county mono">{city.county}</span>
+            <li key={city.name} className={staggerChild(idx)}>
+              <div
+                className={`relative flex h-full flex-col gap-2 border-b border-r border-hairline px-4 py-5 ${CELL_RULE}`}
+              >
+                <span className="font-mono text-xs font-medium tracking-control text-muted">
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                <span className="font-condensed text-lg font-semibold uppercase tracking-normal text-primary">
+                  {city.name}
+                </span>
+                <span className="font-mono text-2xs font-medium uppercase tracking-label text-faint">
+                  {city.county}
+                </span>
+              </div>
             </li>
           ))}
-        </ul>
+        </Stagger>
 
-        <p className="serviceArea__note">
-          <span className="serviceArea__noteLabel mono">Note:</span>
+        <p className="block max-w-prose border-l-2 border-highlight pl-5 text-md leading-relaxed text-secondary">
+          <span className="mr-2 inline-block font-mono text-xs font-medium tracking-control text-highlight">
+            Note:
+          </span>
           Coverage runs across Brazoria, Galveston and Harris county
           waterfronts. Call and ask about any port not on the list.
         </p>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }
 

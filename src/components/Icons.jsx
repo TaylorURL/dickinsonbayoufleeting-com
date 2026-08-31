@@ -22,6 +22,8 @@ export function ArrowRightIcon({ size = DEFAULT_SIZE, className }) {
   return (
     <svg
       {...BASE}
+      aria-hidden="true"
+      focusable="false"
       className={className}
       width={size}
       height={size}
@@ -36,6 +38,8 @@ export function ArrowUpIcon({ size = DEFAULT_SIZE, className }) {
   return (
     <svg
       {...BASE}
+      aria-hidden="true"
+      focusable="false"
       className={className}
       width={size}
       height={size}
@@ -50,6 +54,8 @@ export function ChevronDownIcon({ size = DEFAULT_SIZE, className }) {
   return (
     <svg
       {...BASE}
+      aria-hidden="true"
+      focusable="false"
       className={className}
       width={size}
       height={size}
@@ -67,6 +73,8 @@ export function PhoneIcon({ size = 18, className }) {
   return (
     <svg
       {...BASE}
+      aria-hidden="true"
+      focusable="false"
       className={className}
       width={size}
       height={size}
@@ -83,6 +91,8 @@ export function CheckIcon({ size = 22, strokeWidth = "2.4", className }) {
   return (
     <svg
       {...BASE}
+      aria-hidden="true"
+      focusable="false"
       className={className}
       width={size}
       height={size}

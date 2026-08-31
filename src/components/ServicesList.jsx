@@ -1,49 +1,65 @@
-import "./styles/ServicesList.css";
 import { SERVICES } from "../app/constants/services";
-import { useReveal } from "../app/hooks/useReveal";
+import { BAND, Container, Section, SectionHead } from "./ui/Layout";
+import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
+import { ROW, ROW_INNER, ROW_MARKER, SLOT } from "./ui/Row";
 
 function ServicesList({ surface = "dark" }) {
-  const headRef = useReveal();
-  const listRef = useReveal();
   return (
-    <section
-      className="servicesList section"
-      data-surface={surface}
-      aria-label="Services"
-      id="services-detail"
-    >
-      <div className="container">
-        <div className="section__head reveal-on-scroll" ref={headRef}>
-          <p className="eyebrow eyebrow--strong mono">What we do</p>
-          <h2 className="section__title">
-            Barge fleeting and marine services, in plain language.
-          </h2>
-          <p className="section__subtitle">
-            Seven services out of two coastal yards, for the towboats,
-            dispatchers and barge operators we work with every day.
-          </p>
-        </div>
+    <Section surface={surface} id="services-detail" aria-label="Services">
+      <Container className={BAND}>
+        <Reveal>
+          <SectionHead
+            eyebrow="What we do"
+            title="Barge fleeting and marine services, in plain language."
+            subtitle="Seven services out of two coastal yards, for the towboats, dispatchers and barge operators we work with every day."
+          />
+        </Reveal>
 
-        <ol
-          className="servicesList__list reveal-on-scroll reveal-stagger"
+        <Stagger
+          as="ol"
           aria-label="Service List"
-          ref={listRef}
+          className="m-0 list-none border-t border-border p-0"
         >
           {SERVICES.map((s, idx) => (
-            <li key={s.id} className="serviceRow" id={s.id}>
-              <span className="serviceRow__index mono" aria-hidden="true">
-                {String(idx + 1).padStart(2, "0")}
-              </span>
-              <span className="serviceRow__code mono">{s.code}</span>
-              <h3 className="serviceRow__name">{s.name}</h3>
-              <p className="serviceRow__summary">{s.summary}</p>
-              <p className="serviceRow__detail">{s.detail}</p>
-              <span className="serviceRow__meta mono">{s.meta}</span>
+            <li
+              key={s.id}
+              id={s.id}
+              className={`scroll-mt-anchor border-b border-border ${staggerChild(idx)}`}
+            >
+              <div className={`${ROW} ${ROW_INNER} ${ROW_MARKER} py-8`}>
+                <span
+                  aria-hidden="true"
+                  className={`${SLOT.index} font-mono text-xs font-medium tracking-control text-muted`}
+                >
+                  {String(idx + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className={`${SLOT.code} font-mono text-xs font-medium tracking-control text-faint`}
+                >
+                  {s.code}
+                </span>
+                <h3 className={`${SLOT.name} m-0 text-h6 text-primary`}>
+                  {s.name}
+                </h3>
+                <p
+                  className={`${SLOT.body} max-w-prose-tight text-md text-secondary`}
+                >
+                  {s.summary}
+                </p>
+                <p className={`${SLOT.detail} max-w-prose text-md text-faint`}>
+                  {s.detail}
+                </p>
+                <span
+                  className={`${SLOT.meta} whitespace-nowrap font-mono text-xs font-medium uppercase tracking-label text-muted`}
+                >
+                  {s.meta}
+                </span>
+              </div>
             </li>
           ))}
-        </ol>
-      </div>
-    </section>
+        </Stagger>
+      </Container>
+    </Section>
   );
 }
 
