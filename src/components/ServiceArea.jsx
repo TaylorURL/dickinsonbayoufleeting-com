@@ -33,9 +33,7 @@ function ServiceArea({ surface = "gray" }) {
                 ) : null}
                 <span className="font-condensed text-h3 font-bold uppercase leading-none tracking-tight text-primary">
                   {city.name}
-                  <span
-                    className={`${MICRO_SM} ml-2 align-super text-faint`}
-                  >
+                  <span className={`${MICRO_SM} ml-2 align-super text-faint`}>
                     {city.county}
                   </span>
                 </span>
@@ -51,9 +49,9 @@ function ServiceArea({ surface = "gray" }) {
             Intracoastal Waterway.
           </p>
           <p className="m-0 max-w-prose text-md text-secondary">
-            A town that is not on this list is not a no. If your tow already runs
-            the reach, call {PHONE_NUMBER} and we will tell you straight whether
-            we can hold a slip for it.
+            A town that is not on this list is not a no. If your tow already
+            runs the reach, call {PHONE_NUMBER} and we will tell you straight
+            whether we can hold a slip for it.
           </p>
         </Reveal>
       </Container>

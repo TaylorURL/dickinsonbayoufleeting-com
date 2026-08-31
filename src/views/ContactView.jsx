@@ -10,7 +10,8 @@ export const metadata = {
     "One number covers both yards. Call, email or send the form for slip availability, lease rates and site visits.",
   canonical: "https://dickinsonbayoufleeting.com/contact",
   openGraph: {
-    title: "Contact Dickinson Bayou Fleeting | Barge Fleeting, Texas Gulf Coast",
+    title:
+      "Contact Dickinson Bayou Fleeting | Barge Fleeting, Texas Gulf Coast",
     description:
       "One number covers both yards. Call, email or send the form for slip availability, lease rates and site visits.",
     url: "https://dickinsonbayoufleeting.com/contact",

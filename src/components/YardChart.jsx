@@ -21,12 +21,6 @@ const MARKS = [
 
 const y = (at) => SPINE.top + (SPINE.bottom - SPINE.top) * at;
 
-const RATE = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  maximumFractionDigits: 0,
-});
-
 // A spec row. The value column is tabular so the two yards' figures sit on the
 // same axis when the reader flips between them.
 function Spec({ label, value, note }) {
@@ -117,9 +111,7 @@ function Diagram({ activeId, onPick, titleId }) {
               x2="272"
               y1={my}
               y2={my}
-              stroke={
-                on ? "var(--color-accent)" : "var(--color-border)"
-              }
+              stroke={on ? "var(--color-accent)" : "var(--color-border)"}
               strokeWidth="1"
             />
             {/* Square nodes only: the design carries no radius above zero, so a
@@ -130,9 +122,7 @@ function Diagram({ activeId, onPick, titleId }) {
               width={on ? 16 : 12}
               height={on ? 16 : 12}
               fill={on ? "var(--color-accent)" : "var(--color-bg)"}
-              stroke={
-                on ? "var(--color-accent)" : "var(--color-border-strong)"
-              }
+              stroke={on ? "var(--color-accent)" : "var(--color-border-strong)"}
               strokeWidth="1"
             />
             <text
@@ -270,7 +260,7 @@ function YardChart() {
               <Spec label="Yard" value={yard.acreage} note="waterfront" />
               <Spec
                 label="Lease"
-                value={RATE.format(yard.price)}
+                value={`$${yard.price.toLocaleString()}`}
                 note="per month"
               />
             </dl>

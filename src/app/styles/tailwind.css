@@ -244,7 +244,6 @@
      * has. A band whose wave bites into the band below overrides these
      * with that band's own. */
 
-
     --wave-ink: var(--hull-900);
     --wave-ink-mid: var(--hull-850);
     --wave-ink-back: var(--hull-950);
@@ -341,8 +340,6 @@
     --ocean-dot-5: var(--mist-400);
     --ocean-dot-6: var(--mist-380);
     --ocean-line: var(--graphite-600);
-
-
 
     --wave-ink: var(--foam-050);
     --wave-ink-mid: var(--foam-150);

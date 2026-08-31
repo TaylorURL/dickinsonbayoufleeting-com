@@ -3,12 +3,6 @@ import Button from "./ui/Button";
 import { Container, MICRO_SM, Section } from "./ui/Layout";
 import { Reveal } from "./ui/Reveal";
 
-const RATE = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  maximumFractionDigits: 0,
-});
-
 // Every row the sheet states, in the order somebody comparing two yards asks
 // for them. Reading a value off a facility rather than storing it twice is what
 // keeps the two columns describing the same six things.
@@ -49,7 +43,10 @@ function LeasePackage({ surface = "gray" }) {
             </caption>
             <thead>
               <tr>
-                <th scope="col" className="w-[var(--col-code)] border-b border-border-strong pb-4 pr-6 align-bottom">
+                <th
+                  scope="col"
+                  className="w-[var(--col-code)] border-b border-border-strong pb-4 pr-6 align-bottom"
+                >
                   <span className="sr-only">Particular</span>
                 </th>
                 {FACILITIES.map((f) => (
@@ -100,7 +97,7 @@ function LeasePackage({ surface = "gray" }) {
                     className="border-b border-border-strong py-6 pr-6 align-bottom last:pr-0"
                   >
                     <span className="block font-condensed text-figure-sm font-bold leading-none tabular-nums text-primary">
-                      {RATE.format(f.price)}
+                      {`$${f.price.toLocaleString()}`}
                     </span>
                   </td>
                 ))}

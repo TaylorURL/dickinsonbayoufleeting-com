@@ -58,9 +58,8 @@ function Footer({ children }) {
                   Speak to the office.
                 </h2>
                 <p className="max-w-prose-tight text-lead text-secondary">
-                  Direct line to the yard for barge fleeting, marine
-                  services and long-term dock leasing across the upper Texas
-                  Gulf Coast.
+                  Direct line to the yard for barge fleeting, marine services
+                  and long-term dock leasing across the upper Texas Gulf Coast.
                 </p>
               </div>
 

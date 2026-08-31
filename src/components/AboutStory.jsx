@@ -57,9 +57,7 @@ function Values() {
               key={v.code}
               className={`min-w-0 border-t border-border py-9 first:border-t-0 md:py-12 md:px-10 md:first:border-t-0 md:[&:nth-child(2)]:border-t-0 md:[&:nth-child(odd)]:pl-0 md:[&:nth-child(even)]:border-l md:[&:nth-child(even)]:border-border md:[&:nth-child(even)]:pr-0 ${staggerChild(i)}`}
             >
-              <p
-                className={`${MICRO_SM} m-0 tabular-nums text-faint`}
-              >
+              <p className={`${MICRO_SM} m-0 tabular-nums text-faint`}>
                 {v.code}
               </p>
               <h3 className="m-0 mt-4 font-condensed text-h3 font-bold uppercase leading-none text-primary">
