@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="public/images/logo.png" />
-    <img src="public/images/logo-dark.png" width="260" alt="Dickinson Bayou Fleeting" />
+    <source media="(prefers-color-scheme: dark)" srcset="public/images/DBF-Logo-White.png" />
+    <img src="public/images/DBF-Logo-Black.png" width="200" alt="Dickinson Bayou Fleeting" />
   </picture>
 </p>
 
@@ -120,7 +120,7 @@ dickinsonbayoufleeting-com/
 │   ├── art/                   The drawn plates, one set on one viewBox and one palette
 │   ├── favicon*, apple-touch-icon.png, android-chrome-*.png
 │   ├── fonts/                 The two faces the first screen sets, preloaded
-│   ├── images/                The share card, and the wordmark as a raster for structured data
+│   ├── images/                DBF wordmark, black and white, at three sizes
 │   ├── index.html             Head metadata, error reporter, analytics, JSON-LD
 │   ├── manifest.json          PWA manifest and icon set
 │   ├── release.json           Deployed version marker

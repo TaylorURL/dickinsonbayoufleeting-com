@@ -56,6 +56,8 @@ const LINK = [
 const TOGGLE_BAR =
   "absolute left-1/2 top-6 h-[1.5px] w-tick origin-center transition-[transform,opacity,background-color] duration-settle ease-settle motion-reduce:transition-none";
 
+const NAV_LOGO_SIZES = "72px";
+
 function NavBar({ surface = "dark" }) {
   const [open, setOpen] = useState(false);
   // Which top-level entry has its panel down. One at a time, so opening a
@@ -144,7 +146,18 @@ function NavBar({ surface = "dark" }) {
                 several times the bar's height and overflows it. Centring is the
                 flex line's job alone: a margin on top of that puts the mark off
                 the bar's centre line. */}
-            <Logo variant="mark" className="h-nav-logo text-primary" />
+            <Logo
+              tone="White"
+              sizes={NAV_LOGO_SIZES}
+              priority
+              className="block h-nav-logo group-data-[surface=light]/nav:hidden"
+            />
+            <Logo
+              tone="Black"
+              sizes={NAV_LOGO_SIZES}
+              priority
+              className="hidden h-nav-logo group-data-[surface=light]/nav:block"
+            />
           </Link>
 
           <ul

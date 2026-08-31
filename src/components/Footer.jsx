@@ -122,7 +122,11 @@ function Footer({ children }) {
                 aria-label="Dickinson Bayou Fleeting, Home"
                 className="inline-flex transition-transform duration-settle ease-settle hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight active:scale-[0.99] motion-reduce:transition-none"
               >
-                <Logo className="h-footer-logo text-primary" />
+                <Logo
+                  tone="White"
+                  sizes="(max-width: 1000px) 140px, 200px"
+                  className="h-footer-logo"
+                />
               </Link>
 
               <p className="max-w-prose-tight text-md leading-relaxed text-secondary">

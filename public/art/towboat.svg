@@ -23,12 +23,20 @@
   <path class="ink" d="M36.2,84.0 H169.8 L178.0,92.5 L169.8,101.0 H36.2 L28.0,92.5 Z"/>
   <rect class="ink" x="52.0" y="71.8" width="102.0" height="12.2"/>
   <rect class="ground" x="54.0" y="75.2" width="98.0" height="5.8" opacity="0.55"/>
-  <!-- The boat is the one on the mark, so the plate and the wordmark are the
-       same vessel rather than two guesses at one. -->
-  <g transform="translate(167 52) scale(0.14)" class="ink">
-    <path fill-rule="evenodd" d="M62,198 C132,180 200,172 258,170 L950,170 C986,170 1006,180 1010,200 L1012,226 C1012,248 1000,266 976,282 C900,326 700,350 440,346 C300,344 190,322 122,286 C88,268 68,234 62,198 Z M118,62 L286,62 L286,80 L272,80 L272,178 L134,178 L134,80 L118,80 Z M196,-110 L208,-110 L208,62 L196,62 Z M168,-98 L236,-98 L236,-87 L168,-87 Z M156,-56 L248,-56 L248,-45 L156,-45 Z M152,94 L178,94 L178,134 L152,134 Z M200,94 L226,94 L226,134 L200,134 Z"/>
-  </g>
-    <!-- The push: a flat wake off the stern, not a spray. -->
+  <!-- The boat: hull, house, wheelhouse, stacks, tow knees against the box. -->
+  <path class="ink" d="M192,84 H288 L294,92 L288,101 H192 Z" />
+  <rect class="ink" x="204" y="66" width="72" height="18" />
+  <rect class="ground" x="210" y="70" width="12" height="8" opacity="0.6" />
+  <rect class="ground" x="228" y="70" width="12" height="8" opacity="0.6" />
+  <rect class="ground" x="246" y="70" width="12" height="8" opacity="0.6" />
+  <rect class="ink" x="220" y="50" width="34" height="16" />
+  <rect class="ground" x="225" y="54" width="24" height="7" opacity="0.6" />
+  <rect class="ink" x="264" y="54" width="5" height="12" />
+  <rect class="ink" x="274" y="58" width="5" height="8" />
+  <rect class="ink" x="186" y="60" width="6" height="24" />
+  <rect class="ink" x="178" y="66" width="6" height="18" />
+  <rect class="mark" x="234" y="38" width="6" height="12" />
+  <!-- The push: a flat wake off the stern, not a spray. -->
   <g class="mark" opacity="0.6">
     <rect x="296" y="97" width="20" height="1.6"/>
     <rect x="300" y="102" width="16" height="1.6"/>
