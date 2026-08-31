@@ -144,7 +144,7 @@ function NavBar({ surface = "dark" }) {
                 several times the bar's height and overflows it. Centring is the
                 flex line's job alone: a margin on top of that puts the mark off
                 the bar's centre line. */}
-            <Logo className="h-nav-logo text-primary" />
+            <Logo variant="mark" className="h-nav-logo text-primary" />
           </Link>
 
           <ul
