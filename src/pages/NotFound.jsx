@@ -3,7 +3,8 @@ import CtaStrip from "../components/CtaStrip";
 import { NAV_LINKS } from "../app/constants/navLinks";
 import { Link } from "../app/router/Link";
 import { ArrowRightIcon } from "../components/Icons";
-import "../components/styles/NotFound.css";
+import Button from "../components/ui/Button";
+import { BAND, Container, Section, SectionHead } from "../components/ui/Layout";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";
 
@@ -33,41 +34,48 @@ function NotFound() {
         title="That page is not at this dock."
         subtitle="The address does not match anything on the site. Everything we publish is one of the four below."
       >
-        <Link className="btn btn--primary" to="/">
+        <Button variant="primary" to="/">
           Back to Home
-        </Link>
-        <Link className="btn btn--ghost" to="/contact">
+        </Button>
+        <Button variant="ghost" to="/contact">
           Contact the Desk
-        </Link>
+        </Button>
       </PagePlate>
 
-      <section
-        className="notFound section"
-        data-surface="light"
-        aria-label="Site Pages"
-      >
-        <div className="container">
-          <div className="section__head">
-            <p className="eyebrow eyebrow--strong mono">Where to go</p>
-            <h2 className="section__title">Every page on the site.</h2>
-          </div>
-          <ul className="notFound__list" aria-label="Pages">
+      <Section surface="light" aria-label="Site Pages">
+        <Container className={BAND}>
+          <SectionHead eyebrow="Where to go" title="Every page on the site." />
+          <ul
+            aria-label="Pages"
+            className="m-0 list-none border-t border-border p-0"
+          >
             {NAV_LINKS.map((link, idx) => (
-              <li key={link.to} className="notFound__item">
-                <Link className="notFound__link" to={link.to}>
-                  <span className="notFound__idx mono" aria-hidden="true">
+              <li key={link.to} className="flex gap-0 border-b border-border">
+                <Link
+                  to={link.to}
+                  className="group grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-5 px-3 py-6 text-secondary no-underline transition-[color,transform] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.99] xs:grid-cols-[theme(spacing.index)_minmax(0,1fr)_auto]"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="hidden font-mono text-xs font-medium tracking-control text-muted xs:block"
+                  >
                     {String(idx + 1).padStart(2, "0")}
                   </span>
-                  <span className="notFound__name">{link.label}</span>
-                  <span className="notFound__arrow" aria-hidden="true">
+                  <span className="font-condensed text-h6 font-semibold uppercase tracking-normal [overflow-wrap:anywhere]">
+                    {link.label}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="inline-flex items-center text-muted transition-transform duration-settle ease-settle group-hover:translate-x-2 motion-reduce:transition-none"
+                  >
                     <ArrowRightIcon />
                   </span>
                 </Link>
               </li>
             ))}
           </ul>
-        </div>
-      </section>
+        </Container>
+      </Section>
 
       <CtaStrip
         eyebrow="Still stuck"

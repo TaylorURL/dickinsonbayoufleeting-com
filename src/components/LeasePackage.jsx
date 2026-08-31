@@ -1,116 +1,152 @@
 import { useState } from "react";
-import "./styles/LeasePackage.css";
 import { LEASE_OPTIONS } from "../app/constants/leaseOptions";
-import { useReveal } from "../app/hooks/useReveal";
+import Button from "./ui/Button";
+import { BAND, Container, Section, SectionHead } from "./ui/Layout";
+import { Reveal } from "./ui/Reveal";
+
+const MICRO = "font-mono text-xs font-medium uppercase tracking-label";
+
+// Written out rather than built from the index: Tailwind reads these files as
+// text, so a class name assembled at runtime is a class name it never sees.
+const RISE = [
+  "animate-rise-1",
+  "animate-rise-2",
+  "animate-rise-3",
+  "animate-rise-4",
+];
+
+// The tick beside the selected facility, laid out at its full run and scaled
+// from nothing so the mark arrives without the row moving.
+const SWITCH_TICK =
+  "before:absolute before:-left-2 before:top-1/2 before:h-accent before:w-tick before:origin-left before:-translate-y-1/2 before:bg-highlight before:transition-transform before:duration-settle before:ease-swell before:content-['']";
 
 function LeasePackage() {
   const [locationId, setLocationId] = useState(LEASE_OPTIONS[0].id);
   const loc = LEASE_OPTIONS.find((l) => l.id === locationId);
-  const headRef = useReveal();
-  const estimatorRef = useReveal();
+
   const openInquiry = (e) => {
     e.preventDefault();
     window.dispatchEvent(new Event("inquiry:open"));
   };
-  return (
-    <section
-      className="rate section"
-      data-surface="light"
-      aria-label="Pricing"
-      id="rates"
-    >
-      <div className="container">
-        <div className="section__head reveal-on-scroll" ref={headRef}>
-          <p className="eyebrow eyebrow--strong mono">Lease rates</p>
-          <h2 className="section__title">
-            Coastal barge fleeting &amp; dock lease options.
-          </h2>
-          <p className="section__subtitle">
-            Fixed monthly rates for five-acre waterfront yards on Galveston Bay
-            and the Gulf Intracoastal Waterway. Pick a facility to see what is
-            included.
-          </p>
-        </div>
 
-        <div
-          className="estimator reveal-on-scroll"
+  return (
+    <Section surface="light" id="rates" aria-label="Pricing">
+      <Container className={BAND}>
+        <Reveal>
+          <SectionHead
+            eyebrow="Lease rates"
+            title="Coastal barge fleeting & dock lease options."
+            subtitle="Fixed monthly rates for five-acre waterfront yards on Galveston Bay and the Gulf Intracoastal Waterway. Pick a facility to see what is included."
+          />
+        </Reveal>
+
+        <Reveal
           aria-label="Lease Options Selector"
-          ref={estimatorRef}
+          className="relative grid grid-cols-[minmax(0,1fr)] gap-8 border-t border-border pt-8 before:absolute before:-top-px before:left-0 before:h-accent before:w-rule-long before:bg-highlight before:content-[''] lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] lg:gap-9"
         >
           <div
-            className="estimator__switch"
             role="tablist"
             aria-label="Select Facility"
+            className="flex flex-col gap-4 self-start lg:sticky lg:top-[calc(theme(spacing.nav)+theme(spacing.6))]"
           >
-            <span className="estimator__switchLabel mono">Facility</span>
-            <div className="leaseSwitch">
-              {LEASE_OPTIONS.map((l, idx) => (
-                <button
-                  key={l.id}
-                  role="tab"
-                  aria-selected={l.id === locationId}
-                  className="leaseSwitch__btn"
-                  data-active={l.id === locationId}
-                  onClick={() => setLocationId(l.id)}
-                >
-                  <span className="leaseSwitch__btnIndex mono">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  <span className="leaseSwitch__btnName">{l.name}</span>
-                </button>
-              ))}
+            <span className={`${MICRO} text-faint`}>Facility</span>
+            {/* Rows are separated by their own hairline, not by space. */}
+            <div className="flex flex-col gap-0 border-t border-border">
+              {LEASE_OPTIONS.map((l, idx) => {
+                const active = l.id === locationId;
+                return (
+                  <button
+                    key={l.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={active}
+                    onClick={() => setLocationId(l.id)}
+                    className={`group relative grid min-h-control select-none appearance-none grid-cols-[auto_minmax(0,1fr)] items-center gap-4 border-0 border-b border-hairline bg-transparent py-5 font-body transition-[color,transform] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring active:scale-[0.99] motion-reduce:before:transition-none ${SWITCH_TICK} ${
+                      active
+                        ? "text-primary before:scale-x-100"
+                        : "text-secondary before:scale-x-0"
+                    }`}
+                  >
+                    <span
+                      className={`font-mono text-xs font-medium tracking-control transition-colors duration-quick ease-settle ${
+                        active ? "text-highlight" : "text-muted"
+                      }`}
+                    >
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <span className="select-none text-left font-condensed text-xl font-semibold uppercase tracking-normal">
+                      {l.name}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 
-          <div className="estimator__result" aria-live="polite">
-            <div className="estimator__priceCol">
-              <p className="estimator__priceLabel mono">
-                MO/USD · Monthly Lease
-              </p>
-              <p className="estimator__priceRow">
-                <span className="estimator__currency">$</span>
-                <span className="estimator__figure tabular">
+          <div
+            aria-live="polite"
+            className="grid grid-cols-[minmax(0,1fr)] items-start gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-x-9 lg:gap-y-8"
+          >
+            <div className="flex flex-col gap-5">
+              <p className={`${MICRO} text-faint`}>MO/USD · Monthly Lease</p>
+              <p
+                key={loc.id}
+                className="flex animate-rise items-baseline gap-2 motion-reduce:animate-none"
+              >
+                <span className="self-start pt-2 font-condensed text-h4 font-semibold leading-none text-faint">
+                  $
+                </span>
+                <span className="font-condensed text-figure-sm tabular-nums text-primary xs:text-figure">
                   {loc.price.toLocaleString()}
                 </span>
-                <span className="estimator__period mono">/ MO</span>
+                <span className={`${MICRO} ml-2 text-sm text-faint`}>/ MO</span>
               </p>
-              <p className="estimator__caption mono">
+              <p className="max-w-prose border-t border-hairline pt-3 font-body text-sm tracking-normal text-secondary">
                 {loc.acreage} · {loc.subtitle}
               </p>
             </div>
 
-            <div className="estimator__included">
-              <p className="estimator__includedLabel mono">
-                Included with the Lease
-              </p>
-              <ul key={loc.id} className="leaseIncludedList">
+            <div className="flex flex-col gap-4">
+              <p className={`${MICRO} text-faint`}>Included with the Lease</p>
+              {/* Keyed on the facility so the list re-enters when the reader
+                  changes it, which is what says the panel answered. */}
+              <ul
+                key={loc.id}
+                className="relative m-0 flex list-none flex-col gap-0 pb-1 pt-px before:absolute before:left-0 before:right-0 before:top-0 before:h-px before:bg-hairline before:content-['']"
+              >
                 {loc.included.map((feature, idx) => (
-                  <li key={feature} className="leaseIncludedList__item">
-                    <span className="leaseIncludedList__idx mono">
+                  <li
+                    key={feature}
+                    className={`relative grid ${RISE[Math.min(idx, RISE.length - 1)]} grid-cols-[theme(spacing[control-sm])_minmax(0,1fr)] items-baseline gap-4 py-4 transition-transform duration-settle ease-settle before:absolute before:bottom-0 before:left-0 before:right-0 before:h-px before:bg-hairline before:content-[''] hover:translate-x-2 motion-reduce:animate-none motion-reduce:transition-none`}
+                  >
+                    <span className="font-mono text-xs font-medium tracking-control text-accent">
                       {String(idx + 1).padStart(2, "0")}
                     </span>
-                    <span className="leaseIncludedList__text">{feature}</span>
+                    <span className="font-body text-md leading-normal text-secondary">
+                      {feature}
+                    </span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="estimator__cta">
-              <a
-                className="btn btn--solid btn--block"
+            <div className="col-span-full flex flex-col gap-3 border-t border-border py-5">
+              <Button
+                variant="solid"
+                block
                 href="#contact"
                 onClick={openInquiry}
               >
                 Start Lease Inquiry
-              </a>
-              <p className="estimator__assurance mono">
+              </Button>
+              <p className="max-w-prose font-body text-sm tracking-normal text-faint">
                 No hidden fees · Long-term agreements · Direct facility access
               </p>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </Reveal>
+      </Container>
+    </Section>
   );
 }
 

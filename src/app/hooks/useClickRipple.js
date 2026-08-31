@@ -14,7 +14,8 @@ export function useClickRipple() {
     if (typeof document === "undefined") return undefined;
 
     const layer = document.createElement("div");
-    layer.className = "clickLayer";
+    layer.className =
+      "fixed inset-0 z-pointer pointer-events-none [contain:strict]";
     layer.setAttribute("aria-hidden", "true");
     document.body.appendChild(layer);
 
@@ -23,7 +24,8 @@ export function useClickRipple() {
     const onPointerDown = (event) => {
       if (still?.matches || event.button !== 0) return;
       const ripple = document.createElement("span");
-      ripple.className = "clickLayer__ripple";
+      ripple.className =
+        "absolute h-3 w-3 -ml-1.5 -mt-1.5 rounded-full border border-highlight opacity-[0.85] animate-click-ripple";
       ripple.style.left = `${event.clientX}px`;
       ripple.style.top = `${event.clientY}px`;
       // animationend does not fire for a tab backgrounded mid-animation, so a

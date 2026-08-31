@@ -18,9 +18,9 @@ import RouteBoundary, {
 import { RouterProvider, useRouter, normalisePath } from "./router/Router";
 import { MAIN_ID } from "./constants/landmarks";
 import { submitInquiry } from "./constants/inquiryForm";
+import { PHONE_NUMBER } from "./constants/phoneNumber";
+import { PhoneIcon } from "../components/Icons";
 import { useClickRipple } from "./hooks/useClickRipple";
-import "./styles/App.css";
-import "./styles/Buttons.css";
 
 // A visitor to any one route downloads that route and no other. The shell —
 // bar, footer and inquiry panel — is in the entry because every route shows it.
@@ -44,7 +44,7 @@ const NAV_HEIGHT_FALLBACK = 72;
 
 function readSurfaceUnderNav() {
   if (typeof document === "undefined") return "dark";
-  const nav = document.querySelector(".nav");
+  const nav = document.querySelector("[data-nav]");
   const navBottom = nav
     ? nav.getBoundingClientRect().bottom
     : NAV_HEIGHT_FALLBACK;
@@ -115,7 +115,6 @@ function PageOutlet({ onLanded }) {
 function AppShell() {
   const [inquiryOpen, setInquiryOpen] = useState(false);
   const [navSurface, setNavSurface] = useState("dark");
-  const [overHero, setOverHero] = useState(true);
   // Bumped each time a route's markup reaches the page. Everything that has to
   // measure the page reads this rather than the path, because the path changes
   // when the reader clicks and the markup arrives when its chunk does.
@@ -166,16 +165,6 @@ function AppShell() {
   }, []);
 
   const recomputeSurface = useCallback(() => {
-    // The dark hero only lives on the home route. Anywhere else, the
-    // nav is never "over the hero" so it adopts whatever surface is
-    // directly beneath it.
-    const hero = document.getElementById("overview");
-    const nav = document.querySelector(".nav");
-    const heroBottom = hero ? hero.getBoundingClientRect().bottom : 0;
-    const navBottom = nav
-      ? nav.getBoundingClientRect().bottom
-      : NAV_HEIGHT_FALLBACK;
-    setOverHero(!!hero && heroBottom > navBottom + NAV_SURFACE_PROBE_OFFSET);
     setNavSurface(readSurfaceUnderNav());
   }, []);
 
@@ -190,7 +179,7 @@ function AppShell() {
     let observer = null;
     const attach = () => {
       observer?.disconnect();
-      const nav = document.querySelector(".nav");
+      const nav = document.querySelector("[data-nav]");
       const line =
         (nav ? nav.getBoundingClientRect().bottom : NAV_HEIGHT_FALLBACK) +
         NAV_SURFACE_PROBE_OFFSET;
@@ -216,17 +205,39 @@ function AppShell() {
 
   const isHome = normalisePath(path) === "/";
 
+  // The shell exists to hang the bar, the outlet and the footer off. It sets
+  // no type, no colour and no alignment - every band decides those for itself.
+  //
+  // The skip link is off screen until it is tabbed to, which is the only time
+  // it is wanted. It lands over the bar rather than under it, because the bar
+  // is what it exists to get past.
   return (
-    <div className="App">
-      <a className="skipLink" href={`#${MAIN_ID}`}>
+    <div className="isolate pb-[calc(var(--control-height)+env(safe-area-inset-bottom))] md:pb-0">
+      <a
+        href={`#${MAIN_ID}`}
+        className="fixed left-3 top-3 z-modal inline-flex min-h-control-sm -translate-y-[calc(100%+theme(spacing.6))] items-center bg-highlight px-5 font-mono text-xs font-medium uppercase tracking-control text-on-highlight no-underline transition-transform duration-quick ease-settle focus-visible:translate-y-0 focus-visible:shadow-focus focus-visible:outline-none motion-reduce:transition-none"
+      >
         Skip to Main Content
       </a>
-      <NavBar surface={navSurface} overHero={overHero} />
+      <NavBar surface={navSurface} />
       <PageOutlet onLanded={onRouteLanded} />
       {isHome ? <ScrollSpy generation={landings} /> : null}
       <Footer>
         <SplitRail />
       </Footer>
+
+      {/* The desk is the thing this trade calls, and on a phone the bar is at
+          the far end of a thumb's reach. The one filled action on a small
+          screen sits on the bottom edge instead, clear of the device inset. The
+          shell reserves its height below the footer, so it never covers the end
+          of the page. */}
+      <a
+        href={`tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`}
+        className="fixed inset-x-0 bottom-0 z-rail inline-flex min-h-control select-none items-center justify-center gap-3 bg-highlight px-5 pb-[env(safe-area-inset-bottom)] font-mono text-xs font-medium uppercase tracking-control text-on-highlight no-underline transition-colors duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus focus-visible:outline-none active:bg-highlight-hover md:hidden"
+      >
+        <PhoneIcon size={14} className="flex-none" />
+        <span className="tabular-nums">Call the Desk · {PHONE_NUMBER}</span>
+      </a>
       <InquiryModal
         open={inquiryOpen}
         onClose={() => setInquiryOpen(false)}

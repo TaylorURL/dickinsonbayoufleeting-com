@@ -1,7 +1,7 @@
-import "./styles/CtaStrip.css";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
-import { Link } from "../app/router/Link";
-import { useReveal } from "../app/hooks/useReveal";
+import Button from "./ui/Button";
+import { Container, Eyebrow } from "./ui/Layout";
+import { Reveal } from "./ui/Reveal";
 
 function CtaStrip({
   eyebrow = "Next step",
@@ -9,29 +9,40 @@ function CtaStrip({
   body = "Tell us about the job and we will get back to you inside one business day. The direct line is always faster.",
   primary = { label: "Send a Request", to: "/contact" },
 }) {
-  const innerRef = useReveal();
   const phoneHref = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`;
   return (
-    <section className="ctaStrip" data-surface="dark" aria-label="Get in Touch">
-      <div className="container">
-        <div className="ctaStrip__inner reveal-on-scroll" ref={innerRef}>
-          <div className="ctaStrip__copy">
-            <p className="eyebrow eyebrow--strong mono ctaStrip__eyebrow">
-              {eyebrow}
-            </p>
-            <h2 className="ctaStrip__title">{title}</h2>
-            <p className="ctaStrip__body">{body}</p>
+    <section
+      data-surface="dark"
+      aria-label="Get in Touch"
+      className="relative overflow-hidden border-t border-hairline py-section before:pointer-events-none before:absolute before:inset-0 before:bg-hull before:bg-hull-grid before:opacity-60 before:content-['']"
+    >
+      <Container>
+        <Reveal className="relative grid grid-cols-[minmax(0,1fr)] items-end gap-8 border-t-2 border-highlight pt-7 sm:grid-cols-[minmax(0,1.5fr)_auto]">
+          <div className="flex flex-col gap-4">
+            <Eyebrow strong>{eyebrow}</Eyebrow>
+            <h2 className="m-0 max-w-title text-h2 font-bold text-primary">
+              {title}
+            </h2>
+            <p className="max-w-prose text-lead text-secondary">{body}</p>
           </div>
-          <div className="ctaStrip__actions">
-            <Link to={primary.to} className="btn btn--primary">
+          <div className="flex w-full flex-wrap items-center gap-3 sm:w-auto">
+            <Button
+              variant="primary"
+              to={primary.to}
+              className="flex-1 sm:flex-none"
+            >
               {primary.label}
-            </Link>
-            <a href={phoneHref} className="btn btn--ghost">
+            </Button>
+            <Button
+              variant="ghost"
+              href={phoneHref}
+              className="flex-1 sm:flex-none"
+            >
               {PHONE_NUMBER}
-            </a>
+            </Button>
           </div>
-        </div>
-      </div>
+        </Reveal>
+      </Container>
     </section>
   );
 }
