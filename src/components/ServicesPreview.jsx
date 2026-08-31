@@ -19,11 +19,11 @@ function ServicesPreview() {
           <div className="flex max-w-head flex-col gap-5">
             <Eyebrow strong>What we do</Eyebrow>
             <h2 className="min-w-0 max-w-title text-h2 text-primary">
-              Barge fleeting, marine services and waterfront docks.
+              Seven jobs, and what each one covers.
             </h2>
             <p className="max-w-prose text-lead text-secondary">
-              Seven services, run out of the San Leon and Freeport yards for the
-              towboats, dispatchers and barge operators who use them.
+              All of it runs through the same desk, so one call covers a slip, a
+              shift and the surveyor who needs to get aboard.
             </p>
           </div>
           <Button

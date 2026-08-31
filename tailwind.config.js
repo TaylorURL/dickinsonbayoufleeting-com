@@ -33,12 +33,13 @@ const stagger = Object.fromEntries(
 );
 
 const rise = Object.fromEntries(
-  [["rise", 0], ...STEPS.map((step) => [`rise-${step}`, step * DURATION.step])].map(
-    ([name, delay]) => [
-      name,
-      `rise ${ms(DURATION.settle)}${delay ? ` ${ms(delay)}` : ""} ${CURVE.swell} both`,
-    ],
-  ),
+  [
+    ["rise", 0],
+    ...STEPS.map((step) => [`rise-${step}`, step * DURATION.step]),
+  ].map(([name, delay]) => [
+    name,
+    `rise ${ms(DURATION.settle)}${delay ? ` ${ms(delay)}` : ""} ${CURVE.swell} both`,
+  ]),
 );
 
 // The type scale as one table. Every step declares size, leading, tracking and
@@ -47,8 +48,8 @@ const rise = Object.fromEntries(
 // rem needs less air between lines and less between letters than type set at
 // one.
 const TYPE = {
-  figure: ["clamp(4.4rem, 11vw, 7.2rem)", "0.92", "-0.01em", "700"],
-  "figure-sm": ["clamp(3.4rem, 16vw, 4.6rem)", "0.94", "-0.005em", "700"],
+  figure: ["clamp(3.2rem, 7vw, 4.6rem)", "0.94", "-0.02em", "700"],
+  "figure-sm": ["clamp(2.6rem, 10vw, 3.4rem)", "0.96", "-0.015em", "700"],
   h1: ["clamp(2.6rem, 6vw, 5rem)", "0.96", "-0.005em", "700"],
   h2: ["clamp(2.2rem, 4.8vw, 3.8rem)", "1", "0em", "600"],
   // The one step whose size a container query re-derives, so all four of its

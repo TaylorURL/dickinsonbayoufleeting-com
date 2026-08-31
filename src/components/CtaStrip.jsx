@@ -6,8 +6,8 @@ import { Reveal } from "./ui/Reveal";
 function CtaStrip({
   eyebrow = "Next step",
   title = "Get a slip, or a yard on a lease.",
-  body = "Tell us about the job and we will get back to you inside one business day. The direct line is always faster.",
-  primary = { label: "Send a Request", to: "/contact" },
+  body = "Give us the boat, the dates and the port pairs. A written quote comes back inside one business day, and the direct line is faster still.",
+  primary = { label: "Get a Written Quote", to: "/contact" },
 }) {
   const phoneHref = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`;
   return (

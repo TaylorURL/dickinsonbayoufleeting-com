@@ -51,8 +51,8 @@ function Amenities() {
         <Reveal>
           <SectionHead
             eyebrow="Capabilities"
-            title="Barge fleeting, marine services & coastal amenities."
-            subtitle="Everything operators need for safe barge fleeting, vessel staging and fleet support on Galveston Bay and the Gulf Intracoastal Waterway."
+            title="What a slip here comes with."
+            subtitle="Dedicated slips, a crew on site, gated ground and five acres of it, on Galveston Bay and the Gulf Intracoastal Waterway."
             plate="dock"
           />
         </Reveal>
@@ -67,7 +67,7 @@ function Amenities() {
               key={amenity.name}
               className={`border-b border-border ${staggerChild(idx)}`}
             >
-              <div className={`${ROW} ${ROW_INNER} ${ROW_MARKER} py-6 lg:py-7`}>
+              <div className={`${ROW} ${ROW_INNER} ${ROW_MARKER} py-5`}>
                 <span
                   aria-hidden="true"
                   className={`${SLOT.index} font-mono text-xs font-medium tracking-control text-muted`}

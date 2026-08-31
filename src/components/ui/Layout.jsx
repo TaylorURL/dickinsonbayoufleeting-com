@@ -9,7 +9,7 @@ const CONTAINER = "mx-auto w-full max-w-container px-gutter";
 
 // One step between the blocks of a band. A margin on each block is how two
 // gaps in the same stack end up different sizes.
-export const BAND = "flex flex-col gap-10";
+export const BAND = "flex flex-col gap-8";
 
 // content-visibility keeps a band the reader has not reached out of style and
 // layout; the stored size keeps the scrollbar honest while it is skipped, so

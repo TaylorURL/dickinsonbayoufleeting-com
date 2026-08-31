@@ -1,15 +1,15 @@
-import OceanTopographyBackground from "./OceanTopographyBackground";
+import HeroFilm from "./HeroFilm";
 import WaveDivider, { WAVE_INTO_LIGHT } from "./WaveDivider";
 import OperationsConsole from "./OperationsConsole";
 import Button from "./ui/Button";
 import { Container, Eyebrow } from "./ui/Layout";
 
 const HERO_EYEBROW = "Dickinson Bayou Fleeting · Texas Gulf Coast";
-const HERO_TITLE_LEAD = "Coastal barge fleeting,";
-const HERO_TITLE_ACCENT = "marine services";
-const HERO_TITLE_TRAIL = "& dock leasing.";
+const HERO_TITLE_LEAD = "We hold the slip until";
+const HERO_TITLE_ACCENT = "your tow";
+const HERO_TITLE_TRAIL = "gets here.";
 const HERO_SUBTITLE =
-  "Two yards holding slips for barge operators working Galveston Bay, the Houston Ship Channel and the Gulf Intracoastal Waterway.";
+  "Barge fleeting, mooring and five-acre dock leases at San Leon and Freeport, on Galveston Bay and the GIWW.";
 
 // The plate slides by a quarter of its own height over the range where the hero
 // leaves the viewport, which is the whole of the parallax. The scroll timeline
@@ -57,19 +57,19 @@ function HeroSection() {
       data-surface="dark"
       aria-label="Introduction"
       id="overview"
-      className={`relative isolate flex min-h-plate flex-col items-stretch gap-0 overflow-hidden text-primary [min-height:100svh] ${WAVE_INTO_LIGHT}`}
+      className={`relative isolate flex min-h-plate flex-col items-stretch gap-0 overflow-hidden text-primary [min-height:86svh] ${WAVE_INTO_LIGHT}`}
     >
       <div
         aria-hidden="true"
         className={`absolute inset-0 z-behind h-[115%] overflow-hidden bg-bg-deep will-change-transform ${PARALLAX}`}
       >
-        <OceanTopographyBackground />
+        <HeroFilm />
         <span className="absolute inset-0 bg-plate-scrim" />
         <span className="pointer-events-none absolute inset-0 bg-hero-vignette" />
         <HeroMarks />
       </div>
 
-      <Container className="relative grid flex-1 grid-cols-[minmax(0,1fr)] gap-7 pb-12 pt-plate-top lg:grid-cols-[minmax(0,1.35fr)_minmax(360px,420px)] lg:gap-x-9 lg:gap-y-7 laptop:gap-x-8 laptop:gap-y-5 laptop:pb-11">
+      <Container className="relative grid flex-1 grid-cols-[minmax(0,1fr)] gap-6 pb-10 pt-plate-top lg:grid-cols-[minmax(0,1.35fr)_minmax(360px,420px)] lg:gap-x-9 lg:gap-y-7 laptop:gap-x-8 laptop:gap-y-5 laptop:pb-11">
         {/* The headline is sized against this column rather than against the
             window, because the column is what it has to fit into: the console
             beside it takes a fixed slice, so viewport width alone does not say
@@ -104,10 +104,10 @@ function HeroSection() {
 
           <div className="flex animate-rise-4 flex-wrap items-center gap-3 motion-reduce:animate-none">
             <Button variant="primary" href="#contact" onClick={openInquiry}>
-              Request a Quote
+              Get a Slip Quote
             </Button>
             <Button variant="ghost" to="/services">
-              Explore Services
+              See What We Handle
             </Button>
           </div>
         </div>
