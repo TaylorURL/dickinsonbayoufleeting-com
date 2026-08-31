@@ -1,22 +1,28 @@
-import "./styles/ErrorSummary.css";
 import { INQUIRY_FIELDS } from "../app/constants/inquiryForm";
 
 // Shown once a submit has been tried and more than one field still needs work,
 // so the reader gets the whole list in one place with a way into each field
-// rather than hunting the form for red. The block class carries only what the
-// host form's own layout adds; the summary's appearance is in ErrorSummary.css.
-function InquiryErrorSummary({ block, idPrefix, errors }) {
+// rather than hunting the form for red. A host passes only what its own layout
+// adds; the summary's appearance is here, so the two hosts cannot drift apart
+// on a list they both show.
+function InquiryErrorSummary({ className = "", idPrefix, errors }) {
   const failing = INQUIRY_FIELDS.filter((field) => errors[field.key]);
   if (failing.length < 2) return null;
   return (
-    <div className={`errSummary ${block}__summary`} role="alert">
-      <p className="errSummary__title">
+    <div
+      role="alert"
+      className={`flex flex-col gap-2 border border-l-3 border-danger bg-danger-soft px-5 py-4 ${className}`.trim()}
+    >
+      <p className="font-condensed text-h6 uppercase text-primary [overflow-wrap:anywhere]">
         {failing.length} fields still need something.
       </p>
-      <ul className="errSummary__list">
+      <ul className="m-0 flex list-none flex-wrap gap-x-5 gap-y-2 p-0">
         {failing.map((field) => (
           <li key={field.key}>
-            <a className="errSummary__link" href={`#${idPrefix}-${field.key}`}>
+            <a
+              href={`#${idPrefix}-${field.key}`}
+              className="font-mono text-xs font-medium uppercase tracking-label text-danger underline-offset-[3px] transition-colors duration-quick ease-settle hover:text-primary focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.98]"
+            >
               {field.label}
             </a>
           </li>

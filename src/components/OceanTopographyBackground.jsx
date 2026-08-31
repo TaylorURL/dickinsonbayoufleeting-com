@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import "./styles/OceanTopographyBackground.css";
 
 // Procedural ocean surface — a dotted topographic field whose points all ride
 // one shared, smooth flow field, so the grid reads as a single living sea
@@ -317,14 +316,25 @@ function OceanTopographyBackground({ className = "" }) {
     };
   }, []);
 
+  // The plate holds the box until the first frame lands, so the section never
+  // opens on an unpainted rectangle a shade off the plate around it. Visibility
+  // is delayed off the opacity so the fade runs before the box leaves the
+  // hit-testing tree.
   return (
-    <div className={`oceanBg ${className}`.trim()} aria-hidden="true">
+    <div
+      className={`pointer-events-none absolute inset-0 block h-full w-full ${className}`.trim()}
+      aria-hidden="true"
+    >
       <span
         ref={plateRef}
-        className="oceanBg__placeholder"
+        data-placeholder
         data-painted="false"
+        className="absolute inset-0 min-h-full bg-bg-deep opacity-100 visible transition-[opacity,visibility] duration-settle ease-settle data-[painted=true]:invisible data-[painted=true]:opacity-0 data-[painted=true]:delay-[0ms,280ms]"
       />
-      <canvas ref={canvasRef} className="oceanBg__canvas" />
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 block h-full w-full"
+      />
     </div>
   );
 }

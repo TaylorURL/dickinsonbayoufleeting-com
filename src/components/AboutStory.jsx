@@ -1,117 +1,135 @@
-import "./styles/AboutStory.css";
 import {
   ABOUT_STORY,
   ABOUT_VALUES,
   ABOUT_TIMELINE,
 } from "../app/constants/about";
-import { useReveal } from "../app/hooks/useReveal";
+import { BAND, Container, Section, SectionHead } from "./ui/Layout";
+import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
+
+// The rule over a block draws itself in from the left as the pointer arrives.
+// The rule sits on the list's own top border, so the mark reads as that border
+// lighting up rather than as a second line above it.
+const TOP_RULE =
+  "before:absolute before:-top-[calc(theme(spacing.8)+1px)] before:left-0 before:h-accent before:w-rule before:origin-left before:scale-x-0 before:bg-highlight before:transition-transform before:duration-settle before:ease-swell before:content-[''] hover:before:scale-x-100 motion-reduce:before:transition-none";
+
+const CARD_RULE =
+  "after:absolute after:left-0 after:top-0 after:h-accent after:w-full after:origin-left after:scale-x-0 after:bg-highlight after:transition-transform after:duration-settle after:ease-swell after:content-[''] hover:after:scale-x-100 motion-reduce:after:transition-none";
+
+const LIFT =
+  "transition-transform duration-settle ease-settle hover:-translate-y-1 motion-reduce:transition-none";
 
 function AboutStory() {
-  const storyHeadRef = useReveal();
-  const storyBlocksRef = useReveal();
-  const valuesHeadRef = useReveal();
-  const valuesGridRef = useReveal();
-  const timelineHeadRef = useReveal();
-  const timelineListRef = useReveal();
   return (
     <>
-      <section
-        className="aboutStory section"
-        data-surface="light"
-        id="story"
-        aria-label="Our Story"
-      >
-        <div className="container">
-          <div className="section__head reveal-on-scroll" ref={storyHeadRef}>
-            <p className="eyebrow eyebrow--strong mono">Who we are</p>
-            <h2 className="section__title">
-              Two yards, and the people who run them.
-            </h2>
-            <p className="section__subtitle">
-              A small operation that works to be a good neighbor on the water,
-              to customers, regulators and the communities along Dickinson
-              Bayou.
-            </p>
-          </div>
+      <Section surface="light" id="story" aria-label="Our Story">
+        <Container className={BAND}>
+          <Reveal>
+            <SectionHead
+              eyebrow="Who we are"
+              title="Two yards, and the people who run them."
+              subtitle="A small operation that works to be a good neighbor on the water, to customers, regulators and the communities along Dickinson Bayou."
+            />
+          </Reveal>
 
-          <div
-            className="aboutStory__blocks reveal-on-scroll reveal-stagger"
-            ref={storyBlocksRef}
-          >
+          <Stagger className="grid grid-cols-[minmax(0,1fr)] gap-7 border-t border-border pt-8 md:grid-cols-3">
             {ABOUT_STORY.map((b, idx) => (
-              <article key={b.heading} className="aboutStory__block">
-                <span className="aboutStory__idx mono">
-                  {String(idx + 1).padStart(2, "0")}
-                </span>
-                <h3 className="aboutStory__heading">{b.heading}</h3>
-                <p className="aboutStory__body">{b.body}</p>
-              </article>
+              <div key={b.heading} className={staggerChild(idx)}>
+                <article
+                  className={`relative flex h-full flex-col gap-3 pr-4 ${TOP_RULE}`}
+                >
+                  <span className="font-mono text-xs font-medium tracking-control text-highlight">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="m-0 text-h5 font-bold text-primary">
+                    {b.heading}
+                  </h3>
+                  <p className="max-w-prose-tight text-base leading-relaxed text-secondary">
+                    {b.body}
+                  </p>
+                </article>
+              </div>
             ))}
-          </div>
-        </div>
-      </section>
+          </Stagger>
+        </Container>
+      </Section>
 
-      <section
-        className="aboutValues section"
-        data-surface="dark"
-        id="values"
-        aria-label="What We Stand For"
-      >
-        <div className="container">
-          <div className="section__head reveal-on-scroll" ref={valuesHeadRef}>
-            <p className="eyebrow eyebrow--strong mono">How we work</p>
-            <h2 className="section__title">
-              Four things we will not compromise on.
-            </h2>
-          </div>
-          <ul
-            className="aboutValues__grid reveal-on-scroll reveal-stagger"
+      <Section surface="dark" id="values" aria-label="What We Stand For">
+        <Container className={BAND}>
+          <Reveal>
+            <SectionHead
+              eyebrow="How we work"
+              title="Four things we will not compromise on."
+            />
+          </Reveal>
+
+          <Stagger
+            as="ul"
             aria-label="Operating Principles"
-            ref={valuesGridRef}
+            className="m-0 grid list-none grid-cols-[minmax(0,1fr)] gap-0 border border-border bg-surface p-0 sm:grid-cols-2 lg:grid-cols-4"
           >
-            {ABOUT_VALUES.map((v) => (
-              <li key={v.code} className="valueCard">
-                <span className="valueCard__code mono">{v.code}</span>
-                <h3 className="valueCard__title">{v.title}</h3>
-                <p className="valueCard__body">{v.body}</p>
+            {ABOUT_VALUES.map((v, idx) => (
+              <li
+                key={v.code}
+                className={`border-b border-border last:border-b-0 sm:border-r sm:last:border-b sm:last:border-r-0 ${staggerChild(idx)}`}
+              >
+                <div
+                  className={`relative flex h-full flex-col gap-3 overflow-hidden px-6 py-7 ${CARD_RULE} ${LIFT}`}
+                >
+                  <span className="font-mono text-xs font-medium uppercase tracking-label text-highlight">
+                    {v.code}
+                  </span>
+                  <h3 className="m-0 text-h6 font-bold text-primary">
+                    {v.title}
+                  </h3>
+                  <p className="text-md text-secondary">{v.body}</p>
+                </div>
               </li>
             ))}
-          </ul>
-        </div>
-      </section>
+          </Stagger>
+        </Container>
+      </Section>
 
-      <section
-        className="aboutTimeline section"
-        data-surface="light"
-        id="timeline"
-        aria-label="Where We Have Been"
-      >
-        <div className="container">
-          <div className="section__head reveal-on-scroll" ref={timelineHeadRef}>
-            <p className="eyebrow eyebrow--strong mono">Where we have been</p>
-            <h2 className="section__title">
-              From one slip to a coastal operation.
-            </h2>
-          </div>
-          <ol
-            className="aboutTimeline__list reveal-on-scroll reveal-stagger"
+      <Section surface="light" id="timeline" aria-label="Where We Have Been">
+        <Container className={BAND}>
+          <Reveal>
+            <SectionHead
+              eyebrow="Where we have been"
+              title="From one slip to a coastal operation."
+            />
+          </Reveal>
+
+          {/* Rust rather than the highlight: a timeline is a tier-two mark, and
+              spending safety orange here would put it against the CTA. */}
+          <Stagger
+            as="ol"
             aria-label="Company History"
-            ref={timelineListRef}
+            className="m-0 grid list-none grid-cols-[minmax(0,1fr)] gap-6 border-t border-border p-0 pt-8 sm:grid-cols-2 lg:grid-cols-4"
           >
             {ABOUT_TIMELINE.map((t, idx) => (
-              <li key={t.title} className="timelineCard">
-                <span className="timelineCard__period mono">{t.period}</span>
-                <span className="timelineCard__rule" aria-hidden="true" />
-                <span className="timelineCard__idx mono">
-                  {String(idx + 1).padStart(2, "0")}
-                </span>
-                <h3 className="timelineCard__title">{t.title}</h3>
-                <p className="timelineCard__body">{t.body}</p>
+              <li key={t.title} className={staggerChild(idx)}>
+                <div
+                  className={`group grid h-full grid-cols-[auto_minmax(0,1fr)_auto] gap-x-3 gap-y-2 border-t-2 border-rust pt-4 ${LIFT}`}
+                >
+                  <span className="font-mono text-xs font-medium uppercase tracking-label text-rust transition-colors duration-quick ease-settle group-hover:text-highlight">
+                    {t.period}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="mx-2 h-px self-center bg-hairline"
+                  />
+                  <span className="font-mono text-xs font-medium tracking-control text-faint">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="col-span-3 m-0 text-h6 text-primary">
+                    {t.title}
+                  </h3>
+                  <p className="col-span-3 text-md text-secondary">{t.body}</p>
+                </div>
               </li>
             ))}
-          </ol>
-        </div>
-      </section>
+          </Stagger>
+        </Container>
+      </Section>
     </>
   );
 }

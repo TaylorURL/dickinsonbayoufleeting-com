@@ -1,6 +1,7 @@
 import { Component } from "react";
-import "./styles/RouteBoundary.css";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
+import Button from "./ui/Button";
+import { Container } from "./ui/Layout";
 
 // A route arrives as its own file, which means a deploy can land while a tab
 // is still open: the document in that tab names files the server has just
@@ -67,31 +68,37 @@ class RouteBoundary extends Component {
 
   render() {
     if (!this.state.failed) return this.props.children;
+    // Sits where the page header would have been, at the same height and on
+    // the same ground, so a route that fails still hands the reader a page
+    // rather than a gap between the bar and the footer.
     return (
-      <div className="routeError" data-surface="dark">
-        <div className="routeError__inner container">
-          <p className="routeError__eyebrow mono">Page did not load</p>
-          <h1 className="routeError__title">Something went wrong here.</h1>
-          <p className="routeError__body">
+      <div
+        data-surface="dark"
+        className="relative flex min-h-header flex-col gap-0 bg-bg-deep bg-hull bg-hull-grid pb-10 pt-plate-top text-primary"
+      >
+        <Container className="my-auto flex flex-col items-start gap-4">
+          <p className="font-mono text-xs font-medium uppercase tracking-eyebrow text-highlight">
+            Page did not load
+          </p>
+          <h1 className="max-w-display text-h2 font-bold text-primary">
+            Something went wrong here.
+          </h1>
+          <p className="max-w-prose text-lead text-secondary">
             Reload the page to try again. If it still will not open, the
             operations desk can answer anything the site would have told you.
           </p>
-          <div className="routeError__actions">
-            <button
-              type="button"
-              className="btn btn--primary"
-              onClick={() => window.location.reload()}
-            >
+          <div className="mt-3 flex flex-wrap gap-3">
+            <Button variant="primary" onClick={() => window.location.reload()}>
               Reload the Page
-            </button>
-            <a
-              className="btn btn--ghost"
+            </Button>
+            <Button
+              variant="ghost"
               href={`tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`}
             >
               {PHONE_NUMBER}
-            </a>
+            </Button>
           </div>
-        </div>
+        </Container>
       </div>
     );
   }

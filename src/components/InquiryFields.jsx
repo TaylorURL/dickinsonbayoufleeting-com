@@ -1,12 +1,13 @@
 import { INQUIRY_FIELDS } from "../app/constants/inquiryForm";
+import { FIELD } from "./ui/Field";
 
 // The message box grows with what is in it, so a long note is read back whole
 // rather than through a four-line window.
 //
 // Where the browser can size the box itself it does, and this runs no
 // measurement at all. The branch below is for the browsers with no such
-// property, and it costs a synchronous layout per keystroke, which is why it
-// is the fallback rather than the rule.
+// property, and it costs a synchronous layout per keystroke, which is why it is
+// the fallback rather than the rule.
 const SIZES_ITSELF =
   typeof CSS !== "undefined" &&
   typeof CSS.supports === "function" &&
@@ -18,12 +19,10 @@ function growToFit(el) {
   el.style.height = `${el.scrollHeight}px`;
 }
 
-// The five fields, rendered against whatever block the surrounding form uses.
-// Both forms pass their own class prefix, so the modal and the contact page
-// keep their own layout while the labelling, the required marks and the error
-// wiring stay identical.
+// The five fields, rendered into whatever grid the surrounding form sets. Both
+// forms keep their own layout while the labelling, the required marks and the
+// error wiring stay identical.
 function InquiryFields({
-  block,
   idPrefix,
   values,
   errors,
@@ -46,13 +45,13 @@ function InquiryFields({
     return (
       <div
         key={field.key}
-        className={`${block}__field${field.multiline ? ` ${block}__field--full` : ""}`}
+        className={`${FIELD.root} ${field.multiline ? FIELD.full : ""}`.trim()}
       >
-        <label className={`${block}__label`} htmlFor={inputId}>
+        <label className={FIELD.label} htmlFor={inputId}>
           {field.label}
         </label>
         {field.hint ? (
-          <span className={`${block}__hint`} id={hintId}>
+          <span className={FIELD.hint} id={hintId}>
             {field.hint}
           </span>
         ) : null}
@@ -60,7 +59,9 @@ function InquiryFields({
           id={inputId}
           name={field.key}
           ref={field.key === "firstName" ? firstFieldRef : undefined}
-          className={field.multiline ? `${block}__textarea` : `${block}__input`}
+          className={`${field.multiline ? FIELD.textarea : FIELD.input} ${
+            invalid ? FIELD.invalid : FIELD.valid
+          }`}
           type={field.multiline ? undefined : field.type || "text"}
           rows={field.multiline ? 5 : undefined}
           inputMode={field.inputMode}
@@ -78,7 +79,7 @@ function InquiryFields({
           aria-describedby={describedBy}
         />
         {field.multiline && counter ? counter : null}
-        <span className={`${block}__err`} id={errorId} role="alert">
+        <span className={FIELD.error} id={errorId} role="alert">
           {invalid ? errors[field.key] : ""}
         </span>
       </div>
