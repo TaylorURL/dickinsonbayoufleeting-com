@@ -27,8 +27,8 @@ function Plate({ name, className = "" }) {
     <img
       src={`/art/${name}.svg`}
       alt={PLATES[name]}
-      width="320"
-      height="140"
+      width="800"
+      height="350"
       loading="lazy"
       decoding="async"
       className={`block h-auto w-full border border-border ${className}`.trim()}
