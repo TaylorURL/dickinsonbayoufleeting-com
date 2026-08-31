@@ -44,9 +44,9 @@ function ServiceArea({ surface = "gray" }) {
 
         <Reveal className="mt-12 grid grid-cols-[minmax(0,1fr)] gap-8 border-t border-hairline pt-8 lg:grid-cols-2 lg:gap-16">
           <p className="m-0 max-w-prose text-md text-secondary">
-            San Leon sits on Galveston Bay with quick access to the Houston Ship
-            Channel. Freeport carries the same operation south along the Gulf
-            Intracoastal Waterway.
+            Dickinson sits on Galveston Bay with quick access to the Houston
+            Ship Channel. Freeport carries the same operation south along the
+            Gulf Intracoastal Waterway.
           </p>
           <p className="m-0 max-w-prose text-md text-secondary">
             A town that is not on this list is not a no. If your tow already

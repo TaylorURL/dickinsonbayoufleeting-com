@@ -43,9 +43,9 @@ export const ABOUT_TIMELINE = [
     body: "Started with one slip on Dickinson Bayou serving a handful of long-haul tow companies.",
   },
   {
-    period: "San Leon",
+    period: "The Bay Yard",
     title: "Five acres on Galveston Bay",
-    body: "Acquired the San Leon waterfront yard and expanded into long-term barge fleeting for repeat customers.",
+    body: "Acquired the Galveston Bay waterfront yard and expanded into long-term barge fleeting for repeat customers.",
   },
   {
     period: "Freeport",

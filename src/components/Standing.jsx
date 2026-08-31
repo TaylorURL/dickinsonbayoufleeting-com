@@ -22,7 +22,7 @@ const CLAIMS = [
 // which is why they are on the columns and not around them.
 function Standing() {
   return (
-    <Section surface="gray" aria-label="Why operators lease here">
+    <Section surface="light" aria-label="Why operators lease here">
       <Container>
         <Reveal>
           <p className={`${MICRO_SM} text-faint`}>Why operators lease here</p>

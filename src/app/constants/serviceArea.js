@@ -1,5 +1,4 @@
 export const SERVICE_AREA_CITIES = [
-  { name: "San Leon, TX", county: "Galveston County" },
   { name: "Dickinson, TX", county: "Galveston County" },
   { name: "Texas City, TX", county: "Galveston County" },
   { name: "League City, TX", county: "Galveston County" },
