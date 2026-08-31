@@ -34,7 +34,7 @@ const FOOTER_LEGAL = [
 
 const FOOTER_HOURS = [
   { label: "Office", value: "Mon-Fri · 7a-5p CT" },
-  { label: "Operations Desk", value: "24 / 7 · On-call answered" },
+  { label: "Shore Crew", value: "24 / 7 · On-call answered" },
 ];
 
 function Footer({ children }) {
@@ -58,9 +58,8 @@ function Footer({ children }) {
                   Speak to the office.
                 </h2>
                 <p className="max-w-prose-tight text-lead text-secondary">
-                  Direct line to the operations desk for barge fleeting, marine
-                  services and long-term dock leasing across the upper Texas
-                  Gulf Coast.
+                  Direct line to the yard for barge fleeting, marine services
+                  and long-term dock leasing across the upper Texas Gulf Coast.
                 </p>
               </div>
 

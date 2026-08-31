@@ -36,7 +36,7 @@ function AboutView() {
         </Button>
       </PagePlate>
       <AboutStory />
-      <ServiceArea />
+      <ServiceArea surface="gray" />
       <CtaStrip
         eyebrow="Visit a yard"
         title="Come and see the dock."

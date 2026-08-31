@@ -301,6 +301,9 @@ module.exports = {
       md: "900px",
       lg: "1080px",
       xl: "1240px",
+      // The width at which the page gutter is finally wider than the scroll
+      // rail. Narrower than this the rail would stand on the text.
+      rail: "1700px",
       // A laptop screen is wide and short. Without a step of its own the hero
       // stacks past the fold on a 1280x800 screen, which is where most readers
       // meet the site for the first time.

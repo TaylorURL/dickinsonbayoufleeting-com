@@ -1,7 +1,8 @@
 import HeroSection from "../components/Hero";
-import ServicesPreview from "../components/ServicesPreview";
-import LeasePackage from "../components/LeasePackage";
-import Location from "../components/Location";
+import ServiceRegister from "../components/ServiceRegister";
+import YardChart from "../components/YardChart";
+import Intake from "../components/Intake";
+import Standing from "../components/Standing";
 import CtaStrip from "../components/CtaStrip";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";
@@ -24,13 +25,14 @@ function HomeView() {
   return (
     <main id={MAIN_ID} tabIndex={-1}>
       <HeroSection />
-      <ServicesPreview />
-      <LeasePackage />
-      <Location />
+      <ServiceRegister />
+      <YardChart />
+      <Intake />
+      <Standing />
       <CtaStrip
         eyebrow="Get in touch"
-        title="Talk to the operations desk."
-        body="Someone answers the direct line during the working day and the on-call line the rest of the time. Quotes come back the same business day."
+        title="Talk to someone who works the dock."
+        body="The line is answered through the working day and carried on call the rest of the time. Quotes come back the same business day."
       />
     </main>
   );

@@ -36,7 +36,7 @@ function TermsView() {
       <CtaStrip
         eyebrow="The agreement"
         title="Looking for the lease terms?"
-        body="Those live in the written agreement for your facility. Call the desk and we will send the current one."
+        body="Those live in the written agreement for your facility. Call and we will send you the current one."
       />
     </main>
   );

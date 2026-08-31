@@ -34,7 +34,7 @@ export const INQUIRY_FIELDS = [
     label: "Tell Us About the Job",
     multiline: true,
     autoComplete: "off",
-    hint: "Vessel particulars, timing and port pairs are what the desk needs to quote.",
+    hint: "Vessel particulars, timing and port pairs are what we need to quote it.",
   },
 ];
 
@@ -62,7 +62,7 @@ export function validateInquiry(values) {
     errors.phone = "Enter a phone number with at least seven digits.";
   }
   if (values.message.trim().length < MESSAGE_MIN_WORDS) {
-    errors.message = "Say a few words about the job so the desk can quote it.";
+    errors.message = "Say a few words about the job so we can quote it.";
   }
   return errors;
 }
@@ -76,7 +76,7 @@ const INQUIRY_TIMEOUT_MS = 15000;
 
 // Throws on anything but a delivered inquiry, so a caller shows the reader a
 // failure rather than a confirmation. Both forms go through here: a visitor who
-// is told the desk has their message has to be right about that.
+// is told the message landed has to be right about that.
 export async function submitInquiry(data) {
   const response = await fetch(INQUIRY_ENDPOINT, {
     method: "POST",
@@ -93,7 +93,7 @@ export async function submitInquiry(data) {
 // both messages because a failed form is the moment the phone number matters.
 export function inquiryErrorMessage(error) {
   return error && error.name === "TimeoutError"
-    ? "The desk did not answer in time. Try again, or call the direct line."
+    ? "Nothing came back in time. Try again, or call the direct line."
     : "That did not send. Try again, or call the direct line.";
 }
 
