@@ -30,7 +30,7 @@ function ServicesView() {
         subtitle="Everything we offer at the San Leon and Freeport yards: what each service includes, who it is for, and how to get started."
       >
         <Button variant="primary" to="/contact">
-          Request a Quote
+          Get a Slip Quote
         </Button>
         <Button variant="ghost" href="#services-detail">
           Jump to Services
@@ -42,7 +42,7 @@ function ServicesView() {
       <CtaStrip
         title="Describe the job and we will place it."
         body="Call and tell us what you need doing. We will say which of these covers it, or give you the name of somebody who handles the part we do not."
-        primary={{ label: "Send a Request", to: "/contact" }}
+        primary={{ label: "Get a Written Quote", to: "/contact" }}
       />
     </main>
   );

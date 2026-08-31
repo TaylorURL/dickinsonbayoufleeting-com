@@ -1,18 +1,17 @@
 // The wordmark, in one place. It is drawn three times - twice in the bar for
-// the two surfaces it crosses, once in the footer - and the copies had already
-// parted: all three declared the same `sizes` while the footer draws the mark at
-// up to 200px, so the browser picked the 120w file for it and scaled it up.
+// the two surfaces it crosses, once in the footer.
 //
 // Three raster widths ship, and `sizes` is what tells the browser which one the
 // box needs. It is per call site, because the box is.
 const SRCSET = (tone) =>
   `/images/DBF-Logo-${tone}-120.png 120w, ` +
   `/images/DBF-Logo-${tone}-240.png 240w, ` +
-  `/images/DBF-Logo-${tone}.png 500w`;
+  `/images/DBF-Logo-${tone}.png 476w`;
 
-// The intrinsic box, which is square. Declared so the row it sits in is the
-// right height before the file arrives.
-const INTRINSIC = 240;
+// The artwork's own box, trimmed to its bounds so the height the mark is given
+// is the height it draws at. Declared so the row it sits in is the right height
+// before the file arrives.
+const INTRINSIC = { width: 476, height: 146 };
 
 function Logo({ tone = "White", sizes, priority = false, className = "" }) {
   return (
@@ -21,8 +20,8 @@ function Logo({ tone = "White", sizes, priority = false, className = "" }) {
       srcSet={SRCSET(tone)}
       sizes={sizes}
       alt="Dickinson Bayou Fleeting"
-      width={INTRINSIC}
-      height={INTRINSIC}
+      width={INTRINSIC.width}
+      height={INTRINSIC.height}
       {...(priority
         ? { fetchPriority: "high" }
         : { loading: "lazy", decoding: "async" })}

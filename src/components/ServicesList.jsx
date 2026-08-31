@@ -10,8 +10,8 @@ function ServicesList({ surface = "dark" }) {
         <Reveal>
           <SectionHead
             eyebrow="What we do"
-            title="Barge fleeting and marine services, in plain language."
-            subtitle="Seven services out of two coastal yards, for the towboats, dispatchers and barge operators we work with every day."
+            title="Seven jobs, and what each one covers."
+            subtitle="Each one says what it covers and who it is for. Anything not on the list, call and ask."
             plate="fleeting"
           />
         </Reveal>
@@ -27,7 +27,7 @@ function ServicesList({ surface = "dark" }) {
               id={s.id}
               className={`scroll-mt-anchor border-b border-border ${staggerChild(idx)}`}
             >
-              <div className={`${ROW} ${ROW_INNER} ${ROW_MARKER} py-8`}>
+              <div className={`${ROW} ${ROW_INNER} ${ROW_MARKER} py-6`}>
                 <span
                   aria-hidden="true"
                   className={`${SLOT.index} font-mono text-xs font-medium tracking-control text-muted`}

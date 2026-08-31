@@ -7,9 +7,9 @@
 // grey is not a colour this palette has. Static geometry, so the depth costs
 // nothing at runtime.
 //
-// flex-basis and the full width are load-bearing: every host is a flex
-// container, and without them a divider dropped into a row one is laid out
-// beside its sibling as a short bar rather than across the seam.
+// flex-basis and the full width are what make it span: every host is a flex
+// container, and without them a divider dropped into a row one lays out beside
+// its sibling as a short bar rather than across the seam.
 
 // A dark band whose wave bites into the foam band below wears this, so the
 // shape is cut out of the paper rather than out of the hull.
