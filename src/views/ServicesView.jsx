@@ -8,14 +8,14 @@ import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";
 
 export const metadata = {
-  title: "Services & Lease Rates | Dickinson Bayou Fleeting",
+  title: "Dock Lease Rates & Marine Services | Dickinson Bayou Fleeting",
   description:
-    "Fleeting, mooring, staging and fleet support are the work of both yards. Monthly dock lease rates for San Leon and Freeport, and what each includes.",
+    "Monthly lease rates for the San Leon and Freeport yards, what each lease carries, and the seven jobs the shore crew covers on both docks.",
   canonical: "https://dickinsonbayoufleeting.com/services",
   openGraph: {
-    title: "Services & Lease Rates | Dickinson Bayou Fleeting",
+    title: "Dock Lease Rates & Marine Services | Dickinson Bayou Fleeting",
     description:
-      "Fleeting, mooring, staging and fleet support are the work of both yards. Monthly dock lease rates for San Leon and Freeport, and what each includes.",
+      "Monthly lease rates for the San Leon and Freeport yards, what each lease carries, and the seven jobs the shore crew covers on both docks.",
     url: "https://dickinsonbayoufleeting.com/services",
   },
 };
@@ -26,22 +26,22 @@ function ServicesView() {
     <main id={MAIN_ID} tabIndex={-1}>
       <PagePlate
         eyebrow="Services"
-        title="Coastal barge fleeting, marine services & dock leasing."
-        subtitle="Everything we offer at the San Leon and Freeport yards: what each service includes, who it is for, and how to get started."
+        title="Lease the dock. Use the crew as you need it."
+        subtitle="What a lease at San Leon or Freeport carries, and the seven jobs the shore crew already covers on both yards."
       >
         <Button variant="primary" to="/contact">
-          Get a Slip Quote
+          Get Lease Terms
         </Button>
-        <Button variant="ghost" href="#services-detail">
-          Jump to Services
+        <Button variant="ghost" href="#rates">
+          See Lease Rates
         </Button>
       </PagePlate>
-      <ServicesList surface="light" />
-      <LeasePackage surface="gray" />
+      <LeasePackage surface="light" />
+      <ServicesList surface="gray" />
       <Faq surface="light" />
       <CtaStrip
-        title="Describe the job and we will place it."
-        body="Call and tell us what you need doing. We will say which of these covers it, or give you the name of somebody who handles the part we do not."
+        title="Take a yard, or just the service."
+        body="Most operators lease the dock and use the crew that comes with it. If you only need one job doing, call and we will say whether it is ours."
         primary={{ label: "Get a Written Quote", to: "/contact" }}
       />
     </main>

@@ -5,22 +5,22 @@ const STEPS = [
   {
     stage: "1.0",
     title: "Call",
-    body: "Tell us the barge, the dates and the reach it runs. Most of what we need to quote comes out in that one conversation.",
+    body: "Tell us the footprint you need and the reach your tow runs. Most of what we need to quote a lease comes out in that one conversation.",
   },
   {
     stage: "2.0",
-    title: "Slip held",
-    body: "We confirm the slip and the rate, usually before the call ends. If we cannot hold it we say so then, not the week you sail.",
+    title: "Walk the yard",
+    body: "Come and see the dock before you sign anything. We will have the person who works that yard there to walk it with you.",
   },
   {
     stage: "3.0",
     title: "Paperwork",
-    body: "Customer agreement, certificate of insurance, barge particulars. We send templates for all three if you do not have them.",
+    body: "Lease agreement, certificate of insurance, and a list of what you plan to lay down. We send templates for all three.",
   },
   {
     stage: "4.0",
-    title: "Tie up",
-    body: "Your tow brings it in on your schedule. Our crew takes the lines, and somebody is on the yard from then on.",
+    title: "Move in",
+    body: "Power drops go in on request. The gate code and the crew's number come with the keys, and somebody is on the yard from then on.",
   },
 ];
 
@@ -34,7 +34,7 @@ function Intake() {
         <Reveal className="flex max-w-head flex-col gap-5">
           <p className={`${MICRO_SM} text-faint`}>From the first call</p>
           <h2 className="m-0 max-w-title text-h2 text-primary">
-            Four steps, and none of them take a week.
+            Four steps to the keys.
           </h2>
         </Reveal>
 

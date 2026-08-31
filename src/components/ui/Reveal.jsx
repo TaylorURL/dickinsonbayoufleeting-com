@@ -2,17 +2,17 @@ import { useReveal } from "../../app/hooks/useReveal";
 
 // One delay rhythm, four steps. The first four children of a staggered block
 // count these off and everything after them shares the last, so a long list
-// finishes arriving rather than trailing off. Every child has started inside
-// 160ms: a stagger a reader can outscroll reads as the page catching up with
-// them rather than greeting them.
+// finishes arriving rather than trailing off. A step of a tenth of a second is
+// long enough to read as one thing following another and short enough that the
+// fourth child has started before the reader has finished the first line.
 const DELAY = ["delay-1", "delay-2", "delay-3", "delay-4"];
 
 const MOTION =
-  "transition-[opacity,transform] duration-settle ease-swell motion-reduce:transition-none";
+  "transition-[opacity,transform] duration-reveal ease-reveal motion-reduce:transition-none";
 
 const SETTLED = "translate-y-0 opacity-100";
 const HELD =
-  "translate-y-6 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100";
+  "translate-y-[30px] opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100";
 
 // The entrance a block plays on arrival, counted off the same four steps as
 // the stagger. Step 0 is the unstaggered one. The reduced-motion escape rides
