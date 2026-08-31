@@ -17,6 +17,36 @@
  * primary action; accent carries links and focus; rust is tier-two only. The
  * wrong one stops the page telling the eye where to go.
  */
+@layer components {
+  /*
+   * The hover arrow. At rest only the head is drawn; the shaft fades up behind
+   * it as the head travels to where an arrow's point belongs, so the mark grows
+   * into an arrow rather than sliding across as one. Both halves read
+   * --arrow-live, which is set by whatever the pointer or the keyboard actually
+   * landed on, so a row can drive the arrow inside it.
+   */
+  .arrow-shaft {
+    opacity: var(--arrow-live, 0);
+    transition: opacity var(--arrow-duration) var(--arrow-curve);
+  }
+
+  .arrow-head {
+    transform: translateX(calc(var(--arrow-live, 0) * var(--arrow-travel)));
+    transition: transform var(--arrow-duration) var(--arrow-curve);
+  }
+
+  /* The finished arrow, drawn rather than assembled. */
+  @media (prefers-reduced-motion: reduce) {
+    .arrow-shaft {
+      opacity: 1;
+    }
+
+    .arrow-head {
+      transform: translateX(var(--arrow-travel));
+    }
+  }
+}
+
 @layer base {
   /*
    * Primitives. The raw palette, named for the ink rather than the job it
@@ -107,6 +137,10 @@
     --wave-height: clamp(40px, 6vw, 84px);
     --anchor-offset: calc(var(--nav-height) + 32px);
     --plate-pad-top: calc(var(--nav-height) + 24px);
+
+    --arrow-travel: 5px;
+    --arrow-duration: 300ms;
+    --arrow-curve: cubic-bezier(0.25, 1, 0.5, 1);
 
     --control-height: 56px;
     --control-height-sm: 44px;
@@ -244,6 +278,9 @@
      * has. A band whose wave bites into the band below overrides these
      * with that band's own. */
 
+    --shadow-raise:
+      0 15px 40px -2px rgba(0, 0, 0, 0.55), 0 5px 20px -2px rgba(0, 0, 0, 0.4);
+
     --wave-ink: var(--hull-900);
     --wave-ink-mid: var(--hull-850);
     --wave-ink-back: var(--hull-950);
@@ -340,6 +377,9 @@
     --ocean-dot-5: var(--mist-400);
     --ocean-dot-6: var(--mist-380);
     --ocean-line: var(--graphite-600);
+
+    --shadow-raise:
+      0 15px 40px -2px rgba(0, 0, 0, 0.1), 0 5px 20px -2px rgba(0, 0, 0, 0.06);
 
     --wave-ink: var(--foam-050);
     --wave-ink-mid: var(--foam-150);
@@ -443,6 +483,9 @@
     --ocean-dot-5: var(--mist-400);
     --ocean-dot-6: var(--mist-380);
     --ocean-line: var(--graphite-600);
+
+    --shadow-raise:
+      0 15px 40px -2px rgba(0, 0, 0, 0.11), 0 5px 20px -2px rgba(0, 0, 0, 0.07);
 
     --wave-ink: var(--paper-150);
     --wave-ink-mid: var(--paper-100);

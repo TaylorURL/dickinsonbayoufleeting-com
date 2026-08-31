@@ -18,7 +18,13 @@ const BASE = {
 
 const DEFAULT_SIZE = 14;
 
-export function ArrowRightIcon({ size = DEFAULT_SIZE, className }) {
+// A chevron that becomes an arrow. At rest only the head is drawn; on the way
+// in it travels the five pixels to where an arrow's point would be while the
+// shaft fades up behind it, ending exactly where the head now is. Both halves
+// read one custom property, so whatever is hovered or focused above the icon
+// drives it: a card can work the arrow inside it without the link knowing the
+// card is there. Under reduced motion the finished arrow is simply drawn.
+export function ArrowRightIcon({ size = DEFAULT_SIZE, className = "" }) {
   return (
     <svg
       {...BASE}
@@ -29,7 +35,8 @@ export function ArrowRightIcon({ size = DEFAULT_SIZE, className }) {
       height={size}
       strokeWidth="1.8"
     >
-      <path d="M4 12h15M13 6l6 6-6 6" />
+      <path d="M3 12h17" className="arrow-shaft" />
+      <path d="M9 6l6 6-6 6" className="arrow-head" />
     </svg>
   );
 }

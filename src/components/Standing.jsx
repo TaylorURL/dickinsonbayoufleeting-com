@@ -3,16 +3,16 @@ import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
 
 const CLAIMS = [
   {
-    lead: "Your window,\nnot ours",
-    body: "You tell us when the boat gets in and the slip is open when it gets there. That covers the arrivals at four in the morning, which is most of them.",
+    lead: "Your own\nfootprint",
+    body: "Gated acreage with bulkhead frontage, not a slip you share. Lay down spuds, deck barges and project equipment and leave them where you put them.",
   },
   {
     lead: "We know\nthis water",
     body: "Galveston Bay, the Ship Channel and the GIWW each have their own habits. Our crews have been working the reaches between them for years.",
   },
   {
-    lead: "One number\nfor the yard",
-    body: "Fleeting, cleaning, surveys and small repairs all reach the same phone, so a dispatcher has one person to call instead of four.",
+    lead: "Staffed from\nday one",
+    body: "The shore crew already works both yards. Nobody has to hire line handlers to make the lease worth having, and the gate is watched overnight.",
   },
 ];
 
@@ -22,10 +22,10 @@ const CLAIMS = [
 // which is why they are on the columns and not around them.
 function Standing() {
   return (
-    <Section surface="gray" aria-label="Why operators stay">
+    <Section surface="gray" aria-label="Why operators lease here">
       <Container>
         <Reveal>
-          <p className={`${MICRO_SM} text-faint`}>Why operators stay</p>
+          <p className={`${MICRO_SM} text-faint`}>Why operators lease here</p>
         </Reveal>
 
         <Stagger className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-y-12 md:grid-cols-3 md:gap-x-0">

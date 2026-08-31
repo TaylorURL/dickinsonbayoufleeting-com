@@ -53,7 +53,7 @@ function NotFound() {
               <li key={link.to} className="flex gap-0 border-b border-border">
                 <Link
                   to={link.to}
-                  className="group grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-5 px-3 py-6 text-secondary no-underline transition-[color,transform] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.99] xs:grid-cols-[theme(spacing.index)_minmax(0,1fr)_auto]"
+                  className="group grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-5 px-3 py-6 text-secondary no-underline transition-[color,transform] duration-quick ease-settle hover:text-primary hover:[--arrow-live:1] focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] active:scale-[0.99] xs:grid-cols-[theme(spacing.index)_minmax(0,1fr)_auto]"
                 >
                   <span
                     aria-hidden="true"
@@ -66,7 +66,7 @@ function NotFound() {
                   </span>
                   <span
                     aria-hidden="true"
-                    className="inline-flex items-center text-muted transition-transform duration-settle ease-settle group-hover:translate-x-2 motion-reduce:transition-none"
+                    className="inline-flex items-center text-muted"
                   >
                     <ArrowRightIcon />
                   </span>

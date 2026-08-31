@@ -192,7 +192,7 @@ function YardChart() {
   const yard = FACILITIES.find((f) => f.id === activeId);
 
   return (
-    <Section surface="gray" id="yards" aria-label="The two yards">
+    <Section surface="light" id="yards" aria-label="The two yards">
       <Container>
         <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
           <Reveal className="lg:sticky lg:top-anchor lg:self-start">
@@ -206,11 +206,12 @@ function YardChart() {
 
           <div className="flex min-w-0 flex-col">
             <h2 className="m-0 max-w-title text-h2 text-primary">
-              Two yards on the same stretch of water.
+              Two yards, five acres each.
             </h2>
             <p className="mt-5 max-w-prose text-lead text-secondary">
-              Both are five acres of working waterfront with a crew on site.
-              Which one you want comes down to the reach your tow already runs.
+              Both are gated waterfront with bulkhead frontage and room to lay
+              down spuds, deck barges and project equipment. Which one you want
+              comes down to the reach your tow already runs.
             </p>
 
             {/* The tabs and the chart nodes are the same control twice, so the

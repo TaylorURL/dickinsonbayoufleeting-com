@@ -6,11 +6,11 @@ import { FACILITIES } from "../app/constants/facilities";
 import { useCountUp } from "../app/hooks/useCountUp";
 
 const HERO_EYEBROW = "Dickinson Bayou Fleeting · Texas Gulf Coast";
-const HERO_TITLE_LEAD = "We hold the slip until";
-const HERO_TITLE_ACCENT = "your tow";
-const HERO_TITLE_TRAIL = "gets here.";
+const HERO_TITLE_LEAD = "Lease the yard.";
+const HERO_TITLE_ACCENT = "The crew";
+const HERO_TITLE_TRAIL = "is already on it.";
 const HERO_SUBTITLE =
-  "Two working yards on Galveston Bay and the Gulf Intracoastal Waterway. Fleeting, mooring and five-acre dock leases, with a crew on site.";
+  "Five gated acres of bulkhead frontage at San Leon or Freeport, with the shore crew, the slip and the line handling already running. From $4,100 a month.";
 
 const ACRES = FACILITIES.reduce((sum, f) => sum + f.acres, 0);
 const COUNT_UP_MS = 1600;
@@ -136,11 +136,17 @@ function HeroSection() {
                 {HERO_TITLE_LEAD}
               </span>
             </span>
-            <span className="block overflow-hidden">
+            {/* The mask that hides a line before it rises would cut the rule
+                off with it, so the box is opened by the depth of the rule and
+                pulled back by the same amount. */}
+            <span className="-mb-[10px] block overflow-hidden pb-[10px]">
               <span className="inline-block animate-rise-2 motion-reduce:animate-none">
                 {/* With no hue in the palette the emphasis is carried by a rule
                     under the words rather than by a colour on them. */}
-                <span className="border-b-3 border-accent pb-1 font-bold">
+                {/* Laid out as a block so the rule under it belongs to the line
+                    box; on an inline span it hangs below one and the mask above
+                    cuts it off. */}
+                <span className="inline-block border-b-3 border-accent pb-1 font-bold">
                   {HERO_TITLE_ACCENT}
                 </span>{" "}
                 {HERO_TITLE_TRAIL}
@@ -154,10 +160,10 @@ function HeroSection() {
 
           <div className="flex animate-rise-4 flex-wrap items-center gap-3 motion-reduce:animate-none">
             <Button variant="primary" href="#contact" onClick={openInquiry}>
-              Get a Slip Quote
+              Get Lease Terms
             </Button>
-            <Button variant="ghost" to="/services">
-              See What We Handle
+            <Button variant="ghost" href="#yards">
+              See Both Yards
             </Button>
           </div>
         </div>

@@ -11,17 +11,18 @@ import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
 // the services page, and the two are deliberately not the same shape.
 function ServiceRegister() {
   return (
-    <Section surface="light" id="services" aria-label="What we do">
+    <Section surface="gray" id="services" aria-label="What we do">
       <Container>
         <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,1fr)] lg:gap-16">
           <Reveal className="lg:sticky lg:top-anchor lg:self-start">
-            <p className={`${MICRO_SM} text-faint`}>What we do</p>
+            <p className={`${MICRO_SM} text-faint`}>What comes with it</p>
             <h2 className="m-0 mt-5 max-w-title text-h2 text-primary">
-              Seven jobs on two docks.
+              The dock is already staffed.
             </h2>
             <p className="m-0 mt-5 max-w-prose text-lead text-secondary">
-              Most customers come to us for the first one and end up using three
-              or four. All of them reach the same phone.
+              Leasing here is not leasing bare land. The crew that works these
+              two yards every day covers all seven of these, and they are on
+              site whether your lease uses them or not.
             </p>
             <Button variant="ghost" to="/services" className="mt-8">
               See All Services

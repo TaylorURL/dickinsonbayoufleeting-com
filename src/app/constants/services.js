@@ -72,18 +72,3 @@ export const SERVICES = [
     meta: "Long-term lease",
   },
 ];
-
-export const SERVICE_HIGHLIGHTS = [
-  {
-    title: "We work to your loading window",
-    body: "You tell us when the boat gets in and we hold the slip for it. The schedule is yours; we fit around it.",
-  },
-  {
-    title: "We know this water",
-    body: "Our crews have been moving barges between Galveston Bay, the Houston Ship Channel and the GIWW for years, and every reach between them has its own habits.",
-  },
-  {
-    title: "One number for the whole yard",
-    body: "Fleeting, cleaning, surveys and small repairs all reach the same phone, so a dispatcher has one person to call instead of four.",
-  },
-];

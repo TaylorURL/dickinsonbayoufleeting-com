@@ -2,7 +2,7 @@
 // rather than keeping its own copy.
 export const HOME_SECTIONS = [
   { id: "overview", label: "Overview" },
-  { id: "services", label: "Services" },
   { id: "yards", label: "The Yards" },
+  { id: "services", label: "What Comes With It" },
   { id: "intake", label: "Getting In" },
 ];

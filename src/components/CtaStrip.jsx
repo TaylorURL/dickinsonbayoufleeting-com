@@ -8,9 +8,9 @@ import { Reveal } from "./ui/Reveal";
 // number is a smaller promise than the number set at the size of a headline.
 function CtaStrip({
   eyebrow = "Next step",
-  title = "Get a slip, or a yard on a lease.",
-  body = "Give us the boat, the dates and the port pairs. A written quote comes back inside one business day, and the line is faster still.",
-  primary = { label: "Get a Written Quote", to: "/contact" },
+  title = "Take a yard on a lease.",
+  body = "Tell us the footprint you need and the reach your tow runs. Written lease terms come back inside one business day, and the line is faster still.",
+  primary = { label: "Get Lease Terms", to: "/contact" },
 }) {
   const phoneHref = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`;
   return (
