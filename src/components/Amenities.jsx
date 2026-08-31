@@ -67,7 +67,7 @@ function Amenities() {
               key={amenity.name}
               className={`border-b border-border ${staggerChild(idx)}`}
             >
-              <div className={`${ROW} ${ROW_INNER} ${ROW_MARKER} py-6 lg:py-7`}>
+              <div className={`${ROW} ${ROW_INNER} ${ROW_MARKER} py-5`}>
                 <span
                   aria-hidden="true"
                   className={`${SLOT.index} font-mono text-xs font-medium tracking-control text-muted`}

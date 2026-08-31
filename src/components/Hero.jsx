@@ -57,7 +57,7 @@ function HeroSection() {
       data-surface="dark"
       aria-label="Introduction"
       id="overview"
-      className={`relative isolate flex min-h-plate flex-col items-stretch gap-0 overflow-hidden text-primary [min-height:100svh] ${WAVE_INTO_LIGHT}`}
+      className={`relative isolate flex min-h-plate flex-col items-stretch gap-0 overflow-hidden text-primary [min-height:86svh] ${WAVE_INTO_LIGHT}`}
     >
       <div
         aria-hidden="true"
@@ -69,7 +69,7 @@ function HeroSection() {
         <HeroMarks />
       </div>
 
-      <Container className="relative grid flex-1 grid-cols-[minmax(0,1fr)] gap-7 pb-12 pt-plate-top lg:grid-cols-[minmax(0,1.35fr)_minmax(360px,420px)] lg:gap-x-9 lg:gap-y-7 laptop:gap-x-8 laptop:gap-y-5 laptop:pb-11">
+      <Container className="relative grid flex-1 grid-cols-[minmax(0,1fr)] gap-6 pb-10 pt-plate-top lg:grid-cols-[minmax(0,1.35fr)_minmax(360px,420px)] lg:gap-x-9 lg:gap-y-7 laptop:gap-x-8 laptop:gap-y-5 laptop:pb-11">
         {/* The headline is sized against this column rather than against the
             window, because the column is what it has to fit into: the console
             beside it takes a fixed slice, so viewport width alone does not say

@@ -27,7 +27,7 @@ function ServicesList({ surface = "dark" }) {
               id={s.id}
               className={`scroll-mt-anchor border-b border-border ${staggerChild(idx)}`}
             >
-              <div className={`${ROW} ${ROW_INNER} ${ROW_MARKER} py-8`}>
+              <div className={`${ROW} ${ROW_INNER} ${ROW_MARKER} py-6`}>
                 <span
                   aria-hidden="true"
                   className={`${SLOT.index} font-mono text-xs font-medium tracking-control text-muted`}

@@ -7,6 +7,16 @@ import { useEffect, useRef, useState } from "react";
 //
 // The clip carries no sound and no controls. It is a surface, not a player: a
 // reader who wants to watch something has not been offered anything to watch.
+
+// The grade. The source is a phone clip at 1024 wide, cropped and then thrown
+// across a plate several times that size, so it arrives soft and blocky in the
+// sky. A half-pixel of blur takes the block edges off before the contrast finds
+// them, the contrast and saturation put the night back, and the brightness step
+// keeps the whole thing under the headline rather than beside it. The same
+// language the map grade is written in, for the same reason.
+const GRADE =
+  "[filter:blur(0.5px)_brightness(0.92)_contrast(1.14)_saturate(1.08)] " +
+  "motion-reduce:[filter:brightness(0.92)_contrast(1.1)_saturate(1.05)]";
 function HeroFilm({ className = "" }) {
   const videoRef = useRef(null);
   const [painted, setPainted] = useState(false);
@@ -38,7 +48,7 @@ function HeroFilm({ className = "" }) {
     <video
       ref={videoRef}
       aria-hidden="true"
-      className={`absolute inset-0 block h-full w-full object-cover [min-height:100%] transition-opacity duration-settle ease-settle ${
+      className={`absolute inset-0 block h-full w-full scale-[1.02] object-cover [min-height:100%] transition-opacity duration-settle ease-settle ${GRADE} ${
         painted ? "opacity-100" : "opacity-0"
       } ${className}`.trim()}
       height="432"

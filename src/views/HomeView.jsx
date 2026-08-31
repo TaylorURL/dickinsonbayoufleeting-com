@@ -1,8 +1,6 @@
 import HeroSection from "../components/Hero";
 import ServicesPreview from "../components/ServicesPreview";
 import LeasePackage from "../components/LeasePackage";
-import Amenities from "../components/Amenities";
-import ServiceArea from "../components/ServiceArea";
 import Location from "../components/Location";
 import CtaStrip from "../components/CtaStrip";
 import { MAIN_ID } from "../app/constants/landmarks";
@@ -28,8 +26,6 @@ function HomeView() {
       <HeroSection />
       <ServicesPreview />
       <LeasePackage />
-      <Amenities />
-      <ServiceArea />
       <Location />
       <CtaStrip
         eyebrow="Get in touch"
