@@ -1,0 +1,41 @@
+.App {
+  /* The shell exists to hang the bar, the outlet and the footer off. It sets no
+   * type, no colour and no alignment — every band decides those for itself. */
+  isolation: isolate;
+}
+
+/* Off screen until it is tabbed to, which is the only time it is wanted. It
+ * lands over the bar rather than under it, because the bar is what it exists to
+ * get past. */
+.skipLink {
+  position: fixed;
+  top: var(--space-3);
+  left: var(--space-3);
+  z-index: var(--layer-modal);
+  transform: translateY(calc(-100% - var(--space-6)));
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--control-height-sm);
+  padding-inline: var(--space-5);
+  background: var(--color-highlight);
+  color: var(--color-text-on-highlight);
+  font-family: var(--face-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--track-control);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform var(--transition-fast) var(--curve-settle);
+}
+
+.skipLink:focus-visible {
+  transform: translateY(0);
+  outline: none;
+  box-shadow: var(--ring-focus);
+}
+
+main:focus-visible {
+  outline: none;
+}

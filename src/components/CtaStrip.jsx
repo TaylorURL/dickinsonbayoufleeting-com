@@ -1,0 +1,39 @@
+import "./styles/CtaStrip.css";
+import { PHONE_NUMBER } from "../app/constants/phoneNumber";
+import { Link } from "../app/router/Link";
+import { useReveal } from "../app/hooks/useReveal";
+
+function CtaStrip({
+  eyebrow = "Next step",
+  title = "Get a slip, or a yard on a lease.",
+  body = "Tell us about the job and we will get back to you inside one business day. The direct line is always faster.",
+  primary = { label: "Send a Request", to: "/contact" },
+}) {
+  const innerRef = useReveal();
+  const phoneHref = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`;
+  return (
+    <section className="ctaStrip" data-surface="dark" aria-label="Get in Touch">
+      <div className="container">
+        <div className="ctaStrip__inner reveal-on-scroll" ref={innerRef}>
+          <div className="ctaStrip__copy">
+            <p className="eyebrow eyebrow--strong mono ctaStrip__eyebrow">
+              {eyebrow}
+            </p>
+            <h2 className="ctaStrip__title">{title}</h2>
+            <p className="ctaStrip__body">{body}</p>
+          </div>
+          <div className="ctaStrip__actions">
+            <Link to={primary.to} className="btn btn--primary">
+              {primary.label}
+            </Link>
+            <a href={phoneHref} className="btn btn--ghost">
+              {PHONE_NUMBER}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export default CtaStrip;

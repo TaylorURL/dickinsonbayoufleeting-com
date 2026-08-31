@@ -1,0 +1,106 @@
+.pagePlate {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  /* The foam band below is what the closing wave is cut out of. */
+  --wave-ink: var(--foam-050);
+  --wave-ink-mid: var(--foam-150);
+  --wave-ink-back: var(--foam-200);
+  min-height: var(--header-min-height);
+  min-height: 62svh;
+  padding-block: var(--plate-pad-top) 0;
+  color: var(--color-text-primary);
+}
+
+.pagePlate__bg {
+  position: absolute;
+  inset: 0;
+  z-index: var(--layer-behind);
+  background: var(--color-bg-deep);
+}
+
+.pagePlate__scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-header-scrim);
+}
+
+/* The auto block margins take the plate's spare height, which centres the copy
+ * and leaves the wave on the bottom edge. Centring the pair instead splits that
+ * height either side of them, and the half below the wave shows as a band of
+ * plate under a seam that is supposed to be the end of it. */
+.pagePlate__inner {
+  position: relative;
+  margin-block: auto;
+  padding-bottom: var(--space-10);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-5);
+}
+
+.pagePlate__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  animation: pagePlateRise 0.7s var(--curve-swell) both;
+}
+
+.pagePlate__eyebrow .signalDot {
+  margin-right: 4px;
+}
+
+.pagePlate__title {
+  font-family: var(--face-condensed);
+  font-size: var(--text-h1);
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  font-weight: 700;
+  max-width: var(--measure-display);
+  overflow-wrap: anywhere;
+  min-width: 0;
+  animation: pagePlateRise 0.9s 0.1s var(--curve-swell) both;
+}
+
+.pagePlate__subtitle {
+  font-family: var(--face-body);
+  font-size: var(--text-lead);
+  line-height: 1.55;
+  max-width: var(--measure-prose);
+  color: var(--color-text-secondary);
+  animation: pagePlateRise 0.9s 0.24s var(--curve-swell) both;
+}
+
+.pagePlate__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  animation: pagePlateRise 0.9s 0.36s var(--curve-swell) both;
+}
+
+@keyframes pagePlateRise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pagePlate__eyebrow,
+  .pagePlate__title,
+  .pagePlate__subtitle,
+  .pagePlate__actions {
+    animation: none;
+  }
+}

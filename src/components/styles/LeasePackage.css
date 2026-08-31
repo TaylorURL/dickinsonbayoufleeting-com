@@ -1,0 +1,363 @@
+.rate {
+  background: var(--color-bg);
+  position: relative;
+}
+
+.estimator {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-8);
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-8);
+  position: relative;
+}
+
+.estimator::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: var(--rule-run-long);
+  height: var(--rule-accent);
+  background: var(--color-highlight);
+}
+
+.estimator__switch {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  position: static;
+  align-self: start;
+}
+
+.estimator__switchLabel {
+  font-family: var(--face-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.leaseSwitch {
+  display: flex;
+  flex-direction: column;
+  /* Rows are separated by their own hairline, not by space. */
+  gap: 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.leaseSwitch__btn {
+  appearance: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-4);
+  background: transparent;
+  color: var(--color-text-secondary);
+  border: 0;
+  border-bottom: 1px solid var(--color-hairline);
+  padding: var(--space-5) 0;
+  font-family: inherit;
+  position: relative;
+  min-height: var(--control-height);
+  touch-action: manipulation;
+  user-select: none;
+  transition:
+    color var(--transition-fast) var(--curve-settle),
+    transform var(--transition-base) var(--curve-settle);
+}
+
+.leaseSwitch__btn:last-child {
+  border-bottom: 0;
+}
+
+.leaseSwitch__btn::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  width: var(--tick-run);
+  height: var(--rule-accent);
+  background: var(--color-highlight);
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--transition-base) var(--curve-swell);
+}
+
+.leaseSwitch__btn:hover,
+.leaseSwitch__btn:focus-visible {
+  color: var(--color-text-primary);
+  outline: none;
+}
+
+.leaseSwitch__btn:active {
+  transform: scale(0.99);
+}
+
+.leaseSwitch__btn:focus-visible {
+  outline: 1px solid var(--color-highlight-ring);
+  outline-offset: 4px;
+}
+
+.leaseSwitch__btn[data-active="true"] {
+  color: var(--color-text-primary);
+}
+
+.leaseSwitch__btn[data-active="true"]::before {
+  transform: translateY(-50%) scaleX(1);
+}
+
+.leaseSwitch__btnIndex {
+  font-family: var(--face-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast) var(--curve-settle);
+}
+
+.leaseSwitch__btn[data-active="true"] .leaseSwitch__btnIndex {
+  color: var(--color-highlight);
+}
+
+.leaseSwitch__btnName {
+  font-family: var(--face-condensed);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  letter-spacing: 0.012em;
+  text-transform: uppercase;
+}
+
+.estimator__result {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-7);
+  align-items: start;
+}
+
+.estimator__priceCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.estimator__priceLabel,
+.estimator__includedLabel {
+  font-family: var(--face-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.estimator__priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  animation: estimatorPriceIn var(--transition-base) var(--curve-swell);
+}
+
+.estimator__currency {
+  font-family: var(--face-condensed);
+  font-size: var(--text-h4);
+  font-weight: 600;
+  color: var(--color-text-faint);
+  line-height: 1;
+  align-self: flex-start;
+  padding-top: 8px;
+}
+
+.estimator__figure {
+  font-family: var(--face-condensed);
+  font-size: var(--text-figure-sm);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: 0.005em;
+  color: var(--color-text-primary);
+}
+
+.estimator__period {
+  font-family: var(--face-mono);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  margin-left: 8px;
+}
+
+.estimator__caption {
+  font-family: var(--face-body);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  letter-spacing: normal;
+  max-width: var(--measure-prose);
+  color: var(--color-text-secondary);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-hairline);
+}
+
+.estimator__included {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.leaseIncludedList {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding-block: var(--rule-hairline) var(--space-1);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.leaseIncludedList::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--rule-hairline);
+  background: var(--color-hairline);
+}
+
+.leaseIncludedList__item {
+  display: grid;
+  grid-template-columns: var(--control-height-sm) minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-4);
+  position: relative;
+  padding: var(--space-4) 0;
+  transition: transform var(--transition-base) var(--curve-settle);
+  animation: leaseIncludedRise 0.28s var(--curve-swell) both;
+}
+
+.leaseIncludedList__item:nth-child(1) {
+  animation-delay: 0.04s;
+}
+.leaseIncludedList__item:nth-child(2) {
+  animation-delay: 0.09s;
+}
+.leaseIncludedList__item:nth-child(3) {
+  animation-delay: 0.14s;
+}
+.leaseIncludedList__item:nth-child(4) {
+  animation-delay: 0.19s;
+}
+.leaseIncludedList__item:nth-child(n + 5) {
+  animation-delay: 0.24s;
+}
+
+.leaseIncludedList__item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--rule-hairline);
+  background: var(--color-hairline);
+}
+
+@keyframes leaseIncludedRise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .leaseIncludedList__item {
+    animation: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .leaseIncludedList__item:hover {
+    transform: translateX(var(--space-2));
+  }
+}
+
+.leaseIncludedList__idx {
+  font-family: var(--face-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--color-accent);
+  transition: color var(--transition-fast) var(--curve-settle);
+}
+
+.leaseIncludedList__text {
+  font-family: var(--face-body);
+  font-size: var(--text-md);
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+.estimator__cta {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.estimator__assurance {
+  font-family: var(--face-body);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  letter-spacing: normal;
+  max-width: var(--measure-prose);
+  color: var(--color-text-faint);
+}
+
+@keyframes estimatorPriceIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .estimator__priceRow {
+    animation: none;
+  }
+}
+
+@media (min-width: 540px) {
+  .estimator__figure {
+    font-size: var(--text-figure);
+  }
+}
+
+/* The facility switch holds its place beside the panel it changes. */
+@media (min-width: 1080px) {
+  .estimator {
+    grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+    gap: var(--space-9);
+  }
+
+  .estimator__switch {
+    position: sticky;
+    top: calc(var(--nav-height) + var(--space-6));
+  }
+
+  .estimator__result {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: var(--space-8) var(--space-9);
+  }
+}

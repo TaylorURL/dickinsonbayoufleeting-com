@@ -1,0 +1,243 @@
+.hero {
+  position: relative;
+  /* svh, not the static viewport unit: that one measures the tallest the
+   * viewport ever gets, so a hero sized by it spends its first paint hidden
+   * behind the browser chrome. The px floor is the fallback. */
+  min-height: var(--plate-min-height);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* The wave has to meet the band below it with no seam. */
+  gap: 0;
+  /* The foam band below is what the closing wave is cut out of. */
+  --wave-ink: var(--foam-050);
+  --wave-ink-mid: var(--foam-150);
+  --wave-ink-back: var(--foam-200);
+  overflow: hidden;
+  isolation: isolate;
+  color: var(--color-text-primary);
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: var(--layer-behind);
+  background: var(--color-bg-deep);
+  overflow: hidden;
+  /* Slight upscale so parallax drift never reveals an edge. */
+  height: 115%;
+  will-change: transform;
+}
+
+/* The plate slides by --hero-plate-drift of its own height over the range where
+ * the hero leaves the viewport, which is the whole of the parallax. The scroll
+ * timeline drives it off the compositor, so nothing runs on the main thread as
+ * the page moves; a browser without one simply gets a still plate. */
+@keyframes heroPlateDrift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, var(--hero-plate-drift), 0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__bg {
+      animation: heroPlateDrift linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+  }
+}
+
+/* Layered radial wash — top corner lifts toward the highlight to anchor
+ * the eye to the CTA, bottom darkens for legible text. */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-plate-scrim);
+}
+
+.hero__vignette {
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-hero-vignette);
+  pointer-events: none;
+}
+
+/* The register marks a chart is trimmed to, at the four corners of the plate. */
+.hero__marks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hero__marksTick {
+  stroke: var(--color-text-primary);
+  opacity: 0.35;
+}
+
+.hero__frame {
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "inner"
+    "console";
+  gap: var(--space-7);
+  padding-block: var(--plate-pad-top) var(--space-12);
+}
+
+.hero__inner {
+  grid-area: inner;
+  /* The headline is sized against this column rather than against the window,
+   * because the column is what it has to fit into: the console beside it takes
+   * a fixed slice, so viewport width alone does not say how much room is left. */
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-7);
+  align-self: center;
+  max-width: var(--measure-hero);
+}
+
+.hero__eyebrow {
+  color: var(--color-highlight);
+  animation: heroRise 0.9s 0.05s var(--curve-swell) both;
+}
+
+.hero__title {
+  font-family: var(--face-condensed);
+  font-size: var(--text-hero);
+  /* The longest line runs about 13 times the type size, so this is the size at
+   * which it still lands on one line. A browser with no container query keeps
+   * the step above. */
+  font-size: min(var(--text-hero), 7.4cqw);
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  font-weight: 700;
+  text-transform: uppercase;
+  max-width: var(--measure-display);
+  overflow-wrap: anywhere;
+  min-width: 0;
+  color: var(--color-text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: var(--display-line-gap);
+}
+
+.hero__titleLine {
+  display: block;
+  overflow: hidden;
+}
+
+.hero__titleLine > * {
+  display: inline-block;
+}
+
+.hero__titleLine:nth-child(1) {
+  animation: heroRise 1s 0.1s var(--curve-swell) both;
+}
+
+.hero__titleLine:nth-child(2) {
+  animation: heroRise 1s 0.24s var(--curve-swell) both;
+}
+
+.hero__titleAccent {
+  color: var(--color-highlight);
+  font-weight: 700;
+}
+
+.hero__subtitle {
+  font-family: var(--face-body);
+  font-size: var(--text-lead);
+  line-height: 1.55;
+  max-width: var(--measure-prose);
+  color: var(--color-text-secondary);
+  font-weight: 400;
+  animation: heroRise 0.9s 0.38s var(--curve-swell) both;
+  overflow-wrap: anywhere;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  animation: heroRise 0.9s 0.5s var(--curve-swell) both;
+}
+
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* A laptop is wide and short. Without this the headline, the lede and the two
+ * buttons stack past the fold on a 1280x800 screen, which is where most people
+ * meet the site for the first time. */
+@media (min-width: 1080px) and (max-height: 900px) {
+  .hero__frame {
+    padding-block: var(--plate-pad-top-short) var(--space-11);
+    gap: var(--space-5) var(--space-8);
+  }
+
+  .hero__inner {
+    gap: var(--space-5);
+  }
+
+  .hero__title {
+    --text-hero: clamp(2.2rem, 4.2vw, 3.4rem);
+    overflow-wrap: anywhere;
+  }
+
+  .hero__subtitle {
+    font-size: var(--text-base);
+    overflow-wrap: anywhere;
+  }
+}
+
+/* The buttons stop filling the row once there is space beside them. */
+@media (min-width: 540px) {
+  .hero__title {
+    max-width: var(--measure-display);
+  }
+
+  .hero__actions .btn {
+    flex: 0 0 auto;
+  }
+}
+
+/* The console moves alongside the headline. */
+@media (min-width: 1080px) {
+  .hero__frame {
+    grid-template-columns: minmax(0, 1.35fr) minmax(360px, 420px);
+    grid-template-areas: "inner console";
+    gap: var(--space-7) var(--space-9);
+  }
+
+  .hero__inner {
+    max-width: var(--measure-hero);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__eyebrow,
+  .hero__titleLine,
+  .hero__subtitle,
+  .hero__actions {
+    animation: none;
+  }
+}

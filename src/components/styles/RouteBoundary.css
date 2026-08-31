@@ -1,0 +1,59 @@
+/* Sits where the page header would have been, at the same height and on the
+ * same ground, so a route that fails still hands the reader a page rather
+ * than a gap between the bar and the footer. */
+.routeError {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  /* One child, centred by its own auto margins, as on the fallback plate. */
+  gap: 0;
+  min-height: var(--header-min-height);
+  padding-block: var(--plate-pad-top) var(--space-10);
+  background: var(--color-bg-deep);
+  background-image: var(--texture-hull);
+  background-size: var(--texture-hull-size);
+  color: var(--color-text-primary);
+}
+
+.routeError__inner {
+  margin-block: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.routeError__eyebrow {
+  font-size: var(--eyebrow-size);
+  font-weight: 500;
+  letter-spacing: var(--eyebrow-tracking);
+  text-transform: uppercase;
+  color: var(--color-highlight);
+}
+
+.routeError__title {
+  font-family: var(--face-condensed);
+  font-size: var(--text-h2);
+  overflow-wrap: anywhere;
+  line-height: 1.04;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  font-weight: 700;
+  max-width: var(--measure-display);
+}
+
+.routeError__body {
+  font-family: var(--face-body);
+  font-size: var(--text-lead);
+  line-height: 1.55;
+  max-width: var(--measure-prose);
+  color: var(--color-text-secondary);
+}
+
+.routeError__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}

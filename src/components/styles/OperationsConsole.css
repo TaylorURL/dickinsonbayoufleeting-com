@@ -1,0 +1,316 @@
+/* The panel that sits beside the hero headline: the two yards, what they add
+ * up to, and the number that reaches a person. It keeps the hero's grid slot
+ * and nothing else about the hero. */
+
+.opsConsole {
+  grid-area: console;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  padding: var(--space-6) var(--space-5);
+  background-color: var(--surface-console);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md), var(--shadow-inset-card);
+}
+
+.opsConsole__tickTL,
+.opsConsole__tickTR,
+.opsConsole__tickBL,
+.opsConsole__tickBR {
+  position: absolute;
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+  pointer-events: none;
+}
+
+.opsConsole__tickTL {
+  top: var(--space-2);
+  left: var(--space-2);
+  border-top: 1px solid var(--color-highlight);
+  border-left: 1px solid var(--color-highlight);
+}
+
+.opsConsole__tickTR {
+  top: var(--space-2);
+  right: var(--space-2);
+  border-top: 1px solid var(--color-highlight);
+  border-right: 1px solid var(--color-highlight);
+}
+
+.opsConsole__tickBL {
+  bottom: var(--space-2);
+  left: var(--space-2);
+  border-bottom: 1px solid var(--color-highlight);
+  border-left: 1px solid var(--color-highlight);
+}
+
+.opsConsole__tickBR {
+  bottom: var(--space-2);
+  right: var(--space-2);
+  border-bottom: 1px solid var(--color-highlight);
+  border-right: 1px solid var(--color-highlight);
+}
+
+.opsConsole__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.opsConsole__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--face-mono);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.opsConsole__meta {
+  font-family: var(--face-mono);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  overflow-wrap: anywhere;
+}
+
+.opsConsole__facilities {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.opsConsole__facility {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: var(--space-3);
+  row-gap: var(--space-1);
+  align-items: baseline;
+  padding-block: var(--space-3);
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.opsConsole__facility:last-child {
+  border-bottom: 0;
+}
+
+.opsConsole__facilityCode {
+  grid-row: 1;
+  grid-column: 1;
+  font-family: var(--face-mono);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  color: var(--color-highlight);
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.opsConsole__facilityName {
+  grid-row: 1;
+  grid-column: 2;
+  font-family: var(--face-condensed);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  letter-spacing: 0.012em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.opsConsole__facilityCoord {
+  grid-row: 3;
+  grid-column: 2;
+  font-family: var(--face-mono);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-text-faint);
+  overflow-wrap: anywhere;
+}
+
+.opsConsole__facilityRegion {
+  grid-row: 2;
+  grid-column: 2 / 4;
+  font-family: var(--face-mono);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  overflow-wrap: anywhere;
+}
+
+.opsConsole__stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3) var(--space-4);
+  margin: 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-hairline);
+}
+
+.opsConsole__stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-1) 0 var(--space-1) var(--space-3);
+  margin: 0;
+  border-left: 1px solid var(--color-hairline);
+  transition: border-color var(--transition-base) var(--curve-settle);
+}
+
+.opsConsole__stat:first-child,
+.opsConsole__stat:nth-child(3) {
+  border-left-color: var(--color-highlight);
+}
+
+.opsConsole__statLabel {
+  font-family: var(--face-mono);
+  font-size: var(--text-3xs);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.opsConsole__statValue {
+  font-family: var(--face-condensed);
+  font-size: var(--text-h4-sm);
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  line-height: 1;
+  color: var(--color-text-primary);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.opsConsole__statSuffix {
+  color: var(--color-highlight);
+  font-weight: 600;
+  letter-spacing: 0;
+  margin-left: var(--display-line-gap);
+}
+
+.opsConsole__directLine {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  text-decoration: none;
+  color: var(--color-text-primary);
+  background: var(--surface-console-inset);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    border-color var(--transition-fast) var(--curve-settle),
+    color var(--transition-fast) var(--curve-settle),
+    transform var(--transition-base) var(--curve-settle);
+}
+
+.opsConsole__directLine:hover {
+  border-color: var(--color-highlight);
+}
+
+.opsConsole__directLine:focus-visible {
+  outline: none;
+  border-color: var(--color-highlight);
+  box-shadow: var(--ring-focus);
+}
+
+.opsConsole__directLine:active {
+  transform: scale(0.99);
+}
+
+.opsConsole__directLine:hover .opsConsole__directArrow,
+.opsConsole__directLine:focus-visible .opsConsole__directArrow {
+  transform: translateX(4px);
+}
+
+.opsConsole__directLabel {
+  font-family: var(--face-mono);
+  font-size: var(--text-2xs);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  overflow-wrap: anywhere;
+}
+
+.opsConsole__directNumber {
+  white-space: nowrap;
+  font-family: var(--face-condensed);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: 0.012em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  overflow-wrap: anywhere;
+}
+
+.opsConsole__directArrow {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-text-faint);
+  transition:
+    transform var(--transition-base) var(--curve-settle),
+    color var(--transition-fast) var(--curve-settle);
+}
+
+/* The coordinates return to the end of the facility line. */
+@media (min-width: 540px) {
+  .opsConsole {
+    padding: var(--space-7) var(--space-6);
+  }
+
+  .opsConsole__facility {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .opsConsole__facilityCoord {
+    grid-row: 1;
+    grid-column: 3;
+  }
+
+  .opsConsole__stats {
+    gap: var(--space-4) var(--space-5);
+  }
+
+  .opsConsole__statValue {
+    font-size: var(--text-h4);
+  }
+}
+
+/* Beside the headline, the panel sits to the hero's own centre line. */
+@media (min-width: 1080px) {
+  .opsConsole {
+    align-self: center;
+  }
+}
+
+/* A laptop is wide and short, so the panel gives back what it can. */
+@media (min-width: 1080px) and (max-height: 900px) {
+  .opsConsole {
+    gap: var(--space-4);
+    padding: var(--space-6) var(--space-5);
+  }
+}
