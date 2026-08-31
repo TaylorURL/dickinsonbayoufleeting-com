@@ -14,13 +14,13 @@ import { useSeoMeta } from "../app/hooks/useSeoMeta";
 export const metadata = {
   title: "Page Not Found | Dickinson Bayou Fleeting",
   description:
-    "The address you followed does not match a page on this site. Every page we publish is linked below, and the operations desk can point you the rest of the way.",
+    "The address you followed does not match a page on this site. Every page we publish is linked below, and a call will point you the rest of the way.",
   canonical: null,
   robots: "noindex,follow",
   openGraph: {
     title: "Page Not Found | Dickinson Bayou Fleeting",
     description:
-      "The address you followed does not match a page on this site. Every page we publish is linked below, and the operations desk can point you the rest of the way.",
+      "The address you followed does not match a page on this site. Every page we publish is linked below, and a call will point you the rest of the way.",
     url: null,
   },
 };
@@ -38,7 +38,7 @@ function NotFound() {
           Back to Home
         </Button>
         <Button variant="ghost" to="/contact">
-          Contact the Desk
+          Call the Yard
         </Button>
       </PagePlate>
 

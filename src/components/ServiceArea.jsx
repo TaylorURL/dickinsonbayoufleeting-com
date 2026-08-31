@@ -1,57 +1,61 @@
 import { SERVICE_AREA_CITIES } from "../app/constants/serviceArea";
-import { BAND, Container, Section, SectionHead } from "./ui/Layout";
-import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
+import { PHONE_NUMBER } from "../app/constants/phoneNumber";
+import { Container, MICRO_SM, Section } from "./ui/Layout";
+import { Reveal } from "./ui/Reveal";
 
-// The rule under a cell fills from the left as the pointer crosses it, which is
-// the cell's whole hover: the ground stays put so twelve cells do not all
-// change colour at once as the pointer travels the grid.
-const CELL_RULE =
-  "after:absolute after:-bottom-px after:left-0 after:h-accent after:w-full after:origin-left after:scale-x-0 after:bg-highlight after:transition-transform after:duration-settle after:ease-swell after:content-[''] hover:after:scale-x-100 motion-reduce:after:transition-none";
-
-function ServiceArea() {
+// Set as a run rather than as a grid. Twelve towns in twelve ruled cells asks
+// to be read as twelve separate things when the only fact in it is the extent
+// of one coastline, and a run of large type says that extent in one look. The
+// counties stay attached to their towns because a name on this coast is only
+// unambiguous with one.
+function ServiceArea({ surface = "gray" }) {
   return (
-    <Section surface="light" id="service-area" aria-label="Service Area">
-      <Container className={BAND}>
-        <Reveal>
-          <SectionHead
-            eyebrow="Coverage"
-            title="Galveston Bay, the Ship Channel, the GIWW."
-            subtitle="San Leon sits on Galveston Bay with quick access to the Ship Channel. Freeport extends the same operation south along the GIWW."
-            plate="channel"
-          />
+    <Section surface={surface} id="service-area" aria-label="Where we work">
+      <Container>
+        <Reveal className="max-w-head">
+          <p className={`${MICRO_SM} text-faint`}>Where we work</p>
+          <h2 className="m-0 mt-5 max-w-title text-h2 text-primary">
+            Galveston Bay, the Ship Channel, the GIWW.
+          </h2>
         </Reveal>
 
-        <Stagger
-          as="ul"
-          aria-label="Cities and Areas Served"
-          className="m-0 grid list-none grid-cols-2 gap-0 border-t border-border p-0 md:grid-cols-3 lg:grid-cols-4"
-        >
-          {SERVICE_AREA_CITIES.map((city, idx) => (
-            <li key={city.name} className={staggerChild(idx)}>
-              <div
-                className={`relative flex h-full flex-col gap-2 border-b border-r border-hairline px-4 py-5 ${CELL_RULE}`}
-              >
-                <span className="font-mono text-xs font-medium tracking-control text-muted">
-                  {String(idx + 1).padStart(2, "0")}
-                </span>
-                <span className="font-condensed text-lg font-semibold uppercase tracking-normal text-primary">
+        <Reveal className="mt-12 border-t border-border-strong pt-10">
+          <ul className="m-0 flex list-none flex-wrap items-baseline gap-x-5 gap-y-4 p-0">
+            {SERVICE_AREA_CITIES.map((city, i) => (
+              <li key={city.name} className="flex items-baseline gap-5">
+                {i > 0 ? (
+                  <span
+                    aria-hidden="true"
+                    className="font-condensed text-h4 leading-none text-muted"
+                  >
+                    ·
+                  </span>
+                ) : null}
+                <span className="font-condensed text-h3 font-bold uppercase leading-none tracking-tight text-primary">
                   {city.name}
+                  <span
+                    className={`${MICRO_SM} ml-2 align-super text-faint`}
+                  >
+                    {city.county}
+                  </span>
                 </span>
-                <span className="font-mono text-2xs font-medium uppercase tracking-label text-faint">
-                  {city.county}
-                </span>
-              </div>
-            </li>
-          ))}
-        </Stagger>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
 
-        <p className="block max-w-prose border-l-2 border-highlight pl-5 text-md leading-relaxed text-secondary">
-          <span className="mr-2 inline-block font-mono text-xs font-medium tracking-control text-highlight">
-            Note:
-          </span>
-          Coverage runs across Brazoria, Galveston and Harris county
-          waterfronts. Call and ask about any port not on the list.
-        </p>
+        <Reveal className="mt-12 grid grid-cols-[minmax(0,1fr)] gap-8 border-t border-hairline pt-8 lg:grid-cols-2 lg:gap-16">
+          <p className="m-0 max-w-prose text-md text-secondary">
+            San Leon sits on Galveston Bay with quick access to the Houston Ship
+            Channel. Freeport carries the same operation south along the Gulf
+            Intracoastal Waterway.
+          </p>
+          <p className="m-0 max-w-prose text-md text-secondary">
+            A town that is not on this list is not a no. If your tow already runs
+            the reach, call {PHONE_NUMBER} and we will tell you straight whether
+            we can hold a slip for it.
+          </p>
+        </Reveal>
       </Container>
     </Section>
   );

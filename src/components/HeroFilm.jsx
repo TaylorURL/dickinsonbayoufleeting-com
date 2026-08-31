@@ -14,9 +14,12 @@ import { useEffect, useRef, useState } from "react";
 // them, the contrast and saturation put the night back, and the brightness step
 // keeps the whole thing under the headline rather than beside it. The same
 // language the map grade is written in, for the same reason.
+// The grade does two jobs. Grayscale holds the footage inside a palette that
+// has no hue in it anywhere else, and the half-pixel blur under raised contrast
+// takes the compression edges off a source that was never shot for a hero.
 const GRADE =
-  "[filter:blur(0.5px)_brightness(0.92)_contrast(1.14)_saturate(1.08)] " +
-  "motion-reduce:[filter:brightness(0.92)_contrast(1.1)_saturate(1.05)]";
+  "[filter:grayscale(1)_blur(0.5px)_brightness(0.88)_contrast(1.24)] " +
+  "motion-reduce:[filter:grayscale(1)_brightness(0.88)_contrast(1.18)]";
 function HeroFilm({ className = "" }) {
   const videoRef = useRef(null);
   const [painted, setPainted] = useState(false);

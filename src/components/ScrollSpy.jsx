@@ -75,7 +75,7 @@ function ScrollSpy({ generation = 0 }) {
     <nav
       data-surface={surface}
       aria-label="On This Page"
-      className="pointer-events-none fixed right-[clamp(20px,2.4vw,36px)] top-1/2 z-rail hidden -translate-y-1/2 bg-transparent font-mono transition-colors duration-settle ease-settle lg:block"
+      className="pointer-events-none fixed right-[clamp(20px,2.4vw,36px)] top-1/2 z-rail hidden -translate-y-1/2 bg-transparent font-mono transition-colors duration-settle ease-settle rail:block"
     >
       <ol className="pointer-events-auto m-0 flex list-none flex-col gap-3 p-0">
         {sections.map((section, idx) => {

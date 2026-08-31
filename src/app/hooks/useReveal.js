@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 
-// Holds the reveal back until a block is a little way into the viewport, so it
-// arrives as the reader reaches it rather than at the moment its first pixel
-// appears.
-const DEFAULT_ROOT_MARGIN = "0px 0px -10% 0px";
-const DEFAULT_OPTIONS = { threshold: 0.18, once: true };
+// The band is called in before its first pixel lands, so the entrance has run
+// by the time the reader is looking at it. Revealing on arrival means every
+// band is caught mid-animation, which reads as the page still loading.
+const DEFAULT_ROOT_MARGIN = "0px 0px 15% 0px";
+const DEFAULT_OPTIONS = { threshold: 0, once: true };
 
 // Reports whether an element has reached the viewport. The ref goes on the
 // element, and `revealed` picks between the hidden and settled utility sets the

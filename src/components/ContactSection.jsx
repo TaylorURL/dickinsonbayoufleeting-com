@@ -96,7 +96,7 @@ function ContactSection() {
               </h2>
               <p className="max-w-prose text-lead text-secondary">
                 Single-barge job or year-long lease, we are happy to talk. Phone
-                is fastest. The form goes straight to the operations desk.
+                is fastest. The form reaches whoever is on shift.
               </p>
             </div>
 
@@ -113,7 +113,7 @@ function ContactSection() {
                 </dd>
               </div>
               <div className="flex flex-col gap-1">
-                <dt className={`${MICRO} text-faint`}>Operations Desk</dt>
+                <dt className={`${MICRO} text-faint`}>Direct Line</dt>
                 <dd className="max-w-prose-tight text-md text-secondary">
                   Shore presence 24 / 7. The office is staffed weekdays, with
                   the on-call line monitored at all other hours.

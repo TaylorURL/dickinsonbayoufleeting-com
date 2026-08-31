@@ -84,6 +84,6 @@ export const SERVICE_HIGHLIGHTS = [
   },
   {
     title: "One number for the whole yard",
-    body: "Fleeting, cleaning, surveys and small repairs all run through the same operations desk, so a dispatcher has one person to call instead of four.",
+    body: "Fleeting, cleaning, surveys and small repairs all reach the same phone, so a dispatcher has one person to call instead of four.",
   },
 ];

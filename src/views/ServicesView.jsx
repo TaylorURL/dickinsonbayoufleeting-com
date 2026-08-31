@@ -37,7 +37,7 @@ function ServicesView() {
         </Button>
       </PagePlate>
       <ServicesList surface="light" />
-      <LeasePackage />
+      <LeasePackage surface="gray" />
       <Faq surface="light" />
       <CtaStrip
         title="Describe the job and we will place it."
