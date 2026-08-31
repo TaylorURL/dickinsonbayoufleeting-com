@@ -1,6 +1,6 @@
 {
   "name": "dickinsonbayoufleeting",
-  "version": "2026.36.0",
+  "version": "2026.36.1",
   "private": true,
   "engines": {
     "node": "22.x"

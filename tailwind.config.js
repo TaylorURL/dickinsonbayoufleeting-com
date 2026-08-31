@@ -9,6 +9,38 @@
 
 const colour = (token) => `var(--color-${token})`;
 
+// Duration as one table, for the same reason the type scale is one. A duration
+// typed into an animation string drifts away from the transition sitting beside
+// it, and nothing catches it: both look right alone. Two lengths, two curves,
+// and one step the entrance delays count off, so a stagger and a hover move on
+// the same clock.
+const DURATION = { quick: 160, settle: 280, step: 40 };
+
+const CURVE = {
+  settle: "cubic-bezier(0.22, 1, 0.36, 1)",
+  swell: "cubic-bezier(0.16, 0.84, 0.32, 1)",
+};
+
+const ms = (n) => `${n}ms`;
+
+// Four entrance steps. An animation cannot read transition-delay, so the same
+// four are spent twice - once as delay utilities, once baked into a named
+// animation - and are counted from one place so the two never part.
+const STEPS = [1, 2, 3, 4];
+
+const stagger = Object.fromEntries(
+  STEPS.map((step) => [step, ms(step * DURATION.step)]),
+);
+
+const rise = Object.fromEntries(
+  [["rise", 0], ...STEPS.map((step) => [`rise-${step}`, step * DURATION.step])].map(
+    ([name, delay]) => [
+      name,
+      `rise ${ms(DURATION.settle)}${delay ? ` ${ms(delay)}` : ""} ${CURVE.swell} both`,
+    ],
+  ),
+);
+
 // The type scale as one table. Every step declares size, leading, tracking and
 // weight, so no call site has to finish the definition. Across the display
 // steps leading and tracking both compress as the size grows: type set at seven
@@ -19,7 +51,15 @@ const TYPE = {
   "figure-sm": ["clamp(3.4rem, 16vw, 4.6rem)", "0.94", "-0.005em", "700"],
   h1: ["clamp(2.6rem, 6vw, 5rem)", "0.96", "-0.005em", "700"],
   h2: ["clamp(2.2rem, 4.8vw, 3.8rem)", "1", "0em", "600"],
-  hero: ["var(--text-hero)", "1.02", "0.005em", "700"],
+  // The one step whose size a container query re-derives, so all four of its
+  // values sit in the token block together rather than the size alone going
+  // there and the other three staying here.
+  hero: [
+    "var(--text-hero)",
+    "var(--text-hero-leading)",
+    "var(--text-hero-tracking)",
+    "var(--text-hero-weight)",
+  ],
   h3: ["clamp(1.9rem, 3.6vw, 2.7rem)", "1.06", "0.01em", "600"],
   h4: ["clamp(1.6rem, 2.8vw, 2.3rem)", "1.1", "0.015em", "600"],
   h5: ["clamp(1.35rem, 2.2vw, 1.8rem)", "1.16", "0.02em", "600"],
@@ -97,6 +137,10 @@ module.exports = {
       "border-strong": colour("border-strong"),
       hairline: colour("hairline"),
       "field-border": colour("field-border"),
+      // The well a field sits in. Its own role rather than bg-deep borrowed,
+      // because the two answer to different questions: how deep the hull goes,
+      // and how far a field has to stand off whatever is hosting it.
+      "field-surface": colour("field-surface"),
 
       primary: colour("text-primary"),
       secondary: colour("text-secondary"),
@@ -298,14 +342,11 @@ module.exports = {
       // reveals and anything that should read as water rather than snap. No
       // overshoot curve: a control that springs past its resting size reads as
       // a toy on a working dock.
-      transitionTimingFunction: {
-        settle: "cubic-bezier(0.22, 1, 0.36, 1)",
-        swell: "cubic-bezier(0.16, 0.84, 0.32, 1)",
-      },
+      transitionTimingFunction: CURVE,
 
       transitionDuration: {
-        quick: "160ms",
-        settle: "280ms",
+        quick: ms(DURATION.quick),
+        settle: ms(DURATION.settle),
         // Long enough that the transition never arrives. The one use is
         // holding Chrome's autofill background off a field: the browser
         // repaints it on its own schedule, and a transition that never lands
@@ -315,12 +356,7 @@ module.exports = {
 
       // One delay rhythm, four steps. Every entrance on the page counts off
       // these and no others, so two bands never arrive on different clocks.
-      transitionDelay: {
-        1: "40ms",
-        2: "80ms",
-        3: "120ms",
-        4: "160ms",
-      },
+      transitionDelay: stagger,
 
       keyframes: {
         rise: {
@@ -344,21 +380,16 @@ module.exports = {
       // read transition-delay, so each step is its own named animation rather
       // than a utility stacked on top of one.
       animation: {
-        rise: "rise 280ms cubic-bezier(0.16, 0.84, 0.32, 1) both",
-        "rise-1": "rise 280ms 40ms cubic-bezier(0.16, 0.84, 0.32, 1) both",
-        "rise-2": "rise 280ms 80ms cubic-bezier(0.16, 0.84, 0.32, 1) both",
-        "rise-3": "rise 280ms 120ms cubic-bezier(0.16, 0.84, 0.32, 1) both",
-        "rise-4": "rise 280ms 160ms cubic-bezier(0.16, 0.84, 0.32, 1) both",
+        ...rise,
         // Held at nothing for the length of a cached chunk's arrival, then
         // brought up. `both` keeps the opening frame's opacity through the
         // delay, which is what stops a fast route flashing a placeholder on
         // its way past.
-        arrive: "arrive 280ms 240ms cubic-bezier(0.22, 1, 0.36, 1) both",
+        arrive: `arrive ${ms(DURATION.settle)} ${ms(6 * DURATION.step)} ${CURVE.settle} both`,
         // Driven by a scroll timeline rather than a clock, so the duration is
         // the range the host declares and not a value here.
         "plate-drift": "plate-drift linear both",
-        "click-ripple":
-          "click-ripple 280ms cubic-bezier(0.22, 1, 0.36, 1) forwards",
+        "click-ripple": `click-ripple ${ms(DURATION.settle)} ${CURVE.settle} forwards`,
       },
 
       // A thumb needs the same reach across a control as down it, so the two

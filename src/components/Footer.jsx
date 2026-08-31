@@ -5,7 +5,8 @@ import { Link } from "../app/router/Link";
 import WaveDivider from "./WaveDivider";
 import { ArrowUpIcon, PhoneIcon } from "./Icons";
 import Button from "./ui/Button";
-import { Container, Eyebrow, HULL_PLATE } from "./ui/Layout";
+import { Container, Eyebrow, HULL_PLATE, MICRO_SM } from "./ui/Layout";
+import Logo from "./ui/Logo";
 
 /* footer: ft1-mast-headed */
 
@@ -35,11 +36,6 @@ const FOOTER_HOURS = [
   { label: "Office", value: "Mon-Fri · 7a-5p CT" },
   { label: "Operations Desk", value: "24 / 7 · On-call answered" },
 ];
-
-const MICRO = "font-mono text-2xs font-medium uppercase tracking-label";
-
-const LOGO_SRCSET = (tone) =>
-  `/images/DBF-Logo-${tone}-120.png 120w, /images/DBF-Logo-${tone}-240.png 240w, /images/DBF-Logo-${tone}.png 500w`;
 
 function Footer({ children }) {
   const year = new Date().getFullYear();
@@ -98,7 +94,9 @@ function Footer({ children }) {
                       key={h.label}
                       className="grid grid-cols-[minmax(0,1fr)] gap-1 xs:grid-cols-[theme(spacing.label)_minmax(0,1fr)] xs:items-baseline xs:gap-3"
                     >
-                      <span className={`${MICRO} text-faint`}>{h.label}</span>
+                      <span className={`${MICRO_SM} text-faint`}>
+                        {h.label}
+                      </span>
                       <span className="font-body text-sm text-secondary">
                         {h.value}
                       </span>
@@ -124,16 +122,10 @@ function Footer({ children }) {
                 aria-label="Dickinson Bayou Fleeting, Home"
                 className="inline-flex transition-transform duration-settle ease-settle hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight active:scale-[0.99] motion-reduce:transition-none"
               >
-                <img
-                  src="/images/DBF-Logo-White.png"
-                  srcSet={LOGO_SRCSET("White")}
-                  sizes="(max-width: 700px) 96px, 120px"
-                  alt="Dickinson Bayou Fleeting"
-                  width="240"
-                  height="240"
-                  loading="lazy"
-                  decoding="async"
-                  className="h-footer-logo w-auto object-contain"
+                <Logo
+                  tone="White"
+                  sizes="(max-width: 1000px) 140px, 200px"
+                  className="h-footer-logo"
                 />
               </Link>
 
@@ -149,7 +141,7 @@ function Footer({ children }) {
                 {FOOTER_CREDENTIALS.map((c) => (
                   <li
                     key={c}
-                    className={`${MICRO} mr-5 inline-flex items-center gap-2 py-3 pr-4 text-secondary before:text-3xs before:text-highlight before:content-['◇']`}
+                    className={`${MICRO_SM} mr-5 inline-flex items-center gap-2 py-3 pr-4 text-secondary before:text-3xs before:text-highlight before:content-['◇']`}
                   >
                     {c}
                   </li>
@@ -185,7 +177,7 @@ function Footer({ children }) {
                     className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-1 border-b border-hairline pb-3 last:border-b-0"
                   >
                     <span
-                      className={`${MICRO} row-span-4 self-start pt-1 tracking-control text-highlight`}
+                      className={`${MICRO_SM} row-span-4 self-start pt-1 tracking-control text-highlight`}
                     >
                       F-{String(idx + 1).padStart(2, "0")}
                     </span>
@@ -211,7 +203,7 @@ function Footer({ children }) {
                       </a>
                       <a
                         href={`tel:1${facility.phone.replace(/[^0-9]/g, "")}`}
-                        className="inline-flex min-h-control-sm items-center font-mono text-xs font-medium tracking-label tabular-nums text-faint no-underline transition-colors duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none"
+                        className="inline-flex min-h-control-sm items-center font-mono text-xs font-medium tracking-label tabular-nums text-faint no-underline transition-colors duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none active:scale-[0.99]"
                       >
                         {facility.phone}
                       </a>
@@ -226,7 +218,7 @@ function Footer({ children }) {
             aria-label="Coverage"
             className="mt-9 flex flex-wrap items-baseline gap-3 border-t border-hairline px-0 pb-0 pt-4"
           >
-            <span className={`${MICRO} text-highlight`}>Coverage</span>
+            <span className={`${MICRO_SM} text-highlight`}>Coverage</span>
             <span className="font-mono text-xs font-medium tracking-normal text-secondary">
               Galveston Bay · Houston Ship Channel · Gulf Intracoastal Waterway
               · Brazoria · Galveston · Harris

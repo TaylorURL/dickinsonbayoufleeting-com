@@ -25,6 +25,7 @@
    */
   :root {
     /* Hull - the dark navy the whole site is cut from. */
+    --hull-975: #01050a;
     --hull-950: #04090f;
     --hull-900: #07101c;
     --hull-850: #0e1828;
@@ -89,6 +90,9 @@
      * capped against its own column with a container query, and a query cannot
      * read the Tailwind scale. */
     --text-hero: clamp(2.4rem, 4.3vw, 3.2rem);
+    --text-hero-leading: 1.02;
+    --text-hero-tracking: 0.005em;
+    --text-hero-weight: 700;
 
     --container-max: 1440px;
     --container-pad: clamp(20px, 4.5vw, 56px);
@@ -134,6 +138,7 @@
     --color-bg: var(--hull-900);
     --color-surface: var(--hull-850);
     --color-bg-deep: var(--hull-950);
+    --color-field-surface: var(--hull-975);
 
     --color-accent: var(--signal-400);
     --color-accent-ring: rgba(255, 184, 102, 0.36);
@@ -247,6 +252,7 @@
     --color-bg: var(--foam-050);
     --color-surface: var(--foam-000);
     --color-bg-deep: var(--foam-200);
+    --color-field-surface: var(--foam-200);
 
     --color-accent: var(--signal-800);
     --color-accent-ring: rgba(132, 64, 20, 0.32);
@@ -345,6 +351,7 @@
     --color-bg: var(--steel-800);
     --color-surface: var(--steel-700);
     --color-bg-deep: var(--steel-900);
+    --color-field-surface: var(--steel-900);
 
     --color-accent: var(--signal-350);
     --color-accent-ring: rgba(255, 194, 125, 0.38);
@@ -486,6 +493,9 @@
     text-transform: uppercase;
     text-wrap: balance;
     overflow-wrap: anywhere;
+    /* A grid or flex child refuses to shrink past its longest word without
+     * this, so the break the line above allows never gets the chance. */
+    min-width: 0;
   }
 
   p {

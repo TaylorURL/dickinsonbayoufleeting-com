@@ -3,7 +3,7 @@ import ServicesList from "../components/ServicesList";
 import LeasePackage from "../components/LeasePackage";
 import Faq from "../components/Faq";
 import CtaStrip from "../components/CtaStrip";
-import { Link } from "../app/router/Link";
+import Button from "../components/ui/Button";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";
 
@@ -29,12 +29,12 @@ function ServicesView() {
         title="Coastal barge fleeting, marine services & dock leasing."
         subtitle="Everything we offer at the San Leon and Freeport yards: what each service includes, who it is for, and how to get started."
       >
-        <Link className="btn btn--primary" to="/contact">
+        <Button variant="primary" to="/contact">
           Request a Quote
-        </Link>
-        <a className="btn btn--ghost" href="#services-detail">
+        </Button>
+        <Button variant="ghost" href="#services-detail">
           Jump to Services
-        </a>
+        </Button>
       </PagePlate>
       <ServicesList surface="light" />
       <LeasePackage />

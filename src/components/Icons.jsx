@@ -43,7 +43,7 @@ export function ArrowUpIcon({ size = DEFAULT_SIZE, className }) {
       className={className}
       width={size}
       height={size}
-      strokeWidth="1.6"
+      strokeWidth="1.8"
     >
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
@@ -59,7 +59,7 @@ export function ChevronDownIcon({ size = DEFAULT_SIZE, className }) {
       className={className}
       width={size}
       height={size}
-      strokeWidth="1.6"
+      strokeWidth="1.8"
     >
       <path d="M6 9l6 6 6-6" />
     </svg>

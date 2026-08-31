@@ -59,6 +59,7 @@ function AboutStory() {
             <SectionHead
               eyebrow="How we work"
               title="Four things we will not compromise on."
+              plate="towboat"
             />
           </Reveal>
 

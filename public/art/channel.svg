@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 140" role="img" aria-label="Marked channel through the bay">
+  <title>Marked channel through the bay</title>
+  <style>
+    /* --hull-900 */  .ground { fill: #07101c; }
+    /* --hull-800 */  .sky    { fill: #121e30; }
+    /* --hull-850 */  .water  { fill: #0e1828; }
+    /* --mist-600 */  .far    { fill: #778294; }
+    /* --mist-200 */  .ink    { fill: #c5d2e0; }
+    /* --signal-500 */ .mark  { fill: #f0a045; }
+    /* --rust-500 */  .tier2  { fill: #ba6c47; }
+    .rule        { stroke: #778294; stroke-width: 1; fill: none; }
+    .wire        { stroke: #c5d2e0; stroke-width: 1.2; fill: none; }
+    .accent-rule { stroke: #f0a045; stroke-width: 1.4; fill: none; }
+  </style>
+  <rect class="ground" width="320" height="140"/>
+  <rect class="sky" width="320" height="82"/>
+  <rect class="water" y="82" width="320" height="58"/>
+  <rect class="mark" y="81.4" width="320" height="1.2" opacity="0.5"/>
+  <g class="far" opacity="0.5">
+    <rect x="0" y="75" width="150" height="7"/>
+    <rect x="176" y="77" width="144" height="5"/>
+  </g>
+  <!-- Two day marks on their piles: the channel, which is the service area. -->
+  <rect class="ink" x="70" y="70" width="4" height="46"/>
+  <path class="mark" d="M72,36 L84,60 L60,60 Z"/>
+  <rect class="ink" x="228" y="74" width="4" height="42"/>
+  <rect class="ink" x="217" y="46" width="26" height="26"/>
+  <rect class="ground" x="222" y="51" width="16" height="16" opacity="0.7"/>
+  <!-- A tow standing down the channel between them, small and far off. -->
+  <path class="ink" d="M142.4,88.0 H181.6 L184.0,91.5 L181.6,95.0 H142.4 L140.0,91.5 Z"/>
+  <path class="ink" d="M186,88 H206 L209,91 L206,95 H186 Z"/>
+  <rect class="ink" x="192" y="82" width="12" height="6"/>
+  <!-- The range: where the channel runs. -->
+  <path class="accent-rule" d="M44,124 C112,114 208,114 284,124" opacity="0.5"/>
+  <g class="far" opacity="0.45">
+    <rect x="14" y="98" width="26" height="1.4"/>
+    <rect x="58" y="110" width="34" height="1.4"/>
+    <rect x="118" y="103" width="22" height="1.4"/>
+    <rect x="164" y="120" width="40" height="1.4"/>
+    <rect x="226" y="106" width="28" height="1.4"/>
+    <rect x="268" y="126" width="32" height="1.4"/>
+    <rect x="36" y="128" width="30" height="1.4"/>
+    <rect x="206" y="93" width="18" height="1.4"/>
+  </g>
+</svg>
