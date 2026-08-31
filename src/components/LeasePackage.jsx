@@ -1,20 +1,11 @@
 import { useState } from "react";
 import { LEASE_OPTIONS } from "../app/constants/leaseOptions";
 import Button from "./ui/Button";
-import { BAND, Container, Section, SectionHead } from "./ui/Layout";
-import { Reveal } from "./ui/Reveal";
-
-const MICRO = "font-mono text-xs font-medium uppercase tracking-label";
+import { BAND, Container, MICRO, Section, SectionHead } from "./ui/Layout";
+import { Reveal, rise } from "./ui/Reveal";
 
 // Written out rather than built from the index: Tailwind reads these files as
 // text, so a class name assembled at runtime is a class name it never sees.
-const RISE = [
-  "animate-rise-1",
-  "animate-rise-2",
-  "animate-rise-3",
-  "animate-rise-4",
-];
-
 // The tick beside the selected facility, laid out at its full run and scaled
 // from nothing so the mark arrives without the row moving.
 const SWITCH_TICK =
@@ -117,7 +108,7 @@ function LeasePackage() {
                 {loc.included.map((feature, idx) => (
                   <li
                     key={feature}
-                    className={`relative grid ${RISE[Math.min(idx, RISE.length - 1)]} grid-cols-[theme(spacing[control-sm])_minmax(0,1fr)] items-baseline gap-4 py-4 transition-transform duration-settle ease-settle before:absolute before:bottom-0 before:left-0 before:right-0 before:h-px before:bg-hairline before:content-[''] hover:translate-x-2 motion-reduce:animate-none motion-reduce:transition-none`}
+                    className={`relative grid ${rise(Math.min(idx + 1, 4))} grid-cols-[theme(spacing[control-sm])_minmax(0,1fr)] items-baseline gap-4 py-4 transition-transform duration-settle ease-settle before:absolute before:bottom-0 before:left-0 before:right-0 before:h-px before:bg-hairline before:content-[''] hover:translate-x-2 motion-reduce:animate-none motion-reduce:transition-none`}
                   >
                     <span className="font-mono text-xs font-medium tracking-control text-accent">
                       {String(idx + 1).padStart(2, "0")}

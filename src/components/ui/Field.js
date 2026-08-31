@@ -6,12 +6,15 @@
 // hosts them, so a field reads the same on the paper panel of the contact form
 // and on the hull ground of the inquiry panel.
 const CONTROL = [
-  "w-full appearance-none rounded-none border bg-bg-deep p-4",
+  "w-full appearance-none rounded-none border bg-field-surface p-4",
   "font-body text-base leading-snug text-primary",
   // A transparent outline held at its final width, so focus lands without the
   // field moving under it.
   "outline outline-2 -outline-offset-0 outline-transparent",
   "transition-[border-color,background-color,outline-color] duration-quick ease-settle",
+  // Hover brings the ring up faintly rather than moving the border, because
+  // the border is where the field says whether what is in it is valid.
+  "hover:outline-highlight-ring",
   "focus-visible:border-highlight focus-visible:outline-highlight",
 ].join(" ");
 

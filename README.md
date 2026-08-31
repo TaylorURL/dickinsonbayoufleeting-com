@@ -16,33 +16,18 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2026.36.0-f0a045?style=for-the-badge" alt="Version 2026.36.0" />
+  <img src="https://img.shields.io/badge/version-2026.36.2-f0a045?style=for-the-badge" alt="Version 2026.36.2" />
   <img src="https://img.shields.io/badge/React-19-07101c?style=for-the-badge&logo=react&logoColor=white" alt="React 19" />
   <img src="https://img.shields.io/badge/Create_React_App-5-07101c?style=for-the-badge&logo=createreactapp&logoColor=white" alt="Create React App 5" />
-  <img src="https://img.shields.io/badge/CSS-custom_properties-07101c?style=for-the-badge&logo=css3&logoColor=white" alt="CSS custom properties" />
+  <img src="https://img.shields.io/badge/Tailwind-3-07101c?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 3" />
   <img src="https://img.shields.io/badge/Vercel-07101c?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
 </p>
 
 <br />
 
-## Why Dickinson Bayou Fleeting
+## What shapes it
 
-Fleeting is a phone-call business, so the site's job is to get a dispatcher to call: fast, from any page, on a phone with one bar out on the dock. That shapes everything: no framework routing, no CSS-in-JS, no cookie banner, and a quote request always one tap away. What is left is a small React bundle over a plain CSS token system.
-
-<table width="100%">
-  <tr>
-    <td width="50%" valign="top">
-      <p align="center"><b>Lead capture from anywhere</b></p>
-      <p align="center">Any button dispatches an <code>inquiry:open</code> event. The app shell opens the modal, so triggers stay decoupled from the form.</p>
-    </td>
-    <td width="50%" valign="top">
-      <p align="center"><b>No dependency it does not need</b></p>
-      <p align="center">Routing, styling and the hero are hand-rolled. React and the shared footer bar are the whole of the shipped dependency tree.</p>
-    </td>
-  </tr>
-</table>
-
-<br />
+Fleeting is a phone-call business, so the site is built to put a dispatcher on the phone from wherever the reader has got to: the number is in the bar, in the footer and on a fixed strip at phone widths, and any button on the site can open the quote panel by dispatching an `inquiry:open` event that the app shell listens for. React and the shared footer bar are the whole of the shipped dependency tree; the router and the hero are written here, and the palette, type scale and motion set are custom properties Tailwind reads.
 
 ## Stack
 
@@ -50,8 +35,8 @@ Fleeting is a phone-call business, so the site's job is to get a dispatcher to c
 | :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | UI          | React 19                                                                                                                                                            |
 | Build & dev | Create React App (`react-scripts` 5)                                                                                                                                |
-| Routing     | Custom History-API router in `src/app/router`, with no React Router                                                                                                 |
-| Styling     | Plain CSS custom properties. One token set in `src/app/styles/Theme.css`, component rules colocated                                                                 |
+| Routing     | Custom History-API router in `src/app/router`                                                                                                                       |
+| Styling     | Tailwind, over one custom-property token set in `src/app/styles/tailwind.css`; the scales it reads are in `tailwind.config.js`                                      |
 | Type        | Barlow Condensed, IBM Plex Sans and JetBrains Mono, self-hosted; the two faces the first screen sets are preloaded from `public/fonts`                              |
 | Theming     | Fixed dark page; per-section `[data-surface="light" \| "dark"]` flipping                                                                                            |
 | Hero        | Canvas 2D procedural ocean-topography animation (reduced-motion and off-screen aware)                                                                               |
@@ -69,7 +54,7 @@ npm start                # CRA dev server at localhost:3000
 npm run build            # production build to build/
 ```
 
-No environment configuration is required. The three services the browser talks to — the inquiry function, the analytics tracker and the error collector — are addressed by URL in `src/app/constants/inquiryForm.js` and `public/index.html`. The only credential among them is the tracker's public site key, which sits beside its script tag, so there is no `.env` to fill in. The build runs on Node 22, and `CI=true npm run build` matches the Vercel build, where warnings fail the build.
+No environment configuration is required. The three services the browser talks to (the inquiry function, the analytics tracker and the error collector) are addressed by URL in `src/app/constants/inquiryForm.js` and `public/index.html`. The only credential among them is the tracker's public site key, which sits beside its script tag, so there is no `.env` to fill in. The build runs on Node 22, and `CI=true npm run build` matches the Vercel build, where warnings fail the build.
 
 ### Scripts
 
@@ -115,22 +100,24 @@ flowchart TD
 
 ## How it works
 
-- **The router is three files.** `Router.js`, `Link.js`, and a `routes.js` table drive History-API navigation; React Router is not in the dependency tree.
+- **The router is three files.** `Router.js`, `Link.js`, and a `routes.js` table drive History-API navigation.
 - **Content lives in constants.** Facilities, services, lease options, FAQ, nav links, service area, and about copy are each a module under `src/app/constants`. The views only render them.
 - **One form, two places.** The five inquiry fields, their rules and their error wording live in `src/app/constants/inquiryForm.js`; `InquiryFields` renders them for both the modal and the contact page. Both forms post to a Supabase function through the shared submit, which gives up after 15 seconds and shows a failure instead of a confirmation.
 - **The water draws itself.** `OceanTopographyBackground` rides a dot field and its contour lines on one shared flow field over a Canvas 2D context, behind the home hero and behind every inner page header. It stops while off-screen or in a hidden tab, and paints a single static frame under `prefers-reduced-motion`.
 - **Two yards, one record.** San Leon (2629 Avenue R, Dickinson, TX) at $4,100/month and Freeport (906 Marlin Ln, Freeport, TX) at $4,800/month, both 5-acre waterfront facilities, come from `src/app/constants/facilities.js`, which the lease cards, the maps, the footer and the contact page all read. The hero console keeps its own short list because it shows coordinates the record does not carry.
 - **A broken page reports itself.** An inline script in `public/index.html` catches uncaught errors, rejected promises, failed resource loads and 5xx responses, caps itself at ten reports a visit and beacons them to the collector. The privacy page says so, because those reports are one of the three things the site records.
-- **Routes are downloaded one at a time.** Each view is a `lazy` import behind a `Suspense` fallback, and `RouteBoundary` reloads once when a chunk goes missing — the shape of a deploy landing while a tab is still open.
+- **Routes are downloaded one at a time.** Each view is a `lazy` import behind a `Suspense` fallback, and `RouteBoundary` reloads once when a chunk goes missing, which is the shape of a deploy landing while a tab is still open.
 
 ## Project structure
 
 ```
 dickinsonbayoufleeting-com/
 ├── eslint.config.js           Flat config; the rules that hold outside the CRA build
+├── tailwind.config.js         The design system: colours, type scale, spacing, motion, layers
 ├── performance-budget.json    The recorded weight budget for the built bundle
 ├── vercel.json                Route rewrites, asset caching, the 404 status
 ├── public/
+│   ├── art/                   The drawn plates, one set on one viewBox and one palette
 │   ├── favicon*, apple-touch-icon.png, android-chrome-*.png
 │   ├── fonts/                 The two faces the first screen sets, preloaded
 │   ├── images/                DBF wordmark, black and white, at three sizes
@@ -147,10 +134,10 @@ dickinsonbayoufleeting-com/
     │   ├── fonts/             The remaining subsets and weights as woff2
     │   ├── hooks/             useSeoMeta, useBreadcrumbSchema, useReveal, useCountUp,
     │   │                      useScrolled, useClickRipple
-    │   └── styles/            Fonts.css faces, Theme.css tokens + global CSS
+    │   └── styles/            fonts.css faces, tailwind.css tokens + base layer
     ├── views/                 Home, Services, About, Contact, Privacy, Terms
     ├── pages/                 NotFound
-    └── components/            Section and UI components (+ colocated styles/)
+    └── components/            Section components, and the primitives under ui/
 ```
 
 ## License

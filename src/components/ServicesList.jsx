@@ -12,6 +12,7 @@ function ServicesList({ surface = "dark" }) {
             eyebrow="What we do"
             title="Barge fleeting and marine services, in plain language."
             subtitle="Seven services out of two coastal yards, for the towboats, dispatchers and barge operators we work with every day."
+            plate="fleeting"
           />
         </Reveal>
 

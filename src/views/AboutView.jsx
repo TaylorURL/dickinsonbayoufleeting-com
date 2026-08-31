@@ -2,7 +2,7 @@ import PagePlate from "../components/PagePlate";
 import AboutStory from "../components/AboutStory";
 import ServiceArea from "../components/ServiceArea";
 import CtaStrip from "../components/CtaStrip";
-import { Link } from "../app/router/Link";
+import Button from "../components/ui/Button";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";
 
@@ -28,12 +28,12 @@ function AboutView() {
         title="A small coastal fleeting company that picks up the phone."
         subtitle="Two yards on the upper Texas Gulf Coast, and a shore crew that lives close enough to be at either one in the time it takes you to call."
       >
-        <Link className="btn btn--primary" to="/contact">
+        <Button variant="primary" to="/contact">
           Get in Touch
-        </Link>
-        <Link className="btn btn--ghost" to="/services">
+        </Button>
+        <Button variant="ghost" to="/services">
           See Our Services
-        </Link>
+        </Button>
       </PagePlate>
       <AboutStory />
       <ServiceArea />
