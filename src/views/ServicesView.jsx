@@ -10,12 +10,12 @@ import { useSeoMeta } from "../app/hooks/useSeoMeta";
 export const metadata = {
   title: "Dock Lease Rates & Marine Services | Dickinson Bayou Fleeting",
   description:
-    "Monthly lease rates for the San Leon and Freeport yards, what each lease carries, and the seven jobs the shore crew covers on both docks.",
+    "Monthly lease rates for the Dickinson and Freeport yards, what each lease carries, and the seven jobs the shore crew covers on both docks.",
   canonical: "https://dickinsonbayoufleeting.com/services",
   openGraph: {
     title: "Dock Lease Rates & Marine Services | Dickinson Bayou Fleeting",
     description:
-      "Monthly lease rates for the San Leon and Freeport yards, what each lease carries, and the seven jobs the shore crew covers on both docks.",
+      "Monthly lease rates for the Dickinson and Freeport yards, what each lease carries, and the seven jobs the shore crew covers on both docks.",
     url: "https://dickinsonbayoufleeting.com/services",
   },
 };
@@ -27,7 +27,7 @@ function ServicesView() {
       <PagePlate
         eyebrow="Services"
         title="Lease the dock. Use the crew as you need it."
-        subtitle="What a lease at San Leon or Freeport carries, and the seven jobs the shore crew already covers on both yards."
+        subtitle="What a lease at Dickinson or Freeport carries, and the seven jobs the shore crew already covers on both yards."
       >
         <Button variant="primary" to="/contact">
           Get Lease Terms

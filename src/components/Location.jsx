@@ -234,7 +234,7 @@ function Location() {
           <SectionHead
             eyebrow="Facilities"
             title="Two yards, one number."
-            subtitle="San Leon sits on Galveston Bay. Freeport sits on the Gulf Intracoastal Waterway, south of Houston. The same crew runs both."
+            subtitle="Dickinson sits on Galveston Bay. Freeport sits on the Gulf Intracoastal Waterway, south of Houston. The same crew runs both."
           />
         </Reveal>
 

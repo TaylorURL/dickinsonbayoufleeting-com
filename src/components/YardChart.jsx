@@ -13,7 +13,7 @@ import { Reveal } from "./ui/Reveal";
 const SPINE = { top: 56, bottom: 496 };
 const MARKS = [
   { at: 0.04, label: "Houston Ship Channel", kind: "reach" },
-  { at: 0.22, id: "sanleon", kind: "yard" },
+  { at: 0.22, id: "dickinson", kind: "yard" },
   { at: 0.38, label: "Bolivar Roads", kind: "reach" },
   { at: 0.56, label: "GIWW", kind: "reach" },
   { at: 0.86, id: "freeport", kind: "yard" },
@@ -47,8 +47,8 @@ function Diagram({ activeId, onPick, titleId }) {
     >
       <title id={titleId}>
         Schematic of the waterway, north at the top: the Houston Ship Channel,
-        the San Leon yard on Galveston Bay, Bolivar Roads, the Gulf Intracoastal
-        Waterway, and the Freeport yard.
+        the Dickinson yard on Galveston Bay, Bolivar Roads, the Gulf
+        Intracoastal Waterway, and the Freeport yard.
       </title>
 
       {/* Statute ticks down the spine. They give the line a scale to be read

@@ -40,7 +40,7 @@ function LeasePackage({ surface = "gray" }) {
         <Reveal className="mt-12 -mx-gutter overflow-x-auto px-gutter">
           <table className="w-full min-w-[620px] border-separate border-spacing-0 text-left">
             <caption className="sr-only">
-              Lease rates and particulars for the San Leon and Freeport yards
+              Lease rates and particulars for the Dickinson and Freeport yards
             </caption>
             <thead>
               <tr>

@@ -5,10 +5,10 @@ import { PHONE_NUMBER } from "./phoneNumber";
 // yard's rate or its position is stated once.
 export const FACILITIES = [
   {
-    id: "sanleon",
+    id: "dickinson",
     code: "F-01",
-    name: "San Leon Facility",
-    shortName: "San Leon",
+    name: "Dickinson Facility",
+    shortName: "Dickinson",
     address: "2629 Avenue R, Dickinson, TX 77539",
     region: "Galveston Bay · Houston Ship Channel · Coastal Texas",
     waterway: "Galveston Bay",

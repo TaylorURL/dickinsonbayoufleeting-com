@@ -10,7 +10,7 @@ const HERO_TITLE_LEAD = "Lease the yard.";
 const HERO_TITLE_ACCENT = "The crew";
 const HERO_TITLE_TRAIL = "is already on it.";
 const HERO_SUBTITLE =
-  "Five gated acres of bulkhead frontage at San Leon or Freeport, with the shore crew, the slip and the line handling already running. From $4,100 a month.";
+  "Five gated acres of bulkhead frontage at Dickinson or Freeport, with the shore crew, the slip and the line handling already running. From $4,100 a month.";
 
 const ACRES = FACILITIES.reduce((sum, f) => sum + f.acres, 0);
 const COUNT_UP_MS = 1600;

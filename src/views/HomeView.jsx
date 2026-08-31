@@ -1,7 +1,6 @@
 import HeroSection from "../components/Hero";
 import YardChart from "../components/YardChart";
 import ServiceRegister from "../components/ServiceRegister";
-import Intake from "../components/Intake";
 import Standing from "../components/Standing";
 import CtaStrip from "../components/CtaStrip";
 import { MAIN_ID } from "../app/constants/landmarks";
@@ -10,12 +9,12 @@ import { useSeoMeta } from "../app/hooks/useSeoMeta";
 export const metadata = {
   title: "Dock Space for Lease | Dickinson Bayou Fleeting, Texas Gulf Coast",
   description:
-    "Five-acre gated waterfront yards for long-term lease at San Leon on Galveston Bay and Freeport on the GIWW. Bulkhead frontage, shore crew on site, from $4,100 a month.",
+    "Five-acre gated waterfront yards for long-term lease at Dickinson on Galveston Bay and Freeport on the GIWW. Bulkhead frontage, shore crew on site, from $4,100 a month.",
   canonical: "https://dickinsonbayoufleeting.com/",
   openGraph: {
     title: "Dock Space for Lease | Dickinson Bayou Fleeting, Texas Gulf Coast",
     description:
-      "Five-acre gated waterfront yards for long-term lease at San Leon on Galveston Bay and Freeport on the GIWW. Bulkhead frontage, shore crew on site, from $4,100 a month.",
+      "Five-acre gated waterfront yards for long-term lease at Dickinson on Galveston Bay and Freeport on the GIWW. Bulkhead frontage, shore crew on site, from $4,100 a month.",
     url: "https://dickinsonbayoufleeting.com/",
   },
 };
@@ -27,7 +26,6 @@ function HomeView() {
       <HeroSection />
       <YardChart />
       <ServiceRegister />
-      <Intake />
       <Standing />
       <CtaStrip
         eyebrow="Next step"

@@ -68,7 +68,7 @@ export const SERVICES = [
     summary:
       "Five-acre coastal yards available for long-term lease with dedicated bulkhead frontage and direct GIWW or bay access.",
     detail:
-      "Operators who need their own footprint can lease dock and yard space at San Leon or Freeport on a long-term term. Each yard has bulkhead frontage, gated entry and room to lay down spuds, deck barges and small project equipment. Power drops go in on request.",
+      "Operators who need their own footprint can lease dock and yard space at Dickinson or Freeport on a long-term term. Each yard has bulkhead frontage, gated entry and room to lay down spuds, deck barges and small project equipment. Power drops go in on request.",
     meta: "Long-term lease",
   },
 ];
