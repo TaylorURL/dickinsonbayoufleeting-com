@@ -1,5 +1,6 @@
 import Breadcrumbs from "./Breadcrumbs";
 import OceanTopographyBackground from "./OceanTopographyBackground";
+import { rise } from "./ui/Reveal";
 import WaveDivider, { WAVE_INTO_LIGHT } from "./WaveDivider";
 import { Container, Eyebrow } from "./ui/Layout";
 
@@ -12,9 +13,6 @@ import { Container, Eyebrow } from "./ui/Layout";
 // svh, not the static viewport unit: that one measures the tallest the viewport
 // ever gets, so a plate sized by it spends its first paint behind the browser
 // chrome. The px floor is the fallback.
-const RISE = (step) =>
-  `animate-rise${step ? `-${step}` : ""} motion-reduce:animate-none`;
-
 function PagePlate({ eyebrow, title, subtitle, children }) {
   return (
     <section
@@ -31,22 +29,22 @@ function PagePlate({ eyebrow, title, subtitle, children }) {
       <Container className="relative my-auto flex flex-col items-start gap-5 pb-10">
         <Breadcrumbs />
         {eyebrow ? (
-          <Eyebrow strong className={RISE()}>
+          <Eyebrow strong className={rise()}>
             {eyebrow}
           </Eyebrow>
         ) : null}
         <h1
-          className={`min-w-0 max-w-display text-h1 tracking-normal ${RISE(1)}`}
+          className={`min-w-0 max-w-display text-h1 tracking-normal ${rise(1)}`}
         >
           {title}
         </h1>
         {subtitle ? (
-          <p className={`max-w-prose text-lead text-secondary ${RISE(2)}`}>
+          <p className={`max-w-prose text-lead text-secondary ${rise(2)}`}>
             {subtitle}
           </p>
         ) : null}
         {children ? (
-          <div className={`mt-3 flex flex-wrap gap-3 ${RISE(3)}`}>
+          <div className={`mt-3 flex flex-wrap gap-3 ${rise(3)}`}>
             {children}
           </div>
         ) : null}

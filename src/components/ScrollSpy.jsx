@@ -8,7 +8,7 @@ const rootMargin = "-50% 0px -50% 0px";
 
 // The tick is laid out at its longest and scaled down, so it extends on the
 // compositor rather than reflowing the rail on every hover.
-const TICK =
+const RULE =
   "block h-px w-icon-sm flex-none origin-right bg-current transition-transform duration-settle ease-settle motion-reduce:transition-none";
 
 const FADE =
@@ -91,7 +91,7 @@ function ScrollSpy({ generation = 0 }) {
               >
                 <span
                   aria-hidden="true"
-                  className={`${TICK} ${
+                  className={`${RULE} ${
                     isActive
                       ? "scale-x-[1.85] text-highlight"
                       : "scale-x-[0.55] group-hover/link:scale-x-[0.8] group-focus-visible/link:scale-x-[0.8]"

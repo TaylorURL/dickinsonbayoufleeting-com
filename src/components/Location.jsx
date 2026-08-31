@@ -1,7 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { FACILITIES } from "../app/constants/facilities";
 import Button from "./ui/Button";
-import { BAND, Container, Section, SectionHead } from "./ui/Layout";
+import {
+  BAND,
+  CORNER_TICK,
+  Container,
+  MICRO_SM,
+  Section,
+  SectionHead,
+} from "./ui/Layout";
 import { Reveal } from "./ui/Reveal";
 
 const buildEmbedSrc = (address) =>
@@ -21,9 +28,6 @@ const rootMargin = "240px 0px";
 // How long the plate waits for the map host before it stops waiting and offers
 // the address instead.
 const MAP_TIMEOUT_MS = 8000;
-
-const MICRO = "font-mono text-2xs font-medium uppercase tracking-label";
-const TICK = "pointer-events-none absolute z-overlay h-icon-sm w-icon-sm";
 
 // One filter pass, applied once at mount. The paper band lightens it, because
 // the dark grade reads as a hole in a light card.
@@ -93,11 +97,11 @@ function FacilityCard({ facility, index, mapsMounted }) {
         <span className="font-mono text-xs font-medium uppercase tracking-label text-highlight">
           F-{String(index + 1).padStart(2, "0")}
         </span>
-        <span className={`${MICRO} text-faint`}>On-Site Crew</span>
+        <span className={`${MICRO_SM} text-faint`}>On-Site Crew</span>
       </header>
 
       <div className="flex flex-col gap-1">
-        <p className={`${MICRO} text-highlight`}>{facility.region}</p>
+        <p className={`${MICRO_SM} text-highlight`}>{facility.region}</p>
         <h3 className="font-condensed text-h5 font-bold uppercase tracking-normal text-primary">
           {facility.name}
         </h3>
@@ -106,13 +110,13 @@ function FacilityCard({ facility, index, mapsMounted }) {
 
       <dl className="m-0 grid grid-cols-[minmax(0,1fr)] gap-3 border-t border-hairline pt-4 xs:grid-cols-2 xs:gap-4">
         <div className="m-0 flex flex-col gap-1">
-          <dt className={`${MICRO} m-0 text-faint`}>Direct Line</dt>
+          <dt className={`${MICRO_SM} m-0 text-faint`}>Direct Line</dt>
           <dd className="m-0 whitespace-nowrap font-mono text-md tabular-nums text-primary">
             {facility.phone}
           </dd>
         </div>
         <div className="m-0 flex flex-col gap-1">
-          <dt className={`${MICRO} m-0 text-faint`}>Acreage</dt>
+          <dt className={`${MICRO_SM} m-0 text-faint`}>Acreage</dt>
           <dd className="m-0 whitespace-nowrap font-mono text-md tabular-nums text-primary">
             {facility.acreage}
           </dd>
@@ -174,19 +178,19 @@ function FacilityCard({ facility, index, mapsMounted }) {
 
         <span
           aria-hidden="true"
-          className={`${TICK} left-2 top-2 border-l border-t border-highlight`}
+          className={`${CORNER_TICK} z-overlay left-2 top-2 border-l border-t border-highlight`}
         />
         <span
           aria-hidden="true"
-          className={`${TICK} right-2 top-2 border-r border-t border-highlight`}
+          className={`${CORNER_TICK} z-overlay right-2 top-2 border-r border-t border-highlight`}
         />
         <span
           aria-hidden="true"
-          className={`${TICK} bottom-2 left-2 border-b border-l border-highlight`}
+          className={`${CORNER_TICK} z-overlay bottom-2 left-2 border-b border-l border-highlight`}
         />
         <span
           aria-hidden="true"
-          className={`${TICK} bottom-2 right-2 border-b border-r border-highlight`}
+          className={`${CORNER_TICK} z-overlay bottom-2 right-2 border-b border-r border-highlight`}
         />
       </div>
 

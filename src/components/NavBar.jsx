@@ -5,6 +5,7 @@ import { useScrolled } from "../app/hooks/useScrolled";
 import { useRouter, normalisePath } from "../app/router/Router";
 import { Link } from "../app/router/Link";
 import { ArrowRightIcon, PhoneIcon } from "./Icons";
+import Logo from "./ui/Logo";
 
 /* nav: n7-brutal-slab */
 /* panel: mm2-two-column-split */
@@ -54,9 +55,6 @@ const LINK = [
 // the morph into a cross runs entirely on the compositor.
 const TOGGLE_BAR =
   "absolute left-1/2 top-6 h-[1.5px] w-tick origin-center transition-[transform,opacity,background-color] duration-settle ease-settle motion-reduce:transition-none";
-
-const LOGO_SRCSET = (tone) =>
-  `/images/DBF-Logo-${tone}-120.png 120w, /images/DBF-Logo-${tone}-240.png 240w, /images/DBF-Logo-${tone}.png 500w`;
 
 function NavBar({ surface = "dark" }) {
   const [open, setOpen] = useState(false);
@@ -146,26 +144,7 @@ function NavBar({ surface = "dark" }) {
                 several times the bar's height and overflows it. Centring is the
                 flex line's job alone: a margin on top of that puts the mark off
                 the bar's centre line. */}
-            <img
-              src="/images/DBF-Logo-White.png"
-              srcSet={LOGO_SRCSET("White")}
-              sizes="(max-width: 700px) 96px, 120px"
-              alt="Dickinson Bayou Fleeting"
-              width="240"
-              height="240"
-              fetchPriority="high"
-              className="block h-nav-logo w-auto object-contain group-data-[surface=light]/nav:hidden"
-            />
-            <img
-              src="/images/DBF-Logo-Black.png"
-              srcSet={LOGO_SRCSET("Black")}
-              sizes="(max-width: 700px) 96px, 120px"
-              alt="Dickinson Bayou Fleeting"
-              width="240"
-              height="240"
-              fetchPriority="high"
-              className="hidden h-nav-logo w-auto object-contain group-data-[surface=light]/nav:block"
-            />
+            <Logo className="h-nav-logo text-primary" />
           </Link>
 
           <ul

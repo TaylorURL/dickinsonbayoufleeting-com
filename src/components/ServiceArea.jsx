@@ -17,6 +17,7 @@ function ServiceArea() {
             eyebrow="Coverage"
             title="Galveston Bay, the Ship Channel, the GIWW."
             subtitle="San Leon sits on Galveston Bay with quick access to the Ship Channel. Freeport extends the same operation south along the GIWW."
+            plate="channel"
           />
         </Reveal>
 

@@ -14,6 +14,14 @@ const SETTLED = "translate-y-0 opacity-100";
 const HELD =
   "translate-y-6 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100";
 
+// The entrance a block plays on arrival, counted off the same four steps as
+// the stagger. Step 0 is the unstaggered one. The reduced-motion escape rides
+// along, because a call site that has to remember it is a call site that will
+// not.
+export function rise(step = 0) {
+  return `animate-rise${step ? `-${step}` : ""} motion-reduce:animate-none`;
+}
+
 // The class a staggered child wears. Its state comes from the Stagger above it
 // through a data attribute, which saves binding an observer per child.
 export function staggerChild(index) {

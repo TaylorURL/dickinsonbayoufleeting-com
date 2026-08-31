@@ -53,6 +53,7 @@ function Amenities() {
             eyebrow="Capabilities"
             title="Barge fleeting, marine services & coastal amenities."
             subtitle="Everything operators need for safe barge fleeting, vessel staging and fleet support on Galveston Bay and the Gulf Intracoastal Waterway."
+            plate="dock"
           />
         </Reveal>
 

@@ -5,7 +5,7 @@ import InquiryFields from "./InquiryFields";
 import InquiryErrorSummary from "./InquiryErrorSummary";
 import { CheckIcon } from "./Icons";
 import Button from "./ui/Button";
-import { Container, Eyebrow, Section } from "./ui/Layout";
+import { Container, Eyebrow, MICRO, Section } from "./ui/Layout";
 import { FIELD } from "./ui/Field";
 import { Reveal } from "./ui/Reveal";
 import {
@@ -22,8 +22,6 @@ const FORM_ID = "contactForm";
 // form is the thing on this band to act on.
 const PANEL_RULE =
   "before:absolute before:-top-px before:left-0 before:h-accent before:w-rule-long before:bg-highlight before:content-['']";
-
-const MICRO = "font-mono text-xs font-medium uppercase tracking-label";
 
 function ContactSection() {
   const [values, setValues] = useState({

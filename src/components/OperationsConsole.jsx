@@ -2,7 +2,7 @@ import { useCountUp } from "../app/hooks/useCountUp";
 import { useReveal } from "../app/hooks/useReveal";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 import { ArrowRightIcon } from "./Icons";
-import { HULL_PLATE } from "./ui/Layout";
+import { CORNER_TICK, HULL_PLATE, MICRO_SM } from "./ui/Layout";
 
 const FACILITIES = [
   {
@@ -27,9 +27,6 @@ const STATS = [
 ];
 
 const COUNT_UP_MS = 1600;
-
-const MICRO = "font-mono text-2xs font-medium uppercase tracking-label";
-const TICK = "pointer-events-none absolute h-icon-sm w-icon-sm";
 
 function StatValue({ value, suffix }) {
   const { ref, display } = useCountUp(value, { duration: COUNT_UP_MS });
@@ -68,26 +65,26 @@ function OperationsConsole() {
       {/* The register marks a chart plate is trimmed to. */}
       <span
         aria-hidden="true"
-        className={`${TICK} left-2 top-2 border-l border-t border-highlight`}
+        className={`${CORNER_TICK} left-2 top-2 border-l border-t border-highlight`}
       />
       <span
         aria-hidden="true"
-        className={`${TICK} right-2 top-2 border-r border-t border-highlight`}
+        className={`${CORNER_TICK} right-2 top-2 border-r border-t border-highlight`}
       />
       <span
         aria-hidden="true"
-        className={`${TICK} bottom-2 left-2 border-b border-l border-highlight`}
+        className={`${CORNER_TICK} bottom-2 left-2 border-b border-l border-highlight`}
       />
       <span
         aria-hidden="true"
-        className={`${TICK} bottom-2 right-2 border-b border-r border-highlight`}
+        className={`${CORNER_TICK} bottom-2 right-2 border-b border-r border-highlight`}
       />
 
       <header className="flex items-center justify-between gap-3 border-b border-hairline pb-4">
         <span className="font-mono text-xs font-medium uppercase tracking-label text-primary [overflow-wrap:anywhere]">
           Live Operations
         </span>
-        <span className={`${MICRO} text-faint [overflow-wrap:anywhere]`}>
+        <span className={`${MICRO_SM} text-faint [overflow-wrap:anywhere]`}>
           CH 16 · 24/7
         </span>
       </header>
@@ -102,7 +99,7 @@ function OperationsConsole() {
             className="grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-x-3 gap-y-1 border-b border-hairline py-3 last:border-b-0 xs:grid-cols-[auto_minmax(0,1fr)_auto]"
           >
             <span
-              className={`${MICRO} col-start-1 row-start-1 text-highlight [overflow-wrap:anywhere]`}
+              className={`${MICRO_SM} col-start-1 row-start-1 text-highlight [overflow-wrap:anywhere]`}
             >
               {f.code}
             </span>
@@ -110,12 +107,12 @@ function OperationsConsole() {
               {f.name}
             </span>
             <span
-              className={`${MICRO} col-start-2 row-start-2 text-faint [overflow-wrap:anywhere] xs:col-span-2`}
+              className={`${MICRO_SM} col-start-2 row-start-2 text-faint [overflow-wrap:anywhere] xs:col-span-2`}
             >
               {f.region}
             </span>
             <span
-              className={`${MICRO} col-start-2 row-start-3 tabular-nums tracking-normal text-faint [overflow-wrap:anywhere] xs:col-start-3 xs:row-start-1`}
+              className={`${MICRO_SM} col-start-2 row-start-3 tabular-nums tracking-normal text-faint [overflow-wrap:anywhere] xs:col-start-3 xs:row-start-1`}
             >
               {f.coord}
             </span>
@@ -149,7 +146,7 @@ function OperationsConsole() {
         href={telHref}
         className="group grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border border-border-strong bg-console-inset p-4 text-primary no-underline transition-[border-color,color,transform] duration-quick ease-settle hover:border-highlight focus-visible:border-highlight focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.99]"
       >
-        <span className={`${MICRO} text-faint [overflow-wrap:anywhere]`}>
+        <span className={`${MICRO_SM} text-faint [overflow-wrap:anywhere]`}>
           Direct Line
         </span>
         <span className="whitespace-nowrap font-condensed text-xl font-bold uppercase tabular-nums tracking-normal text-primary">
