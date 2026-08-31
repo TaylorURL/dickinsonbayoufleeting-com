@@ -51,8 +51,8 @@ function Amenities() {
         <Reveal>
           <SectionHead
             eyebrow="Capabilities"
-            title="Barge fleeting, marine services & coastal amenities."
-            subtitle="Everything operators need for safe barge fleeting, vessel staging and fleet support on Galveston Bay and the Gulf Intracoastal Waterway."
+            title="What a slip here comes with."
+            subtitle="Dedicated slips, a crew on site, gated ground and five acres of it, on Galveston Bay and the Gulf Intracoastal Waterway."
             plate="dock"
           />
         </Reveal>

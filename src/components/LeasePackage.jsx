@@ -26,7 +26,7 @@ function LeasePackage() {
         <Reveal>
           <SectionHead
             eyebrow="Lease rates"
-            title="Coastal barge fleeting & dock lease options."
+            title="What a five-acre yard costs."
             subtitle="Fixed monthly rates for five-acre waterfront yards on Galveston Bay and the Gulf Intracoastal Waterway. Pick a facility to see what is included."
           />
         </Reveal>

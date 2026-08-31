@@ -56,7 +56,7 @@ const LINK = [
 const TOGGLE_BAR =
   "absolute left-1/2 top-6 h-[1.5px] w-tick origin-center transition-[transform,opacity,background-color] duration-settle ease-settle motion-reduce:transition-none";
 
-const NAV_LOGO_SIZES = "72px";
+const NAV_LOGO_SIZES = "(max-width: 720px) 140px, 200px";
 
 function NavBar({ surface = "dark" }) {
   const [open, setOpen] = useState(false);

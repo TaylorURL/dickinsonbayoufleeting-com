@@ -105,7 +105,7 @@ function Footer({ children }) {
                 </ul>
 
                 <Button variant="solid" to="/contact" className="self-stretch">
-                  Request a Quote
+                  Get a Written Quote
                 </Button>
               </div>
             </div>
@@ -124,7 +124,7 @@ function Footer({ children }) {
               >
                 <Logo
                   tone="White"
-                  sizes="(max-width: 1000px) 140px, 200px"
+                  sizes="(max-width: 1000px) 240px, 320px"
                   className="h-footer-logo"
                 />
               </Link>
