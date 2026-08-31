@@ -1,12 +1,12 @@
 {
   "name": "dickinsonbayoufleeting",
-  "version": "2026.35.8",
+  "version": "2026.36.0",
   "private": true,
   "engines": {
     "node": "22.x"
   },
   "dependencies": {
-    "@taylorurl/split-rail": "github:TaylorURL/split-rail#v2026.35.4",
+    "@taylorurl/split-rail": "github:TaylorURL/split-rail#v2026.36.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
