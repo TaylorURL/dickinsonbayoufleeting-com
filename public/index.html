@@ -255,6 +255,18 @@
           }
           return parts.join(" ");
         }
+        // A media element that is torn down mid-load, or hands its <source>
+        // over to a codec the browser will not decode, fires this same error
+        // with nothing an operator can act on. A missing file still surfaces
+        // as an http 404 through the fetch wrapper below, so nothing that
+        // matters is lost by skipping these tags.
+        var MEDIA_LIFECYCLE_TAGS = {
+          SOURCE: 1,
+          VIDEO: 1,
+          AUDIO: 1,
+          TRACK: 1,
+          PICTURE: 1,
+        };
         // Capture phase, because element load failures fire error events that do not bubble.
         window.addEventListener(
           "error",
@@ -265,6 +277,7 @@
                 event.target !== window &&
                 event.target.tagName
               ) {
+                if (MEDIA_LIFECYCLE_TAGS[event.target.tagName]) return;
                 report(
                   "resource",
                   "Failed to load " +
