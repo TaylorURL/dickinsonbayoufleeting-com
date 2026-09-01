@@ -1,7 +1,8 @@
 {
   "name": "dickinsonbayoufleeting",
-  "version": "2026.36.10",
+  "version": "2026.36.11",
   "private": true,
+  "license": "UNLICENSED",
   "engines": {
     "node": "22.x"
   },
