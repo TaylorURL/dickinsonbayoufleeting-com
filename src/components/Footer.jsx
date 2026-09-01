@@ -45,10 +45,14 @@ function Footer({ children }) {
 
   return (
     <footer id="footer" className="relative text-secondary">
-      {/* The wrapper holds the wave and the band together and carries no
-          surface, so the wave is free to overhang the section above without
-          hanging off a panel. */}
-      <div data-surface="light" className="relative bg-none">
+      {/* The wrapper sets the tokens the bands below it read but paints
+          nothing itself. That is what the seam needs: a negative top margin
+          pulls the wave up over the dark band above, and the wrapper's own
+          ground would otherwise move up with it and paint a solid rectangle
+          behind the wave, leaving foam shapes drawn on foam under a hard
+          straight edge. bg-none clears an image rather than a colour, so the
+          ground is cleared here by a utility that outranks the surface rule. */}
+      <div data-surface="light" className="relative bg-transparent">
         <Seam className="-mt-wave" />
         <div className="border-b border-border bg-bg py-9">
           <Container>
