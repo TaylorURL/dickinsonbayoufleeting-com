@@ -124,7 +124,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
       setSubmitting(false);
       setSubmitError(
         err && err.name === "TimeoutError"
-          ? "The desk did not answer in time. Try again, or call the direct line."
+          ? "Nothing came back in time. Try again, or call the direct line."
           : "That did not send. Try again, or call the direct line.",
       );
     }

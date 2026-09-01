@@ -233,8 +233,8 @@ function Location() {
         <Reveal>
           <SectionHead
             eyebrow="Facilities"
-            title="Two yards, one operations desk."
-            subtitle="San Leon sits on Galveston Bay; Freeport sits on the Gulf Intracoastal Waterway south of Houston. One desk dispatches both."
+            title="Two yards, one number."
+            subtitle="Dickinson sits on Galveston Bay. Freeport sits on the Gulf Intracoastal Waterway, south of Houston. The same crew runs both."
           />
         </Reveal>
 

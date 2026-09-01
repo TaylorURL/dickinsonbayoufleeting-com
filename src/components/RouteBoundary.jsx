@@ -84,8 +84,8 @@ class RouteBoundary extends Component {
             Something went wrong here.
           </h1>
           <p className="max-w-prose text-lead text-secondary">
-            Reload the page to try again. If it still will not open, the
-            operations desk can answer anything the site would have told you.
+            Reload the page to try again. If it still will not open, the yard
+            can answer anything the site would have told you.
           </p>
           <div className="mt-3 flex flex-wrap gap-3">
             <Button variant="primary" onClick={() => window.location.reload()}>

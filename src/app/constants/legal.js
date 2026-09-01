@@ -18,7 +18,7 @@ export const PRIVACY_SECTIONS = [
     id: "why-we-collect-it",
     heading: "Why we collect it",
     body: [
-      "To answer you. A form submission goes to the operations desk and is used to quote the job, arrange a slip, or point you to somebody who handles what you need.",
+      "To answer you. A form submission reaches the yard and is used to quote the job, arrange a slip, or point you to somebody who handles what you need.",
       "We do not sell what you send us, and we do not pass it to anyone outside the companies we work with to answer your request.",
     ],
   },
@@ -26,7 +26,7 @@ export const PRIVACY_SECTIONS = [
     id: "who-else-sees-it",
     heading: "Who else sees it",
     body: [
-      "Form submissions travel to a hosted service we run the site on, which stores them until the desk has answered.",
+      "Form submissions travel to a hosted service we run the site on, which stores them until somebody has answered.",
       "The facility maps are Google Maps embeds. Loading a page with a map on it tells Google that a browser at your address requested it, the same as visiting Google Maps directly.",
     ],
   },
@@ -34,7 +34,7 @@ export const PRIVACY_SECTIONS = [
     id: "how-long-we-keep-it",
     heading: "How long we keep it",
     body: [
-      "Inquiries stay with the desk as a record of the conversation. Ask us to delete yours and we will.",
+      "Inquiries stay on file as a record of the conversation. Ask us to delete yours and we will.",
       "Traffic counts and error records are kept for troubleshooting and are not tied to a person.",
     ],
   },
@@ -74,7 +74,7 @@ export const TERMS_SECTIONS = [
     id: "using-the-site",
     heading: "Using the site",
     body: [
-      "Read it, print it, send it to a colleague. Do not scrape it, republish it as your own, or use the forms to send anything you would not want a person at a desk to read.",
+      "Read it, print it, send it to a colleague. Do not scrape it, republish it as your own, or use the forms to send anything you would not want a person to read.",
       "The name, the mark and the photography belong to Dickinson Bayou Fleeting.",
     ],
   },
@@ -89,7 +89,7 @@ export const TERMS_SECTIONS = [
     id: "availability",
     heading: "Availability",
     body: [
-      "We keep the site up and correct as best we can. It can still be down, and a page can still be out of date. When the answer matters, call the desk and get it from a person.",
+      "We keep the site up and correct as best we can. It can still be down, and a page can still be out of date. When the answer matters, call and get it from a person.",
     ],
   },
 ];

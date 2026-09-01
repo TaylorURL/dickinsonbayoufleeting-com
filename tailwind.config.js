@@ -14,11 +14,17 @@ const colour = (token) => `var(--color-${token})`;
 // it, and nothing catches it: both look right alone. Two lengths, two curves,
 // and one step the entrance delays count off, so a stagger and a hover move on
 // the same clock.
-const DURATION = { quick: 160, settle: 280, step: 40 };
+// quick is what a colour under the pointer takes, settle is what a control
+// takes to change state, and reveal is the long one a band arrives on. step is
+// the gap between two siblings arriving.
+const DURATION = { quick: 150, settle: 300, step: 100, reveal: 750 };
 
 const CURVE = {
   settle: "cubic-bezier(0.22, 1, 0.36, 1)",
   swell: "cubic-bezier(0.16, 0.84, 0.32, 1)",
+  // The curve a band arrives on: almost all of the travel is spent in the
+  // first third, so a block is legible long before it stops moving.
+  reveal: "cubic-bezier(0.2, 0, 0, 1)",
 };
 
 const ms = (n) => `${n}ms`;
@@ -208,6 +214,8 @@ module.exports = {
       control: "var(--control-height)",
       "control-sm": "var(--control-height-sm)",
       gutter: "var(--container-pad)",
+      // The column gap the twelve-column heads are set on.
+      gap: "16px",
       section: "var(--section-py)",
       anchor: "var(--anchor-offset)",
       "plate-top": "var(--plate-pad-top)",
@@ -291,6 +299,9 @@ module.exports = {
       head: "980px",
       hero: "920px",
       container: "1440px",
+      // The measure plus the two rules that fence it, so fencing a band does
+      // not narrow the column inside it.
+      "container-ruled": "calc(1440px + 2px)",
     },
 
     // Written literally rather than read from a token: a media query cannot
@@ -301,6 +312,9 @@ module.exports = {
       md: "900px",
       lg: "1080px",
       xl: "1240px",
+      // The width at which the page gutter is finally wider than the scroll
+      // rail. Narrower than this the rail would stand on the text.
+      rail: "1700px",
       // A laptop screen is wide and short. Without a step of its own the hero
       // stacks past the fold on a 1280x800 screen, which is where most readers
       // meet the site for the first time.
@@ -320,6 +334,7 @@ module.exports = {
       // absence of light rather than from a stack of elevations.
       boxShadow: {
         lg: "var(--shadow-lg)",
+        raise: "var(--shadow-raise)",
         accent: "var(--shadow-accent)",
         // A plate reads as both lifted off the page and lit along its own top
         // edge, which is two shadows rather than one.
@@ -346,6 +361,7 @@ module.exports = {
       transitionTimingFunction: CURVE,
 
       transitionDuration: {
+        reveal: ms(DURATION.reveal),
         quick: ms(DURATION.quick),
         settle: ms(DURATION.settle),
         // Long enough that the transition never arrives. The one use is

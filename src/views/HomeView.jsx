@@ -1,20 +1,20 @@
 import HeroSection from "../components/Hero";
-import ServicesPreview from "../components/ServicesPreview";
-import LeasePackage from "../components/LeasePackage";
-import Location from "../components/Location";
+import YardChart from "../components/YardChart";
+import ServiceRegister from "../components/ServiceRegister";
+import Standing from "../components/Standing";
 import CtaStrip from "../components/CtaStrip";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";
 
 export const metadata = {
-  title: "Barge Fleeting & Dock Leasing | Dickinson Bayou Fleeting",
+  title: "Dock Space for Lease | Dickinson Bayou Fleeting, Texas Gulf Coast",
   description:
-    "Dickinson Bayou Fleeting is a barge fleeting and dock leasing company with yards on Galveston Bay and the Gulf Intracoastal Waterway.",
+    "Five-acre gated waterfront yards for long-term lease at Dickinson on Galveston Bay and Freeport on the GIWW. Bulkhead frontage, shore crew on site, from $4,100 a month.",
   canonical: "https://dickinsonbayoufleeting.com/",
   openGraph: {
-    title: "Barge Fleeting & Dock Leasing | Dickinson Bayou Fleeting",
+    title: "Dock Space for Lease | Dickinson Bayou Fleeting, Texas Gulf Coast",
     description:
-      "Dickinson Bayou Fleeting is a barge fleeting and dock leasing company with yards on Galveston Bay and the Gulf Intracoastal Waterway.",
+      "Five-acre gated waterfront yards for long-term lease at Dickinson on Galveston Bay and Freeport on the GIWW. Bulkhead frontage, shore crew on site, from $4,100 a month.",
     url: "https://dickinsonbayoufleeting.com/",
   },
 };
@@ -24,13 +24,13 @@ function HomeView() {
   return (
     <main id={MAIN_ID} tabIndex={-1}>
       <HeroSection />
-      <ServicesPreview />
-      <LeasePackage />
-      <Location />
+      <YardChart />
+      <ServiceRegister />
+      <Standing />
       <CtaStrip
-        eyebrow="Get in touch"
-        title="Talk to the operations desk."
-        body="Someone answers the direct line during the working day and the on-call line the rest of the time. Quotes come back the same business day."
+        eyebrow="Next step"
+        title="Walk the yard before you sign."
+        body="Operators can see either dock before anything is signed. Call ahead and we will have the person who works it there to walk it with you."
       />
     </main>
   );

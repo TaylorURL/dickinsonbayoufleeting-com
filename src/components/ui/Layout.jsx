@@ -5,7 +5,33 @@ import Plate from "./Plate";
 // these, so the gutter, the maximum width and the rhythm between bands are
 // decided once instead of per section.
 
-const CONTAINER = "mx-auto w-full max-w-container px-gutter";
+// The measure, and the two rules that fence it. The rules are on the container
+// rather than on the page, so every band draws its own pair at the same offset
+// and they stack into one unbroken line down the whole document. The extra two
+// pixels of width are the rules themselves, so the content column keeps the
+// measure it was given.
+const CONTAINER =
+  "mx-auto w-full max-w-container-ruled border-x border-hairline px-gutter";
+
+// A divider inside a band, run out past the gutter so its ends touch the two
+// vertical rules. A rule that stops short of them reads as a floating line
+// instead of a cell edge.
+export const BLEED = "-mx-gutter";
+
+// Worn by whatever the pointer actually lands on. It sets the one property the
+// arrow reads, so the trigger can be the link itself or the whole row around
+// it, and the keyboard gets the same mark the pointer does.
+export const ARROW_TRIGGER =
+  "hover:[--arrow-live:1] focus-visible:[--arrow-live:1] focus-within:[--arrow-live:1]";
+
+// Depth in three rungs, each adding one thing to the one below it. A panel
+// takes the lowest rung that reads, because a page where everything is lifted
+// has nothing lifted. The hairline is an outline rather than a border so it
+// costs no layout box and a panel can gain or lose it without moving what is
+// inside it.
+export const PANEL_TINT = "bg-surface";
+export const PANEL = `${PANEL_TINT} outline outline-1 -outline-offset-1 outline-border`;
+export const PANEL_RAISED = `${PANEL} shadow-raise`;
 
 // One step between the blocks of a band. A margin on each block is how two
 // gaps in the same stack end up different sizes.
@@ -94,16 +120,23 @@ export function SectionHead({
   className = "",
   children,
 }) {
+  // Title and supporting line sit beside each other on a twelve-column grid
+  // rather than stacking, the title taking the first seven and the line running
+  // from the eighth to the edge. The line is pushed down half a pixel short of
+  // six so its first baseline meets the top of the title's cap height, which
+  // aligning the boxes alone does not do at this size difference.
   const head = (
     <div
-      className={`flex max-w-head flex-col items-start gap-5 ${
+      className={`grid grid-cols-[minmax(0,1fr)] gap-x-gap gap-y-6 lg:grid-cols-12 ${
         plate ? "" : className
       }`.trim()}
     >
-      {eyebrow ? <Eyebrow strong>{eyebrow}</Eyebrow> : null}
-      <h2 className="min-w-0 max-w-title text-h2 text-primary">{title}</h2>
+      <div className="flex min-w-0 flex-col items-start gap-5 lg:col-span-7">
+        {eyebrow ? <Eyebrow strong>{eyebrow}</Eyebrow> : null}
+        <h2 className="min-w-0 max-w-title text-h2 text-primary">{title}</h2>
+      </div>
       {subtitle ? (
-        <p className="max-w-prose font-body text-lead font-normal normal-case tracking-normal text-secondary">
+        <p className="m-0 max-w-prose self-start font-body text-md font-normal normal-case tracking-normal text-secondary lg:col-start-8 lg:col-end-[-1] lg:pt-[5.5px]">
           {subtitle}
         </p>
       ) : null}

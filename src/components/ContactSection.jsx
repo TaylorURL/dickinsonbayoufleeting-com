@@ -5,7 +5,7 @@ import InquiryFields from "./InquiryFields";
 import InquiryErrorSummary from "./InquiryErrorSummary";
 import { CheckIcon } from "./Icons";
 import Button from "./ui/Button";
-import { Container, Eyebrow, MICRO, Section } from "./ui/Layout";
+import { Container, Eyebrow, MICRO, PANEL_RAISED, Section } from "./ui/Layout";
 import { FIELD } from "./ui/Field";
 import { Reveal } from "./ui/Reveal";
 import {
@@ -96,7 +96,7 @@ function ContactSection() {
               </h2>
               <p className="max-w-prose text-lead text-secondary">
                 Single-barge job or year-long lease, we are happy to talk. Phone
-                is fastest. The form goes straight to the operations desk.
+                is fastest. The form reaches whoever is on shift.
               </p>
             </div>
 
@@ -113,7 +113,7 @@ function ContactSection() {
                 </dd>
               </div>
               <div className="flex flex-col gap-1">
-                <dt className={`${MICRO} text-faint`}>Operations Desk</dt>
+                <dt className={`${MICRO} text-faint`}>Direct Line</dt>
                 <dd className="max-w-prose-tight text-md text-secondary">
                   Shore presence 24 / 7. The office is staffed weekdays, with
                   the on-call line monitored at all other hours.
@@ -145,7 +145,7 @@ function ContactSection() {
             {submitted ? (
               <div
                 role="status"
-                className={`relative flex animate-rise flex-col gap-3 border border-border bg-surface p-7 motion-reduce:animate-none ${PANEL_RULE} before:top-0`}
+                className={`relative flex animate-rise flex-col gap-3 p-7 motion-reduce:animate-none ${PANEL_RAISED} ${PANEL_RULE} before:top-0`}
               >
                 <span
                   aria-hidden="true"
@@ -167,7 +167,7 @@ function ContactSection() {
                 onSubmit={submit}
                 noValidate
                 aria-label="Quote Request"
-                className={`relative border border-border bg-surface p-6 md:p-7 ${PANEL_RULE}`}
+                className={`relative p-6 md:p-7 ${PANEL_RAISED} ${PANEL_RULE}`}
               >
                 <p className="mb-5 font-mono text-xs font-medium tracking-normal text-highlight">
                   Send a Note

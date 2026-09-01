@@ -246,7 +246,7 @@ function NavBar({ surface = "dark" }) {
                     <Link
                       to={l.footTo}
                       tabIndex={isOpen ? undefined : -1}
-                      className="mt-4 inline-flex w-full items-center gap-2 border-t border-hairline px-3 py-2 font-mono text-2xs font-medium uppercase tracking-label text-highlight no-underline transition-colors duration-quick ease-settle hover:text-primary focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.98]"
+                      className="mt-4 inline-flex w-full items-center gap-2 border-t border-hairline px-3 py-2 font-mono text-2xs font-medium uppercase tracking-label text-highlight no-underline transition-colors duration-quick ease-settle hover:text-primary hover:[--arrow-live:1] focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] active:scale-[0.98]"
                     >
                       {l.footLabel}
                       <ArrowRightIcon size={12} />

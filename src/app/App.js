@@ -226,7 +226,7 @@ function AppShell() {
         <SplitRail />
       </Footer>
 
-      {/* The desk is the thing this trade calls, and on a phone the bar is at
+      {/* The phone is the thing this trade reaches for, and on a handset the bar is at
           the far end of a thumb's reach. The one filled action on a small
           screen sits on the bottom edge instead, clear of the device inset. The
           shell reserves its height below the footer, so it never covers the end
@@ -236,7 +236,7 @@ function AppShell() {
         className="fixed inset-x-0 bottom-0 z-rail inline-flex min-h-control select-none items-center justify-center gap-3 bg-highlight px-5 pb-[env(safe-area-inset-bottom)] font-mono text-xs font-medium uppercase tracking-control text-on-highlight no-underline transition-colors duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus focus-visible:outline-none active:bg-highlight-hover md:hidden"
       >
         <PhoneIcon size={14} className="flex-none" />
-        <span className="tabular-nums">Call the Desk · {PHONE_NUMBER}</span>
+        <span className="tabular-nums">Call the Yard · {PHONE_NUMBER}</span>
       </a>
       <InquiryModal
         open={inquiryOpen}

@@ -7,6 +7,7 @@ import { ArrowRightIcon } from "../Icons";
 
 const BASE = [
   "group relative isolate inline-flex items-center justify-center gap-3",
+  "hover:[--arrow-live:1] focus-visible:[--arrow-live:1]",
   "select-none overflow-hidden whitespace-nowrap",
   "rounded-none border border-transparent no-underline",
   "font-mono uppercase leading-none",
@@ -33,10 +34,9 @@ const VARIANT = {
     "bg-transparent text-secondary border-field-border hover:border-highlight hover:text-highlight",
 };
 
-// The mark travels on hover, which is the whole of the button's hover motion:
-// nothing scales, and the fill change belongs to the variant.
-const ARROW =
-  "flex-none transition-transform duration-settle ease-settle group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0";
+// The mark carries its own motion now, off the property the control sets, so
+// there is nothing left for the button to do to it but hold its place.
+const ARROW = "flex-none";
 
 // Renders as a router link, a plain anchor or a button, whichever the call
 // gives it, so a control never has to choose between the right element and the
