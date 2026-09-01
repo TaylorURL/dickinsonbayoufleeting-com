@@ -244,9 +244,9 @@ function NavBar({ surface = "dark", onSearch }) {
               >
                 <SearchIcon size={12} className="flex-none" />
                 <span className="hidden lg:inline">Search</span>
-                <span className="hidden rounded-xs border border-border px-1.5 tabular-nums text-muted transition-colors duration-quick group-hover:border-border-strong lg:inline">
+                <kbd className="hidden min-w-shortcut whitespace-nowrap rounded-sm px-1.5 py-0.5 text-center font-body font-medium leading-none tabular-nums text-muted shadow-edge transition-colors duration-quick lg:inline-block">
                   {shortcut}
-                </span>
+                </kbd>
               </button>
             </div>
           </div>
@@ -343,7 +343,7 @@ function NavBar({ surface = "dark", onSearch }) {
               <a
                 href="#quote"
                 onClick={openInquiry}
-                className="relative hidden min-h-control-sm select-none items-center justify-center gap-3 rounded-sm border border-transparent bg-highlight px-5 font-body text-xs font-semibold text-on-highlight no-underline transition-[background-color,color,border-color,transform,box-shadow] duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus-accent focus-visible:outline-none md:inline-flex"
+                className="relative hidden h-control-sm select-none items-center justify-center gap-3 whitespace-nowrap rounded-md border border-transparent bg-highlight px-4 font-body text-sm font-semibold text-on-highlight no-underline transition-colors duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus focus-visible:outline-none active:bg-accent active:text-on-accent md:inline-flex md:h-control-xs"
               >
                 Request Quote
               </a>
@@ -558,7 +558,7 @@ function NavBar({ surface = "dark", onSearch }) {
             <a
               href="#quote"
               onClick={openInquiry}
-              className="relative inline-flex w-full select-none items-center justify-center gap-3 rounded-sm border border-transparent bg-highlight px-6 py-5 font-body text-xs font-semibold text-on-highlight no-underline transition-[background-color,transform,box-shadow] duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus-accent focus-visible:outline-none"
+              className="relative inline-flex min-h-control w-full select-none items-center justify-center gap-3 rounded-md border border-transparent bg-highlight px-6 font-body text-base font-semibold text-on-highlight no-underline transition-colors duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus focus-visible:outline-none active:bg-accent active:text-on-accent"
             >
               Request Quote
             </a>
