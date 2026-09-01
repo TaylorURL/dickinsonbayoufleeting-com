@@ -9,11 +9,11 @@ const BASE = [
   "group relative isolate inline-flex items-center justify-center gap-3",
   "hover:[--arrow-live:1] focus-visible:[--arrow-live:1]",
   "select-none overflow-hidden whitespace-nowrap",
-  "rounded-none border border-transparent no-underline",
+  "rounded-sm border border-transparent no-underline",
   "font-mono uppercase leading-none",
   "transition-[background-color,color,border-color,transform,box-shadow] duration-quick ease-settle",
   "focus-visible:shadow-focus focus-visible:outline-none",
-  "active:scale-[0.985]",
+  "active:scale-[0.97] active:opacity-80",
   "disabled:pointer-events-none disabled:opacity-45 aria-disabled:pointer-events-none aria-disabled:opacity-45",
 ].join(" ");
 

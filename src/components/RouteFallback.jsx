@@ -18,7 +18,7 @@ import { Container } from "./ui/Layout";
 //
 // The paint is inset inside each box, which is what keeps a heading reading as
 // a line of type instead of a slab.
-const BAR =
+const PLACEHOLDER_BAR =
   "block box-border border-l-2 border-hairline bg-layer-2 bg-clip-content";
 // Each box is one line at the step it stands in for. The heights come off the
 // same table the type is set from, so a change to the scale moves the
@@ -26,11 +26,13 @@ const BAR =
 const SLOT = {
   crumbs: "h-line-2xs",
   eyebrow: "h-line-xs",
-  title: "h-line-h1",
-  lede: "h-line-lead",
+  // The title and the lede each wrap to two lines at the measure they are
+  // capped to, so each stands in as one box of that height rather than as two
+  // boxes of one line. One placeholder for one element is what keeps the box,
+  // the count and the position all reading against the same thing.
+  title: "h-[calc(theme(height.line-h1)*2)]",
+  lede: "h-[calc(theme(height.line-lead)*2)]",
 };
-
-const LINE = `${BAR} bg-layer-1 py-1 ${SLOT.lede}`;
 
 // The plate's two measures are written in em and ch, so each resolves against
 // the type it caps. A block set in body text would cap the heading at a
@@ -41,6 +43,7 @@ function RouteFallback() {
     <div
       data-surface="dark"
       role="status"
+      aria-busy="true"
       aria-label="Loading the page"
       className="flex min-h-plate flex-col [min-height:100svh]"
     >
@@ -55,14 +58,29 @@ function RouteFallback() {
           aria-hidden="true"
           className="my-auto flex animate-arrive flex-col items-start gap-5 pb-10 motion-reduce:animate-none"
         >
-          <span className={`${BAR} ${SLOT.crumbs} w-[136px]`} />
-          <span className={`${BAR} ${SLOT.eyebrow} w-[167px]`} />
+          <span
+            data-loading
+            data-slot="crumbs"
+            className={`${PLACEHOLDER_BAR} ${SLOT.crumbs} w-[136px]`}
+          />
+          <span
+            data-loading
+            data-slot="eyebrow"
+            className={`${PLACEHOLDER_BAR} ${SLOT.eyebrow} w-[135px]`}
+          />
           <span className="flex w-full max-w-display flex-col gap-0 font-condensed text-h1">
-            <span className={`${BAR} ${SLOT.title} w-[86%]`} />
+            <span
+              data-loading
+              data-slot="title"
+              className={`${PLACEHOLDER_BAR} ${SLOT.title} w-full`}
+            />
           </span>
           <span className="flex w-full max-w-prose flex-col gap-0 font-body text-lead">
-            <span className={`${LINE} w-full`} />
-            <span className={`${LINE} w-[63%]`} />
+            <span
+              data-loading
+              data-slot="lede"
+              className={`${PLACEHOLDER_BAR} bg-layer-1 ${SLOT.lede} w-full`}
+            />
           </span>
         </Container>
         <WaveDivider />

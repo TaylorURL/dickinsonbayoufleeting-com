@@ -20,7 +20,7 @@ const FORM_ID = "contactForm";
 
 // The rule across the top of the panel, which is the one mark that says the
 // form is the thing on this band to act on.
-const PANEL_RULE =
+const CONTACT_PANEL_RULE =
   "before:absolute before:-top-px before:left-0 before:h-accent before:w-rule-long before:bg-highlight before:content-['']";
 
 function ContactSection() {
@@ -106,7 +106,7 @@ function ContactSection() {
                 <dd>
                   <a
                     href={phoneHref}
-                    className="inline-flex min-h-control-sm items-center whitespace-nowrap font-condensed text-h5 font-bold uppercase tabular-nums tracking-normal text-primary no-underline transition-colors duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none active:scale-[0.99]"
+                    className="inline-flex min-h-control-sm items-center whitespace-nowrap font-condensed text-h5 font-bold uppercase tabular-nums tracking-normal text-primary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none active:scale-[0.97] active:opacity-80"
                   >
                     {PHONE_NUMBER}
                   </a>
@@ -145,7 +145,7 @@ function ContactSection() {
             {submitted ? (
               <div
                 role="status"
-                className={`relative flex animate-rise flex-col gap-3 p-7 motion-reduce:animate-none ${PANEL_RAISED} ${PANEL_RULE} before:top-0`}
+                className={`relative flex animate-rise flex-col gap-3 p-7 motion-reduce:animate-none ${PANEL_RAISED} ${CONTACT_PANEL_RULE} before:top-0`}
               >
                 <span
                   aria-hidden="true"
@@ -167,7 +167,7 @@ function ContactSection() {
                 onSubmit={submit}
                 noValidate
                 aria-label="Quote Request"
-                className={`relative p-6 md:p-7 ${PANEL_RAISED} ${PANEL_RULE}`}
+                className={`relative p-6 md:p-7 ${PANEL_RAISED} ${CONTACT_PANEL_RULE}`}
               >
                 <p className="mb-5 font-mono text-xs font-medium tracking-normal text-highlight">
                   Send a Note

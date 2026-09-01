@@ -28,9 +28,8 @@ function LeasePackage({ surface = "gray" }) {
             Five acres, either coast.
           </h2>
           <p className="m-0 mt-5 max-w-prose text-lead text-secondary">
-            Gated waterfront with bulkhead frontage, room to lay down spuds and
-            deck barges, and power drops on request. Both rates are monthly and
-            both are the number we quote.
+            Gated frontage, room to lay down spuds and deck barges, and power
+            drops on request. Both rates are monthly and both are what we quote.
           </p>
         </Reveal>
 

@@ -69,7 +69,7 @@ function HeroDatum() {
       value: f.coord,
     })),
     { key: "acres", label: "Waterfront", value: <AcreFigure /> },
-    { key: "crew", label: "Shore crew", value: "24 / 7 on site" },
+    { key: "crew", label: "Shore Crew", value: "24 / 7 on site" },
   ];
 
   return (
