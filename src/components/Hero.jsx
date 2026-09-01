@@ -5,12 +5,12 @@ import { Container, Eyebrow, MICRO_SM } from "./ui/Layout";
 import { FACILITIES } from "../app/constants/facilities";
 import { useCountUp } from "../app/hooks/useCountUp";
 
-const HERO_EYEBROW = "Dickinson Bayou Fleeting · Texas Gulf Coast";
+const HERO_EYEBROW = "Barge fleeting & dock leases · Texas Gulf Coast";
 const HERO_TITLE_LEAD = "Lease the yard.";
 const HERO_TITLE_ACCENT = "The crew";
-const HERO_TITLE_TRAIL = "is already on it.";
+const HERO_TITLE_TRAIL = "comes with it.";
 const HERO_SUBTITLE =
-  "Five gated acres of bulkhead frontage at Dickinson or Freeport, with the shore crew, the slip and the line handling already running. From $4,100 a month.";
+  "Five gated acres at Dickinson or Freeport, a barge slip held for the term, and line handling on the dock. From $4,100 a month.";
 
 const ACRES = FACILITIES.reduce((sum, f) => sum + f.acres, 0);
 const COUNT_UP_MS = 1600;
