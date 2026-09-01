@@ -220,6 +220,7 @@ module.exports = {
       "rule-long": "84px",
       "rule-wide": "96px",
       nav: "var(--nav-height)",
+      wave: "var(--wave-height)",
       rail: "var(--rail-height)",
       chrome: "var(--chrome-height)",
       "nav-logo": "var(--nav-logo-height)",
