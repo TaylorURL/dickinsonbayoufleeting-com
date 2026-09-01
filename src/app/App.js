@@ -17,10 +17,12 @@ import RouteBoundary, {
   clearChunkReloadFlag,
 } from "../components/RouteBoundary";
 import { RouterProvider, useRouter, normalisePath } from "./router/Router";
+import { findRoute } from "./router/routes";
 import { MAIN_ID } from "./constants/landmarks";
 import { submitInquiry } from "./constants/inquiryForm";
 import { PHONE_NUMBER } from "./constants/phoneNumber";
 import { PhoneIcon } from "../components/Icons";
+import { useClickRipple } from "./hooks/useClickRipple";
 import { useSearchShortcut } from "./hooks/useSearchShortcut";
 
 // A visitor to any one route downloads that route and no other. The shell —
@@ -103,9 +105,10 @@ function RouteLanded({ path, onLanded }) {
 function PageOutlet({ onLanded }) {
   const { path } = useRouter();
   const View = viewFor(normalisePath(path));
+  const hasActions = Boolean(findRoute(normalisePath(path)).actions);
   return (
     <RouteBoundary path={path}>
-      <Suspense fallback={<RouteFallback />}>
+      <Suspense fallback={<RouteFallback actions={hasActions} />}>
         {/* The page that replaces the placeholder arrives on the same entrance
             the placeholder itself came in on, keyed to the route so it plays
             once per landing rather than once per session. A route that simply
@@ -146,6 +149,7 @@ function AppShell() {
     if (main) main.focus({ preventScroll: true });
   }, []);
 
+  useClickRipple();
   useSearchShortcut(() => setSearchOpen(true));
 
   // The browser chrome takes its colour from the theme rather than from a
@@ -216,10 +220,10 @@ function AppShell() {
   // it is wanted. It lands over the bar rather than under it, because the bar
   // is what it exists to get past.
   return (
-    <div className="isolate pb-[calc(var(--control-height)+env(safe-area-inset-bottom))] md:pb-0">
+    <div className="isolate">
       <a
         href={`#${MAIN_ID}`}
-        className="fixed left-3 top-3 z-modal inline-flex min-h-control-sm -translate-y-[calc(100%+theme(spacing.6))] items-center rounded-sm bg-highlight px-5 font-body text-sm font-medium text-on-highlight no-underline transition-[transform,opacity] duration-quick ease-settle hover:bg-highlight-hover focus-visible:translate-y-0 focus-visible:shadow-focus focus-visible:outline-none motion-reduce:transition-none"
+        className="fixed left-3 top-3 z-modal inline-flex min-h-control-sm -translate-y-[calc(100%+theme(spacing.6))] items-center rounded-sm bg-highlight px-5 font-body text-sm font-medium text-on-highlight no-underline transition-[transform,opacity] duration-quick ease-settle hover:bg-highlight-hover focus-visible:translate-y-0 focus-visible:shadow-focus focus-visible:outline-none motion-reduce:transition-none active:opacity-70"
       >
         Skip to Main Content
       </a>

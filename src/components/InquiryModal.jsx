@@ -184,7 +184,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
         onClick={!submitting ? requestClose : undefined}
         disabled={submitting}
         aria-label="Close Lease Inquiry"
-        className="absolute inset-0 animate-arrive appearance-none border-0 bg-overlay-scrim backdrop-blur-sm transition-opacity duration-quick ease-settle focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-highlight disabled:cursor-not-allowed motion-reduce:animate-none"
+        className="absolute inset-0 animate-arrive appearance-none border-0 bg-overlay-scrim backdrop-blur-sm transition-opacity duration-quick ease-settle hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-highlight disabled:cursor-not-allowed motion-reduce:animate-none active:opacity-70"
       />
 
       <div
@@ -230,7 +230,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
             onClick={requestClose}
             disabled={submitting}
             aria-label="Close Lease Inquiry"
-            className="pointer-events-auto inline-flex h-control-sm w-control-sm items-center justify-center rounded-sm bg-transparent text-faint shadow-edge transition-colors duration-quick ease-settle hover:enabled:bg-layer-2 hover:enabled:text-primary focus-visible:shadow-focus focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            className="pointer-events-auto inline-flex h-control-sm w-control-sm items-center justify-center rounded-sm bg-transparent text-faint shadow-edge transition-colors duration-quick ease-settle hover:enabled:bg-layer-2 hover:enabled:text-primary focus-visible:shadow-focus focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 active:opacity-70"
           >
             {/* Two rules crossed, so the mark inherits the button's colour and
               needs no second asset to keep in step with the theme. */}

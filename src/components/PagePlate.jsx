@@ -24,16 +24,26 @@ function PagePlate({ eyebrow, title, subtitle, children }) {
         <span className="absolute inset-0 bg-plate-scrim" />
       </div>
 
+      {/* Each block names the slot the route placeholder holds for it, so the
+          two are measured against each other rather than by eye. */}
       <Container className="relative my-auto flex flex-col items-start gap-5 pb-10">
-        <Breadcrumbs />
+        <Breadcrumbs data-slot="crumbs" />
         {eyebrow ? (
-          <Eyebrow strong className={rise()}>
+          <Eyebrow strong data-slot="eyebrow" className={rise()}>
             {eyebrow}
           </Eyebrow>
         ) : null}
-        <h1 className={`min-w-0 max-w-display text-h1 ${rise(1)}`}>{title}</h1>
+        <h1
+          data-slot="title"
+          className={`min-w-0 max-w-display text-h1 ${rise(1)}`}
+        >
+          {title}
+        </h1>
         {subtitle ? (
-          <p className={`max-w-prose text-lead text-secondary ${rise(2)}`}>
+          <p
+            data-slot="lede"
+            className={`max-w-prose text-lead text-secondary ${rise(2)}`}
+          >
             {subtitle}
           </p>
         ) : null}

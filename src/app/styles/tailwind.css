@@ -145,6 +145,12 @@
 
     --control-height: 56px;
     --control-height-sm: 44px;
+    /* The bar's own control step. A forty-four pixel box in a sixty pixel bar
+     * leaves eight pixels either side of it and reads as something wedged in
+     * rather than something sitting in it. The taller step is still what a
+     * thumb gets, because below the bar's wide layout the trigger is an icon
+     * on its own. */
+    --control-height-xs: 36px;
     --field-min-height: 132px;
     --field-max-height: 320px;
     --plate-min-height: 560px;
@@ -486,6 +492,16 @@
     /* clip rather than hidden: hidden turns the root into a scroll container,
      * which silently breaks position: sticky and fixed inside it. */
     overflow-x: clip;
+  }
+
+  /* The call bar is pinned to the bottom edge on a handset, so the document
+   * reserves its height rather than a wrapper inside it. A browser measures
+   * the end of the page against the document, and a wrapper the bar is not
+   * inside is not what it reads. */
+  @media (max-width: 899.98px) {
+    body {
+      padding-bottom: calc(var(--control-height) + env(safe-area-inset-bottom));
+    }
   }
 
   /* Anything the page can jump to clears the bar that would otherwise cover

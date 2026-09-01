@@ -53,7 +53,7 @@ function NotFound() {
               <li key={link.to} className="flex gap-0 border-b border-border">
                 <Link
                   to={link.to}
-                  className="group grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-5 px-3 py-6 text-secondary no-underline transition-[color,transform] duration-quick ease-settle hover:text-primary hover:[--arrow-live:1] focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] xs:grid-cols-[theme(spacing.index)_minmax(0,1fr)_auto]"
+                  className="group grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-5 px-3 py-6 text-secondary no-underline transition-[color,transform] duration-quick ease-settle hover:text-primary hover:[--arrow-live:1] focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] xs:grid-cols-[theme(spacing.index)_minmax(0,1fr)_auto] active:opacity-70"
                 >
                   <span
                     aria-hidden="true"

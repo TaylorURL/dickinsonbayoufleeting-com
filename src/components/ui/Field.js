@@ -6,7 +6,9 @@
 // hosts them, so a field reads the same on the paper panel of the contact form
 // and on the hull ground of the inquiry panel.
 const CONTROL = [
-  "w-full appearance-none rounded-sm border bg-field-surface p-4",
+  // The same block padding the buttons take, so a field and the control that
+  // submits it are one height rather than two that nearly match.
+  "w-full appearance-none rounded-sm border bg-field-surface px-4 py-3",
   "font-body text-base leading-snug text-primary",
   // A transparent outline held at its final width, so focus lands without the
   // field moving under it.
@@ -23,7 +25,7 @@ export const FIELD = {
   full: "col-span-full",
   label: "font-body text-xs font-semibold text-faint",
   hint: "font-body text-sm leading-snug text-faint",
-  input: `${CONTROL} min-h-control`,
+  input: `${CONTROL} min-h-action`,
   // The box grows with what is typed into it. Where field-sizing is understood
   // the browser does the sizing and no script measures the field.
   textarea: `${CONTROL} max-h-field min-h-field resize-y [field-sizing:content]`,

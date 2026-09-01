@@ -93,7 +93,7 @@ export async function submitInquiry(data) {
       : undefined,
   });
   if (!response.ok) throw new Error("Inquiry submission failed");
-  // After the throw, so a submission the desk never received is never counted
+  // After the throw, so a submission the office never received is never counted
   // as a lead. Both forms come through here, which is why neither carries a
   // conversion call of its own.
   trackInquiry(data);

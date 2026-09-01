@@ -157,7 +157,7 @@ function FacilityCard({ facility, index, mapsMounted }) {
                 href={buildMapsHref(facility.address)}
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-col items-center gap-3 p-5 text-center text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:shadow-focus focus-visible:outline-none"
+                className="flex flex-col items-center gap-3 p-5 text-center text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:shadow-focus focus-visible:outline-none active:opacity-70"
               >
                 <span className="max-w-prose-tight font-body text-sm leading-normal">
                   {facility.address}

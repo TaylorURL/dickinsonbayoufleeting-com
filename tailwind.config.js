@@ -224,6 +224,7 @@ module.exports = {
       "footer-logo": "var(--footer-logo-height)",
       control: "var(--control-height)",
       "control-sm": "var(--control-height-sm)",
+      "control-xs": "var(--control-height-xs)",
       gutter: "var(--container-pad)",
       // The column gap the twelve-column heads are set on.
       gap: "16px",
@@ -238,6 +239,13 @@ module.exports = {
       "code-sm": "var(--col-code-sm)",
       label: "var(--col-label)",
       "answer-indent": "92px",
+      // The shortcut chip, held at the width of the longest label it can wear.
+      shortcut: "52px",
+      // The height a button comes out at: its label, the block padding either
+      // side of it, and the transparent border it holds so a filled control
+      // and an outlined one are the same size. The route placeholder reserves
+      // the actions row from this rather than from a number of its own.
+      action: "48px",
       map: "var(--map-height)",
       "map-sm": "var(--map-height-sm)",
     },
@@ -293,6 +301,7 @@ module.exports = {
       drawer: "49",
       nav: "50",
       modal: "100",
+      pointer: "9999",
     },
 
     // Prose is capped in ch, which tracks the body face; headline caps are in
@@ -307,10 +316,10 @@ module.exports = {
       head: "980px",
       palette: "620px",
       hero: "920px",
-      container: "1280px",
+      container: "var(--container-max)",
       // The measure plus the two rules that fence it, so fencing a band does
       // not narrow the column inside it.
-      "container-ruled": "calc(1280px + 2px)",
+      "container-ruled": "calc(var(--container-max) + 2px)",
     },
 
     // Written literally rather than read from a token: a media query cannot
@@ -396,6 +405,9 @@ module.exports = {
           from: { opacity: "0" },
           to: { opacity: "1" },
         },
+        "click-ripple": {
+          to: { transform: "scale(4.5)", opacity: "0" },
+        },
         "plate-drift": {
           from: { transform: "translate3d(0, 0, 0)" },
           to: { transform: "translate3d(0, 28%, 0)" },
@@ -415,6 +427,7 @@ module.exports = {
         // Driven by a scroll timeline rather than a clock, so the duration is
         // the range the host declares and not a value here.
         "plate-drift": "plate-drift linear both",
+        "click-ripple": `click-ripple ${ms(DURATION.settle)} ${CURVE.settle} forwards`,
       },
 
       // A thumb needs the same reach across a control as down it, so the two
@@ -432,6 +445,7 @@ module.exports = {
         line: "1lh",
         control: "var(--control-height)",
         "control-sm": "var(--control-height-sm)",
+        action: "48px",
         field: "var(--field-min-height)",
         plate: "var(--plate-min-height)",
         header: "var(--header-min-height)",

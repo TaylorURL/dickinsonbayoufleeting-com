@@ -248,7 +248,7 @@ function YardChart() {
                       on
                         ? "border-accent text-primary"
                         : "border-transparent text-muted hover:text-secondary"
-                    }`}
+                    } active:opacity-70`}
                   >
                     <span className={`${MICRO_SM} opacity-70`}>{f.code}</span>
                     <span className="font-condensed text-h4 uppercase">
@@ -293,7 +293,7 @@ function YardChart() {
               <Button to="/contact">Ask About {yard.shortName}</Button>
               <a
                 href={`tel:${PHONE_NUMBER.replace(/\D/g, "")}`}
-                className={`${MICRO} -my-3 inline-flex min-h-control-sm items-center rounded-sm text-secondary underline decoration-border-strong underline-offset-4 transition-[color,transform,opacity] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none`}
+                className={`${MICRO} -my-3 inline-flex min-h-control-sm items-center rounded-sm text-secondary underline decoration-border-strong underline-offset-4 transition-[color,transform,opacity] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none active:opacity-70`}
               >
                 {PHONE_NUMBER}
               </a>

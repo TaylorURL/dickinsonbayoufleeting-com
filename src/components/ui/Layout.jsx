@@ -21,6 +21,12 @@ export const PANEL =
   "rounded-md bg-surface outline outline-1 -outline-offset-1 outline-border";
 export const PANEL_RAISED = `${PANEL} shadow-raise`;
 
+// What a control does under the finger. The ink drops rather than the control
+// shrinking: a scale press moves the thing the finger is already on, and at
+// the two or three percent that reads as restrained it moves it by an amount
+// nothing registers. Stated once, so no two controls press differently.
+export const PRESS = "active:opacity-70";
+
 // One step between the blocks of a band. A margin on each block is how two
 // gaps in the same stack end up different sizes.
 export const BAND = "flex flex-col gap-8";
@@ -68,9 +74,10 @@ export const Section = forwardRef(function Section(
 //
 // The rule that opens it is markup rather than a pseudo-element, so it takes
 // the eyebrow's own colour without a second rule to keep in step.
-export function Eyebrow({ strong = false, className = "", children }) {
+export function Eyebrow({ strong = false, className = "", children, ...rest }) {
   return (
     <p
+      {...rest}
       className={`m-0 inline-flex items-center gap-3 font-body text-xs font-semibold ${
         strong ? "text-primary" : "text-faint"
       } ${className}`.trim()}

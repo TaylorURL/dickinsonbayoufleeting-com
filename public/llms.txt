@@ -7,7 +7,7 @@
 - [Home](https://dickinsonbayoufleeting.com/): what the company does, lease rates, amenities, service area and both facility locations
 - [Services](https://dickinsonbayoufleeting.com/services): every service offered, the lease packages and answers to common questions
 - [About](https://dickinsonbayoufleeting.com/about): the company, its crew and the waters it works
-- [Contact](https://dickinsonbayoufleeting.com/contact): phone, email and the inquiry form for the operations desk
+- [Contact](https://dickinsonbayoufleeting.com/contact): phone, email and the inquiry form for the yard office
 - [Terms](https://dickinsonbayoufleeting.com/terms): terms of use for the website
 - [Privacy](https://dickinsonbayoufleeting.com/privacy): what the site collects and why
 

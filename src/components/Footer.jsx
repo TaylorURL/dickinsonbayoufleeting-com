@@ -69,7 +69,7 @@ function Footer({ children }) {
                   </span>
                   <a
                     href={phoneHref}
-                    className="inline-flex items-center gap-3 whitespace-nowrap font-condensed text-h3 uppercase tabular-nums text-primary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring"
+                    className="inline-flex items-center gap-3 whitespace-nowrap font-condensed text-h3 uppercase tabular-nums text-primary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring active:opacity-70"
                   >
                     <span
                       aria-hidden="true"
@@ -109,14 +109,20 @@ function Footer({ children }) {
         </div>
       </div>
 
-      <div data-surface="dark" className={`relative pb-9 pt-10 ${HULL_PLATE}`}>
+      {/* The seam between the paper band above and the hull band below. Two
+          surfaces meeting with nothing drawn between them read as a rendering
+          fault rather than as two bands. */}
+      <div
+        data-surface="dark"
+        className={`relative border-t border-border pb-9 pt-10 ${HULL_PLATE}`}
+      >
         <Container>
           <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-9 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,2.6fr)] xl:gap-10">
             <div className="flex flex-col items-start gap-5">
               <Link
                 to="/"
                 aria-label="Dickinson Bayou Fleeting, Home"
-                className="inline-flex transition-transform duration-settle ease-settle hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight motion-reduce:transition-none"
+                className="inline-flex transition-transform duration-settle ease-settle hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight motion-reduce:transition-none active:opacity-70"
               >
                 <Logo
                   tone="White"
@@ -156,7 +162,7 @@ function Footer({ children }) {
                   <Link
                     key={l.to}
                     to={l.to}
-                    className="inline-flex min-h-control-sm min-w-control-sm items-center font-body text-sm font-medium text-secondary no-underline transition-[color,transform] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:outline-none"
+                    className="inline-flex min-h-control-sm min-w-control-sm items-center font-body text-sm font-medium text-secondary no-underline transition-[color,transform] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:outline-none active:opacity-70"
                   >
                     {l.label}
                   </Link>
@@ -193,13 +199,13 @@ function Footer({ children }) {
                         href={`https://maps.google.com/?q=${encodeURIComponent(facility.address)}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex min-h-control-sm items-center font-body text-sm text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none"
+                        className="inline-flex min-h-control-sm items-center font-body text-sm text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none active:opacity-70"
                       >
                         {facility.address}
                       </a>
                       <a
                         href={`tel:1${facility.phone.replace(/[^0-9]/g, "")}`}
-                        className="inline-flex min-h-control-sm items-center font-mono text-xs font-medium tabular-nums text-faint no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none"
+                        className="inline-flex min-h-control-sm items-center font-mono text-xs font-medium tabular-nums text-faint no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none active:opacity-70"
                       >
                         {facility.phone}
                       </a>
@@ -236,7 +242,7 @@ function Footer({ children }) {
               <li key={l.to}>
                 <Link
                   to={l.to}
-                  className="inline-flex min-h-control-sm min-w-control-sm items-center justify-center font-body text-xs font-semibold text-faint no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:shadow-focus focus-visible:outline-none"
+                  className="inline-flex min-h-control-sm min-w-control-sm items-center justify-center font-body text-xs font-semibold text-faint no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:shadow-focus focus-visible:outline-none active:opacity-70"
                 >
                   {l.label}
                 </Link>
@@ -246,7 +252,7 @@ function Footer({ children }) {
           <button
             type="button"
             onClick={toTop}
-            className="inline-flex min-h-control-sm items-center gap-2 rounded-sm px-3 py-2 font-body text-sm font-medium text-secondary shadow-edge transition-colors duration-quick ease-settle hover:bg-layer-2 hover:text-primary focus-visible:shadow-focus focus-visible:outline-none"
+            className="inline-flex min-h-control-sm items-center gap-2 rounded-sm px-3 py-2 font-body text-sm font-medium text-secondary shadow-edge transition-colors duration-quick ease-settle hover:bg-layer-2 hover:text-primary focus-visible:shadow-focus focus-visible:outline-none active:opacity-70"
           >
             <ArrowUpIcon size={12} />
             Back to Top

@@ -5,10 +5,6 @@ import { Container } from "./ui/Layout";
 // the line it stands in for, in the same container the header itself uses, so
 // nothing moves when the real one lands.
 //
-// The actions row is not among them. Two of the six routes carry one and four
-// do not, so reserving it would put a box on screen that most pages never fill.
-// The plate's own height covers the difference either way.
-//
 // The wrapper stands a whole viewport tall because the shell renders the footer
 // before a route's chunk arrives. At a header's height the footer lands on
 // screen and the route pushes it the length of the page the moment it loads; a
@@ -19,25 +15,32 @@ import { Container } from "./ui/Layout";
 // a line of type instead of a slab.
 const PLACEHOLDER_BAR =
   "block box-border border-l-2 border-hairline bg-layer-2 bg-clip-content";
-// Each box is one line at the step it stands in for. The heights come off the
-// same table the type is set from, so a change to the scale moves the
-// placeholder with it rather than leaving it a few pixels out.
+// Each box is one line at the step it stands in for, measured in line boxes
+// rather than in pixels: a height worked out as size times leading is a
+// fraction off whatever the browser rounds the line box to, and four bars each
+// a pixel out is a page that nudges when the route lands. Every bar carries the
+// face and size of the line it replaces, so lh resolves against that step.
 const SLOT = {
-  crumbs: "h-line-2xs",
-  eyebrow: "h-line-xs",
+  crumbs: "font-body text-2xs h-[1lh]",
+  eyebrow: "font-body text-xs h-[1lh]",
   // The title and the lede each wrap to two lines at the measure they are
   // capped to, so each stands in as one box of that height rather than as two
   // boxes of one line. One placeholder for one element is what keeps the box,
   // the count and the position all reading against the same thing.
-  title: "h-[calc(theme(height.line-h1)*2)]",
-  lede: "h-[calc(theme(height.line-lead)*2)]",
+  title: "font-condensed text-h1 h-[2lh]",
+  lede: "font-body text-lead h-[2lh]",
+  // The row of buttons some headers carry. Its height is the control's, and
+  // the margin above it is the one the header sets.
+  actions: "h-action",
 };
 
 // The plate's two measures are written in em and ch, so each resolves against
 // the type it caps. A block set in body text would cap the heading at a
-// fraction of its real width, so each block carries the face and size of the
-// line it stands in for.
-function RouteFallback() {
+// fraction of its real width, so each bar carries the face and size of the
+// line it stands in for as well as its height. The bars are siblings of each
+// other rather than each in a wrapper, because a wrapper is a box with its own
+// gap and the header's blocks are spaced by one.
+function RouteFallback({ actions = false }) {
   return (
     <div
       data-surface="dark"
@@ -60,27 +63,30 @@ function RouteFallback() {
           <span
             data-loading
             data-slot="crumbs"
-            className={`${PLACEHOLDER_BAR} ${SLOT.crumbs} w-[136px]`}
+            className={`${PLACEHOLDER_BAR} ${SLOT.crumbs} w-[108px]`}
           />
           <span
             data-loading
             data-slot="eyebrow"
-            className={`${PLACEHOLDER_BAR} ${SLOT.eyebrow} w-[135px]`}
+            className={`${PLACEHOLDER_BAR} ${SLOT.eyebrow} w-[84px]`}
           />
-          <span className="flex w-full max-w-display flex-col gap-0 font-condensed text-h1">
+          <span
+            data-loading
+            data-slot="title"
+            className={`${PLACEHOLDER_BAR} ${SLOT.title} w-full max-w-display`}
+          />
+          <span
+            data-loading
+            data-slot="lede"
+            className={`${PLACEHOLDER_BAR} bg-layer-1 ${SLOT.lede} w-full max-w-prose`}
+          />
+          {actions ? (
             <span
               data-loading
-              data-slot="title"
-              className={`${PLACEHOLDER_BAR} ${SLOT.title} w-full`}
+              data-slot="actions"
+              className={`${PLACEHOLDER_BAR} ${SLOT.actions} mt-3 w-[186px]`}
             />
-          </span>
-          <span className="flex w-full max-w-prose flex-col gap-0 font-body text-lead">
-            <span
-              data-loading
-              data-slot="lede"
-              className={`${PLACEHOLDER_BAR} bg-layer-1 ${SLOT.lede} w-full`}
-            />
-          </span>
+          ) : null}
         </Container>
       </div>
     </div>

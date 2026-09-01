@@ -144,7 +144,7 @@ function SiteSearch({ open, onClose }) {
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
-      className="fixed inset-0 z-modal flex items-start justify-center bg-overlay-scrim px-4 pb-8 pt-[10vh]"
+      className="fixed inset-0 z-modal flex items-start justify-center bg-overlay-scrim px-4 pb-8 pt-[10dvh]"
     >
       <div
         ref={panelRef}
@@ -184,7 +184,7 @@ function SiteSearch({ open, onClose }) {
             type="button"
             onClick={onClose}
             aria-label="Close search"
-            className="hidden shrink-0 cursor-pointer rounded-xs px-1.5 py-1 font-body text-3xs font-medium leading-none text-faint shadow-edge transition-colors duration-quick ease-settle hover:bg-layer-2 hover:text-primary focus-visible:shadow-focus focus-visible:outline-none sm:inline-block"
+            className="hidden shrink-0 cursor-pointer rounded-sm px-1.5 py-1 font-body text-3xs font-medium leading-none text-faint shadow-edge transition-colors duration-quick ease-settle hover:bg-layer-2 hover:text-primary focus-visible:shadow-focus focus-visible:outline-none sm:inline-block active:opacity-70"
           >
             Esc
           </button>
@@ -216,7 +216,7 @@ function SiteSearch({ open, onClose }) {
                 data-active={index === cursor}
                 onMouseMove={() => setCursor(index)}
                 onClick={() => go(entry)}
-                className="group flex min-h-control-sm w-full items-center gap-3 rounded-sm bg-transparent px-3 py-2 text-left transition-colors duration-quick ease-settle data-[active=true]:bg-accent"
+                className="group flex min-h-control-sm w-full items-center gap-3 rounded-sm bg-transparent px-3 py-2 text-left transition-colors duration-quick ease-settle focus-visible:shadow-focus focus-visible:outline-none data-[active=false]:hover:bg-layer-2 data-[active=true]:bg-accent active:opacity-70"
               >
                 {/* The code stands where a drawing would, at one width, so a
                     list of mixed kinds reads as one column rather than two. */}

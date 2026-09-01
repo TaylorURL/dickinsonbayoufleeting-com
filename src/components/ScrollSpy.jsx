@@ -87,7 +87,7 @@ function ScrollSpy({ generation = 0 }) {
                 aria-current={isActive ? "true" : undefined}
                 className={`group/link relative inline-flex flex-row-reverse items-center gap-2 py-1 no-underline transition-[color,background-color,border-color,transform,opacity] duration-settle ease-settle hover:text-primary focus-visible:text-primary focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight ${
                   isActive ? "text-primary" : "text-faint"
-                }`}
+                } active:opacity-70`}
               >
                 <span
                   aria-hidden="true"

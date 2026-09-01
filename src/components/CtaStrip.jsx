@@ -38,7 +38,7 @@ function CtaStrip({
             <p className={`${MICRO_SM} m-0 text-faint`}>Direct Line</p>
             <a
               href={phoneHref}
-              className="inline-flex min-h-control-sm items-center rounded-sm font-condensed text-figure-sm uppercase tracking-tight tabular-nums text-primary no-underline decoration-2 underline-offset-[6px] transition-colors duration-quick ease-settle hover:underline focus-visible:shadow-focus focus-visible:outline-none"
+              className="inline-flex min-h-control-sm items-center rounded-sm font-condensed text-figure-sm uppercase tracking-tight tabular-nums text-primary no-underline decoration-2 underline-offset-[6px] transition-colors duration-quick ease-settle hover:underline focus-visible:shadow-focus focus-visible:outline-none active:opacity-70"
             >
               {PHONE_NUMBER}
             </a>

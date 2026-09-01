@@ -21,23 +21,25 @@ const BASE = [
   "disabled:pointer-events-none disabled:opacity-45 aria-disabled:pointer-events-none aria-disabled:opacity-45",
 ].join(" ");
 
-// The block padding is a pixel short at the top and a pixel long at the
-// bottom, because centring the line box leaves a cap-height label sitting low
-// in the control.
+// The block padding is two pixels short at the top and two long at the bottom,
+// because centring the line box leaves a cap-height label sitting low in the
+// control. The two together plus the label and the border come out at the
+// height the route placeholder reserves for an actions row.
 const SIZE = {
-  default: "px-6 pb-[17px] pt-[15px] text-base",
+  default: "px-6 pb-[16px] pt-[14px] text-base",
   inline: "px-5 pb-[13px] pt-[11px] text-sm",
 };
 
 const VARIANT = {
-  primary: "bg-highlight text-on-highlight hover:bg-highlight-hover",
+  primary:
+    "bg-highlight text-on-highlight hover:bg-highlight-hover active:bg-accent active:text-on-accent",
   // For an action sitting on a band the primary fill would disappear into.
   solid:
-    "bg-primary text-on-accent hover:bg-highlight-hover hover:text-on-highlight",
+    "bg-primary text-on-accent hover:bg-highlight-hover hover:text-on-highlight active:bg-accent",
   ghost:
-    "bg-transparent text-primary border-border-strong hover:border-primary hover:bg-layer-2",
+    "bg-transparent text-primary border-border-strong hover:border-primary hover:bg-layer-1 active:bg-layer-2",
   inline:
-    "bg-transparent text-secondary border-border-strong hover:border-primary hover:bg-layer-2 hover:text-primary",
+    "bg-transparent text-secondary border-border-strong hover:border-primary hover:bg-layer-1 hover:text-primary active:bg-layer-2",
 };
 
 // The mark carries its own motion now, off the property the control sets, so
