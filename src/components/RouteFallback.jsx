@@ -1,4 +1,4 @@
-import WaveDivider from "./WaveDivider";
+import Seam from "./ui/Seam";
 import { Container } from "./ui/Layout";
 
 // Stands in for a route while its chunk is in flight. It holds the four slots
@@ -83,7 +83,7 @@ function RouteFallback() {
             />
           </span>
         </Container>
-        <WaveDivider />
+        <Seam />
       </div>
     </div>
   );

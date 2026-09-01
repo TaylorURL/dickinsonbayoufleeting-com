@@ -11,11 +11,15 @@ import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
 // the services page, and the two are deliberately not the same shape.
 function ServiceRegister() {
   return (
-    <Section surface="gray" id="services" aria-label="What we do">
+    <Section
+      surface="gray"
+      id="services"
+      aria-label="What we do"
+      seam={{ shape: "fade", into: "light" }}
+    >
       <Container>
-        <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,1fr)] lg:gap-16">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,1fr)] lg:gap-11">
           <Reveal className="flex flex-col items-start gap-5 lg:sticky lg:top-anchor lg:self-start">
-            <p className={`${MICRO_SM} text-faint`}>What comes with it</p>
             <h2 className="m-0 max-w-title text-h2 text-primary">
               The dock is already staffed.
             </h2>

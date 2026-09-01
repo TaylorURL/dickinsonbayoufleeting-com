@@ -3,7 +3,7 @@ import {
   ABOUT_TIMELINE,
   ABOUT_VALUES,
 } from "../app/constants/about";
-import { Container, MICRO_SM, Section } from "./ui/Layout";
+import { BAND, Container, MICRO_SM, Section } from "./ui/Layout";
 import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
 
 // Set as an essay with its headings in the margin. The prose keeps one measure
@@ -11,12 +11,14 @@ import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
 // lets it be read as an argument rather than scanned as three more blurbs.
 function Story() {
   return (
-    <Section surface="light" id="story" aria-label="How we got here">
+    <Section
+      surface="light"
+      id="story"
+      aria-label="How we got here"
+      seam={{ into: "dark" }}
+    >
       <Container>
-        <Reveal>
-          <p className={`${MICRO_SM} text-faint`}>How we got here</p>
-        </Reveal>
-        <div className="mt-10 flex flex-col gap-12">
+        <div className="flex flex-col gap-12">
           {ABOUT_STORY.map((block) => (
             <Reveal
               key={block.heading}
@@ -42,16 +44,20 @@ function Story() {
 // site where a rule crosses another one.
 function Values() {
   return (
-    <Section surface="dark" id="values" aria-label="How we work">
-      <Container>
+    <Section
+      surface="dark"
+      id="values"
+      aria-label="How we work"
+      seam={{ into: "light" }}
+    >
+      <Container className={BAND}>
         <Reveal className="max-w-head">
-          <p className={`${MICRO_SM} text-faint`}>How we work</p>
-          <h2 className="m-0 mt-5 max-w-title text-h2 text-primary">
+          <h2 className="m-0 max-w-title text-h2 text-primary">
             Four things we hold to.
           </h2>
         </Reveal>
 
-        <Stagger className="mt-12 grid grid-cols-[minmax(0,1fr)] md:grid-cols-2">
+        <Stagger className="grid grid-cols-[minmax(0,1fr)] md:grid-cols-2">
           {ABOUT_VALUES.map((v, i) => (
             <div
               key={v.code}
@@ -79,13 +85,20 @@ function Values() {
 // beside it is the one continuous thing holding the four entries together.
 function Timeline() {
   return (
-    <Section surface="light" id="timeline" aria-label="The yards over time">
-      <Container>
+    <Section
+      surface="light"
+      id="timeline"
+      aria-label="The yards over time"
+      seam={{ shape: "fade", into: "gray" }}
+    >
+      <Container className={BAND}>
         <Reveal>
-          <p className={`${MICRO_SM} text-faint`}>The yards over time</p>
+          <h2 className="m-0 max-w-title text-h2 text-primary">
+            The yards over time.
+          </h2>
         </Reveal>
 
-        <Stagger className="m-0 mt-10 flex list-none flex-col border-l border-border p-0">
+        <Stagger className="m-0 flex list-none flex-col border-l border-border p-0">
           {ABOUT_TIMELINE.map((entry, i) => (
             <li
               key={entry.period}

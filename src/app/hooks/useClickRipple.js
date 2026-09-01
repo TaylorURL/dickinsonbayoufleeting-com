@@ -43,7 +43,7 @@ export function useClickRipple() {
       if (still?.matches || event.button !== 0) return;
       const ripple = document.createElement("span");
       ripple.className =
-        "absolute h-3 w-3 -ml-1.5 -mt-1.5 rounded-full border border-highlight opacity-[0.85] animate-click-ripple";
+        "click-ripple absolute h-3 w-3 -ml-1.5 -mt-1.5 border border-highlight opacity-[0.85] animate-click-ripple";
       const ink = inkUnder(event.clientX, event.clientY);
       if (ink) ripple.style.borderColor = ink;
       ripple.style.left = `${event.clientX}px`;

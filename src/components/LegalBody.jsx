@@ -4,9 +4,16 @@ import { Stagger, staggerChild } from "./ui/Reveal";
 // Numbered prose sections with the same rule-and-index treatment the services
 // and capability lists use, so a legal page reads as part of the site rather
 // than a page borrowed from somewhere else.
-function LegalBody({ sections, updated, label, id, surface = "light" }) {
+function LegalBody({
+  sections,
+  updated,
+  label,
+  id,
+  surface = "light",
+  seam = null,
+}) {
   return (
-    <Section surface={surface} id={id} aria-label={label}>
+    <Section surface={surface} seam={seam} id={id} aria-label={label}>
       <Container className={BAND}>
         <Stagger
           as="ol"
