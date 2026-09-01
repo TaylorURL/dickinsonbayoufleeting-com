@@ -46,7 +46,7 @@ const LINK_RULE =
 
 const LINK = [
   "relative inline-flex min-h-control-sm items-center px-1",
-  "font-mono text-xs font-medium uppercase tracking-control no-underline",
+  "font-body text-[14px] font-medium no-underline",
   "select-none",
   "transition-colors duration-quick ease-settle",
   "hover:text-primary focus-visible:text-primary focus-visible:outline-none active:scale-[0.97]",
@@ -139,13 +139,13 @@ function NavBar({ surface = "dark", onSearch }) {
       >
         <nav
           aria-label="Primary"
-          className="relative mx-auto flex h-full w-full max-w-container flex-1 items-center justify-between gap-6 px-gutter md:grid md:grid-cols-[1fr_auto_1fr]"
+          className="relative mx-auto flex h-full w-full max-w-container flex-1 items-center justify-between gap-6 px-gutter md:gap-8"
         >
           <Link
             to="/"
             aria-label="Dickinson Bayou Fleeting, Home"
             onClick={closeMenu}
-            className="inline-flex h-control-sm items-center no-underline transition-transform duration-settle ease-settle hover:-translate-y-px focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight active:scale-[0.97] active:opacity-80 motion-reduce:transition-none md:justify-self-start"
+            className="inline-flex h-control-sm items-center no-underline transition-transform duration-settle ease-settle hover:-translate-y-px focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight active:scale-[0.97] active:opacity-80 motion-reduce:transition-none md:mr-2"
           >
             {/* The mark is drawn small inside a square canvas, so the box is set
                 several times the bar's height and overflows it. Centring is the
@@ -167,7 +167,7 @@ function NavBar({ surface = "dark", onSearch }) {
 
           <ul
             data-nav-links
-            className="m-0 hidden list-none items-center p-0 md:flex md:justify-self-center md:gap-7"
+            className="m-0 hidden list-none items-center p-0 md:mr-auto md:flex md:gap-7"
           >
             {NAV_LINKS.map((l) => {
               const isActive = activePath === normalisePath(l.to);
@@ -262,7 +262,7 @@ function NavBar({ surface = "dark", onSearch }) {
             })}
           </ul>
 
-          <div className="flex items-center gap-0 md:justify-self-end md:gap-4">
+          <div className="flex items-center gap-0 md:gap-4">
             {/* The pill prints its own shortcut, which is the whole reason a
                 reader ever learns there is one. On a handset it drops to the
                 glass alone, because no thumb is pressing a command pair. */}
@@ -271,19 +271,23 @@ function NavBar({ surface = "dark", onSearch }) {
               onClick={onSearch}
               aria-label="Search this site"
               aria-keyshortcuts="Meta+K Control+K"
-              className="group inline-flex min-h-control-sm items-center gap-3 rounded-sm border border-border bg-transparent px-2 font-mono text-xs font-medium uppercase tracking-control text-muted transition-[color,border-color,transform,opacity] duration-quick ease-settle hover:border-border-strong hover:text-primary focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.95] active:opacity-80 md:px-3"
+              className="group inline-flex h-control-sm cursor-pointer items-center gap-2 rounded-md bg-transparent px-2.5 font-body text-[14px] font-medium text-muted shadow-[inset_0_0_0_1px_var(--color-border-strong)] transition-colors duration-quick ease-settle hover:bg-layer-2 hover:text-primary focus-visible:shadow-focus focus-visible:outline-none"
             >
-              <SearchIcon size={14} className="flex-none" />
-              <span className="hidden lg:inline">Search</span>
-              <span className="hidden rounded-xs border border-border px-1.5 py-0.5 text-2xs tabular-nums text-faint transition-colors duration-quick group-hover:border-border-strong lg:inline">
+              <SearchIcon size={16} className="flex-none" />
+              <span className="hidden flex-1 text-left lg:inline">Search</span>
+              {/* Held wide enough for the longest label it can carry. The
+                  platform is only known after mounting, and a chip that grows
+                  from a glyph to a word on the first frame drags the whole
+                  right of the bar along with it. */}
+              <kbd className="hidden min-w-[3.1rem] whitespace-nowrap rounded-xs px-[0.3rem] py-[0.25rem] text-center font-body text-[11px] font-medium leading-none text-faint shadow-[0_0_0_1px_var(--color-border)] lg:inline-block">
                 {shortcut}
-              </span>
+              </kbd>
             </button>
 
             <a
               href={phoneHref}
               aria-label={`Call ${PHONE_NUMBER}`}
-              className="inline-flex min-h-control-sm min-w-control-sm items-center justify-center gap-2 whitespace-nowrap font-mono text-xs font-medium uppercase tracking-control text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring active:scale-[0.97] active:opacity-80 md:justify-start"
+              className="inline-flex min-h-control-sm min-w-control-sm items-center justify-center gap-2 whitespace-nowrap font-body text-[14px] font-medium tabular-nums text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring active:scale-[0.97] active:opacity-80 md:justify-start"
             >
               <PhoneIcon size={14} className="flex-none text-highlight" />
               <span className="hidden tabular-nums md:inline">
@@ -296,7 +300,7 @@ function NavBar({ surface = "dark", onSearch }) {
             <a
               href="#quote"
               onClick={openInquiry}
-              className="relative hidden min-h-control-sm select-none items-center justify-center gap-3 rounded-sm border border-transparent bg-highlight px-5 font-mono text-xs font-medium uppercase tracking-control text-on-highlight no-underline transition-[background-color,color,border-color,transform,box-shadow] duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus-accent focus-visible:outline-none active:scale-[0.97] active:opacity-80 md:inline-flex"
+              className="relative hidden min-h-control-sm select-none items-center justify-center gap-3 whitespace-nowrap rounded-sm border border-transparent bg-highlight px-4 font-body text-[14px] font-semibold text-on-highlight no-underline transition-[background-color,color,border-color,transform,box-shadow] duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus-accent focus-visible:outline-none active:scale-[0.97] active:opacity-80 md:inline-flex"
             >
               Request Quote
             </a>

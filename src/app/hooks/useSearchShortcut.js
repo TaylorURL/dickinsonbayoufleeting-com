@@ -47,5 +47,5 @@ export function shortcutLabel() {
   const mac = /Mac|iPhone|iPad|iPod/i.test(
     navigator.platform || navigator.userAgent || "",
   );
-  return mac ? "⌘ K" : "Ctrl K";
+  return mac ? "\u2318K" : "Ctrl K";
 }
