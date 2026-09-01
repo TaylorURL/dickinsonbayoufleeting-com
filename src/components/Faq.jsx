@@ -24,7 +24,7 @@ function Faq({ surface = "light" }) {
             <br />
             <a
               href={`tel:1${PHONE_NUMBER.replace(/\D/g, "")}`}
-              className={`${MICRO_SM} mt-2 inline-block text-secondary underline decoration-border-strong underline-offset-4 transition-colors duration-quick hover:text-primary`}
+              className={`${MICRO_SM} -mb-3 mt-2 inline-flex min-h-control-sm items-center rounded-sm text-secondary underline decoration-border-strong underline-offset-4 transition-[color,transform,opacity] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.97] active:opacity-80`}
             >
               {PHONE_NUMBER}
             </a>

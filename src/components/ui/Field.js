@@ -6,7 +6,7 @@
 // hosts them, so a field reads the same on the paper panel of the contact form
 // and on the hull ground of the inquiry panel.
 const CONTROL = [
-  "w-full appearance-none rounded-none border bg-field-surface p-4",
+  "w-full appearance-none rounded-sm border bg-field-surface p-4",
   "font-body text-base leading-snug text-primary",
   // A transparent outline held at its final width, so focus lands without the
   // field moving under it.

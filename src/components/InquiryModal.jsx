@@ -13,10 +13,10 @@ const FOCUS_SETTLE_MS = 40;
 const FORM_ID = "inqForm";
 // Long enough for the panel to finish leaving before its fields are emptied.
 const CLEAR_AFTER_CLOSE_MS = 250;
-const MAX_MESSAGE = 1200;
+const MESSAGE_CAP = 1200;
 
 // The rule across the top of the panel, the same mark the contact form carries.
-const PANEL_RULE =
+const MODAL_PANEL_RULE =
   "before:absolute before:left-0 before:top-0 before:h-accent before:w-rule-wide before:bg-highlight before:content-['']";
 
 const GUTTER = "px-5 xs:px-8";
@@ -93,7 +93,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
       key === "phone"
         ? formatPhone(raw)
         : key === "message"
-          ? raw.slice(0, MAX_MESSAGE)
+          ? raw.slice(0, MESSAGE_CAP)
           : raw;
     setValues((prev) => ({ ...prev, [key]: value }));
   }, []);
@@ -191,7 +191,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
         ref={panelRef}
         data-done={submitted}
         data-phase={submitted ? "done" : "form"}
-        className={`relative max-h-[calc(100dvh-theme(spacing.8))] w-[min(680px,100%)] animate-rise overflow-y-auto overscroll-contain rounded-none border border-border-strong bg-bg motion-reduce:animate-none ${HULL_PLATE} ${PANEL_RULE}`}
+        className={`relative max-h-[calc(100dvh-theme(spacing.8))] w-[min(680px,100%)] animate-rise overflow-y-auto overscroll-contain rounded-md border border-border-strong bg-bg motion-reduce:animate-none ${HULL_PLATE} ${MODAL_PANEL_RULE}`}
       >
         {confirmingDiscard ? (
           // The panel scrolls, so the question sticks to its top edge and stays
@@ -226,7 +226,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
           onClick={requestClose}
           disabled={submitting}
           aria-label="Close Lease Inquiry"
-          className="sticky top-3 z-raised float-right -mb-control-sm mr-3 mt-3 inline-flex h-control-sm w-control-sm items-center justify-center rounded-none border border-field-border bg-transparent text-faint transition-[color,border-color] duration-quick ease-settle hover:enabled:border-highlight hover:enabled:text-highlight focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.96] disabled:cursor-not-allowed disabled:opacity-50"
+          className="sticky top-3 z-raised float-right -mb-control-sm mr-3 mt-3 inline-flex h-control-sm w-control-sm items-center justify-center rounded-sm border border-field-border bg-transparent text-faint transition-[color,border-color,transform,opacity] duration-quick ease-settle hover:enabled:border-highlight hover:enabled:text-highlight focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.95] active:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {/* Two rules crossed, so the mark inherits the button's colour and
               needs no second asset to keep in step with the theme. */}
@@ -279,7 +279,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
                     aria-live="polite"
                     className="self-end font-mono text-xs tabular-nums text-muted"
                   >
-                    {values.message.length}/{MAX_MESSAGE}
+                    {values.message.length}/{MESSAGE_CAP}
                   </span>
                 }
               />

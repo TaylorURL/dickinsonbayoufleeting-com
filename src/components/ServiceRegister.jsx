@@ -14,17 +14,16 @@ function ServiceRegister() {
     <Section surface="gray" id="services" aria-label="What we do">
       <Container>
         <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,1fr)] lg:gap-16">
-          <Reveal className="lg:sticky lg:top-anchor lg:self-start">
+          <Reveal className="flex flex-col items-start gap-5 lg:sticky lg:top-anchor lg:self-start">
             <p className={`${MICRO_SM} text-faint`}>What comes with it</p>
-            <h2 className="m-0 mt-5 max-w-title text-h2 text-primary">
+            <h2 className="m-0 max-w-title text-h2 text-primary">
               The dock is already staffed.
             </h2>
-            <p className="m-0 mt-5 max-w-prose text-lead text-secondary">
-              Leasing here is not leasing bare land. The crew that works these
-              two yards every day covers all seven of these, and they are on
-              site whether your lease uses them or not.
+            <p className="m-0 max-w-prose text-lead text-secondary">
+              This is not leasing bare land. The crew that works both yards
+              covers all seven, on site whether your lease uses them or not.
             </p>
-            <Button variant="ghost" to="/services" className="mt-8">
+            <Button variant="ghost" to="/services">
               See All Services
             </Button>
           </Reveal>
@@ -34,7 +33,7 @@ function ServiceRegister() {
               <li key={s.id} className={`min-w-0 ${staggerChild(i)}`}>
                 <Link
                   to={`/services#${s.id}`}
-                  className="group grid grid-cols-[minmax(0,1fr)] gap-x-6 py-6 no-underline transition-transform duration-settle ease-swell hover:translate-x-2 focus-visible:translate-x-2 motion-reduce:transition-none motion-reduce:hover:translate-x-0 sm:grid-cols-[minmax(0,var(--col-label))_minmax(0,1fr)]"
+                  className="group grid grid-cols-[minmax(0,1fr)] gap-x-6 rounded-sm py-6 no-underline transition-[transform,opacity] duration-settle ease-swell hover:translate-x-2 hover:[--arrow-live:1] focus-visible:translate-x-2 focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] active:scale-[0.99] active:opacity-80 motion-reduce:transition-none motion-reduce:hover:translate-x-0 sm:grid-cols-[minmax(0,var(--col-label))_minmax(0,1fr)]"
                 >
                   <span
                     className={`${MICRO_SM} mt-[0.6em] hidden tabular-nums text-muted transition-colors duration-quick group-hover:text-accent sm:block`}

@@ -170,8 +170,18 @@ module.exports = {
 
     // Square, and the round dot. Sharp corners are the look, so there is no
     // radius scale to drift along.
+    // Four steps and a circle, and nothing above sixteen. A card and the
+    // control inside it cannot share one value without the control looking
+    // swollen, so each rung names the thing it is for: a chip, a control, a
+    // panel, and the rare large plate. An inner element inside a one-pixel
+    // border takes its parent's value less that pixel so the two curves stay
+    // concentric.
     borderRadius: {
       none: "0px",
+      xs: "2px",
+      sm: "4px",
+      md: "6px",
+      lg: "16px",
       full: "50%",
     },
 

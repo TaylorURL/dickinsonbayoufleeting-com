@@ -34,15 +34,15 @@ function CtaStrip({
           {/* The number is a link at display size rather than a button, so the
               action reads as the thing itself instead of a control that leads
               to it. The rule above it is what keeps it in the layout. */}
-          <div className="min-w-0 border-t border-border-strong pt-6 lg:justify-self-end lg:text-right">
-            <p className={`${MICRO_SM} m-0 text-faint`}>Direct line</p>
+          <div className="flex min-w-0 flex-col gap-5 border-t border-border-strong pb-1 pt-6 lg:justify-self-end lg:text-right">
+            <p className={`${MICRO_SM} m-0 text-faint`}>Direct Line</p>
             <a
               href={phoneHref}
-              className="mt-3 block font-condensed text-figure-sm font-bold uppercase leading-none tracking-tight tabular-nums text-primary no-underline transition-colors duration-quick hover:text-accent"
+              className="inline-flex min-h-control-sm items-center rounded-sm font-condensed text-figure-sm font-bold uppercase leading-none tracking-tight tabular-nums text-primary no-underline transition-[color,transform,opacity] duration-quick ease-settle hover:text-accent focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.97] active:opacity-80"
             >
               {PHONE_NUMBER}
             </a>
-            <div className="mt-7 flex flex-wrap gap-3 lg:justify-end">
+            <div className="flex flex-wrap gap-3 lg:justify-end">
               <Button variant="primary" to={primary.to}>
                 {primary.label}
               </Button>

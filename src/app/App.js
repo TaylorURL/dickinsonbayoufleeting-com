@@ -105,7 +105,14 @@ function PageOutlet({ onLanded }) {
   return (
     <RouteBoundary path={path}>
       <Suspense fallback={<RouteFallback />}>
-        <View />
+        {/* The page that replaces the placeholder arrives on the same entrance
+            the placeholder itself came in on, keyed to the route so it plays
+            once per landing rather than once per session. A route that simply
+            appears is the one moment the whole site is otherwise animated
+            through. */}
+        <div key={path} className="animate-arrive motion-reduce:animate-none">
+          <View />
+        </div>
         <RouteLanded path={path} onLanded={onLanded} />
       </Suspense>
     </RouteBoundary>
@@ -215,7 +222,7 @@ function AppShell() {
     <div className="isolate pb-[calc(var(--control-height)+env(safe-area-inset-bottom))] md:pb-0">
       <a
         href={`#${MAIN_ID}`}
-        className="fixed left-3 top-3 z-modal inline-flex min-h-control-sm -translate-y-[calc(100%+theme(spacing.6))] items-center bg-highlight px-5 font-mono text-xs font-medium uppercase tracking-control text-on-highlight no-underline transition-transform duration-quick ease-settle focus-visible:translate-y-0 focus-visible:shadow-focus focus-visible:outline-none motion-reduce:transition-none"
+        className="fixed left-3 top-3 z-modal inline-flex min-h-control-sm -translate-y-[calc(100%+theme(spacing.6))] items-center rounded-sm bg-highlight px-5 font-mono text-xs font-medium uppercase tracking-control text-on-highlight no-underline transition-[transform,opacity] duration-quick ease-settle hover:bg-highlight-hover focus-visible:translate-y-0 focus-visible:shadow-focus focus-visible:outline-none active:opacity-80 motion-reduce:transition-none"
       >
         Skip to Main Content
       </a>
