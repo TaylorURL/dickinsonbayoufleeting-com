@@ -57,35 +57,40 @@ function RouteFallback({ actions = false }) {
         data-plate
         className="relative flex min-h-header flex-col gap-0 bg-bg-deep bg-hull bg-hull-grid pt-plate-top [min-height:62svh]"
       >
+        {/* The same two groups the header stacks - the head, then the actions
+            under it - at the same two steps, so the reader's eye lands in one
+            place before the chunk arrives and stays there after. */}
         <Container
           aria-hidden="true"
-          className="my-auto flex animate-arrive flex-col items-start gap-5 pb-10 motion-reduce:animate-none"
+          className="my-auto flex animate-arrive flex-col items-start gap-7 pb-10 motion-reduce:animate-none"
         >
-          <span
-            data-loading
-            data-slot="crumbs"
-            className={`${PLACEHOLDER_BAR} ${SLOT.crumbs} w-[108px]`}
-          />
-          <span
-            data-loading
-            data-slot="eyebrow"
-            className={`${PLACEHOLDER_BAR} ${SLOT.eyebrow} w-[84px]`}
-          />
-          <span
-            data-loading
-            data-slot="title"
-            className={`${PLACEHOLDER_BAR} ${SLOT.title} w-full max-w-display`}
-          />
-          <span
-            data-loading
-            data-slot="lede"
-            className={`${PLACEHOLDER_BAR} bg-layer-1 ${SLOT.lede} w-full max-w-prose`}
-          />
+          <span className="flex w-full flex-col items-start gap-5">
+            <span
+              data-loading
+              data-slot="crumbs"
+              className={`${PLACEHOLDER_BAR} ${SLOT.crumbs} w-[108px]`}
+            />
+            <span
+              data-loading
+              data-slot="eyebrow"
+              className={`${PLACEHOLDER_BAR} ${SLOT.eyebrow} w-[84px]`}
+            />
+            <span
+              data-loading
+              data-slot="title"
+              className={`${PLACEHOLDER_BAR} ${SLOT.title} w-full max-w-display`}
+            />
+            <span
+              data-loading
+              data-slot="lede"
+              className={`${PLACEHOLDER_BAR} bg-layer-1 ${SLOT.lede} w-full max-w-prose`}
+            />
+          </span>
           {actions ? (
             <span
               data-loading
               data-slot="actions"
-              className={`${PLACEHOLDER_BAR} ${SLOT.actions} mt-3 w-[186px]`}
+              className={`${PLACEHOLDER_BAR} ${SLOT.actions} w-[186px]`}
             />
           ) : null}
         </Container>

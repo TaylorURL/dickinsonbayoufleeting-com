@@ -184,7 +184,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
         onClick={!submitting ? requestClose : undefined}
         disabled={submitting}
         aria-label="Close Lease Inquiry"
-        className="absolute inset-0 animate-arrive appearance-none border-0 bg-overlay-scrim backdrop-blur-sm transition-opacity duration-quick ease-settle hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-highlight disabled:cursor-not-allowed motion-reduce:animate-none active:opacity-70"
+        className="absolute inset-0 animate-arrive appearance-none border-0 bg-overlay-scrim backdrop-blur-sm transition-opacity duration-quick ease-settle hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-highlight disabled:cursor-not-allowed motion-reduce:animate-none"
       />
 
       <div
@@ -230,7 +230,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
             onClick={requestClose}
             disabled={submitting}
             aria-label="Close Lease Inquiry"
-            className="pointer-events-auto inline-flex h-control-sm w-control-sm items-center justify-center rounded-sm bg-transparent text-faint shadow-edge transition-colors duration-quick ease-settle hover:enabled:bg-layer-2 hover:enabled:text-primary focus-visible:shadow-focus focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 active:opacity-70"
+            className="pointer-events-auto inline-flex h-control-sm w-control-sm items-center justify-center rounded-sm bg-transparent text-faint shadow-edge transition-colors duration-quick ease-settle hover:enabled:bg-layer-2 hover:enabled:text-primary focus-visible:shadow-focus focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
           >
             {/* Two rules crossed, so the mark inherits the button's colour and
               needs no second asset to keep in step with the theme. */}
@@ -334,18 +334,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
           <div
             className={`relative flex animate-rise flex-col items-start gap-4 pb-9 pt-10 motion-reduce:animate-none ${GUTTER}`}
           >
-            <div
-              aria-hidden="true"
-              className="inline-flex h-control w-control animate-rise-2 items-center justify-center border border-highlight bg-highlight-soft text-highlight motion-reduce:animate-none"
-            >
-              <CheckIcon size={30} strokeWidth="2.5" />
-            </div>
-            <h2 className="text-h3 font-bold text-primary">Message Sent</h2>
-            <p className="max-w-prose-tight font-body text-base text-secondary">
-              Someone will reach back inside one business day. If your timeline
-              is tighter than that, call {PHONE_NUMBER}. The on-call line is
-              always answered.
-            </p>
+            <Confirmation phone={PHONE_NUMBER} />
             <Button variant="primary" arrow={false} onClick={resetAndClose}>
               Close
             </Button>

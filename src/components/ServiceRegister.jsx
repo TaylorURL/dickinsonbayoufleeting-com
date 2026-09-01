@@ -1,7 +1,7 @@
 import { SERVICES } from "../app/constants/services";
 import { Link } from "../app/router/Link";
 import Button from "./ui/Button";
-import { Container, Eyebrow, MICRO_SM, Section } from "./ui/Layout";
+import { Container, MICRO_SM, Section } from "./ui/Layout";
 import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
 
 // The seven jobs, set as an index rather than as a table or a grid of cards.
@@ -37,7 +37,7 @@ function ServiceRegister() {
               <li key={s.id} className={`min-w-0 ${staggerChild(i)}`}>
                 <Link
                   to={`/services#${s.id}`}
-                  className="group grid grid-cols-[minmax(0,1fr)] gap-x-6 rounded-sm py-6 no-underline transition-[transform,opacity] duration-settle ease-swell hover:translate-x-2 hover:[--arrow-live:1] focus-visible:translate-x-2 focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] motion-reduce:transition-none motion-reduce:hover:translate-x-0 sm:grid-cols-[minmax(0,var(--col-label))_minmax(0,1fr)] active:opacity-70"
+                  className="group grid grid-cols-[minmax(0,1fr)] gap-x-6 rounded-sm py-6 no-underline transition-[transform,opacity] duration-settle ease-swell hover:translate-x-2 hover:[--arrow-live:1] focus-visible:translate-x-2 focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] motion-reduce:transition-none motion-reduce:hover:translate-x-0 sm:grid-cols-[minmax(0,var(--col-label))_minmax(0,1fr)]"
                 >
                   <span
                     className={`${MICRO_SM} mt-[0.6em] hidden tabular-nums text-muted transition-colors duration-quick group-hover:text-accent sm:block`}

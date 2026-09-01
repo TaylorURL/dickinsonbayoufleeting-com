@@ -26,7 +26,7 @@ export const PANEL_RAISED = `${PANEL} shadow-raise`;
 // shrinking: a scale press moves the thing the finger is already on, and at
 // the two or three percent that reads as restrained it moves it by an amount
 // nothing registers. Stated once, so no two controls press differently.
-export const PRESS = "active:opacity-70";
+export const PRESS = "";
 
 // One step between the blocks of a band. A margin on each block is how two
 // gaps in the same stack end up different sizes.

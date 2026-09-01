@@ -213,7 +213,7 @@ function YardChart() {
       <Container>
         <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-11">
           <Reveal className="flex flex-col gap-6 lg:sticky lg:top-anchor lg:self-start">
-            <p className={`${MICRO} m-0 text-faint`}>Where we are</p>
+            <Eyebrow>Where we are</Eyebrow>
             <Diagram
               activeId={activeId}
               onPick={setActiveId}
@@ -249,11 +249,11 @@ function YardChart() {
                     aria-selected={on}
                     aria-controls={panelId}
                     onClick={() => setActiveId(f.id)}
-                    className={`-mb-px flex flex-col gap-1 rounded-sm border-b-2 px-0 pb-4 pr-10 pt-1 text-left transition-[color,border-color,transform,opacity] duration-quick ease-settle focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-highlight-ring active:scale-[0.97] active:opacity-80 [touch-action:manipulation] ${
+                    className={`-mb-px flex flex-col gap-1 rounded-sm border-b-2 px-0 pb-4 pr-10 pt-1 text-left transition-[color,border-color,transform,opacity] duration-quick ease-settle focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-highlight-ring [touch-action:manipulation] ${
                       on
                         ? "border-accent text-primary"
                         : "border-transparent text-muted hover:text-secondary"
-                    } active:opacity-70`}
+                    }`}
                   >
                     <span className={`${MICRO_SM} opacity-70`}>{f.code}</span>
                     <span className="font-condensed text-h4 uppercase">
@@ -298,7 +298,7 @@ function YardChart() {
               <Button to="/contact">Ask About {yard.shortName}</Button>
               <a
                 href={`tel:${PHONE_NUMBER.replace(/\D/g, "")}`}
-                className={`${MICRO} -my-3 inline-flex min-h-control-sm items-center rounded-sm text-secondary underline decoration-border-strong underline-offset-4 transition-[color,transform,opacity] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none active:opacity-70`}
+                className={`${MICRO} -my-3 inline-flex min-h-control-sm items-center rounded-sm text-secondary underline decoration-border-strong underline-offset-4 transition-[color,transform,opacity] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none`}
               >
                 {PHONE_NUMBER}
               </a>

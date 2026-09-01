@@ -29,7 +29,7 @@ function Breadcrumbs({ ...rest }) {
         <li className="inline-flex items-center gap-3">
           <Link
             to="/"
-            className={`${LABEL} text-faint no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight active:opacity-70`}
+            className={`${LABEL} text-faint no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight`}
           >
             Home
           </Link>

@@ -3,7 +3,7 @@ import {
   ABOUT_TIMELINE,
   ABOUT_VALUES,
 } from "../app/constants/about";
-import { BAND, Container, MICRO_SM, Section } from "./ui/Layout";
+import { BAND, Container, MICRO, MICRO_SM, Section } from "./ui/Layout";
 import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
 
 // Set as an essay with its headings in the margin. The prose keeps one measure
