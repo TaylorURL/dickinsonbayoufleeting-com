@@ -1,9 +1,12 @@
 // The two legal pages read from here so the pages themselves stay layout and
 // the wording stays in one place. Every claim below describes something the
-// site actually does: the form posts to the inquiry endpoint, the analytics
-// and error scripts are in index.html, and the maps are Google embeds.
+// site actually does: the form posts to the inquiry endpoint, the traffic and
+// error scripts are in index.html, the Google tag and its three conversions
+// are in app/tracking, and the maps are Google embeds. A claim here that the
+// code stops making is a false statement on a live legal page, so the two
+// move together.
 
-export const PRIVACY_UPDATED = "August 2026";
+export const PRIVACY_UPDATED = "September 2026";
 
 export const PRIVACY_SECTIONS = [
   {
@@ -12,6 +15,7 @@ export const PRIVACY_SECTIONS = [
     body: [
       "The quote form and the lease inquiry form ask for a first name, a last name, an email address, a phone number, and whatever you write in the message field. Nothing else on the site asks you for anything.",
       "The site also counts page views and records browser errors so we can tell when a page is broken. Those records hold the page address, the browser and version, and the error text. They carry no name and no email address.",
+      "Arriving from a Google ad records one more thing: the identifier Google puts on the link you followed, and whether you went on to send a form or tap the phone number. It tells us which ad earned the call. It does not tell us who you are.",
     ],
   },
   {
@@ -28,6 +32,7 @@ export const PRIVACY_SECTIONS = [
     body: [
       "Form submissions travel to a hosted service we run the site on, which stores them until somebody has answered.",
       "The facility maps are Google Maps embeds. Loading a page with a map on it tells Google that a browser at your address requested it, the same as visiting Google Maps directly.",
+      "Google Ads and Google Analytics measure the advertising we run. If you send a form after arriving from an ad, your email address and phone number are scrambled in your own browser and only the scrambled version reaches Google, which uses it to match the inquiry to the ad click. Google is not sent the readable address or number, and it is not sent your message.",
     ],
   },
   {
@@ -41,7 +46,9 @@ export const PRIVACY_SECTIONS = [
   {
     id: "cookies",
     heading: "Cookies",
-    body: ["The site sets no advertising cookies and runs no tracking pixels."],
+    body: [
+      "Google's advertising and analytics cookies are set while the site is measuring an ad campaign, and they record whether an ad led to an inquiry or a call. Nothing else on the site sets a cookie, and no other tracking pixel runs.",
+    ],
   },
   {
     id: "reaching-us",

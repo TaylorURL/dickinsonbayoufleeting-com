@@ -3,6 +3,11 @@ import ReactDOM from "react-dom/client";
 import "./app/styles/fonts.css";
 import "./app/styles/tailwind.css";
 import App from "./app/App";
+import { initGoogleTracking } from "./app/tracking/google";
+
+// Ahead of the render, because the click identifier an ad arrives with is read
+// from the address bar and the router rewrites it on the first navigation.
+initGoogleTracking();
 
 // The browser chrome takes the same ground the page does. A meta tag cannot
 // read a custom property, so the value is written from the token once the

@@ -1,3 +1,5 @@
+import { clickId, trackInquiry } from "../tracking/google";
+
 // The one shape both inquiry forms take: the panel in the modal and the form on
 // the contact page ask for the same five things, so the fields, the rules, the
 // words shown when a rule fails, and where a completed one is sent live here
@@ -81,12 +83,20 @@ export async function submitInquiry(data) {
   const response = await fetch(INQUIRY_ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    // The click identifier rides along so a lease signed weeks after the
+    // inquiry can be uploaded back to Google Ads against the ad that earned
+    // it. The service reads the five named fields and ignores the rest, so it
+    // is only stored once a column and an insert exist to hold it.
+    body: JSON.stringify({ ...data, clickId: clickId() }),
     signal: AbortSignal.timeout
       ? AbortSignal.timeout(INQUIRY_TIMEOUT_MS)
       : undefined,
   });
   if (!response.ok) throw new Error("Inquiry submission failed");
+  // After the throw, so a submission the desk never received is never counted
+  // as a lead. Both forms come through here, which is why neither carries a
+  // conversion call of its own.
+  trackInquiry(data);
 }
 
 // What to tell the reader when `submitInquiry` throws. The direct line is in
