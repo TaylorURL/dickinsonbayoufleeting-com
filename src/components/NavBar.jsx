@@ -12,7 +12,7 @@ import Logo from "./ui/Logo";
 /* panel: mm2-two-column-split */
 
 // A slab: solid ground, a two-pixel rule for an edge, the wordmark hard left,
-// the destinations tracked and uppercase, and one filled action hard right. It
+// the destinations set in the body face, and one filled action hard right. It
 // is the same language the rest of the site is set in - condensed caps, mono
 // micro-labels, square corners - rather than the frosted body-face bar every
 // marketing page reaches for first.
@@ -32,11 +32,11 @@ import Logo from "./ui/Logo";
 // time it opened.
 const BAR = [
   "fixed inset-x-0 top-0 z-nav flex h-nav items-center gap-0",
-  "border-b-2 border-border-strong bg-bg font-body text-primary",
-  "transition-[background-color,border-color,color] duration-settle ease-settle",
-  // Off the top of the page the ground drops a step, so the slab reads as
-  // sitting over the content rather than in it.
-  "data-[scrolled=true]:bg-bg-deep",
+  "border-b border-transparent bg-bg font-body text-primary",
+  "transition-[background-color,border-color,box-shadow] duration-settle ease-settle",
+  // Off the top of the page the bar stops being part of the band behind it:
+  // it goes to the overlay ground, takes an edge and casts onto the page.
+  "data-[scrolled=true]:border-border data-[scrolled=true]:bg-overlay-nav data-[scrolled=true]:shadow-raise data-[scrolled=true]:backdrop-blur-md",
 ].join(" ");
 
 // Laid out at full width and scaled, so the underline grows on the compositor
@@ -46,10 +46,10 @@ const LINK_RULE =
 
 const LINK = [
   "relative inline-flex min-h-control-sm items-center px-1",
-  "font-body text-[14px] font-medium no-underline",
+  "font-body text-sm font-medium no-underline",
   "select-none",
   "transition-colors duration-quick ease-settle",
-  "hover:text-primary focus-visible:text-primary focus-visible:outline-none active:scale-[0.97]",
+  "hover:text-primary focus-visible:text-primary focus-visible:outline-none",
 ].join(" ");
 
 // All three bars sit on the middle line and are pushed apart by transform, so
@@ -145,7 +145,7 @@ function NavBar({ surface = "dark", onSearch }) {
             to="/"
             aria-label="Dickinson Bayou Fleeting, Home"
             onClick={closeMenu}
-            className="inline-flex h-control-sm items-center no-underline transition-transform duration-settle ease-settle hover:-translate-y-px focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight active:scale-[0.97] active:opacity-80 motion-reduce:transition-none md:mr-2"
+            className="inline-flex h-control-sm items-center no-underline transition-transform duration-settle ease-settle hover:-translate-y-px focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight motion-reduce:transition-none md:mr-2"
           >
             {/* The mark is drawn small inside a square canvas, so the box is set
                 several times the bar's height and overflows it. Centring is the
@@ -232,9 +232,9 @@ function NavBar({ surface = "dark", onSearch }) {
                           <Link
                             to={item.to}
                             tabIndex={isOpen ? undefined : -1}
-                            className="flex flex-col gap-1 px-3 pb-4 pt-3 no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:bg-bg focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.97] active:opacity-80"
+                            className="flex flex-col gap-1 px-3 pb-4 pt-3 no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:bg-bg focus-visible:shadow-focus focus-visible:outline-none"
                           >
-                            <span className="font-condensed text-md font-semibold uppercase tracking-normal text-primary">
+                            <span className="font-body text-base font-semibold text-primary">
                               {item.label}
                             </span>
                             {/* Two lines is the whole budget. The summaries are
@@ -251,7 +251,7 @@ function NavBar({ surface = "dark", onSearch }) {
                     <Link
                       to={l.footTo}
                       tabIndex={isOpen ? undefined : -1}
-                      className="mt-4 inline-flex w-full items-center gap-2 border-t border-hairline px-3 py-2 font-mono text-2xs font-medium uppercase tracking-label text-highlight no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-primary hover:[--arrow-live:1] focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] active:scale-[0.97] active:opacity-80"
+                      className="mt-4 inline-flex w-full items-center gap-2 border-t border-hairline px-3 py-2 font-body text-2xs font-semibold text-highlight no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-primary hover:[--arrow-live:1] focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1]"
                     >
                       {l.footLabel}
                       <ArrowRightIcon size={12} />
@@ -271,7 +271,7 @@ function NavBar({ surface = "dark", onSearch }) {
               onClick={onSearch}
               aria-label="Search this site"
               aria-keyshortcuts="Meta+K Control+K"
-              className="group inline-flex h-control-sm cursor-pointer items-center gap-2 rounded-md bg-transparent px-2.5 font-body text-[14px] font-medium text-muted shadow-[inset_0_0_0_1px_var(--color-border-strong)] transition-colors duration-quick ease-settle hover:bg-layer-2 hover:text-primary focus-visible:shadow-focus focus-visible:outline-none"
+              className="group inline-flex h-control-sm cursor-pointer items-center gap-2 rounded-md bg-transparent px-2.5 font-body text-[14px] font-medium text-muted shadow-edge-inset transition-colors duration-quick ease-settle hover:bg-layer-2 hover:text-primary focus-visible:shadow-focus focus-visible:outline-none"
             >
               <SearchIcon size={16} className="flex-none" />
               <span className="hidden flex-1 text-left lg:inline">Search</span>
@@ -287,7 +287,7 @@ function NavBar({ surface = "dark", onSearch }) {
             <a
               href={phoneHref}
               aria-label={`Call ${PHONE_NUMBER}`}
-              className="inline-flex min-h-control-sm min-w-control-sm items-center justify-center gap-2 whitespace-nowrap font-body text-[14px] font-medium tabular-nums text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring active:scale-[0.97] active:opacity-80 md:justify-start"
+              className="inline-flex min-h-control-sm min-w-control-sm items-center justify-center gap-2 whitespace-nowrap font-body text-[14px] font-medium tabular-nums text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring md:justify-start"
             >
               <PhoneIcon size={14} className="flex-none text-highlight" />
               <span className="hidden tabular-nums md:inline">
@@ -300,7 +300,7 @@ function NavBar({ surface = "dark", onSearch }) {
             <a
               href="#quote"
               onClick={openInquiry}
-              className="relative hidden min-h-control-sm select-none items-center justify-center gap-3 whitespace-nowrap rounded-sm border border-transparent bg-highlight px-4 font-body text-[14px] font-semibold text-on-highlight no-underline transition-[background-color,color,border-color,transform,box-shadow] duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus-accent focus-visible:outline-none active:scale-[0.97] active:opacity-80 md:inline-flex"
+              className="relative hidden min-h-control-sm select-none items-center justify-center gap-3 whitespace-nowrap rounded-sm border border-transparent bg-highlight px-4 font-body text-[14px] font-semibold text-on-highlight no-underline transition-[background-color,color,border-color,transform,box-shadow] duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus-accent focus-visible:outline-none md:inline-flex"
             >
               Request Quote
             </a>
@@ -312,7 +312,7 @@ function NavBar({ surface = "dark", onSearch }) {
             aria-controls="nav-mobile-drawer"
             aria-label={open ? "Close Menu" : "Open Menu"}
             onClick={() => setOpen((o) => !o)}
-            className="relative inline-flex h-control-sm w-control-sm items-center justify-center rounded-sm border border-border-strong bg-transparent p-0 transition-[border-color,transform] duration-quick ease-settle hover:border-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-highlight active:scale-[0.95] active:opacity-80 md:hidden"
+            className="relative inline-flex h-control-sm w-control-sm items-center justify-center rounded-sm border border-border-strong bg-transparent p-0 transition-[border-color,transform] duration-quick ease-settle hover:border-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-highlight md:hidden"
           >
             <span
               className={`${TOGGLE_BAR} ${
@@ -346,7 +346,7 @@ function NavBar({ surface = "dark", onSearch }) {
         onClick={closeMenu}
         tabIndex={open ? 0 : -1}
         aria-label="Close Menu"
-        className="pointer-events-none fixed inset-0 z-scrim appearance-none border-0 bg-bg-deep p-0 opacity-0 transition-opacity duration-settle ease-settle hover:opacity-[0.68] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-highlight active:opacity-[0.72] data-[visible=true]:pointer-events-auto data-[visible=true]:opacity-60"
+        className="pointer-events-none fixed inset-0 z-scrim appearance-none border-0 bg-bg-deep p-0 opacity-0 transition-opacity duration-settle ease-settle focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-highlight data-[visible=true]:pointer-events-auto data-[visible=true]:opacity-60"
       />
 
       <div
@@ -370,7 +370,7 @@ function NavBar({ surface = "dark", onSearch }) {
                   to={l.to}
                   onClick={closeMenu}
                   aria-current={isActive ? "page" : undefined}
-                  className={`group/row flex min-h-control w-full select-none items-center justify-between gap-4 py-4 font-condensed text-h3 font-semibold uppercase tracking-normal no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none active:scale-[0.97] active:opacity-80 ${
+                  className={`group/row flex min-h-control w-full select-none items-center justify-between gap-4 py-4 font-condensed text-h3 uppercase no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none ${
                     isActive ? "text-highlight" : "text-primary"
                   }`}
                 >
@@ -391,7 +391,7 @@ function NavBar({ surface = "dark", onSearch }) {
                         <Link
                           to={item.to}
                           onClick={closeMenu}
-                          className="flex min-h-control-sm items-center gap-2 font-body text-sm text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-primary focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.97] active:opacity-80"
+                          className="flex min-h-control-sm items-center gap-2 font-body text-sm text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-primary focus-visible:shadow-focus focus-visible:outline-none"
                         >
                           {item.label}
                         </Link>
@@ -406,9 +406,9 @@ function NavBar({ surface = "dark", onSearch }) {
           <li className="mt-6 flex gap-0 border-t border-hairline">
             <a
               href={phoneHref}
-              className="flex w-full flex-col gap-1 py-4 no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring active:scale-[0.97] active:opacity-80"
+              className="flex w-full flex-col gap-1 py-4 no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring"
             >
-              <span className="font-mono text-xs font-medium uppercase tracking-label text-faint">
+              <span className="font-body text-xs font-semibold text-faint">
                 Direct Line
               </span>
               <span className="whitespace-nowrap font-mono text-xl font-medium tabular-nums text-primary">
@@ -421,7 +421,7 @@ function NavBar({ surface = "dark", onSearch }) {
             <a
               href="#quote"
               onClick={openInquiry}
-              className="relative mt-4 inline-flex w-full select-none items-center justify-center gap-3 rounded-sm border border-transparent bg-highlight px-6 py-5 font-body text-xs font-semibold tracking-normal text-on-highlight no-underline transition-[background-color,transform,box-shadow] duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus-accent focus-visible:outline-none active:scale-[0.97] active:opacity-80"
+              className="relative mt-4 inline-flex w-full select-none items-center justify-center gap-3 rounded-sm border border-transparent bg-highlight px-6 py-5 font-body text-xs font-semibold text-on-highlight no-underline transition-[background-color,transform,box-shadow] duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus-accent focus-visible:outline-none"
             >
               Request Quote
             </a>

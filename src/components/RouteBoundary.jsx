@@ -77,10 +77,10 @@ class RouteBoundary extends Component {
         className="relative flex min-h-header flex-col gap-0 bg-bg-deep bg-hull bg-hull-grid pb-10 pt-plate-top text-primary"
       >
         <Container className="my-auto flex flex-col items-start gap-4">
-          <p className="font-mono text-xs font-medium uppercase tracking-eyebrow text-highlight">
+          <p className="font-body text-xs font-semibold text-highlight">
             Page did not load
           </p>
-          <h1 className="max-w-display text-h2 font-bold text-primary">
+          <h1 className="max-w-display text-h2 text-primary">
             Something went wrong here.
           </h1>
           <p className="max-w-prose text-lead text-secondary">

@@ -1,6 +1,6 @@
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 import Button from "./ui/Button";
-import { Container, MICRO_SM } from "./ui/Layout";
+import { Container, Eyebrow, MICRO_SM } from "./ui/Layout";
 import { Reveal } from "./ui/Reveal";
 
 // The close. The number is the largest thing on it because calling is the
@@ -20,10 +20,10 @@ function CtaStrip({
       className="relative overflow-hidden border-t border-hairline py-section before:pointer-events-none before:absolute before:inset-0 before:bg-hull before:bg-hull-grid before:opacity-60 before:content-['']"
     >
       <Container>
-        <Reveal className="relative grid grid-cols-[minmax(0,1fr)] gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,auto)] lg:items-end lg:gap-x-16">
+        <Reveal className="relative grid grid-cols-[minmax(0,1fr)] gap-y-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,auto)] lg:items-end lg:gap-x-9">
           <div className="min-w-0">
-            <p className={`${MICRO_SM} text-faint`}>{eyebrow}</p>
-            <h2 className="m-0 mt-5 max-w-title text-h2 font-bold text-primary">
+            <Eyebrow>{eyebrow}</Eyebrow>
+            <h2 className="m-0 mt-5 max-w-title text-h2 text-primary">
               {title}
             </h2>
             <p className="m-0 mt-5 max-w-prose text-lead text-secondary">
@@ -38,7 +38,7 @@ function CtaStrip({
             <p className={`${MICRO_SM} m-0 text-faint`}>Direct Line</p>
             <a
               href={phoneHref}
-              className="inline-flex min-h-control-sm items-center rounded-sm font-condensed text-figure-sm font-bold uppercase leading-none tracking-tight tabular-nums text-primary no-underline transition-[color,transform,opacity] duration-quick ease-settle hover:text-accent focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.97] active:opacity-80"
+              className="inline-flex min-h-control-sm items-center rounded-sm font-condensed text-figure-sm uppercase tracking-tight tabular-nums text-primary no-underline decoration-2 underline-offset-[6px] transition-colors duration-quick ease-settle hover:underline focus-visible:shadow-focus focus-visible:outline-none"
             >
               {PHONE_NUMBER}
             </a>

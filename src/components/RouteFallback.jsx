@@ -1,10 +1,9 @@
-import WaveDivider from "./WaveDivider";
 import { Container } from "./ui/Layout";
 
 // Stands in for a route while its chunk is in flight. It holds the four slots
 // every page header has - trail, eyebrow, title, lede - each box the size of
-// the line it stands in for, in the same container and under the same closing
-// wave.
+// the line it stands in for, in the same container the header itself uses, so
+// nothing moves when the real one lands.
 //
 // The actions row is not among them. Two of the six routes carry one and four
 // do not, so reserving it would put a box on screen that most pages never fill.
@@ -83,7 +82,6 @@ function RouteFallback() {
             />
           </span>
         </Container>
-        <WaveDivider />
       </div>
     </div>
   );

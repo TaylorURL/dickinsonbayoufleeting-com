@@ -12,31 +12,14 @@ import { forwardRef } from "react";
 const CONTAINER =
   "mx-auto w-full max-w-container-ruled border-x border-hairline px-gutter";
 
-// A divider inside a band, run out past the gutter so its ends touch the two
-// vertical rules. A rule that stops short of them reads as a floating line
-// instead of a cell edge.
-export const BLEED = "-mx-gutter";
-
-// Worn by whatever the pointer actually lands on. It sets the one property the
-// arrow reads, so the trigger can be the link itself or the whole row around
-// it, and the keyboard gets the same mark the pointer does.
-export const ARROW_TRIGGER =
-  "hover:[--arrow-live:1] focus-visible:[--arrow-live:1] focus-within:[--arrow-live:1]";
-
 // Depth in three rungs, each adding one thing to the one below it. A panel
 // takes the lowest rung that reads, because a page where everything is lifted
 // has nothing lifted. The hairline is an outline rather than a border so it
 // costs no layout box and a panel can gain or lose it without moving what is
 // inside it.
-export const PANEL_TINT = "rounded-md bg-surface";
-export const PANEL = `${PANEL_TINT} outline outline-1 -outline-offset-1 outline-border`;
+export const PANEL =
+  "rounded-md bg-surface outline outline-1 -outline-offset-1 outline-border";
 export const PANEL_RAISED = `${PANEL} shadow-raise`;
-
-// What a control does under the finger. Scale alone at a percent and a half is
-// a change nothing registers, so the press also takes the ink down a step: two
-// small changes together read as one clear one. Stated once because a press
-// that differs between two controls reads as one of them being broken.
-export const PRESS = "active:scale-[0.97] active:opacity-80";
 
 // One step between the blocks of a band. A margin on each block is how two
 // gaps in the same stack end up different sizes.
@@ -79,19 +62,23 @@ export const Section = forwardRef(function Section(
   );
 });
 
-// The rule that opens an eyebrow is markup rather than a pseudo-element, so it
-// takes the eyebrow's own colour without a second rule to keep in step.
+// The one thing that opens a band. Every section on the site uses this rather
+// than setting its own, because a page whose eyebrows come in three sizes has
+// three labels doing one job and no ranking among them.
+//
+// The rule that opens it is markup rather than a pseudo-element, so it takes
+// the eyebrow's own colour without a second rule to keep in step.
 export function Eyebrow({ strong = false, className = "", children }) {
   return (
     <p
-      className={`inline-flex items-center gap-3 font-mono text-xs font-medium uppercase tracking-eyebrow ${
-        strong ? "text-highlight" : "text-faint"
+      className={`m-0 inline-flex items-center gap-3 font-body text-xs font-semibold ${
+        strong ? "text-primary" : "text-faint"
       } ${className}`.trim()}
     >
       <span
         aria-hidden="true"
-        className={`inline-block h-px flex-none bg-highlight ${
-          strong ? "w-rule-short" : "w-icon-lg"
+        className={`inline-block h-px flex-none ${
+          strong ? "w-rule-short bg-primary" : "w-icon-lg bg-border-strong"
         }`}
       />
       {children}
@@ -99,12 +86,12 @@ export function Eyebrow({ strong = false, className = "", children }) {
   );
 }
 
-// The micro label: mono, uppercase, tracked wide. Two steps, because a dense
-// panel sets them a size below a section, and naming the step is what keeps the
-// two from being the same label at two sizes by accident.
-export const MICRO = "font-mono text-xs font-medium uppercase tracking-label";
-export const MICRO_SM =
-  "font-mono text-2xs font-medium uppercase tracking-label";
+// The small label a value is filed under: body face, sentence case, no
+// tracking. Two steps, because a dense panel sets them a size below a section,
+// and naming the step is what keeps the two from being the same label at two
+// sizes by accident.
+export const MICRO = "font-body text-xs font-semibold";
+export const MICRO_SM = "font-body text-2xs font-semibold";
 
 // The register mark a chart plate is trimmed to, one at each corner. The
 // borders that draw the two visible edges are the caller's, because which two
@@ -123,9 +110,7 @@ export function SectionHead({
 }) {
   // Title and supporting line sit beside each other on a twelve-column grid
   // rather than stacking, the title taking the first seven and the line running
-  // from the eighth to the edge. The line is pushed down half a pixel short of
-  // six so its first baseline meets the top of the title's cap height, which
-  // aligning the boxes alone does not do at this size difference.
+  // from the eighth to the edge.
   const head = (
     <div
       className={`grid grid-cols-[minmax(0,1fr)] gap-x-gap gap-y-6 lg:grid-cols-12 ${className}`.trim()}
@@ -135,7 +120,7 @@ export function SectionHead({
         <h2 className="min-w-0 max-w-title text-h2 text-primary">{title}</h2>
       </div>
       {subtitle ? (
-        <p className="m-0 max-w-prose self-start font-body text-md font-normal normal-case tracking-normal text-secondary lg:col-start-8 lg:col-end-[-1] lg:pt-[5.5px]">
+        <p className="m-0 max-w-prose self-start font-body text-md font-normal normal-case text-secondary lg:col-start-8 lg:col-end-[-1]">
           {subtitle}
         </p>
       ) : null}

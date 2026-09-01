@@ -21,7 +21,7 @@ const CONTROL = [
 export const FIELD = {
   root: "relative flex flex-col gap-1",
   full: "col-span-full",
-  label: "font-mono text-xs font-medium uppercase tracking-label text-faint",
+  label: "font-body text-xs font-semibold text-faint",
   hint: "font-body text-sm leading-snug text-faint",
   input: `${CONTROL} min-h-control`,
   // The box grows with what is typed into it. Where field-sizing is understood

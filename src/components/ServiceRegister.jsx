@@ -1,7 +1,7 @@
 import { SERVICES } from "../app/constants/services";
 import { Link } from "../app/router/Link";
 import Button from "./ui/Button";
-import { Container, MICRO_SM, Section } from "./ui/Layout";
+import { Container, Eyebrow, MICRO_SM, Section } from "./ui/Layout";
 import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
 
 // The seven jobs, set as an index rather than as a table or a grid of cards.
@@ -13,9 +13,9 @@ function ServiceRegister() {
   return (
     <Section surface="gray" id="services" aria-label="What we do">
       <Container>
-        <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,1fr)] lg:gap-16">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,1fr)] lg:gap-10">
           <Reveal className="flex flex-col items-start gap-5 lg:sticky lg:top-anchor lg:self-start">
-            <p className={`${MICRO_SM} text-faint`}>What comes with it</p>
+            <Eyebrow>What comes with it</Eyebrow>
             <h2 className="m-0 max-w-title text-h2 text-primary">
               The dock is already staffed.
             </h2>
@@ -33,7 +33,7 @@ function ServiceRegister() {
               <li key={s.id} className={`min-w-0 ${staggerChild(i)}`}>
                 <Link
                   to={`/services#${s.id}`}
-                  className="group grid grid-cols-[minmax(0,1fr)] gap-x-6 rounded-sm py-6 no-underline transition-[transform,opacity] duration-settle ease-swell hover:translate-x-2 hover:[--arrow-live:1] focus-visible:translate-x-2 focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] active:scale-[0.99] active:opacity-80 motion-reduce:transition-none motion-reduce:hover:translate-x-0 sm:grid-cols-[minmax(0,var(--col-label))_minmax(0,1fr)]"
+                  className="group grid grid-cols-[minmax(0,1fr)] gap-x-6 rounded-sm py-6 no-underline transition-[transform,opacity] duration-settle ease-swell hover:translate-x-2 hover:[--arrow-live:1] focus-visible:translate-x-2 focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] motion-reduce:transition-none motion-reduce:hover:translate-x-0 sm:grid-cols-[minmax(0,var(--col-label))_minmax(0,1fr)]"
                 >
                   <span
                     className={`${MICRO_SM} mt-[0.6em] hidden tabular-nums text-muted transition-colors duration-quick group-hover:text-accent sm:block`}
@@ -41,7 +41,7 @@ function ServiceRegister() {
                     {s.code}
                   </span>
                   <span className="min-w-0">
-                    <span className="block font-condensed text-h3 font-bold uppercase leading-[0.98] tracking-tight text-secondary transition-colors duration-quick group-hover:text-primary group-focus-visible:text-primary">
+                    <span className="block font-condensed text-h3 uppercase tracking-tight text-secondary transition-colors duration-quick group-hover:text-primary group-focus-visible:text-primary">
                       {s.name}
                     </span>
                     <span className="mt-2 block max-w-prose text-sm text-muted">

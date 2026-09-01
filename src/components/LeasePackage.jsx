@@ -1,6 +1,6 @@
 import { FACILITIES } from "../app/constants/facilities";
 import Button from "./ui/Button";
-import { Container, MICRO_SM, Section } from "./ui/Layout";
+import { Container, Eyebrow, MICRO_SM, Section } from "./ui/Layout";
 import { Reveal } from "./ui/Reveal";
 
 // Every row the sheet states, in the order somebody comparing two yards asks
@@ -23,7 +23,7 @@ function LeasePackage({ surface = "gray" }) {
     <Section surface={surface} id="rates" aria-label="Lease rates">
       <Container>
         <Reveal className="max-w-head">
-          <p className={`${MICRO_SM} text-faint`}>Dock leasing</p>
+          <Eyebrow>Dock leasing</Eyebrow>
           <h2 className="m-0 mt-5 max-w-title text-h2 text-primary">
             Five acres, either coast.
           </h2>
@@ -36,7 +36,7 @@ function LeasePackage({ surface = "gray" }) {
         {/* Wide enough to need its own scroll on a handset, which is the honest
             answer for a comparison table: a table that reflows into stacked
             cards has stopped being a comparison. */}
-        <Reveal className="mt-12 -mx-gutter overflow-x-auto px-gutter">
+        <Reveal className="mt-9 -mx-gutter overflow-x-auto px-gutter">
           <table className="w-full min-w-[620px] border-separate border-spacing-0 text-left">
             <caption className="sr-only">
               Lease rates and particulars for the Dickinson and Freeport yards
@@ -58,7 +58,7 @@ function LeasePackage({ surface = "gray" }) {
                     <span className={`${MICRO_SM} block text-faint`}>
                       {f.code}
                     </span>
-                    <span className="mt-2 block font-condensed text-h4 font-bold uppercase leading-none text-primary">
+                    <span className="mt-2 block font-condensed text-h4 uppercase text-primary">
                       {f.shortName}
                     </span>
                   </th>
@@ -96,7 +96,7 @@ function LeasePackage({ surface = "gray" }) {
                     key={f.id}
                     className="border-b border-border-strong py-6 pr-6 align-bottom last:pr-0"
                   >
-                    <span className="block font-condensed text-figure-sm font-bold leading-none tabular-nums text-primary">
+                    <span className="block font-condensed text-figure-sm tabular-nums text-primary">
                       {`$${f.price.toLocaleString()}`}
                     </span>
                   </td>
@@ -126,7 +126,7 @@ function LeasePackage({ surface = "gray" }) {
           ))}
         </div>
 
-        <Reveal className="mt-11">
+        <Reveal className="mt-10">
           <Button to="/contact">Ask About a Lease</Button>
         </Reveal>
       </Container>

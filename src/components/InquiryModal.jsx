@@ -2,9 +2,9 @@ import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 import InquiryFields from "./InquiryFields";
 import InquiryErrorSummary from "./InquiryErrorSummary";
-import { CheckIcon } from "./Icons";
 import Button from "./ui/Button";
-import { HULL_PLATE } from "./ui/Layout";
+import Confirmation from "./ui/Confirmation";
+import { Eyebrow, HULL_PLATE } from "./ui/Layout";
 import { formatPhone, validateInquiry } from "../app/constants/inquiryForm";
 
 // The panel animates in; taking focus before it lands makes the browser scroll
@@ -184,7 +184,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
         onClick={!submitting ? requestClose : undefined}
         disabled={submitting}
         aria-label="Close Lease Inquiry"
-        className="absolute inset-0 animate-arrive appearance-none border-0 bg-overlay-scrim backdrop-blur-sm transition-opacity duration-quick ease-settle hover:opacity-95 focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-highlight active:opacity-90 disabled:cursor-not-allowed motion-reduce:animate-none"
+        className="absolute inset-0 animate-arrive appearance-none border-0 bg-overlay-scrim backdrop-blur-sm transition-opacity duration-quick ease-settle focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-highlight disabled:cursor-not-allowed motion-reduce:animate-none"
       />
 
       <div
@@ -221,30 +221,33 @@ function InquiryModal({ open, onClose, onSubmit }) {
           </div>
         ) : null}
 
-        <button
-          type="button"
-          onClick={requestClose}
-          disabled={submitting}
-          aria-label="Close Lease Inquiry"
-          className="sticky top-3 z-raised float-right -mb-control-sm mr-3 mt-3 inline-flex h-control-sm w-control-sm items-center justify-center rounded-sm border border-field-border bg-transparent text-faint transition-[color,border-color,transform,opacity] duration-quick ease-settle hover:enabled:border-highlight hover:enabled:text-highlight focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.95] active:opacity-80 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {/* Two rules crossed, so the mark inherits the button's colour and
+        {/* The row takes no height of its own, so the mark sits over the
+            panel's top corner and stays there while the panel scrolls under
+            it. A float and a negative margin did the same job by accident. */}
+        <div className="sticky top-0 z-raised flex h-0 justify-end pr-3 pt-3">
+          <button
+            type="button"
+            onClick={requestClose}
+            disabled={submitting}
+            aria-label="Close Lease Inquiry"
+            className="pointer-events-auto inline-flex h-control-sm w-control-sm items-center justify-center rounded-sm bg-transparent text-faint shadow-edge transition-colors duration-quick ease-settle hover:enabled:bg-layer-2 hover:enabled:text-primary focus-visible:shadow-focus focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {/* Two rules crossed, so the mark inherits the button's colour and
               needs no second asset to keep in step with the theme. */}
-          <span
-            aria-hidden="true"
-            className="relative block h-icon-sm w-icon-sm before:absolute before:left-0 before:top-1/2 before:h-px before:w-full before:rotate-45 before:bg-current before:content-[''] after:absolute after:left-0 after:top-1/2 after:h-px after:w-full after:-rotate-45 after:bg-current after:content-['']"
-          />
-        </button>
+            <span
+              aria-hidden="true"
+              className="relative block h-icon-sm w-icon-sm before:absolute before:left-0 before:top-1/2 before:h-px before:w-full before:rotate-45 before:bg-current before:content-[''] after:absolute after:left-0 after:top-1/2 after:h-px after:w-full after:-rotate-45 after:bg-current after:content-['']"
+            />
+          </button>
+        </div>
 
         {!submitted && (
           <form onSubmit={submit} noValidate className="flex flex-col gap-7">
             <header
               className={`flex flex-col gap-3 border-b border-hairline pb-4 pt-7 xs:pt-9 ${GUTTER}`}
             >
-              <p className="font-mono text-xs font-medium uppercase tracking-eyebrow text-highlight">
-                Get a Quote
-              </p>
-              <h2 id="inqTitle" className="text-h3 font-bold text-primary">
+              <Eyebrow strong>Get a Quote</Eyebrow>
+              <h2 id="inqTitle" className="text-h3 text-primary">
                 Lease Inquiry
               </h2>
               <p id="inqDesc" className="font-body text-base text-secondary">
@@ -265,7 +268,9 @@ function InquiryModal({ open, onClose, onSubmit }) {
               />
             ) : null}
 
-            <div className={`grid grid-cols-2 gap-5 ${GUTTER}`}>
+            <div
+              className={`grid grid-cols-[minmax(0,1fr)] xs:grid-cols-2 gap-5 ${GUTTER}`}
+            >
               <InquiryFields
                 idPrefix={FORM_ID}
                 values={values}
@@ -329,17 +334,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
           <div
             className={`relative flex animate-rise flex-col items-start gap-4 pb-9 pt-10 motion-reduce:animate-none ${GUTTER}`}
           >
-            <div
-              aria-hidden="true"
-              className="inline-flex h-control w-control animate-rise-2 items-center justify-center border border-highlight bg-highlight-soft text-highlight motion-reduce:animate-none"
-            >
-              <CheckIcon size={30} strokeWidth="2.5" />
-            </div>
-            <h2 className="text-h3 font-bold text-primary">Message Sent</h2>
-            <p className="max-w-prose-tight font-body text-base text-secondary">
-              We will reach out within 24 hours. You can also call{" "}
-              {PHONE_NUMBER} any time for immediate assistance.
-            </p>
+            <Confirmation phone={PHONE_NUMBER} />
             <div className="mt-3">
               <Button variant="primary" arrow={false} onClick={resetAndClose}>
                 Close

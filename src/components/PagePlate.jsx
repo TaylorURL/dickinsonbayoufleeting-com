@@ -1,14 +1,12 @@
 import Breadcrumbs from "./Breadcrumbs";
 import OceanTopographyBackground from "./OceanTopographyBackground";
 import { rise } from "./ui/Reveal";
-import WaveDivider, { WAVE_INTO_LIGHT } from "./WaveDivider";
 import { Container, Eyebrow } from "./ui/Layout";
 
 // The header every route but Home opens on. The auto block margins take the
-// plate's spare height, which centres the copy and leaves the wave on the
-// bottom edge. Centring the pair instead splits that height either side of
-// them, and the half below the wave shows as a band of plate under a seam that
-// is supposed to be the end of it.
+// plate's spare height, which sets the copy against the bottom edge rather
+// than in the middle of the plate, so the header reads as the top of the page
+// rather than as a panel with the page starting under it.
 //
 // svh, not the static viewport unit: that one measures the tallest the viewport
 // ever gets, so a plate sized by it spends its first paint behind the browser
@@ -19,7 +17,7 @@ function PagePlate({ eyebrow, title, subtitle, children }) {
       data-plate
       data-surface="dark"
       aria-label={typeof title === "string" ? title : undefined}
-      className={`relative isolate flex min-h-header flex-col items-stretch gap-0 overflow-hidden pt-plate-top text-primary [min-height:62svh] ${WAVE_INTO_LIGHT}`}
+      className={`relative isolate flex min-h-header flex-col items-stretch gap-0 overflow-hidden pt-plate-top text-primary [min-height:62svh]`}
     >
       <div aria-hidden="true" className="absolute inset-0 z-behind bg-bg-deep">
         <OceanTopographyBackground />
@@ -33,11 +31,7 @@ function PagePlate({ eyebrow, title, subtitle, children }) {
             {eyebrow}
           </Eyebrow>
         ) : null}
-        <h1
-          className={`min-w-0 max-w-display text-h1 tracking-normal ${rise(1)}`}
-        >
-          {title}
-        </h1>
+        <h1 className={`min-w-0 max-w-display text-h1 ${rise(1)}`}>{title}</h1>
         {subtitle ? (
           <p className={`max-w-prose text-lead text-secondary ${rise(2)}`}>
             {subtitle}
@@ -49,8 +43,6 @@ function PagePlate({ eyebrow, title, subtitle, children }) {
           </div>
         ) : null}
       </Container>
-
-      <WaveDivider />
     </section>
   );
 }

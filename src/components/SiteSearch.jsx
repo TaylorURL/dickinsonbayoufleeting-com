@@ -152,7 +152,7 @@ function SiteSearch({ open, onClose }) {
         aria-modal="true"
         aria-labelledby={labelId}
         data-surface="light"
-        className="flex max-h-full w-full max-w-[620px] animate-rise flex-col overflow-hidden rounded-md bg-surface shadow-raise outline outline-1 -outline-offset-1 outline-border-strong motion-reduce:animate-none"
+        className="flex max-h-full w-full max-w-palette animate-rise flex-col overflow-hidden rounded-md bg-surface shadow-raise outline outline-1 -outline-offset-1 outline-border-strong motion-reduce:animate-none"
       >
         <h2 id={labelId} className="sr-only">
           Search this site
@@ -178,13 +178,13 @@ function SiteSearch({ open, onClose }) {
             placeholder="A yard, a rate, a service, a question"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="h-full min-w-0 flex-1 border-0 bg-transparent p-0 font-body text-[16px] text-primary outline-none placeholder:text-faint"
+            className="h-full min-w-0 flex-1 border-0 bg-transparent p-0 font-body text-base text-primary outline-none placeholder:text-faint"
           />
           <button
             type="button"
             onClick={onClose}
             aria-label="Close search"
-            className="hidden shrink-0 cursor-pointer rounded-xs px-[0.4rem] py-[0.3rem] font-mono text-[11px] font-medium leading-none text-faint shadow-[0_0_0_1px_var(--color-border-strong)] transition-colors duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:outline-none sm:inline-block"
+            className="hidden shrink-0 cursor-pointer rounded-xs px-1.5 py-1 font-body text-3xs font-medium leading-none text-faint shadow-edge transition-colors duration-quick ease-settle hover:bg-layer-2 hover:text-primary focus-visible:shadow-focus focus-visible:outline-none sm:inline-block"
           >
             Esc
           </button>
@@ -198,7 +198,7 @@ function SiteSearch({ open, onClose }) {
           className="flex min-h-0 flex-col overflow-y-auto overscroll-contain p-2"
         >
           {results.length === 0 ? (
-            <p className="m-0 px-5 py-10 text-center text-[14px] leading-relaxed text-muted">
+            <p className="m-0 px-5 py-10 text-center text-sm leading-relaxed text-muted">
               Nothing matches that. The line answers anything the site would
               have told you.
             </p>
@@ -216,21 +216,21 @@ function SiteSearch({ open, onClose }) {
                 data-active={index === cursor}
                 onMouseMove={() => setCursor(index)}
                 onClick={() => go(entry)}
-                className="group flex min-h-[52px] w-full items-center gap-3 rounded-sm bg-transparent px-3 py-2 text-left transition-colors duration-quick ease-settle data-[active=true]:bg-accent"
+                className="group flex min-h-control-sm w-full items-center gap-3 rounded-sm bg-transparent px-3 py-2 text-left transition-colors duration-quick ease-settle data-[active=true]:bg-accent"
               >
                 {/* The code stands where a drawing would, at one width, so a
                     list of mixed kinds reads as one column rather than two. */}
                 <span
-                  className="w-[38px] flex-none font-mono text-[11px] font-medium uppercase tracking-label tabular-nums text-muted group-data-[active=true]:text-on-accent group-data-[active=true]:opacity-70"
+                  className="w-code-sm flex-none font-mono text-2xs font-medium tracking-code tabular-nums text-muted group-data-[active=true]:text-on-accent group-data-[active=true]:opacity-70"
                   aria-hidden="true"
                 >
                   {entry.code}
                 </span>
                 <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                  <span className="truncate text-[15px] font-semibold leading-snug tracking-[-0.005em] text-primary group-data-[active=true]:text-on-accent">
+                  <span className="truncate text-md font-semibold leading-snug text-primary group-data-[active=true]:text-on-accent">
                     <Marked text={entry.label} query={query} />
                   </span>
-                  <span className="truncate text-[12px] leading-snug text-muted group-data-[active=true]:text-on-accent group-data-[active=true]:opacity-80">
+                  <span className="truncate text-2xs font-normal leading-snug text-muted group-data-[active=true]:text-on-accent group-data-[active=true]:opacity-80">
                     {entry.hint}
                   </span>
                 </span>

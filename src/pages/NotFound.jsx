@@ -53,15 +53,15 @@ function NotFound() {
               <li key={link.to} className="flex gap-0 border-b border-border">
                 <Link
                   to={link.to}
-                  className="group grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-5 px-3 py-6 text-secondary no-underline transition-[color,transform] duration-quick ease-settle hover:text-primary hover:[--arrow-live:1] focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] active:scale-[0.97] active:opacity-80 xs:grid-cols-[theme(spacing.index)_minmax(0,1fr)_auto]"
+                  className="group grid w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-5 px-3 py-6 text-secondary no-underline transition-[color,transform] duration-quick ease-settle hover:text-primary hover:[--arrow-live:1] focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] xs:grid-cols-[theme(spacing.index)_minmax(0,1fr)_auto]"
                 >
                   <span
                     aria-hidden="true"
-                    className="hidden font-mono text-xs font-medium tracking-control text-muted xs:block"
+                    className="hidden font-body text-sm text-muted xs:block"
                   >
                     {String(idx + 1).padStart(2, "0")}
                   </span>
-                  <span className="font-condensed text-h6 font-semibold uppercase tracking-normal [overflow-wrap:anywhere]">
+                  <span className="font-condensed text-h6 uppercase [overflow-wrap:anywhere]">
                     {link.label}
                   </span>
                   <span
