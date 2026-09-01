@@ -32,12 +32,15 @@ export function staggerChild(index) {
 
 // Brings a block up as it reaches the viewport. `as` picks the element so a
 // reveal can wrap a list or a row without adding a div the layout has to
-// account for.
+// account for. It reports its state on an attribute for the same reason the
+// stagger does: print scrolls nothing, so a band nobody has reached is held at
+// zero opacity on paper unless a rule can find it.
 export function Reveal({ as: Tag = "div", className = "", children, ...rest }) {
   const { ref, revealed } = useReveal();
   return (
     <Tag
       ref={ref}
+      data-revealed={revealed}
       className={`${MOTION} ${revealed ? SETTLED : HELD} ${className}`.trim()}
       {...rest}
     >

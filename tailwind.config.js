@@ -15,9 +15,11 @@ const colour = (token) => `var(--color-${token})`;
 // and one step the entrance delays count off, so a stagger and a hover move on
 // the same clock.
 // quick is what a colour under the pointer takes, settle is what a control
-// takes to change state, and reveal is the long one a band arrives on. step is
-// the gap between two siblings arriving.
-const DURATION = { quick: 150, settle: 300, step: 100, reveal: 750 };
+// takes to change state, and reveal is what a band arrives on. Reveal is not
+// the long one: a band of text that takes three quarters of a second to
+// arrive is a band the reader is waiting on rather than reading. step is the
+// gap between two siblings arriving.
+const DURATION = { quick: 150, settle: 300, step: 80, reveal: 320 };
 
 const CURVE = {
   settle: "cubic-bezier(0.22, 1, 0.36, 1)",
@@ -54,10 +56,10 @@ const rise = Object.fromEntries(
 // rem needs less air between lines and less between letters than type set at
 // one.
 const TYPE = {
-  figure: ["clamp(3.2rem, 7vw, 4.6rem)", "0.94", "-0.02em", "700"],
-  "figure-sm": ["clamp(2.6rem, 10vw, 3.4rem)", "0.96", "-0.015em", "700"],
-  h1: ["clamp(2.6rem, 6vw, 5rem)", "0.96", "-0.005em", "700"],
-  h2: ["clamp(2.2rem, 4.8vw, 3.8rem)", "1", "0em", "600"],
+  figure: ["clamp(2.8rem, 6vw, 3.75rem)", "0.94", "-0.02em", "700"],
+  "figure-sm": ["clamp(2.2rem, 8vw, 2.8rem)", "0.96", "-0.015em", "700"],
+  h1: ["clamp(2.4rem, 5vw, 3.4rem)", "0.98", "-0.005em", "700"],
+  h2: ["clamp(2rem, 4.2vw, 2.8rem)", "1", "0em", "700"],
   // The one step whose size a container query re-derives, so all four of its
   // values sit in the token block together rather than the size alone going
   // there and the other three staying here.
@@ -67,22 +69,23 @@ const TYPE = {
     "var(--text-hero-tracking)",
     "var(--text-hero-weight)",
   ],
-  h3: ["clamp(1.9rem, 3.6vw, 2.7rem)", "1.06", "0.01em", "600"],
-  h4: ["clamp(1.6rem, 2.8vw, 2.3rem)", "1.1", "0.015em", "600"],
-  h5: ["clamp(1.35rem, 2.2vw, 1.8rem)", "1.16", "0.02em", "600"],
-  h6: ["clamp(1.15rem, 1.7vw, 1.45rem)", "1.24", "0.025em", "600"],
+  h3: ["clamp(1.7rem, 3.2vw, 2.2rem)", "1.06", "0.01em", "700"],
+  h4: ["clamp(1.45rem, 2.5vw, 1.85rem)", "1.1", "0.015em", "700"],
+  h5: ["clamp(1.25rem, 2vw, 1.5rem)", "1.16", "0.02em", "600"],
+  h6: ["clamp(1.1rem, 1.6vw, 1.25rem)", "1.24", "0.02em", "600"],
 
   lead: ["clamp(1.04rem, 1.45vw, 1.2rem)", "1.55", "0em", "400"],
   xl: ["1.3rem", "1.5", "0em", "400"],
   lg: ["1.14rem", "1.55", "0em", "400"],
   base: ["1rem", "1.6", "0em", "400"],
   md: ["0.96rem", "1.62", "0em", "400"],
-  sm: ["0.86rem", "1.6", "0.01em", "400"],
-  // The three micro steps are set in mono and almost always uppercase, so each
-  // carries the tracking that size needs to stay readable in caps.
-  xs: ["0.74rem", "1.5", "0.06em", "500"],
-  "2xs": ["0.68rem", "1.45", "0.08em", "500"],
-  "3xs": ["0.62rem", "1.4", "0.1em", "500"],
+  sm: ["0.875rem", "1.6", "0em", "400"],
+  // The three label steps. Sentence case in the body face, so none of them
+  // needs tracking opened up to stay readable, and none goes below the size a
+  // label can be read at.
+  xs: ["0.8125rem", "1.5", "0em", "500"],
+  "2xs": ["0.75rem", "1.45", "0em", "500"],
+  "3xs": ["0.6875rem", "1.4", "0em", "500"],
 };
 
 const fontSize = Object.fromEntries(
@@ -168,8 +171,6 @@ module.exports = {
       "console-inset": colour("surface-console-inset"),
     },
 
-    // Square, and the round dot. Sharp corners are the look, so there is no
-    // radius scale to drift along.
     // Four steps and a circle, and nothing above sixteen. A card and the
     // control inside it cannot share one value without the control looking
     // swollen, so each rung names the thing it is for: a chip, a control, a
@@ -205,6 +206,7 @@ module.exports = {
       10: "88px",
       11: "120px",
       12: "160px",
+      13: "200px",
       "icon-sm": "14px",
       "icon-md": "18px",
       "icon-lg": "32px",
@@ -218,13 +220,14 @@ module.exports = {
       "rule-long": "84px",
       "rule-wide": "96px",
       nav: "var(--nav-height)",
+      wave: "var(--wave-height)",
       rail: "var(--rail-height)",
       chrome: "var(--chrome-height)",
       "nav-logo": "var(--nav-logo-height)",
       "footer-logo": "var(--footer-logo-height)",
-      wave: "var(--wave-height)",
       control: "var(--control-height)",
       "control-sm": "var(--control-height-sm)",
+      "control-xs": "var(--control-height-xs)",
       gutter: "var(--container-pad)",
       // The column gap the twelve-column heads are set on.
       gap: "16px",
@@ -236,8 +239,16 @@ module.exports = {
       index: "var(--col-index)",
       "index-wide": "var(--col-index-wide)",
       code: "var(--col-code)",
+      "code-sm": "var(--col-code-sm)",
       label: "var(--col-label)",
       "answer-indent": "92px",
+      // The shortcut chip, held at the width of the longest label it can wear.
+      shortcut: "52px",
+      // The height a button comes out at: its label, the block padding either
+      // side of it, and the transparent border it holds so a filled control
+      // and an outlined one are the same size. The route placeholder reserves
+      // the actions row from this rather than from a number of its own.
+      action: "48px",
       map: "var(--map-height)",
       "map-sm": "var(--map-height-sm)",
     },
@@ -273,10 +284,9 @@ module.exports = {
 
     fontSize,
 
-    // Uppercase tracking in three steps. The section eyebrow is the widest
-    // thing on the page and the only thing at that width; controls sit a step
-    // in, and every other micro-label a step in again. Setting them all alike
-    // is how a page ends up with forty labels and no hierarchy among them.
+    // Three steps and no more. Display type set large closes up, running text
+    // and labels sit at zero, and the one open step is for the mono codes that
+    // are read a character at a time rather than as a word.
     letterSpacing: {
       tight: "-0.01em",
       normal: "0em",
@@ -309,11 +319,12 @@ module.exports = {
       title: "12em",
       display: "14em",
       head: "980px",
+      palette: "620px",
       hero: "920px",
-      container: "1440px",
+      container: "var(--container-max)",
       // The measure plus the two rules that fence it, so fencing a band does
       // not narrow the column inside it.
-      "container-ruled": "calc(1440px + 2px)",
+      "container-ruled": "calc(var(--container-max) + 2px)",
     },
 
     // Written literally rather than read from a token: a media query cannot
@@ -346,17 +357,20 @@ module.exports = {
         3: "3px",
       },
 
-      // Seven names, each with a job. Depth on this site comes from the
-      // absence of light rather than from a stack of elevations.
+      // Five names, each with a job. On the dark side depth is bought with a
+      // lit edge rather than with a blur: a black shadow over a near-black
+      // ground composites to the ground.
       boxShadow: {
         lg: "var(--shadow-lg)",
         raise: "var(--shadow-raise)",
-        accent: "var(--shadow-accent)",
         // A plate reads as both lifted off the page and lit along its own top
         // edge, which is two shadows rather than one.
         plate: "var(--shadow-md), var(--shadow-inset-card)",
         focus: "var(--ring-focus)",
-        "focus-accent": "var(--ring-focus), var(--shadow-accent)",
+        // A one-pixel edge drawn as a shadow rather than a border, for a
+        // control that must not gain a layout box when it gains its outline.
+        edge: "0 0 0 1px var(--color-border)",
+        "edge-inset": "inset 0 0 0 1px var(--color-border-strong)",
         none: "none",
       },
 
@@ -440,6 +454,7 @@ module.exports = {
         line: "1lh",
         control: "var(--control-height)",
         "control-sm": "var(--control-height-sm)",
+        action: "48px",
         field: "var(--field-min-height)",
         plate: "var(--plate-min-height)",
         header: "var(--header-min-height)",

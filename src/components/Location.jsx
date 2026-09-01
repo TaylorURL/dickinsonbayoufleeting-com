@@ -91,10 +91,10 @@ function FacilityCard({ facility, index, mapsMounted }) {
     <article
       id={facility.id}
       aria-label={facility.name}
-      className="relative flex min-w-0 flex-col gap-5 border border-border bg-surface px-5 py-6 transition-[border-color,transform] duration-settle ease-settle hover:-translate-y-1 motion-reduce:transition-none xs:px-6 xs:py-7"
+      className="relative flex min-w-0 flex-col gap-5 rounded-md border border-border bg-surface px-5 py-6 transition-[border-color,box-shadow,transform] duration-settle ease-settle hover:-translate-y-1 hover:border-border-strong hover:shadow-raise motion-reduce:transition-none xs:px-6 xs:py-7"
     >
       <header className="flex items-center justify-between gap-3 border-b border-hairline pb-4">
-        <span className="font-mono text-xs font-medium uppercase tracking-label text-highlight">
+        <span className="font-body text-xs font-semibold text-highlight">
           F-{String(index + 1).padStart(2, "0")}
         </span>
         <span className={`${MICRO_SM} text-faint`}>On-Site Crew</span>
@@ -102,9 +102,7 @@ function FacilityCard({ facility, index, mapsMounted }) {
 
       <div className="flex flex-col gap-1">
         <p className={`${MICRO_SM} text-highlight`}>{facility.region}</p>
-        <h3 className="font-condensed text-h5 font-bold uppercase tracking-normal text-primary">
-          {facility.name}
-        </h3>
+        <h3 className="text-h5 text-primary">{facility.name}</h3>
         <p className="font-body text-base text-secondary">{facility.address}</p>
       </div>
 
@@ -159,17 +157,17 @@ function FacilityCard({ facility, index, mapsMounted }) {
                 href={buildMapsHref(facility.address)}
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-col items-center gap-3 p-5 text-center text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.97] active:opacity-80"
+                className="flex flex-col items-center gap-3 p-5 text-center text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:shadow-focus focus-visible:outline-none"
               >
                 <span className="max-w-prose-tight font-body text-sm leading-normal">
                   {facility.address}
                 </span>
-                <span className="font-mono text-xs font-medium uppercase tracking-label">
+                <span className="font-body text-xs font-semibold">
                   Open in Maps
                 </span>
               </a>
             ) : (
-              <span className="font-mono text-xs font-medium uppercase tracking-label">
+              <span className="font-body text-xs font-semibold">
                 Loading map · {facility.shortName}
               </span>
             )}

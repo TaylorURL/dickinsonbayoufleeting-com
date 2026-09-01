@@ -75,7 +75,7 @@ function ScrollSpy({ generation = 0 }) {
     <nav
       data-surface={surface}
       aria-label="On This Page"
-      className="pointer-events-none fixed right-[clamp(20px,2.4vw,36px)] top-1/2 z-rail hidden -translate-y-1/2 bg-transparent font-mono transition-colors duration-settle ease-settle rail:block"
+      className="pointer-events-none fixed right-[clamp(20px,2.4vw,36px)] top-1/2 z-rail hidden -translate-y-1/2 bg-transparent font-body transition-colors duration-settle ease-settle rail:block"
     >
       <ol className="pointer-events-auto m-0 flex list-none flex-col gap-3 p-0">
         {sections.map((section, idx) => {
@@ -85,7 +85,7 @@ function ScrollSpy({ generation = 0 }) {
               <a
                 href={`#${section.id}`}
                 aria-current={isActive ? "true" : undefined}
-                className={`group/link relative inline-flex flex-row-reverse items-center gap-2 py-1 no-underline transition-[color,background-color,border-color,transform,opacity] duration-settle ease-settle hover:text-primary focus-visible:text-primary focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight active:scale-[0.95] active:opacity-80 ${
+                className={`group/link relative inline-flex flex-row-reverse items-center gap-2 py-1 no-underline transition-[color,background-color,border-color,transform,opacity] duration-settle ease-settle hover:text-primary focus-visible:text-primary focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight ${
                   isActive ? "text-primary" : "text-faint"
                 }`}
               >
@@ -98,14 +98,14 @@ function ScrollSpy({ generation = 0 }) {
                   }`}
                 />
                 <span
-                  className={`text-3xs font-medium uppercase tracking-label transition-colors duration-settle ease-settle ${
+                  className={`text-2xs font-semibold tabular-nums transition-colors duration-settle ease-settle ${
                     isActive ? "text-highlight" : "text-muted"
                   }`}
                 >
                   {String(idx + 1).padStart(2, "0")}
                 </span>
                 <span
-                  className={`whitespace-nowrap text-2xs font-medium uppercase tracking-control text-current ${
+                  className={`whitespace-nowrap text-xs font-medium text-current ${
                     isActive ? "opacity-100" : FADE
                   }`}
                 >

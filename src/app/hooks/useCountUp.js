@@ -38,10 +38,18 @@ export function useCountUp(target, options = {}) {
       if (startedRef.current) return;
       startedRef.current = true;
       const start = performance.now();
+      // Sixty frames a second of eased float would be sixty renders to show a
+      // number that only ever takes eleven values. The frame still runs on
+      // every tick; the state moves only when what is on screen would change.
+      const round = (v) => Number(v.toFixed(decimals));
+      let shown = 0;
       const step = (now) => {
         const t = Math.min(1, (now - start) / duration);
-        const v = easeOutExpo(t) * target;
-        setValue(v);
+        const next = round(easeOutExpo(t) * target);
+        if (next !== shown) {
+          shown = next;
+          setValue(next);
+        }
         if (t < 1) raf = requestAnimationFrame(step);
       };
       raf = requestAnimationFrame(step);
@@ -71,7 +79,7 @@ export function useCountUp(target, options = {}) {
       cancelAnimationFrame(raf);
       observer.disconnect();
     };
-  }, [target, duration]);
+  }, [target, duration, decimals]);
 
   const display =
     decimals > 0 ? value.toFixed(decimals) : Math.round(value).toString();

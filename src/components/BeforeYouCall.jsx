@@ -78,7 +78,7 @@ function BeforeYouCall({ seam = null }) {
               >
                 {String(i + 1).padStart(2, "0")}
               </p>
-              <h3 className="m-0 font-condensed text-h5 font-semibold uppercase tracking-tight text-primary">
+              <h3 className="m-0 text-h5 tracking-tight text-primary">
                 {step.title}
               </h3>
               <p className="m-0 max-w-prose-tight text-md text-secondary">
@@ -93,7 +93,7 @@ function BeforeYouCall({ seam = null }) {
           <dl className="m-0 grid grid-cols-[minmax(0,1fr)] gap-x-9 gap-y-6 md:grid-cols-3">
             {PAPERWORK.map((item) => (
               <div key={item.title} className="flex min-w-0 flex-col gap-2">
-                <dt className="font-condensed text-h6 font-semibold uppercase tracking-normal text-primary">
+                <dt className="font-condensed text-h6 uppercase text-primary">
                   {item.title}
                 </dt>
                 <dd className="m-0 max-w-prose-tight text-sm text-secondary">

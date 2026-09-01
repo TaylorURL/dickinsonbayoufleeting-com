@@ -57,7 +57,7 @@ function LeasePackage({ surface = "gray", seam = null }) {
                     <span className={`${MICRO_SM} block text-faint`}>
                       {f.code}
                     </span>
-                    <span className="mt-2 block font-condensed text-h4 font-bold uppercase leading-none text-primary">
+                    <span className="mt-2 block font-condensed text-h4 uppercase text-primary">
                       {f.shortName}
                     </span>
                   </th>
@@ -95,7 +95,7 @@ function LeasePackage({ surface = "gray", seam = null }) {
                     key={f.id}
                     className="border-b border-border-strong py-6 pr-6 align-bottom last:pr-0"
                   >
-                    <span className="block font-condensed text-figure-sm font-bold leading-none tabular-nums text-primary">
+                    <span className="block font-condensed text-figure-sm tabular-nums text-primary">
                       {`$${f.price.toLocaleString()}`}
                     </span>
                   </td>
