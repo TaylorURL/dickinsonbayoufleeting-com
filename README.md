@@ -16,7 +16,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2026.36.13-f0a045?style=for-the-badge" alt="Version 2026.36.13" />
+  <img src="https://img.shields.io/badge/version-2026.36.14-f0a045?style=for-the-badge" alt="Version 2026.36.14" />
   <img src="https://img.shields.io/badge/React-19-07101c?style=for-the-badge&logo=react&logoColor=white" alt="React 19" />
   <img src="https://img.shields.io/badge/Create_React_App-5-07101c?style=for-the-badge&logo=createreactapp&logoColor=white" alt="Create React App 5" />
   <img src="https://img.shields.io/badge/Tailwind-3-07101c?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 3" />
@@ -105,6 +105,7 @@ flowchart TD
 - **One form, two places.** The five inquiry fields, their rules and their error wording live in `src/app/constants/inquiryForm.js`; `InquiryFields` renders them for both the modal and the contact page. Both forms post to a Supabase function through the shared submit, which gives up after 15 seconds and shows a failure instead of a confirmation.
 - **The water draws itself.** `OceanTopographyBackground` rides a dot field and its contour lines on one shared flow field over a Canvas 2D context, behind the home hero and behind every inner page header. It stops while off-screen or in a hidden tab, and paints a single static frame under `prefers-reduced-motion`.
 - **Two yards, one record.** San Leon (2629 Avenue R, Dickinson, TX) at $4,100/month and Freeport (906 Marlin Ln, Freeport, TX) at $4,800/month, both 5-acre waterfront facilities, come from `src/app/constants/facilities.js`, which the lease cards, the maps, the footer and the contact page all read. The hero console keeps its own short list because it shows coordinates the record does not carry.
+- **Measurement is one module and two identifiers.** `src/app/constants/tracking.js` holds the Google Ads account, the GA4 property and a conversion label for each of the three actions worth counting; `src/app/tracking/google.js` loads the tag and sends them. An empty identifier switches that piece off, so a build with none filled in attaches no script at all. The inquiry conversion fires inside the shared submit, after the throw, so a submission the desk never received is never counted; calls and directions are caught by one delegated listener rather than a handler on each of the site's nine phone links. The ad click identifier is read on arrival and held for the tab, because the router drops the query string on the first in-site navigation.
 - **A broken page reports itself.** An inline script in `public/index.html` catches uncaught errors, rejected promises, failed resource loads and 5xx responses, caps itself at ten reports a visit and beacons them to the collector. The privacy page says so, because those reports are one of the three things the site records.
 - **Routes are downloaded one at a time.** Each view is a `lazy` import behind a `Suspense` fallback, and `RouteBoundary` reloads once when a chunk goes missing, which is the shape of a deploy landing while a tab is still open.
 
@@ -130,6 +131,7 @@ dickinsonbayoufleeting-com/
     ├── app/
     │   ├── App.js             AppShell: nav, routed outlet, footer, inquiry modal
     │   ├── router/            History-API router (Router, Link, routes)
+    │   ├── tracking/          Google tag, the three conversions, ad click capture
     │   ├── constants/         facilities, services, leaseOptions, faq, inquiryForm, …
     │   ├── fonts/             The remaining subsets and weights as woff2
     │   ├── hooks/             useSeoMeta, useBreadcrumbSchema, useReveal, useCountUp,
