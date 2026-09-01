@@ -45,13 +45,13 @@ const CONTOUR_AMP_Y = 0.055;
 // diagonal cross-swell and a finer surface ripple, giving calm ocean chop.
 // Periods (2π / omega) are ~17 s / ~13 s / ~9.5 s — a slow, premium cadence
 // that clearly travels without ever reading as fast jitter.
-const WAVES = [
+const SWELLS = [
   { kx: 1.8, ky: 0.55, omega: 0.37, amp: 0.6, phase: 0.0 },
   { kx: -1.25, ky: 1.7, omega: 0.48, amp: 0.3, phase: 1.7 },
   { kx: 3.4, ky: -2.1, omega: 0.66, amp: 0.16, phase: 0.9 },
 ];
-const AMP_TOTAL = WAVES.reduce((sum, w) => sum + w.amp, 0);
-const WAVE_DIRS = WAVES.map((w) => {
+const AMP_TOTAL = SWELLS.reduce((sum, w) => sum + w.amp, 0);
+const SWELL_DIRS = SWELLS.map((w) => {
   const len = Math.hypot(w.kx, w.ky) || 1;
   return { ux: w.kx / len, uy: w.ky / len };
 });
@@ -65,11 +65,11 @@ const WAVE_DIRS = WAVES.map((w) => {
 function flowAt(x, y, t) {
   let height = 0;
   let swayX = 0;
-  for (let i = 0; i < WAVES.length; i++) {
-    const w = WAVES[i];
+  for (let i = 0; i < SWELLS.length; i++) {
+    const w = SWELLS[i];
     const phase = w.kx * x + w.ky * y - w.omega * t + w.phase;
     height += w.amp * Math.sin(phase);
-    swayX += w.amp * Math.cos(phase) * WAVE_DIRS[i].ux;
+    swayX += w.amp * Math.cos(phase) * SWELL_DIRS[i].ux;
   }
   return { height: height / AMP_TOTAL, swayX: swayX / AMP_TOTAL };
 }

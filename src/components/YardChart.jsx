@@ -100,12 +100,32 @@ function Diagram({ activeId, onPick, titleId }) {
 
         const yard = FACILITIES.find((f) => f.id === m.id);
         const on = activeId === m.id;
+        // The node is a control, so it answers to a finger, a pointer and a
+        // keyboard alike. A group carrying only onClick is reachable by exactly
+        // one of the three, which is the shape a mouse-only affordance takes.
         return (
           <g
             key={m.id}
+            role="button"
+            tabIndex={0}
+            aria-pressed={on}
+            aria-label={`Show the ${yard.shortName} yard`}
             onClick={() => onPick(m.id)}
-            className="cursor-pointer [&>text]:transition-colors"
+            onKeyDown={(e) => {
+              if (e.key !== "Enter" && e.key !== " ") return;
+              e.preventDefault();
+              onPick(m.id);
+            }}
+            className="cursor-pointer outline-none [touch-action:manipulation] [&>*]:transition-[fill,stroke,opacity] [&>*]:duration-quick [&>*]:ease-settle focus-visible:[&>rect]:stroke-accent hover:[&>text]:fill-primary focus-visible:[&>text]:fill-primary active:[&>*]:opacity-70"
           >
+            {/* The whole row is the target, not the seven-pixel mark on it. */}
+            <rect
+              x="40"
+              y={my - 18}
+              width="240"
+              height="36"
+              fill="transparent"
+            />
             <line
               x1="60"
               x2="272"
@@ -114,8 +134,8 @@ function Diagram({ activeId, onPick, titleId }) {
               stroke={on ? "var(--color-accent)" : "var(--color-border)"}
               strokeWidth="1"
             />
-            {/* Square nodes only: the design carries no radius above zero, so a
-                circle here would be the one round thing on the site. */}
+            {/* The node keeps its corners: it is a mark on a chart rather than a
+                control, and the radius scale is for the interface around it. */}
             <rect
               x={on ? 52 : 54}
               y={on ? my - 8 : my - 6}
@@ -204,14 +224,14 @@ function YardChart() {
             />
           </Reveal>
 
-          <div className="flex min-w-0 flex-col">
+          <div className="flex min-w-0 flex-col gap-8">
             <h2 className="m-0 max-w-title text-h2 text-primary">
               Two yards, five acres each.
             </h2>
-            <p className="mt-5 max-w-prose text-lead text-secondary">
-              Both are gated waterfront with bulkhead frontage and room to lay
-              down spuds, deck barges and project equipment. Which one you want
-              comes down to the reach your tow already runs.
+            <p className="m-0 max-w-prose text-lead text-secondary">
+              Both are gated bulkhead frontage with room to lay down spuds and
+              deck barges. Which one you want is the reach your tow already
+              runs.
             </p>
 
             {/* The tabs and the chart nodes are the same control twice, so the
@@ -219,7 +239,7 @@ function YardChart() {
             <div
               role="tablist"
               aria-label="Pick a yard"
-              className="mt-9 flex border-b border-border-strong"
+              className="flex border-b border-border-strong"
             >
               {FACILITIES.map((f) => {
                 const on = f.id === activeId;
@@ -232,7 +252,7 @@ function YardChart() {
                     aria-selected={on}
                     aria-controls={panelId}
                     onClick={() => setActiveId(f.id)}
-                    className={`-mb-px flex flex-col gap-1 border-b-2 px-0 pb-4 pr-10 text-left transition-colors duration-quick ${
+                    className={`-mb-px flex flex-col gap-1 rounded-t-sm border-b-2 px-0 pb-4 pr-10 pt-1 text-left transition-[color,border-color,transform,opacity] duration-quick ease-settle focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-highlight-ring active:scale-[0.97] active:opacity-80 [touch-action:manipulation] ${
                       on
                         ? "border-accent text-primary"
                         : "border-transparent text-muted hover:text-secondary"
@@ -252,7 +272,7 @@ function YardChart() {
               role="tabpanel"
               aria-labelledby={`${panelId}-tab-${activeId}`}
               aria-live="polite"
-              className="m-0 mt-2 border-t border-hairline"
+              className="m-0 border-t border-hairline"
             >
               <Spec label="Waterway" value={yard.waterway} />
               <Spec label="Reaches" value={yard.reach} />
@@ -266,7 +286,7 @@ function YardChart() {
               />
             </dl>
 
-            <ul className="m-0 mt-8 grid list-none grid-cols-[minmax(0,1fr)] gap-x-10 gap-y-3 p-0 sm:grid-cols-2">
+            <ul className="m-0 grid list-none grid-cols-[minmax(0,1fr)] gap-x-10 gap-y-3 p-0 sm:grid-cols-2">
               {yard.included.map((item) => (
                 <li
                   key={item}
@@ -277,11 +297,11 @@ function YardChart() {
               ))}
             </ul>
 
-            <div className="mt-9 flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4">
               <Button to="/contact">Ask About {yard.shortName}</Button>
               <a
                 href={`tel:${PHONE_NUMBER.replace(/\D/g, "")}`}
-                className={`${MICRO} text-secondary underline decoration-border-strong underline-offset-4 transition-colors duration-quick hover:text-primary`}
+                className={`${MICRO} -my-3 inline-flex min-h-control-sm items-center rounded-sm text-secondary underline decoration-border-strong underline-offset-4 transition-[color,transform,opacity] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.97] active:opacity-80`}
               >
                 {PHONE_NUMBER}
               </a>

@@ -21,7 +21,7 @@ function InquiryErrorSummary({ className = "", idPrefix, errors }) {
           <li key={field.key}>
             <a
               href={`#${idPrefix}-${field.key}`}
-              className="font-mono text-xs font-medium uppercase tracking-label text-danger underline-offset-[3px] transition-colors duration-quick ease-settle hover:text-primary focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.98]"
+              className="font-mono text-xs font-medium uppercase tracking-label text-danger underline-offset-[3px] transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-primary focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.97] active:opacity-80"
             >
               {field.label}
             </a>

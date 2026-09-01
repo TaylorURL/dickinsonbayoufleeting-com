@@ -1,5 +1,4 @@
 import { forwardRef } from "react";
-import Plate from "./Plate";
 
 // The band and the measure it holds. Every section on the site is one of
 // these, so the gutter, the maximum width and the rhythm between bands are
@@ -29,9 +28,15 @@ export const ARROW_TRIGGER =
 // has nothing lifted. The hairline is an outline rather than a border so it
 // costs no layout box and a panel can gain or lose it without moving what is
 // inside it.
-export const PANEL_TINT = "bg-surface";
+export const PANEL_TINT = "rounded-md bg-surface";
 export const PANEL = `${PANEL_TINT} outline outline-1 -outline-offset-1 outline-border`;
 export const PANEL_RAISED = `${PANEL} shadow-raise`;
+
+// What a control does under the finger. Scale alone at a percent and a half is
+// a change nothing registers, so the press also takes the ink down a step: two
+// small changes together read as one clear one. Stated once because a press
+// that differs between two controls reads as one of them being broken.
+export const PRESS = "active:scale-[0.97] active:opacity-80";
 
 // One step between the blocks of a band. A margin on each block is how two
 // gaps in the same stack end up different sizes.
@@ -109,14 +114,10 @@ export const CORNER_TICK = "pointer-events-none absolute h-icon-sm w-icon-sm";
 // Riveted steel at the faintest reading that still registers.
 export const HULL_PLATE = "bg-hull bg-hull-grid bg-left-top";
 
-// A head can carry one of the drawn plates, which turns it into two columns at
-// the width that has room for both. The plate takes the narrower column so the
-// title keeps the measure it was set for.
 export function SectionHead({
   eyebrow,
   title,
   subtitle,
-  plate,
   className = "",
   children,
 }) {
@@ -127,9 +128,7 @@ export function SectionHead({
   // aligning the boxes alone does not do at this size difference.
   const head = (
     <div
-      className={`grid grid-cols-[minmax(0,1fr)] gap-x-gap gap-y-6 lg:grid-cols-12 ${
-        plate ? "" : className
-      }`.trim()}
+      className={`grid grid-cols-[minmax(0,1fr)] gap-x-gap gap-y-6 lg:grid-cols-12 ${className}`.trim()}
     >
       <div className="flex min-w-0 flex-col items-start gap-5 lg:col-span-7">
         {eyebrow ? <Eyebrow strong>{eyebrow}</Eyebrow> : null}
@@ -144,14 +143,5 @@ export function SectionHead({
     </div>
   );
 
-  if (!plate) return head;
-
-  return (
-    <div
-      className={`grid grid-cols-[minmax(0,1fr)] items-center gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.72fr)] lg:gap-9 ${className}`.trim()}
-    >
-      {head}
-      <Plate name={plate} />
-    </div>
-  );
+  return head;
 }

@@ -72,7 +72,7 @@ function Footer({ children }) {
                   </span>
                   <a
                     href={phoneHref}
-                    className="inline-flex items-center gap-3 whitespace-nowrap font-condensed text-h3 font-bold uppercase tabular-nums tracking-normal text-primary no-underline transition-colors duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring active:scale-[0.99]"
+                    className="inline-flex items-center gap-3 whitespace-nowrap font-condensed text-h3 font-bold uppercase tabular-nums tracking-normal text-primary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring active:scale-[0.97] active:opacity-80"
                   >
                     <span
                       aria-hidden="true"
@@ -119,7 +119,7 @@ function Footer({ children }) {
               <Link
                 to="/"
                 aria-label="Dickinson Bayou Fleeting, Home"
-                className="inline-flex transition-transform duration-settle ease-settle hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight active:scale-[0.99] motion-reduce:transition-none"
+                className="inline-flex transition-transform duration-settle ease-settle hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight active:scale-[0.97] active:opacity-80 motion-reduce:transition-none"
               >
                 <Logo
                   tone="White"
@@ -159,7 +159,7 @@ function Footer({ children }) {
                   <Link
                     key={l.to}
                     to={l.to}
-                    className="inline-flex min-h-control-sm min-w-control-sm items-center font-condensed text-lg font-semibold uppercase tracking-normal text-secondary no-underline transition-[color,transform] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:outline-none active:scale-[0.99]"
+                    className="inline-flex min-h-control-sm min-w-control-sm items-center font-condensed text-lg font-semibold uppercase tracking-normal text-secondary no-underline transition-[color,transform] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:outline-none active:scale-[0.97] active:opacity-80"
                   >
                     {l.label}
                   </Link>
@@ -196,13 +196,13 @@ function Footer({ children }) {
                         href={`https://maps.google.com/?q=${encodeURIComponent(facility.address)}`}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex min-h-control-sm items-center font-body text-sm text-secondary no-underline transition-colors duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none active:scale-[0.99]"
+                        className="inline-flex min-h-control-sm items-center font-body text-sm text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none active:scale-[0.97] active:opacity-80"
                       >
                         {facility.address}
                       </a>
                       <a
                         href={`tel:1${facility.phone.replace(/[^0-9]/g, "")}`}
-                        className="inline-flex min-h-control-sm items-center font-mono text-xs font-medium tracking-label tabular-nums text-faint no-underline transition-colors duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none active:scale-[0.99]"
+                        className="inline-flex min-h-control-sm items-center font-mono text-xs font-medium tracking-label tabular-nums text-faint no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none active:scale-[0.97] active:opacity-80"
                       >
                         {facility.phone}
                       </a>
@@ -239,7 +239,7 @@ function Footer({ children }) {
               <li key={l.to}>
                 <Link
                   to={l.to}
-                  className="inline-flex min-h-control-sm items-center font-mono text-xs font-medium uppercase tracking-label text-faint no-underline transition-colors duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.98]"
+                  className="inline-flex min-h-control-sm min-w-control-sm items-center justify-center font-mono text-xs font-medium uppercase tracking-label text-faint no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.97] active:opacity-80"
                 >
                   {l.label}
                 </Link>

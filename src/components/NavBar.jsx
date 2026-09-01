@@ -140,7 +140,7 @@ function NavBar({ surface = "dark" }) {
             to="/"
             aria-label="Dickinson Bayou Fleeting, Home"
             onClick={closeMenu}
-            className="inline-flex h-control-sm items-center no-underline transition-transform duration-settle ease-settle hover:-translate-y-px focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight active:scale-[0.99] motion-reduce:transition-none md:justify-self-start"
+            className="inline-flex h-control-sm items-center no-underline transition-transform duration-settle ease-settle hover:-translate-y-px focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight active:scale-[0.97] active:opacity-80 motion-reduce:transition-none md:justify-self-start"
           >
             {/* The mark is drawn small inside a square canvas, so the box is set
                 several times the bar's height and overflows it. Centring is the
@@ -227,7 +227,7 @@ function NavBar({ surface = "dark" }) {
                           <Link
                             to={item.to}
                             tabIndex={isOpen ? undefined : -1}
-                            className="flex flex-col gap-1 px-3 pb-4 pt-3 no-underline transition-colors duration-quick ease-settle hover:bg-bg focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.98]"
+                            className="flex flex-col gap-1 px-3 pb-4 pt-3 no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:bg-bg focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.97] active:opacity-80"
                           >
                             <span className="font-condensed text-md font-semibold uppercase tracking-normal text-primary">
                               {item.label}
@@ -246,7 +246,7 @@ function NavBar({ surface = "dark" }) {
                     <Link
                       to={l.footTo}
                       tabIndex={isOpen ? undefined : -1}
-                      className="mt-4 inline-flex w-full items-center gap-2 border-t border-hairline px-3 py-2 font-mono text-2xs font-medium uppercase tracking-label text-highlight no-underline transition-colors duration-quick ease-settle hover:text-primary hover:[--arrow-live:1] focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] active:scale-[0.98]"
+                      className="mt-4 inline-flex w-full items-center gap-2 border-t border-hairline px-3 py-2 font-mono text-2xs font-medium uppercase tracking-label text-highlight no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-primary hover:[--arrow-live:1] focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] active:scale-[0.97] active:opacity-80"
                     >
                       {l.footLabel}
                       <ArrowRightIcon size={12} />
@@ -261,7 +261,7 @@ function NavBar({ surface = "dark" }) {
             <a
               href={phoneHref}
               aria-label={`Call ${PHONE_NUMBER}`}
-              className="inline-flex min-h-control-sm min-w-control-sm items-center justify-center gap-2 whitespace-nowrap font-mono text-xs font-medium uppercase tracking-control text-secondary no-underline transition-colors duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring active:scale-[0.98] md:justify-start"
+              className="inline-flex min-h-control-sm min-w-control-sm items-center justify-center gap-2 whitespace-nowrap font-mono text-xs font-medium uppercase tracking-control text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring active:scale-[0.97] active:opacity-80 md:justify-start"
             >
               <PhoneIcon size={14} className="flex-none text-highlight" />
               <span className="hidden tabular-nums md:inline">
@@ -274,7 +274,7 @@ function NavBar({ surface = "dark" }) {
             <a
               href="#quote"
               onClick={openInquiry}
-              className="relative hidden min-h-control-sm select-none items-center justify-center gap-3 rounded-none border border-transparent bg-highlight px-5 font-mono text-xs font-medium uppercase tracking-control text-on-highlight no-underline transition-[background-color,color,border-color,transform,box-shadow] duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus-accent focus-visible:outline-none active:scale-[0.98] md:inline-flex"
+              className="relative hidden min-h-control-sm select-none items-center justify-center gap-3 rounded-sm border border-transparent bg-highlight px-5 font-mono text-xs font-medium uppercase tracking-control text-on-highlight no-underline transition-[background-color,color,border-color,transform,box-shadow] duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus-accent focus-visible:outline-none active:scale-[0.97] active:opacity-80 md:inline-flex"
             >
               Request Quote
             </a>
@@ -286,7 +286,7 @@ function NavBar({ surface = "dark" }) {
             aria-controls="nav-mobile-drawer"
             aria-label={open ? "Close Menu" : "Open Menu"}
             onClick={() => setOpen((o) => !o)}
-            className="relative inline-flex h-control-sm w-control-sm items-center justify-center rounded-none border border-border-strong bg-transparent p-0 transition-[border-color,transform] duration-quick ease-settle hover:border-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-highlight active:scale-[0.96] md:hidden"
+            className="relative inline-flex h-control-sm w-control-sm items-center justify-center rounded-sm border border-border-strong bg-transparent p-0 transition-[border-color,transform] duration-quick ease-settle hover:border-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-highlight active:scale-[0.95] active:opacity-80 md:hidden"
           >
             <span
               className={`${TOGGLE_BAR} ${
@@ -344,7 +344,7 @@ function NavBar({ surface = "dark" }) {
                   to={l.to}
                   onClick={closeMenu}
                   aria-current={isActive ? "page" : undefined}
-                  className={`group/row flex min-h-control w-full select-none items-center justify-between gap-4 py-4 font-condensed text-h3 font-semibold uppercase tracking-normal no-underline transition-colors duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none active:scale-[0.99] ${
+                  className={`group/row flex min-h-control w-full select-none items-center justify-between gap-4 py-4 font-condensed text-h3 font-semibold uppercase tracking-normal no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none active:scale-[0.97] active:opacity-80 ${
                     isActive ? "text-highlight" : "text-primary"
                   }`}
                 >
@@ -365,7 +365,7 @@ function NavBar({ surface = "dark" }) {
                         <Link
                           to={item.to}
                           onClick={closeMenu}
-                          className="flex min-h-control-sm items-center gap-2 font-body text-sm text-secondary no-underline transition-colors duration-quick ease-settle hover:text-primary focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.98]"
+                          className="flex min-h-control-sm items-center gap-2 font-body text-sm text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-primary focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.97] active:opacity-80"
                         >
                           {item.label}
                         </Link>
@@ -380,7 +380,7 @@ function NavBar({ surface = "dark" }) {
           <li className="mt-6 flex gap-0 border-t border-hairline">
             <a
               href={phoneHref}
-              className="flex w-full flex-col gap-1 py-4 no-underline transition-colors duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring active:scale-[0.99]"
+              className="flex w-full flex-col gap-1 py-4 no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight-ring active:scale-[0.97] active:opacity-80"
             >
               <span className="font-mono text-xs font-medium uppercase tracking-label text-faint">
                 Direct Line
@@ -395,7 +395,7 @@ function NavBar({ surface = "dark" }) {
             <a
               href="#quote"
               onClick={openInquiry}
-              className="relative mt-4 inline-flex w-full select-none items-center justify-center gap-3 rounded-none border border-transparent bg-highlight px-6 py-5 font-body text-xs font-semibold tracking-normal text-on-highlight no-underline transition-[background-color,transform,box-shadow] duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus-accent focus-visible:outline-none active:scale-[0.98]"
+              className="relative mt-4 inline-flex w-full select-none items-center justify-center gap-3 rounded-sm border border-transparent bg-highlight px-6 py-5 font-body text-xs font-semibold tracking-normal text-on-highlight no-underline transition-[background-color,transform,box-shadow] duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus-accent focus-visible:outline-none active:scale-[0.97] active:opacity-80"
             >
               Request Quote
             </a>

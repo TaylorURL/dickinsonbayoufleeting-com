@@ -49,9 +49,8 @@ function ServiceArea({ surface = "gray" }) {
             Gulf Intracoastal Waterway.
           </p>
           <p className="m-0 max-w-prose text-md text-secondary">
-            A town that is not on this list is not a no. If your tow already
-            runs the reach, call {PHONE_NUMBER} and we will tell you straight
-            whether we can hold a slip for it.
+            A town not on this list is not a no. Call {PHONE_NUMBER} and we will
+            tell you straight whether we can take it.
           </p>
         </Reveal>
       </Container>

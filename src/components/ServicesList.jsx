@@ -12,7 +12,6 @@ function ServicesList({ surface = "dark" }) {
             eyebrow="What comes with a lease"
             title="Seven jobs the crew already covers."
             subtitle="A lease here comes with the people who work the dock. Each one below says what it covers and who it is for; anything not on the list, call and ask."
-            plate="fleeting"
           />
         </Reveal>
 
