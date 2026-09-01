@@ -17,6 +17,7 @@ import RouteBoundary, {
   clearChunkReloadFlag,
 } from "../components/RouteBoundary";
 import { RouterProvider, useRouter, normalisePath } from "./router/Router";
+import { findRoute } from "./router/routes";
 import { MAIN_ID } from "./constants/landmarks";
 import { submitInquiry } from "./constants/inquiryForm";
 import { PHONE_NUMBER } from "./constants/phoneNumber";
@@ -104,9 +105,10 @@ function RouteLanded({ path, onLanded }) {
 function PageOutlet({ onLanded }) {
   const { path } = useRouter();
   const View = viewFor(normalisePath(path));
+  const hasActions = Boolean(findRoute(normalisePath(path)).actions);
   return (
     <RouteBoundary path={path}>
-      <Suspense fallback={<RouteFallback />}>
+      <Suspense fallback={<RouteFallback actions={hasActions} />}>
         {/* The page that replaces the placeholder arrives on the same entrance
             the placeholder itself came in on, keyed to the route so it plays
             once per landing rather than once per session. A route that simply
@@ -155,11 +157,6 @@ function AppShell() {
   useEffect(() => {
     const root = document.documentElement;
     root.setAttribute("data-theme", "dark");
-    // Scroll reveals hide their block until an observer flips it back. Only
-    // arm that where an observer exists, so a page rendered without scrolling
-    // shows its words rather than an empty band.
-    if ("IntersectionObserver" in window)
-      root.setAttribute("data-reveal", "on");
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) {
       meta.setAttribute(
@@ -223,10 +220,10 @@ function AppShell() {
   // it is wanted. It lands over the bar rather than under it, because the bar
   // is what it exists to get past.
   return (
-    <div className="isolate pb-[calc(var(--control-height)+env(safe-area-inset-bottom))] md:pb-0">
+    <div className="isolate">
       <a
         href={`#${MAIN_ID}`}
-        className="fixed left-3 top-3 z-modal inline-flex min-h-control-sm -translate-y-[calc(100%+theme(spacing.6))] items-center rounded-sm bg-highlight px-5 font-mono text-xs font-medium uppercase tracking-control text-on-highlight no-underline transition-[transform,opacity] duration-quick ease-settle hover:bg-highlight-hover focus-visible:translate-y-0 focus-visible:shadow-focus focus-visible:outline-none active:opacity-80 motion-reduce:transition-none"
+        className="fixed left-3 top-3 z-modal inline-flex min-h-control-sm -translate-y-[calc(100%+theme(spacing.6))] items-center rounded-sm bg-highlight px-5 font-body text-sm font-medium text-on-highlight no-underline transition-[transform,opacity] duration-quick ease-settle hover:bg-highlight-hover focus-visible:translate-y-0 focus-visible:shadow-focus focus-visible:outline-none motion-reduce:transition-none"
       >
         Skip to Main Content
       </a>
@@ -244,7 +241,7 @@ function AppShell() {
           of the page. */}
       <a
         href={`tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`}
-        className="fixed inset-x-0 bottom-0 z-rail inline-flex min-h-control select-none items-center justify-center gap-3 bg-highlight px-5 pb-[env(safe-area-inset-bottom)] font-mono text-xs font-medium uppercase tracking-control text-on-highlight no-underline transition-colors duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus focus-visible:outline-none active:bg-highlight-hover md:hidden"
+        className="fixed inset-x-0 bottom-0 z-rail inline-flex min-h-control select-none items-center justify-center gap-3 bg-highlight px-5 pb-[env(safe-area-inset-bottom)] font-body text-sm font-medium text-on-highlight no-underline transition-colors duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus focus-visible:outline-none active:bg-highlight-hover md:hidden"
       >
         <PhoneIcon size={14} className="flex-none" />
         <span className="tabular-nums">Call the Yard · {PHONE_NUMBER}</span>

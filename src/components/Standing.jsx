@@ -3,15 +3,15 @@ import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
 
 const CLAIMS = [
   {
-    lead: "Your own\nfootprint",
+    lead: "Your own footprint",
     body: "Gated acreage with bulkhead frontage, not a slip you share. Lay down spuds, deck barges and project equipment and leave them where you put them.",
   },
   {
-    lead: "We know\nthis water",
+    lead: "We know this water",
     body: "Galveston Bay, the Ship Channel and the GIWW each have their own habits. Our crews have been working the reaches between them for years.",
   },
   {
-    lead: "Staffed from\nday one",
+    lead: "Staffed from day one",
     body: "The shore crew already works both yards. Nobody has to hire line handlers to make the lease worth having, and the gate is watched overnight.",
   },
 ];
@@ -42,7 +42,7 @@ function Standing() {
                 i > 0 ? "md:border-l md:border-border" : ""
               } ${staggerChild(i)}`}
             >
-              <p className="m-0 whitespace-pre-line font-condensed text-h3 font-bold uppercase leading-[0.94] tracking-tight text-primary">
+              <p className="m-0 max-w-title font-condensed text-h3 uppercase tracking-tight text-primary">
                 {c.lead}
               </p>
               <p className="m-0 max-w-prose-tight text-md text-secondary">

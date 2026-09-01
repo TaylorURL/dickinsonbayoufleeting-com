@@ -28,7 +28,7 @@ function LegalBody({
             >
               <span
                 aria-hidden="true"
-                className="self-start pt-2 font-mono text-xs font-medium tracking-control text-muted"
+                className="self-start pt-2 font-mono text-xs font-medium text-muted"
               >
                 {String(idx + 1).padStart(2, "0")}
               </span>
@@ -41,7 +41,7 @@ function LegalBody({
             </li>
           ))}
         </Stagger>
-        <p className="block font-mono text-xs font-medium tracking-normal text-faint">
+        <p className="block font-body text-sm text-faint">
           Last updated · {updated}
         </p>
       </Container>

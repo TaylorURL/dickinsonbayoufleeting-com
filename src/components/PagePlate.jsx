@@ -5,10 +5,9 @@ import Seam, { INTO_LIGHT } from "./ui/Seam";
 import { Container, Eyebrow } from "./ui/Layout";
 
 // The header every route but Home opens on. The auto block margins take the
-// plate's spare height, which centres the copy and leaves the wave on the
-// bottom edge. Centring the pair instead splits that height either side of
-// them, and the half below the wave shows as a band of plate under a seam that
-// is supposed to be the end of it.
+// plate's spare height, which sets the copy against the bottom edge rather
+// than in the middle of the plate, so the header reads as the top of the page
+// rather than as a panel with the page starting under it.
 //
 // svh, not the static viewport unit: that one measures the tallest the viewport
 // ever gets, so a plate sized by it spends its first paint behind the browser
@@ -26,27 +25,38 @@ function PagePlate({ eyebrow, title, subtitle, children }) {
         <span className="absolute inset-0 bg-plate-scrim" />
       </div>
 
+      {/* Each block names the slot the route placeholder holds for it, so the
+          two are measured against each other rather than by eye. */}
       <Container className="relative my-auto flex flex-col items-start gap-7 pb-10">
         <div className="flex flex-col items-start gap-5">
-          <Breadcrumbs />
+          <Breadcrumbs data-slot="crumbs" />
           {eyebrow ? (
-            <Eyebrow strong className={rise()}>
+            <Eyebrow strong data-slot="eyebrow" className={rise()}>
               {eyebrow}
             </Eyebrow>
           ) : null}
           <h1
-            className={`min-w-0 max-w-display text-h1 tracking-normal ${rise(1)}`}
+            data-slot="title"
+            className={`min-w-0 max-w-display text-h1 ${rise(1)}`}
           >
             {title}
           </h1>
           {subtitle ? (
-            <p className={`max-w-prose text-lead text-secondary ${rise(2)}`}>
+            <p
+              data-slot="lede"
+              className={`max-w-prose text-lead text-secondary ${rise(2)}`}
+            >
               {subtitle}
             </p>
           ) : null}
         </div>
         {children ? (
-          <div className={`flex flex-wrap gap-3 ${rise(3)}`}>{children}</div>
+          <div
+            data-slot="actions"
+            className={`flex flex-wrap gap-3 ${rise(3)}`}
+          >
+            {children}
+          </div>
         ) : null}
       </Container>
 

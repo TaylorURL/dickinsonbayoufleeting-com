@@ -30,12 +30,12 @@ function ServiceArea({ surface = "gray", seam = null }) {
                 {i > 0 ? (
                   <span
                     aria-hidden="true"
-                    className="font-condensed text-h4 leading-none text-muted"
+                    className="font-condensed text-h4 text-muted"
                   >
                     ·
                   </span>
                 ) : null}
-                <span className="font-condensed text-h3 font-bold uppercase leading-none tracking-tight text-primary">
+                <span className="font-condensed text-h3 uppercase tracking-tight text-primary">
                   {city.name}
                   <span className={`${MICRO_SM} ml-2 align-super text-faint`}>
                     {city.county}

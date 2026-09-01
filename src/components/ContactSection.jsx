@@ -3,8 +3,8 @@ import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 import { FACILITIES } from "../app/constants/facilities";
 import InquiryFields from "./InquiryFields";
 import InquiryErrorSummary from "./InquiryErrorSummary";
-import { CheckIcon } from "./Icons";
 import Button from "./ui/Button";
+import Confirmation from "./ui/Confirmation";
 import { Container, Eyebrow, MICRO, PANEL_RAISED, Section } from "./ui/Layout";
 import { FIELD } from "./ui/Field";
 import { Reveal } from "./ui/Reveal";
@@ -106,7 +106,7 @@ function ContactSection({ seam = null }) {
                 <dd>
                   <a
                     href={phoneHref}
-                    className="inline-flex min-h-control-sm items-center whitespace-nowrap font-condensed text-h5 font-bold uppercase tabular-nums tracking-normal text-primary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none active:scale-[0.97] active:opacity-80"
+                    className="inline-flex min-h-control-sm items-center whitespace-nowrap font-condensed text-h5 uppercase tabular-nums text-primary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none"
                   >
                     {PHONE_NUMBER}
                   </a>
@@ -130,10 +130,10 @@ function ContactSection({ seam = null }) {
                   <span className={`${MICRO} text-highlight`}>
                     {f.shortName} Facility
                   </span>
-                  <span className="font-condensed text-lg font-semibold uppercase tracking-normal text-primary">
+                  <span className="font-body text-base font-semibold text-primary">
                     {f.address}
                   </span>
-                  <span className="font-mono text-xs font-medium tracking-label text-faint">
+                  <span className="font-body text-sm text-faint">
                     {f.region}
                   </span>
                 </li>
@@ -147,20 +147,7 @@ function ContactSection({ seam = null }) {
                 role="status"
                 className={`relative flex animate-rise flex-col gap-3 p-7 motion-reduce:animate-none ${PANEL_RAISED} ${CONTACT_PANEL_RULE} before:top-0`}
               >
-                <span
-                  aria-hidden="true"
-                  className="inline-flex h-control w-control animate-rise-1 items-center justify-center border border-highlight bg-highlight-soft text-highlight motion-reduce:animate-none"
-                >
-                  <CheckIcon size={22} />
-                </span>
-                <h3 className="m-0 text-h4 font-bold text-primary">
-                  We have your note.
-                </h3>
-                <p className="max-w-prose-tight text-base text-secondary">
-                  Someone will reach back inside one business day. If your
-                  timeline is tighter than that, please call {PHONE_NUMBER}. The
-                  on-call line is always answered.
-                </p>
+                <Confirmation phone={PHONE_NUMBER} />
               </div>
             ) : (
               <form
@@ -170,7 +157,7 @@ function ContactSection({ seam = null }) {
                 className={`relative flex flex-col gap-6 p-6 md:p-7 ${PANEL_RAISED} ${CONTACT_PANEL_RULE}`}
               >
                 <div className="flex flex-col gap-5">
-                  <p className="m-0 font-mono text-xs font-medium tracking-normal text-highlight">
+                  <p className="m-0 font-mono text-xs font-medium text-highlight">
                     Send a Note
                   </p>
                   <p className="m-0 font-body text-sm text-faint">

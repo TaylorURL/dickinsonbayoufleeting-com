@@ -105,7 +105,7 @@ function sendGa4Event(action, params) {
   });
 }
 
-// Called once per inquiry the desk actually received, never on a submission
+// Called once per inquiry the office actually received, never on a submission
 // that failed. The contact details go up ahead of the conversion so enhanced
 // conversions can match the lead to its click where the cookie alone cannot;
 // gtag normalises and hashes them in the browser, so the plain values do not
@@ -134,7 +134,7 @@ export function trackCall() {
   sendGa4Event("call", payload);
 }
 
-// Carries no value. A visitor opening the map has not reached the desk, and a
+// Carries no value. A visitor opening the map has not reached the office, and a
 // secondary action priced like a lead teaches the bidder to buy map clicks.
 export function trackDirections() {
   if (!started) return;

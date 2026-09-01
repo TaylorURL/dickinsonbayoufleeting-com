@@ -65,8 +65,8 @@ function HeroDatum() {
   const cells = [
     ...FACILITIES.map((f) => ({
       key: f.id,
-      label: `${f.code} · ${f.shortName}`,
-      value: f.coord,
+      label: `${f.shortName} Yard`,
+      value: `${f.acreage} on ${f.waterway}`,
     })),
     { key: "acres", label: "Waterfront", value: <AcreFigure /> },
     { key: "crew", label: "Shore Crew", value: "24 / 7 on site" },
@@ -86,7 +86,7 @@ function HeroDatum() {
               } lg:border-t-0`}
             >
               <dt className={`${MICRO_SM} m-0 text-faint`}>{c.label}</dt>
-              <dd className="m-0 mt-2 font-mono text-sm tabular-nums text-secondary">
+              <dd className="m-0 mt-2 font-body text-sm text-secondary">
                 {c.value}
               </dd>
             </div>

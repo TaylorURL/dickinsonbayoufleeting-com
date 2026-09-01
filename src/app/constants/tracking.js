@@ -33,10 +33,10 @@ export const CONVERSION_CURRENCY = "USD";
 // What one inquiry is worth to the bidder, which is not what a lease earns.
 // The honest figure is the monthly package rate multiplied by the share of
 // inquiries that become leases and by the months an average lease runs. The
-// value below is one month of the San Leon rate standing in for a close rate
+// value below is one month of the Dickinson rate standing in for a close rate
 // nobody has measured; until it is replaced, Ads is being told every inquiry
 // closes and every return figure built on it is high by that whole share.
 export const INQUIRY_VALUE = 4100;
 
-// A call reaches the same desk as the form and is treated as the same lead.
+// A call reaches the same office as the form and is treated as the same lead.
 export const CALL_VALUE = INQUIRY_VALUE;

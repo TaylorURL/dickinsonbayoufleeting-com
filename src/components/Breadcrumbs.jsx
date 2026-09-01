@@ -13,9 +13,9 @@ import { useBreadcrumbSchema } from "../app/hooks/useBreadcrumbSchema";
 // the plate, so it orients without competing with the heading under it. The
 // separator is a rule rather than a glyph, matching the ticks the rest of the
 // layout is drawn with.
-const LABEL = "font-mono text-2xs font-medium uppercase tracking-control";
+const LABEL = "font-body text-2xs font-semibold";
 
-function Breadcrumbs() {
+function Breadcrumbs({ ...rest }) {
   const { path } = useRouter();
   const current = ROUTES.find(
     (route) => route.path !== "/" && route.path === normalisePath(path),
@@ -24,12 +24,12 @@ function Breadcrumbs() {
   if (!current) return null;
 
   return (
-    <nav className="self-start" aria-label="Breadcrumb">
+    <nav {...rest} className="self-start" aria-label="Breadcrumb">
       <ol className="m-0 flex list-none flex-wrap items-center gap-3 p-0">
         <li className="inline-flex items-center gap-3">
           <Link
             to="/"
-            className={`${LABEL} text-faint no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight active:scale-[0.97] active:opacity-80`}
+            className={`${LABEL} text-faint no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight`}
           >
             Home
           </Link>

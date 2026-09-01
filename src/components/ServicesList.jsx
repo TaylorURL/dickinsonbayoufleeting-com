@@ -33,12 +33,12 @@ function ServicesList({ surface = "dark", seam = null }) {
               <div className={`${ROW} ${ROW_INNER} ${ROW_MARKER} py-6`}>
                 <span
                   aria-hidden="true"
-                  className={`${SLOT.index} font-mono text-xs font-medium tracking-control text-muted`}
+                  className={`${SLOT.index} font-mono text-xs font-medium text-muted`}
                 >
                   {String(idx + 1).padStart(2, "0")}
                 </span>
                 <span
-                  className={`${SLOT.code} font-mono text-xs font-medium tracking-control text-faint`}
+                  className={`${SLOT.code} font-mono text-xs font-medium text-faint`}
                 >
                   {s.code}
                 </span>
@@ -54,7 +54,7 @@ function ServicesList({ surface = "dark", seam = null }) {
                   {s.detail}
                 </p>
                 <span
-                  className={`${SLOT.meta} whitespace-nowrap font-mono text-xs font-medium uppercase tracking-label text-muted`}
+                  className={`${SLOT.meta} whitespace-nowrap font-body text-xs font-semibold text-muted`}
                 >
                   {s.meta}
                 </span>

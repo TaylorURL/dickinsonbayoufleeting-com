@@ -1,37 +1,45 @@
 import { Link } from "../../app/router/Link";
 import { ArrowRightIcon } from "../Icons";
 
-// One button per section carries `primary`. The safety-orange fill is the only
-// warm colour in the palette, so a second one on the same screen splits the eye
-// instead of leading it.
+// One button per section carries `primary`. With no hue in the palette the
+// filled control is the only thing on a band wearing its ground inverted, so a
+// second one beside it splits the eye instead of leading it.
+//
+// The label sets the control rather than the control setting the label: a
+// sixteen-pixel word with twenty-four pixels of padding either side of it and
+// sixteen above and below, which is what a button reads as at arm's length. A
+// fixed height with a small label rattling around inside it does not.
 
 const BASE = [
-  "group relative isolate inline-flex items-center justify-center gap-3",
+  "group relative isolate inline-flex items-center justify-center gap-2",
   "hover:[--arrow-live:1] focus-visible:[--arrow-live:1]",
-  "select-none overflow-hidden whitespace-nowrap",
+  "select-none whitespace-nowrap",
   "rounded-sm border border-transparent no-underline",
-  "font-mono uppercase leading-none",
-  "transition-[background-color,color,border-color,transform,box-shadow] duration-quick ease-settle",
+  "font-body font-medium leading-none",
+  "transition-[background-color,color,border-color,box-shadow] duration-quick ease-settle",
   "focus-visible:shadow-focus focus-visible:outline-none",
-  "active:scale-[0.97] active:opacity-80",
   "disabled:pointer-events-none disabled:opacity-45 aria-disabled:pointer-events-none aria-disabled:opacity-45",
 ].join(" ");
 
+// The block padding is two pixels short at the top and two long at the bottom,
+// because centring the line box leaves a cap-height label sitting low in the
+// control. The two together plus the label and the border come out at the
+// height the route placeholder reserves for an actions row.
 const SIZE = {
-  default: "min-h-control px-7 py-4 text-xs tracking-label",
-  inline: "min-h-control-sm px-5 py-3 text-2xs tracking-control",
+  default: "px-6 pb-[16px] pt-[14px] text-base",
+  inline: "px-5 pb-[13px] pt-[11px] text-sm",
 };
 
 const VARIANT = {
   primary:
-    "bg-highlight text-on-highlight shadow-accent hover:bg-highlight-hover focus-visible:shadow-focus-accent",
-  // For actions sitting inside an already-highlighted region, where safety
-  // orange would compete rather than lead.
-  solid: "bg-primary text-on-accent hover:bg-accent",
+    "bg-highlight text-on-highlight hover:bg-highlight-hover active:bg-accent active:text-on-accent",
+  // For an action sitting on a band the primary fill would disappear into.
+  solid:
+    "bg-primary text-on-accent hover:bg-highlight-hover hover:text-on-highlight active:bg-accent",
   ghost:
-    "bg-transparent text-primary border-field-border hover:border-highlight hover:text-highlight",
+    "bg-transparent text-primary border-border-strong hover:border-primary hover:bg-layer-1 active:bg-layer-2",
   inline:
-    "bg-transparent text-secondary border-field-border hover:border-highlight hover:text-highlight",
+    "bg-transparent text-secondary border-border-strong hover:border-primary hover:bg-layer-1 hover:text-primary active:bg-layer-2",
 };
 
 // The mark carries its own motion now, off the property the control sets, so

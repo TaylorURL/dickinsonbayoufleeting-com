@@ -37,7 +37,7 @@ function ServiceRegister() {
               <li key={s.id} className={`min-w-0 ${staggerChild(i)}`}>
                 <Link
                   to={`/services#${s.id}`}
-                  className="group grid grid-cols-[minmax(0,1fr)] gap-x-6 rounded-sm py-6 no-underline transition-[transform,opacity] duration-settle ease-swell hover:translate-x-2 hover:[--arrow-live:1] focus-visible:translate-x-2 focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] active:scale-[0.99] active:opacity-80 motion-reduce:transition-none motion-reduce:hover:translate-x-0 sm:grid-cols-[minmax(0,var(--col-label))_minmax(0,1fr)]"
+                  className="group grid grid-cols-[minmax(0,1fr)] gap-x-6 rounded-sm py-6 no-underline transition-[transform,opacity] duration-settle ease-swell hover:translate-x-2 hover:[--arrow-live:1] focus-visible:translate-x-2 focus-visible:shadow-focus focus-visible:outline-none focus-visible:[--arrow-live:1] motion-reduce:transition-none motion-reduce:hover:translate-x-0 sm:grid-cols-[minmax(0,var(--col-label))_minmax(0,1fr)]"
                 >
                   <span
                     className={`${MICRO_SM} mt-[0.6em] hidden tabular-nums text-muted transition-colors duration-quick group-hover:text-accent sm:block`}
@@ -45,7 +45,7 @@ function ServiceRegister() {
                     {s.code}
                   </span>
                   <span className="min-w-0">
-                    <span className="block font-condensed text-h3 font-bold uppercase leading-[0.98] tracking-tight text-secondary transition-colors duration-quick group-hover:text-primary group-focus-visible:text-primary">
+                    <span className="block font-condensed text-h3 uppercase tracking-tight text-secondary transition-colors duration-quick group-hover:text-primary group-focus-visible:text-primary">
                       {s.name}
                     </span>
                     <span className="mt-2 block max-w-prose text-sm text-muted">

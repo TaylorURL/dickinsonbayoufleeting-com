@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 import Button from "./ui/Button";
-import { Container } from "./ui/Layout";
+import { Container, Eyebrow } from "./ui/Layout";
 
 // A route arrives as its own file, which means a deploy can land while a tab
 // is still open: the document in that tab names files the server has just
@@ -78,10 +78,8 @@ class RouteBoundary extends Component {
       >
         <Container className="my-auto flex flex-col items-start gap-7">
           <div className="flex flex-col items-start gap-4">
-            <p className="font-mono text-xs font-medium uppercase tracking-eyebrow text-highlight">
-              Page did not load
-            </p>
-            <h1 className="max-w-display text-h2 font-bold text-primary">
+            <Eyebrow strong>Page did not load</Eyebrow>
+            <h1 className="max-w-display text-h2 text-primary">
               Something went wrong here.
             </h1>
             <p className="max-w-prose text-lead text-secondary">
