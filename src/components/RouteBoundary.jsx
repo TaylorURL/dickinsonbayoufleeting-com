@@ -76,18 +76,20 @@ class RouteBoundary extends Component {
         data-surface="dark"
         className="relative flex min-h-header flex-col gap-0 bg-bg-deep bg-hull bg-hull-grid pb-10 pt-plate-top text-primary"
       >
-        <Container className="my-auto flex flex-col items-start gap-4">
-          <p className="font-mono text-xs font-medium uppercase tracking-eyebrow text-highlight">
-            Page did not load
-          </p>
-          <h1 className="max-w-display text-h2 font-bold text-primary">
-            Something went wrong here.
-          </h1>
-          <p className="max-w-prose text-lead text-secondary">
-            Reload the page to try again. If it still will not open, the yard
-            can answer anything the site would have told you.
-          </p>
-          <div className="mt-3 flex flex-wrap gap-3">
+        <Container className="my-auto flex flex-col items-start gap-7">
+          <div className="flex flex-col items-start gap-4">
+            <p className="font-mono text-xs font-medium uppercase tracking-eyebrow text-highlight">
+              Page did not load
+            </p>
+            <h1 className="max-w-display text-h2 font-bold text-primary">
+              Something went wrong here.
+            </h1>
+            <p className="max-w-prose text-lead text-secondary">
+              Reload the page to try again. If it still will not open, the yard
+              can answer anything the site would have told you.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
             <Button variant="primary" onClick={() => window.location.reload()}>
               Reload the Page
             </Button>

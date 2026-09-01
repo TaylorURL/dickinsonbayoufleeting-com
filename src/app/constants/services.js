@@ -8,7 +8,7 @@ export const SERVICES = [
     summary:
       "Dedicated slip assignments for loaded or empty barges with a known crew on the dock, built around recurring tow schedules.",
     detail:
-      "We hold space for our customers. Whether you need a barge tied up between loads for a week or a quarter, we keep the slip and we keep eyes on it. Schedules are coordinated with your dispatcher, your tow company and the terminals you serve, so the barge is ready when you are.",
+      "We hold space for our customers. A week between loads or a quarter, the slip stays yours and somebody has eyes on it. Schedules are coordinated with your dispatcher, your tow company and the terminals you serve, so the barge is ready when you are.",
     meta: "Daily · Monthly",
   },
   {
@@ -68,7 +68,7 @@ export const SERVICES = [
     summary:
       "Five-acre coastal yards available for long-term lease with dedicated bulkhead frontage and direct GIWW or bay access.",
     detail:
-      "Operators who need their own footprint can lease dock and yard space at Dickinson or Freeport on a long-term term. Each yard has bulkhead frontage, gated entry and room to lay down spuds, deck barges and small project equipment. Power drops go in on request.",
+      "Operators who need their own footprint can lease dock and yard space at Dickinson or Freeport on a long term. Each yard has bulkhead frontage, gated entry and room to lay down spuds, deck barges and small project equipment. Power drops go in on request.",
     meta: "Long-term lease",
   },
 ];

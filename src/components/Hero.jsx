@@ -1,5 +1,5 @@
 import HeroFilm from "./HeroFilm";
-import WaveDivider, { WAVE_INTO_LIGHT } from "./WaveDivider";
+import Seam, { INTO_LIGHT } from "./ui/Seam";
 import Button from "./ui/Button";
 import { Container, Eyebrow, MICRO_SM } from "./ui/Layout";
 import { FACILITIES } from "../app/constants/facilities";
@@ -109,7 +109,7 @@ function HeroSection() {
       data-surface="dark"
       aria-label="Introduction"
       id="overview"
-      className={`relative isolate flex min-h-plate flex-col items-stretch gap-0 overflow-hidden text-primary [min-height:88svh] ${WAVE_INTO_LIGHT}`}
+      className={`relative isolate flex min-h-plate flex-col items-stretch gap-0 overflow-hidden text-primary [min-height:88svh] ${INTO_LIGHT}`}
     >
       <div
         aria-hidden="true"
@@ -170,7 +170,7 @@ function HeroSection() {
       </Container>
 
       <HeroDatum />
-      <WaveDivider />
+      <Seam />
     </section>
   );
 }

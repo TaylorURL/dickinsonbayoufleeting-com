@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import Seam, { INTO_DARK, INTO_GRAY, INTO_LIGHT } from "./Seam";
 
 // The band and the measure it holds. Every section on the site is one of
 // these, so the gutter, the maximum width and the rhythm between bands are
@@ -28,7 +29,7 @@ export const ARROW_TRIGGER =
 // has nothing lifted. The hairline is an outline rather than a border so it
 // costs no layout box and a panel can gain or lose it without moving what is
 // inside it.
-export const PANEL_TINT = "rounded-md bg-surface";
+export const PANEL_TINT = "rounded-sm bg-surface";
 export const PANEL = `${PANEL_TINT} outline outline-1 -outline-offset-1 outline-border`;
 export const PANEL_RAISED = `${PANEL} shadow-raise`;
 
@@ -46,7 +47,17 @@ export const BAND = "flex flex-col gap-8";
 // layout; the stored size keeps the scrollbar honest while it is skipped, so
 // approaching one does not move what is already on screen.
 const SECTION =
-  "relative border-t border-hairline py-section [contain-intrinsic-size:auto_640px] [content-visibility:auto]";
+  "relative py-section [contain-intrinsic-size:auto_640px] [content-visibility:auto]";
+
+// A band's seam sits on its bottom edge rather than in its flow, so the
+// section keeps the rhythm py-section gives it and the join costs no layout.
+// The clearance below the last block is the seam's own height, which is what
+// stops a wave from being drawn across the end of the copy.
+const SEAM_INK = { light: INTO_LIGHT, gray: INTO_GRAY, dark: INTO_DARK };
+const SEAM_CLEARANCE = {
+  wave: "pb-[calc(var(--section-py)+var(--wave-height))]",
+  fade: "pb-[calc(var(--section-py)+var(--seam-fade-height))]",
+};
 
 export function Container({
   as: Tag = "div",
@@ -63,18 +74,36 @@ export function Container({
 
 // Takes a ref because a band that defers work until the reader reaches it has
 // to observe itself.
+//
+// `seam` names the band underneath this one and how the two join: every
+// boundary on the site is a tone change, so the band above owns the join and
+// no band draws a rule along its own top edge. A band given no seam is the
+// last one before the footer.
 export const Section = forwardRef(function Section(
-  { as: Tag = "section", surface = "dark", className = "", children, ...rest },
+  {
+    as: Tag = "section",
+    surface = "dark",
+    seam = null,
+    className = "",
+    children,
+    ...rest
+  },
   ref,
 ) {
+  const shape = seam?.shape === "fade" ? "fade" : "wave";
   return (
     <Tag
       ref={ref}
       data-surface={surface}
-      className={`${SECTION} ${className}`.trim()}
+      className={`${SECTION} ${
+        seam ? `${SEAM_CLEARANCE[shape]} ${SEAM_INK[seam.into]}` : ""
+      } ${className}`.trim()}
       {...rest}
     >
       {children}
+      {seam ? (
+        <Seam shape={shape} className="absolute inset-x-0 bottom-0" />
+      ) : null}
     </Tag>
   );
 });

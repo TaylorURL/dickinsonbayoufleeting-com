@@ -1,4 +1,4 @@
-import { Container, MICRO_SM, Section } from "./ui/Layout";
+import { BAND, Container, Section } from "./ui/Layout";
 import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
 
 const CLAIMS = [
@@ -22,24 +22,30 @@ const CLAIMS = [
 // which is why they are on the columns and not around them.
 function Standing() {
   return (
-    <Section surface="light" aria-label="Why operators lease here">
-      <Container>
+    <Section
+      surface="light"
+      aria-label="Why operators lease here"
+      seam={{ into: "dark" }}
+    >
+      <Container className={BAND}>
         <Reveal>
-          <p className={`${MICRO_SM} text-faint`}>Why operators lease here</p>
+          <h2 className="m-0 max-w-title text-h2 text-primary">
+            Why operators lease here.
+          </h2>
         </Reveal>
 
-        <Stagger className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-y-12 md:grid-cols-3 md:gap-x-0">
+        <Stagger className="grid grid-cols-[minmax(0,1fr)] gap-y-12 md:grid-cols-3 md:gap-x-0">
           {CLAIMS.map((c, i) => (
             <div
               key={c.lead}
-              className={`min-w-0 border-t border-border-strong pt-7 md:border-t-0 md:px-9 md:pt-0 md:first:pl-0 md:last:pr-0 ${
+              className={`flex min-w-0 flex-col gap-6 border-t border-border-strong pt-7 md:border-t-0 md:px-9 md:pt-0 md:first:pl-0 md:last:pr-0 ${
                 i > 0 ? "md:border-l md:border-border" : ""
               } ${staggerChild(i)}`}
             >
               <p className="m-0 whitespace-pre-line font-condensed text-h3 font-bold uppercase leading-[0.94] tracking-tight text-primary">
                 {c.lead}
               </p>
-              <p className="m-0 mt-6 max-w-prose-tight text-md text-secondary">
+              <p className="m-0 max-w-prose-tight text-md text-secondary">
                 {c.body}
               </p>
             </div>

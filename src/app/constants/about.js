@@ -5,11 +5,11 @@ export const ABOUT_STORY = [
   },
   {
     heading: "Small enough to answer the phone",
-    body: "When a dispatcher needs a barge moved at 4 a.m., or a surveyor needs a slip the same day, someone picks up who knows the dock and can make the call without checking with anyone. It is the same crew every time you tie up, working the same yards on the same equipment.",
+    body: "When a dispatcher needs a barge moved at 4 a.m., or a surveyor needs a slip the same day, someone picks up who knows the dock and can make the call without checking with anyone. The crew is small and it does not turn over much, so the people working your barge this month are the people who worked it last month.",
   },
   {
     heading: "The water is the job",
-    body: "Galveston Bay and the Gulf Intracoastal Waterway are working waterways, and a spill on either one costs everybody who runs them. We keep the docks clean, we keep containment on site, we check out a contractor before we let him tie up, and we talk to the local and federal regulators rather than waiting for them to call us. Any customer who wants to see how we handle it can ask.",
+    body: "Galveston Bay and the Gulf Intracoastal Waterway are working waterways, and a spill on either one costs everybody who runs them. We keep containment on site, we check a contractor out before we let him tie up, and we would rather raise something with the Coast Guard ourselves than have it found. Ask and we will tell you how a particular job would be handled.",
   },
 ];
 
@@ -17,12 +17,12 @@ export const ABOUT_VALUES = [
   {
     code: "V/01",
     title: "Show up",
-    body: "The slip is open when the boat gets there, whatever time that turns out to be. If we cannot hold it, we tell you before you sail, not when you arrive.",
+    body: "A slip we have committed to is there when the boat arrives, whatever hour that turns out to be. If something changes and we cannot hold it, you hear that before you sail rather than when you tie up.",
   },
   {
     code: "V/02",
     title: "Tell the truth",
-    body: "If a job is outside what we do, we say so and give you the name of somebody who does it. Sending you elsewhere costs us one invoice. Taking the job and doing it badly costs us the customer.",
+    body: "If a job is outside what we do, we say so and give you the name of somebody who does it. We would rather lose the invoice than have you find out at the dock that we were guessing.",
   },
   {
     code: "V/03",
