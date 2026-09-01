@@ -10,6 +10,7 @@ import SplitRail from "@taylorurl/split-rail";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import InquiryModal from "../components/InquiryModal";
+import SiteSearch from "../components/SiteSearch";
 import ScrollSpy from "../components/ScrollSpy";
 import RouteFallback from "../components/RouteFallback";
 import RouteBoundary, {
@@ -21,6 +22,7 @@ import { submitInquiry } from "./constants/inquiryForm";
 import { PHONE_NUMBER } from "./constants/phoneNumber";
 import { PhoneIcon } from "../components/Icons";
 import { useClickRipple } from "./hooks/useClickRipple";
+import { useSearchShortcut } from "./hooks/useSearchShortcut";
 
 // A visitor to any one route downloads that route and no other. The shell —
 // bar, footer and inquiry panel — is in the entry because every route shows it.
@@ -121,6 +123,7 @@ function PageOutlet({ onLanded }) {
 
 function AppShell() {
   const [inquiryOpen, setInquiryOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [navSurface, setNavSurface] = useState("dark");
   // Bumped each time a route's markup reaches the page. Everything that has to
   // measure the page reads this rather than the path, because the path changes
@@ -145,6 +148,7 @@ function AppShell() {
   }, []);
 
   useClickRipple();
+  useSearchShortcut(() => setSearchOpen(true));
 
   // The browser chrome takes its colour from the theme rather than from a
   // literal in the document head, so the two cannot drift apart.
@@ -226,7 +230,7 @@ function AppShell() {
       >
         Skip to Main Content
       </a>
-      <NavBar surface={navSurface} />
+      <NavBar surface={navSurface} onSearch={() => setSearchOpen(true)} />
       <PageOutlet onLanded={onRouteLanded} />
       {isHome ? <ScrollSpy generation={landings} /> : null}
       <Footer>
@@ -245,6 +249,7 @@ function AppShell() {
         <PhoneIcon size={14} className="flex-none" />
         <span className="tabular-nums">Call the Yard · {PHONE_NUMBER}</span>
       </a>
+      <SiteSearch open={searchOpen} onClose={() => setSearchOpen(false)} />
       <InquiryModal
         open={inquiryOpen}
         onClose={() => setInquiryOpen(false)}

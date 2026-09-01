@@ -4,7 +4,8 @@ import { PHONE_NUMBER } from "../app/constants/phoneNumber";
 import { useScrolled } from "../app/hooks/useScrolled";
 import { useRouter, normalisePath } from "../app/router/Router";
 import { Link } from "../app/router/Link";
-import { ArrowRightIcon, PhoneIcon } from "./Icons";
+import { ArrowRightIcon, PhoneIcon, SearchIcon } from "./Icons";
+import { shortcutLabel } from "../app/hooks/useSearchShortcut";
 import Logo from "./ui/Logo";
 
 /* nav: n7-brutal-slab */
@@ -58,8 +59,12 @@ const TOGGLE_BAR =
 
 const NAV_LOGO_SIZES = "(max-width: 720px) 140px, 200px";
 
-function NavBar({ surface = "dark" }) {
+function NavBar({ surface = "dark", onSearch }) {
   const [open, setOpen] = useState(false);
+  // Read once on mount rather than at render, so the server-rendered markup and
+  // the first client paint agree on which vocabulary the shortcut is printed in.
+  const [shortcut, setShortcut] = useState("Ctrl K");
+  useEffect(() => setShortcut(shortcutLabel()), []);
   // Which top-level entry has its panel down. One at a time, so opening a
   // second closes the first rather than stacking two panels over the page.
   const [openMenu, setOpenMenu] = useState(null);
@@ -258,6 +263,23 @@ function NavBar({ surface = "dark" }) {
           </ul>
 
           <div className="flex items-center gap-0 md:justify-self-end md:gap-4">
+            {/* The pill prints its own shortcut, which is the whole reason a
+                reader ever learns there is one. On a handset it drops to the
+                glass alone, because no thumb is pressing a command pair. */}
+            <button
+              type="button"
+              onClick={onSearch}
+              aria-label="Search this site"
+              aria-keyshortcuts="Meta+K Control+K"
+              className="group inline-flex min-h-control-sm items-center gap-3 rounded-sm border border-border bg-transparent px-2 font-mono text-xs font-medium uppercase tracking-control text-muted transition-[color,border-color,transform,opacity] duration-quick ease-settle hover:border-border-strong hover:text-primary focus-visible:shadow-focus focus-visible:outline-none active:scale-[0.95] active:opacity-80 md:px-3"
+            >
+              <SearchIcon size={14} className="flex-none" />
+              <span className="hidden lg:inline">Search</span>
+              <span className="hidden rounded-xs border border-border px-1.5 py-0.5 text-2xs tabular-nums text-faint transition-colors duration-quick group-hover:border-border-strong lg:inline">
+                {shortcut}
+              </span>
+            </button>
+
             <a
               href={phoneHref}
               aria-label={`Call ${PHONE_NUMBER}`}
