@@ -42,9 +42,9 @@ function NotFound() {
         </Button>
       </PagePlate>
 
-      <Section surface="light" aria-label="Site Pages">
+      <Section surface="light" aria-label="Site Pages" seam={{ into: "dark" }}>
         <Container className={BAND}>
-          <SectionHead eyebrow="Where to go" title="Every page on the site." />
+          <SectionHead title="Every page on the site." />
           <ul
             aria-label="Pages"
             className="m-0 list-none border-t border-border p-0"
@@ -78,7 +78,6 @@ function NotFound() {
       </Section>
 
       <CtaStrip
-        eyebrow="Still stuck"
         title="Tell us what you were after."
         body="If a link sent you here, say where it was and we will fix it. The direct line is faster than the form."
       />

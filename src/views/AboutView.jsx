@@ -36,9 +36,8 @@ function AboutView() {
         </Button>
       </PagePlate>
       <AboutStory />
-      <ServiceArea surface="gray" />
+      <ServiceArea surface="gray" seam={{ into: "dark" }} />
       <CtaStrip
-        eyebrow="Visit a yard"
         title="Come and walk the yard."
         body="Operators see either dock before signing anything. Call ahead and we will have the person who works it there to walk it with you."
       />

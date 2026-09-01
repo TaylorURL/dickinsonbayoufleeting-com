@@ -36,9 +36,9 @@ function ServicesView() {
           See Lease Rates
         </Button>
       </PagePlate>
-      <LeasePackage surface="light" />
-      <ServicesList surface="gray" />
-      <Faq surface="light" />
+      <LeasePackage surface="light" seam={{ shape: "fade", into: "gray" }} />
+      <ServicesList surface="gray" seam={{ shape: "fade", into: "light" }} />
+      <Faq surface="light" seam={{ into: "dark" }} />
       <CtaStrip
         title="Take a yard, or just the service."
         body="Most operators lease the dock and use the crew that comes with it. If you only need one job doing, call and we will say whether it is ours."

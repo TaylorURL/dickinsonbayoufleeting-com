@@ -191,7 +191,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
         ref={panelRef}
         data-done={submitted}
         data-phase={submitted ? "done" : "form"}
-        className={`relative max-h-[calc(100dvh-theme(spacing.8))] w-[min(680px,100%)] animate-rise overflow-y-auto overscroll-contain rounded-md border border-border-strong bg-bg motion-reduce:animate-none ${HULL_PLATE} ${MODAL_PANEL_RULE}`}
+        className={`relative max-h-[calc(100dvh-theme(spacing.8))] w-[min(680px,100%)] animate-rise overflow-y-auto overscroll-contain rounded-sm border border-border-strong bg-bg motion-reduce:animate-none ${HULL_PLATE} ${MODAL_PANEL_RULE}`}
       >
         {confirmingDiscard ? (
           // The panel scrolls, so the question sticks to its top edge and stays
@@ -248,8 +248,8 @@ function InquiryModal({ open, onClose, onSubmit }) {
                 Lease Inquiry
               </h2>
               <p id="inqDesc" className="font-body text-base text-secondary">
-                Tell us about your docking needs and we&rsquo;ll respond within
-                24 hours.
+                Tell us the footprint you need and the reach your tow runs.
+                Terms come back inside one business day.
               </p>
             </header>
 
@@ -337,14 +337,13 @@ function InquiryModal({ open, onClose, onSubmit }) {
             </div>
             <h2 className="text-h3 font-bold text-primary">Message Sent</h2>
             <p className="max-w-prose-tight font-body text-base text-secondary">
-              We will reach out within 24 hours. You can also call{" "}
-              {PHONE_NUMBER} any time for immediate assistance.
+              Someone will reach back inside one business day. If your timeline
+              is tighter than that, call {PHONE_NUMBER}. The on-call line is
+              always answered.
             </p>
-            <div className="mt-3">
-              <Button variant="primary" arrow={false} onClick={resetAndClose}>
-                Close
-              </Button>
-            </div>
+            <Button variant="primary" arrow={false} onClick={resetAndClose}>
+              Close
+            </Button>
           </div>
         )}
       </div>
