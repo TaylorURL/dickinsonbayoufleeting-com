@@ -230,7 +230,6 @@ function Location() {
       <Container className={BAND}>
         <Reveal>
           <SectionHead
-            eyebrow="Facilities"
             title="Two yards, one number."
             subtitle="Dickinson sits on Galveston Bay. Freeport sits on the Gulf Intracoastal Waterway, south of Houston. The same crew runs both."
           />

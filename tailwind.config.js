@@ -220,6 +220,8 @@ module.exports = {
       "rule-long": "84px",
       "rule-wide": "96px",
       nav: "var(--nav-height)",
+      rail: "var(--rail-height)",
+      chrome: "var(--chrome-height)",
       "nav-logo": "var(--nav-logo-height)",
       "footer-logo": "var(--footer-logo-height)",
       control: "var(--control-height)",
@@ -287,7 +289,9 @@ module.exports = {
     letterSpacing: {
       tight: "-0.01em",
       normal: "0em",
-      code: "0.02em",
+      label: "var(--tracking-label)",
+      control: "var(--tracking-control)",
+      eyebrow: "var(--tracking-eyebrow)",
     },
 
     // Named depths, so the bar can never end up under its own drawer.
@@ -331,8 +335,12 @@ module.exports = {
       lg: "1080px",
       xl: "1240px",
       // The width at which the page gutter is finally wider than the scroll
-      // rail. Narrower than this the rail would stand on the text.
-      rail: "1500px",
+      // rail. Narrower than this the rail stands on the text, which is what
+      // the number has to be measured against rather than guessed: the ruled
+      // container is 1442px, and the rail runs about 150px in from the edge
+      // once its longest label is set. Both gutters have to clear that, so the
+      // step is the container plus twice the rail, with a little to spare.
+      rail: "1800px",
       // A laptop screen is wide and short. Without a step of its own the hero
       // stacks past the fold on a 1280x800 screen, which is where most readers
       // meet the site for the first time.

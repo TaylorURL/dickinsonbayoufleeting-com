@@ -204,11 +204,16 @@ function YardChart() {
   const yard = FACILITIES.find((f) => f.id === activeId);
 
   return (
-    <Section surface="light" id="yards" aria-label="The two yards">
+    <Section
+      surface="light"
+      id="yards"
+      aria-label="The two yards"
+      seam={{ shape: "fade", into: "gray" }}
+    >
       <Container>
-        <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-10">
-          <Reveal className="lg:sticky lg:top-anchor lg:self-start">
-            <Eyebrow>Where we are</Eyebrow>
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-11">
+          <Reveal className="flex flex-col gap-6 lg:sticky lg:top-anchor lg:self-start">
+            <p className={`${MICRO} m-0 text-faint`}>Where we are</p>
             <Diagram
               activeId={activeId}
               onPick={setActiveId}
@@ -244,7 +249,7 @@ function YardChart() {
                     aria-selected={on}
                     aria-controls={panelId}
                     onClick={() => setActiveId(f.id)}
-                    className={`-mb-px flex flex-col gap-1 rounded-t-sm border-b-2 px-0 pb-4 pr-10 pt-1 text-left transition-[color,border-color,transform,opacity] duration-quick ease-settle focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-highlight-ring [touch-action:manipulation] ${
+                    className={`-mb-px flex flex-col gap-1 rounded-sm border-b-2 px-0 pb-4 pr-10 pt-1 text-left transition-[color,border-color,transform,opacity] duration-quick ease-settle focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-highlight-ring active:scale-[0.97] active:opacity-80 [touch-action:manipulation] ${
                       on
                         ? "border-accent text-primary"
                         : "border-transparent text-muted hover:text-secondary"

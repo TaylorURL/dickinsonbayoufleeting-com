@@ -1,3 +1,4 @@
+import Seam from "./ui/Seam";
 import { Container } from "./ui/Layout";
 
 // Stands in for a route while its chunk is in flight. It holds the four slots
@@ -88,6 +89,7 @@ function RouteFallback({ actions = false }) {
             />
           ) : null}
         </Container>
+        <Seam />
       </div>
     </div>
   );

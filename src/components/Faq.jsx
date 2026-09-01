@@ -1,6 +1,6 @@
 import { FAQ_ITEMS } from "../app/constants/faq";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
-import { Container, Eyebrow, MICRO_SM, Section } from "./ui/Layout";
+import { BAND, Container, MICRO_SM, Section } from "./ui/Layout";
 import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
 
 // Printed as a spread rather than as an accordion. Seven answers of three lines
@@ -8,14 +8,19 @@ import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
 // answer is already on the page is one fewer thing between a dispatcher and the
 // call. The rule sits over each question, so the column reads as a run of
 // entries rather than as a stack of panels.
-function Faq({ surface = "light" }) {
+function Faq({ surface = "light", seam = null }) {
   return (
-    <Section surface={surface} id="faq" aria-label="Common questions">
-      <Container>
+    <Section
+      surface={surface}
+      seam={seam}
+      id="faq"
+      aria-label="Common questions"
+    >
+      <Container className={BAND}>
         <Reveal className="grid grid-cols-[minmax(0,1fr)] gap-6 border-b border-border-strong pb-9 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
-          <div className="min-w-0">
-            <Eyebrow>Common questions</Eyebrow>
-            <h2 className="m-0 mt-5 max-w-title text-h2 text-primary">
+          <div className="flex min-w-0 flex-col gap-5">
+            <p className={`${MICRO_SM} m-0 text-faint`}>Common questions</p>
+            <h2 className="m-0 max-w-title text-h2 text-primary">
               Straight answers.
             </h2>
           </div>
@@ -31,7 +36,7 @@ function Faq({ surface = "light" }) {
           </p>
         </Reveal>
 
-        <Stagger className="mt-9 columns-1 gap-x-9 md:columns-2">
+        <Stagger className="columns-1 gap-x-9 md:columns-2">
           {FAQ_ITEMS.map((item, i) => (
             <div
               key={item.q}

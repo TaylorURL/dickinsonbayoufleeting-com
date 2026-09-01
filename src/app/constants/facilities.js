@@ -3,6 +3,11 @@ import { PHONE_NUMBER } from "./phoneNumber";
 // The two yards, and every reading the site takes of them. The chart, the
 // spec sheet, the hero console and the footer all measure from this, so a
 // yard's rate or its position is stated once.
+//
+// Three of what a lease carries is the same at both yards, and it is written
+// the same way twice rather than reworded to look like two different offers.
+// The fourth line is the one that differs, because the reach is what actually
+// decides which yard an operator wants.
 export const FACILITIES = [
   {
     id: "dickinson",
@@ -19,10 +24,10 @@ export const FACILITIES = [
     acres: 5,
     price: 4100,
     included: [
-      "Dedicated barge slip & marine vessel access",
-      "On-site fleeting & marine crew",
-      "Galveston Bay & Houston Ship Channel access",
-      "Coastal upper Texas Gulf Coast location",
+      "Five gated acres of bulkhead frontage",
+      "A barge slip held for the lease",
+      "Shore crew on site, and a watched gate overnight",
+      "Out to the Houston Ship Channel, then the bay",
     ],
   },
   {
@@ -40,10 +45,10 @@ export const FACILITIES = [
     acres: 5,
     price: 4800,
     included: [
-      "Dedicated barge slip & marine vessel access",
-      "On-site fleeting & marine crew",
-      "Direct Gulf Intracoastal Waterway access",
-      "Coastal Texas Gulf Coast marine terminal",
+      "Five gated acres of bulkhead frontage",
+      "A barge slip held for the lease",
+      "Shore crew on site, and a watched gate overnight",
+      "Straight onto the GIWW and the Freeport ship channel",
     ],
   },
 ];

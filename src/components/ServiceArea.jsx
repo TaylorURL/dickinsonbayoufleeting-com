@@ -1,6 +1,6 @@
 import { SERVICE_AREA_CITIES } from "../app/constants/serviceArea";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
-import { Container, Eyebrow, MICRO_SM, Section } from "./ui/Layout";
+import { BAND, Container, MICRO_SM, Section } from "./ui/Layout";
 import { Reveal } from "./ui/Reveal";
 
 // Set as a run rather than as a grid. Twelve towns in twelve ruled cells asks
@@ -8,18 +8,22 @@ import { Reveal } from "./ui/Reveal";
 // of one coastline, and a run of large type says that extent in one look. The
 // counties stay attached to their towns because a name on this coast is only
 // unambiguous with one.
-function ServiceArea({ surface = "gray" }) {
+function ServiceArea({ surface = "gray", seam = null }) {
   return (
-    <Section surface={surface} id="service-area" aria-label="Where we work">
-      <Container>
+    <Section
+      surface={surface}
+      seam={seam}
+      id="service-area"
+      aria-label="Where we work"
+    >
+      <Container className={BAND}>
         <Reveal className="max-w-head">
-          <Eyebrow>Where we work</Eyebrow>
-          <h2 className="m-0 mt-5 max-w-title text-h2 text-primary">
+          <h2 className="m-0 max-w-title text-h2 text-primary">
             Galveston Bay, the Ship Channel, the GIWW.
           </h2>
         </Reveal>
 
-        <Reveal className="mt-9 border-t border-border-strong pt-9">
+        <Reveal className="border-t border-border-strong pt-10">
           <ul className="m-0 flex list-none flex-wrap items-baseline gap-x-5 gap-y-4 p-0">
             {SERVICE_AREA_CITIES.map((city, i) => (
               <li key={city.name} className="flex items-baseline gap-5">
@@ -42,7 +46,7 @@ function ServiceArea({ surface = "gray" }) {
           </ul>
         </Reveal>
 
-        <Reveal className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-8 border-t border-hairline pt-8 lg:grid-cols-2 lg:gap-9">
+        <Reveal className="grid grid-cols-[minmax(0,1fr)] gap-8 border-t border-hairline pt-8 lg:grid-cols-2 lg:gap-10">
           <p className="m-0 max-w-prose text-md text-secondary">
             Dickinson sits on Galveston Bay with quick access to the Houston
             Ship Channel. Freeport carries the same operation south along the

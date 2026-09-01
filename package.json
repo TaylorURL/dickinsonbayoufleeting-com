@@ -1,6 +1,6 @@
 {
   "name": "dickinsonbayoufleeting",
-  "version": "2026.36.16",
+  "version": "2026.36.18",
   "private": true,
   "license": "UNLICENSED",
   "engines": {
@@ -23,7 +23,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests",
-    "lint": "ESLINT_USE_FLAT_CONFIG=true eslint src --max-warnings=0",
+    "lint": "ESLINT_USE_FLAT_CONFIG=true eslint src --max-warnings=0 && node scripts/check-spacing-scale.js",
     "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"public/*.{html,json}\" \"*.{json,md}\"",
     "format:check": "prettier --check \"src/**/*.{js,jsx,css}\" \"public/*.{html,json}\" \"*.{json,md}\"",
     "eject": "react-scripts eject"

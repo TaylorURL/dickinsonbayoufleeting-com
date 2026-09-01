@@ -1,6 +1,6 @@
 import { FACILITIES } from "../app/constants/facilities";
 import Button from "./ui/Button";
-import { Container, Eyebrow, MICRO_SM, Section } from "./ui/Layout";
+import { BAND, Container, MICRO_SM, Section } from "./ui/Layout";
 import { Reveal } from "./ui/Reveal";
 
 // Every row the sheet states, in the order somebody comparing two yards asks
@@ -18,16 +18,15 @@ const ROWS = [
 // put them. The home page has the chart that walks a reader to one yard; by the
 // time somebody is on this page they are comparing, and a control that shows
 // one at a time is in the way of that.
-function LeasePackage({ surface = "gray" }) {
+function LeasePackage({ surface = "gray", seam = null }) {
   return (
-    <Section surface={surface} id="rates" aria-label="Lease rates">
-      <Container>
-        <Reveal className="max-w-head">
-          <Eyebrow>Dock leasing</Eyebrow>
-          <h2 className="m-0 mt-5 max-w-title text-h2 text-primary">
+    <Section surface={surface} seam={seam} id="rates" aria-label="Lease rates">
+      <Container className={BAND}>
+        <Reveal className="flex max-w-head flex-col gap-5">
+          <h2 className="m-0 max-w-title text-h2 text-primary">
             Five acres, either coast.
           </h2>
-          <p className="m-0 mt-5 max-w-prose text-lead text-secondary">
+          <p className="m-0 max-w-prose text-lead text-secondary">
             Gated frontage, room to lay down spuds and deck barges, and power
             drops on request. Both rates are monthly and both are what we quote.
           </p>
@@ -36,7 +35,7 @@ function LeasePackage({ surface = "gray" }) {
         {/* Wide enough to need its own scroll on a handset, which is the honest
             answer for a comparison table: a table that reflows into stacked
             cards has stopped being a comparison. */}
-        <Reveal className="mt-9 -mx-gutter overflow-x-auto px-gutter">
+        <Reveal className="-mx-gutter overflow-x-auto px-gutter">
           <table className="w-full min-w-[620px] border-separate border-spacing-0 text-left">
             <caption className="sr-only">
               Lease rates and particulars for the Dickinson and Freeport yards
@@ -106,13 +105,13 @@ function LeasePackage({ surface = "gray" }) {
           </table>
         </Reveal>
 
-        <div className="mt-10 grid grid-cols-[minmax(0,1fr)] gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-[minmax(0,1fr)] gap-8 md:grid-cols-2">
           {FACILITIES.map((f) => (
-            <Reveal key={f.id} className="min-w-0">
+            <Reveal key={f.id} className="flex min-w-0 flex-col gap-4">
               <p className={`${MICRO_SM} text-faint`}>
                 {f.shortName} · what the lease carries
               </p>
-              <ul className="m-0 mt-4 flex list-none flex-col gap-2 p-0">
+              <ul className="m-0 flex list-none flex-col gap-2 p-0">
                 {f.included.map((item) => (
                   <li
                     key={item}
@@ -126,7 +125,7 @@ function LeasePackage({ surface = "gray" }) {
           ))}
         </div>
 
-        <Reveal className="mt-10">
+        <Reveal>
           <Button to="/contact">Ask About a Lease</Button>
         </Reveal>
       </Container>

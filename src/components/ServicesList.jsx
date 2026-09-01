@@ -3,13 +3,17 @@ import { BAND, Container, Section, SectionHead } from "./ui/Layout";
 import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
 import { ROW, ROW_INNER, ROW_MARKER, SLOT } from "./ui/Row";
 
-function ServicesList({ surface = "dark" }) {
+function ServicesList({ surface = "dark", seam = null }) {
   return (
-    <Section surface={surface} id="services-detail" aria-label="Services">
+    <Section
+      surface={surface}
+      seam={seam}
+      id="services-detail"
+      aria-label="Services"
+    >
       <Container className={BAND}>
         <Reveal>
           <SectionHead
-            eyebrow="What comes with a lease"
             title="Seven jobs the crew already covers."
             subtitle="A lease here comes with the people who work the dock. Each one below says what it covers and who it is for; anything not on the list, call and ask."
           />

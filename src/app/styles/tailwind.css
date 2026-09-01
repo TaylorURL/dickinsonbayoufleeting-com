@@ -35,6 +35,14 @@
     transition: transform var(--arrow-duration) var(--arrow-curve);
   }
 
+  /* The ring that leaves the pointer on a click. A circle rather than a
+   * rounded box, which is why the shape is stated here with the other drawn
+   * decorations rather than as a corner-radius utility in the script that
+   * makes the element: the radius scale describes corners, and this has none. */
+  .click-ripple {
+    border-radius: 50%;
+  }
+
   /* The finished arrow, drawn rather than assembled. */
   @media (prefers-reduced-motion: reduce) {
     .arrow-shaft {
@@ -136,8 +144,19 @@
     --nav-height: clamp(60px, 5vw, 68px);
     --nav-logo-height: clamp(30px, 3vw, 38px);
     --footer-logo-height: clamp(48px, 5vw, 68px);
-    --anchor-offset: calc(var(--nav-height) + 32px);
-    --plate-pad-top: calc(var(--nav-height) + 24px);
+    --wave-height: clamp(40px, 6vw, 84px);
+    /* A fade needs less room than a wave because it has no shape to show. Run
+     * at a wave's height the gradient is slack enough to read as the band
+     * having lost its colour rather than as a join between two of them. */
+    --seam-fade-height: clamp(32px, 4vw, 64px);
+    /* The utility strip above the bar, which is drawn only where the bar keeps
+     * its destinations in a row. Below that it is not rendered and the height
+     * is zero, so everything measured off the chrome follows without a second
+     * breakpoint of its own. */
+    --rail-height: 0px;
+    --chrome-height: calc(var(--nav-height) + var(--rail-height));
+    --anchor-offset: calc(var(--chrome-height) + 32px);
+    --plate-pad-top: calc(var(--chrome-height) + 24px);
 
     --arrow-travel: 5px;
     --arrow-duration: 300ms;
@@ -165,6 +184,11 @@
     --col-label: 90px;
 
     /* The focus ring, shaped once so every control wears the same one. */
+    --tracking-label: 0.06em;
+    --tracking-control: 0.12em;
+    --tracking-eyebrow: 0.32em;
+    --tracking-field: 0em;
+
     --ring-focus:
       0 0 0 1px var(--color-bg), 0 0 0 3px var(--color-highlight-ring);
     /* Mixed from whichever danger the surface is carrying, so the wash behind
@@ -479,6 +503,15 @@
   /* Each surface paints its own ground rather than letting the page colour
    * through, so a surface nested inside another renders as its own band. The
    * hairline seam where two meet is intentional. */
+  /* The bar keeps its destinations in a row from this width up, which is
+   * also where the strip above it is drawn. Stated once, here, so the strip's
+   * own media query and every offset measured off the chrome cannot disagree. */
+  @media (min-width: 900px) {
+    :root {
+      --rail-height: 34px;
+    }
+  }
+
   [data-surface],
   [data-theme] {
     background-color: var(--color-bg);
@@ -571,6 +604,47 @@
   button:disabled,
   [aria-disabled="true"] {
     cursor: not-allowed;
+  }
+
+  /* The floor under every control's own states. Each one dresses its hover,
+   * press and focus itself, and this is what a control that forgot to gets
+   * instead of nothing: the ink lifts under the pointer, the press takes it
+   * down a step, and the focus ring is the same one every other control wears.
+   * A component's own rules sit on top of these and win. */
+  a[href]:hover,
+  button:not(:disabled):hover,
+  summary:hover,
+  [role="button"]:not([aria-disabled="true"]):hover,
+  [role="tab"]:not([aria-disabled="true"]):hover {
+    color: var(--color-text-primary);
+  }
+
+  a[href]:active,
+  button:not(:disabled):active,
+  summary:active,
+  [role="button"]:not([aria-disabled="true"]):active,
+  [role="tab"]:not([aria-disabled="true"]):active {
+    opacity: 0.8;
+  }
+
+  a[href]:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  label[for]:focus-visible,
+  [role="button"]:focus-visible,
+  [role="tab"]:focus-visible {
+    outline: none;
+    box-shadow: var(--ring-focus);
+  }
+
+  /* A field is somewhere to type rather than a label with a border, so it takes
+   * a ground of its own in every theme. The utility says the same thing on each
+   * control; this is what holds if one is added without it. */
+  input,
+  textarea,
+  select {
+    background-color: var(--color-field-surface);
+    letter-spacing: var(--tracking-field);
   }
 
   ::selection {

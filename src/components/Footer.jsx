@@ -1,7 +1,9 @@
 import { NAV_LINKS } from "../app/constants/navLinks";
 import { FACILITIES } from "../app/constants/facilities";
 import { PHONE_NUMBER } from "../app/constants/phoneNumber";
+import { HOURS } from "../app/constants/hours";
 import { Link } from "../app/router/Link";
+import Seam from "./ui/Seam";
 import { ArrowUpIcon, PhoneIcon } from "./Icons";
 import Button from "./ui/Button";
 import { Container, Eyebrow, HULL_PLATE, MICRO_SM } from "./ui/Layout";
@@ -19,20 +21,19 @@ import { currentYear } from "../lib/localTime";
 // with the shared rail mounted below them. The footer paints nothing itself;
 // each band carries its own surface.
 
-const FOOTER_CREDENTIALS = [
-  "Coastal Texas marine operator",
-  "Gulf Intracoastal Waterway access",
-  "Houston Ship Channel partner",
+// Four readings of the operation, each one a number or a place the rest of the
+// site states somewhere else. Nothing here is an accreditation and nothing
+// names a body that issued it, because none was.
+const FOOTER_FACTS = [
+  "Two yards, ten acres of frontage",
+  "Galveston Bay and the GIWW",
+  "Shore crew on site around the clock",
+  "One number reaches both docks",
 ];
 
 const FOOTER_LEGAL = [
   { label: "Privacy", to: "/privacy" },
   { label: "Terms", to: "/terms" },
-];
-
-const FOOTER_HOURS = [
-  { label: "Office", value: "Mon-Fri · 7a-5p CT" },
-  { label: "Shore Crew", value: "24 / 7 · On-call answered" },
 ];
 
 function Footer({ children }) {
@@ -47,7 +48,15 @@ function Footer({ children }) {
 
   return (
     <footer id="footer" className="relative text-secondary">
-      <div data-surface="light" className="relative">
+      {/* The wrapper sets the tokens the bands below it read but paints
+          nothing itself. That is what the seam needs: a negative top margin
+          pulls the wave up over the dark band above, and the wrapper's own
+          ground would otherwise move up with it and paint a solid rectangle
+          behind the wave, leaving foam shapes drawn on foam under a hard
+          straight edge. bg-none clears an image rather than a colour, so the
+          ground is cleared here by a utility that outranks the surface rule. */}
+      <div data-surface="light" className="relative bg-transparent">
+        <Seam className="-mt-wave" />
         <div className="border-b border-border bg-bg py-9">
           <Container>
             <div className="grid grid-cols-[minmax(0,1fr)] items-end gap-8 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] md:gap-9">
@@ -85,7 +94,7 @@ function Footer({ children }) {
                   aria-label="Hours"
                   className="m-0 flex list-none flex-col gap-2 p-0"
                 >
-                  {FOOTER_HOURS.map((h) => (
+                  {HOURS.map((h) => (
                     <li
                       key={h.label}
                       className="grid grid-cols-[minmax(0,1fr)] gap-1 xs:grid-cols-[theme(spacing.label)_minmax(0,1fr)] xs:items-baseline xs:gap-3"
@@ -137,10 +146,10 @@ function Footer({ children }) {
               </p>
 
               <ul
-                aria-label="Capabilities"
+                aria-label="The Operation"
                 className="relative m-0 flex w-full list-none flex-wrap gap-0 pt-px before:absolute before:left-0 before:right-0 before:top-0 before:h-px before:bg-hairline before:content-['']"
               >
-                {FOOTER_CREDENTIALS.map((c) => (
+                {FOOTER_FACTS.map((c) => (
                   <li
                     key={c}
                     className={`${MICRO_SM} mr-6 inline-flex items-center py-3 font-normal text-secondary`}

@@ -23,7 +23,7 @@ const FORM_ID = "contactForm";
 const CONTACT_PANEL_RULE =
   "before:absolute before:-top-px before:left-0 before:h-accent before:w-rule-long before:bg-highlight before:content-['']";
 
-function ContactSection() {
+function ContactSection({ seam = null }) {
   const [values, setValues] = useState({
     firstName: "",
     lastName: "",
@@ -85,7 +85,7 @@ function ContactSection() {
   const phoneHref = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`;
 
   return (
-    <Section surface="light" id="contact" aria-label="Contact">
+    <Section surface="light" seam={seam} id="contact" aria-label="Contact">
       <Container>
         <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-7 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:gap-9">
           <Reveal as="aside" className="flex flex-col gap-7">
@@ -147,45 +147,56 @@ function ContactSection() {
                 role="status"
                 className={`relative flex animate-rise flex-col gap-3 p-7 motion-reduce:animate-none ${PANEL_RAISED} ${CONTACT_PANEL_RULE} before:top-0`}
               >
-                <Confirmation phone={PHONE_NUMBER} className="mb-2" />
+                <span
+                  aria-hidden="true"
+                  className="inline-flex h-control w-control animate-rise-1 items-center justify-center border border-highlight bg-highlight-soft text-highlight motion-reduce:animate-none"
+                >
+                  <CheckIcon size={22} />
+                </span>
+                <h3 className="m-0 text-h4 font-bold text-primary">
+                  We have your note.
+                </h3>
+                <p className="max-w-prose-tight text-base text-secondary">
+                  Someone will reach back inside one business day. If your
+                  timeline is tighter than that, please call {PHONE_NUMBER}. The
+                  on-call line is always answered.
+                </p>
               </div>
             ) : (
               <form
                 onSubmit={submit}
                 noValidate
                 aria-label="Quote Request"
-                className={`relative p-6 md:p-7 ${PANEL_RAISED} ${CONTACT_PANEL_RULE}`}
+                className={`relative flex flex-col gap-6 p-6 md:p-7 ${PANEL_RAISED} ${CONTACT_PANEL_RULE}`}
               >
-                <div className="mb-5">
-                  <Eyebrow strong>Send a Note</Eyebrow>
-                </div>
-                <p className="mb-5 font-body text-sm text-faint">
-                  All fields are required.
-                </p>
-                {attempted ? (
-                  <InquiryErrorSummary
-                    className="mb-5"
-                    idPrefix={FORM_ID}
-                    errors={errors}
-                  />
-                ) : null}
-                <div className="grid grid-cols-[minmax(0,1fr)] gap-5 xs:grid-cols-2">
-                  <InquiryFields
-                    idPrefix={FORM_ID}
-                    values={values}
-                    errors={errors}
-                    shown={showError}
-                    onChange={change}
-                    onBlur={blur}
-                    counter={
-                      <span className={FIELD.counter}>
-                        {values.message.length} / {MAX_MESSAGE}
-                      </span>
-                    }
-                  />
+                <div className="flex flex-col gap-5">
+                  <p className="m-0 font-mono text-xs font-medium tracking-normal text-highlight">
+                    Send a Note
+                  </p>
+                  <p className="m-0 font-body text-sm text-faint">
+                    All fields are required.
+                  </p>
+                  {attempted ? (
+                    <InquiryErrorSummary idPrefix={FORM_ID} errors={errors} />
+                  ) : null}
+                  <div className="grid grid-cols-[minmax(0,1fr)] gap-5 xs:grid-cols-2">
+                    <InquiryFields
+                      idPrefix={FORM_ID}
+                      values={values}
+                      errors={errors}
+                      shown={showError}
+                      onChange={change}
+                      onBlur={blur}
+                      counter={
+                        <span className={FIELD.counter}>
+                          {values.message.length} / {MAX_MESSAGE}
+                        </span>
+                      }
+                    />
+                  </div>
                 </div>
 
-                <div className="mt-6 flex flex-col-reverse flex-wrap items-stretch justify-end gap-3 xs:flex-row xs:items-center">
+                <div className="flex flex-col-reverse flex-wrap items-stretch justify-end gap-3 xs:flex-row xs:items-center">
                   <Button variant="ghost" href={phoneHref}>
                     Call Instead
                   </Button>
@@ -196,7 +207,7 @@ function ContactSection() {
                 {submitError ? (
                   <p
                     role="alert"
-                    className="mt-3 font-body text-sm leading-normal text-danger"
+                    className="m-0 font-body text-sm leading-normal text-danger"
                   >
                     {submitError}
                   </p>

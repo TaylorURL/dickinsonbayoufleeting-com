@@ -28,7 +28,6 @@ function HomeView() {
       <ServiceRegister />
       <Standing />
       <CtaStrip
-        eyebrow="Next step"
         title="Walk the yard before you sign."
         body="Operators can see either dock before anything is signed. Call ahead and we will have the person who works it there to walk it with you."
       />

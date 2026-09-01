@@ -32,9 +32,9 @@ function PrivacyView() {
         updated={PRIVACY_UPDATED}
         label="Privacy Policy"
         id="privacy-body"
+        seam={{ into: "dark" }}
       />
       <CtaStrip
-        eyebrow="Questions"
         title="Want something removed?"
         body="Call the direct line and ask. There is no form for this and no ticket queue. Whoever picks up handles it."
       />
