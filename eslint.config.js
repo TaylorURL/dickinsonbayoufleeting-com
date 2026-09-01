@@ -23,6 +23,7 @@ const browserGlobals = {
   requestAnimationFrame: "readonly",
   cancelAnimationFrame: "readonly",
   IntersectionObserver: "readonly",
+  Intl: "readonly",
   ResizeObserver: "readonly",
   matchMedia: "readonly",
   getComputedStyle: "readonly",

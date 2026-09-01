@@ -7,6 +7,7 @@ import { ArrowUpIcon, PhoneIcon } from "./Icons";
 import Button from "./ui/Button";
 import { Container, Eyebrow, HULL_PLATE, MICRO_SM } from "./ui/Layout";
 import Logo from "./ui/Logo";
+import { currentYear } from "../lib/localTime";
 
 /* footer: ft1-mast-headed */
 
@@ -38,7 +39,7 @@ const FOOTER_HOURS = [
 ];
 
 function Footer({ children }) {
-  const year = new Date().getFullYear();
+  const year = currentYear();
   const phoneDigits = PHONE_NUMBER.replace(/[^0-9]/g, "");
   const phoneHref = `tel:1${phoneDigits}`;
 
