@@ -276,9 +276,21 @@ function OceanTopographyBackground({ className = "" }) {
       raf = requestAnimationFrame(loop);
     }
 
+    // The callback runs inside the browser's layout pass. Doing the resize and
+    // the reduced-motion redraw there can leave the observer with more work to
+    // deliver than the frame allows, which is the "ResizeObserver loop limit
+    // exceeded" the browser reports. Deferring both to the next frame gets the
+    // reads and writes out of the layout pass without changing when the canvas
+    // catches up to its box.
+    let roFrame = 0;
     const ro = new ResizeObserver(() => {
-      resize();
-      if (reduced) staticFrame();
+      if (roFrame) return;
+      roFrame = requestAnimationFrame(() => {
+        roFrame = 0;
+        if (disposed) return;
+        resize();
+        if (reduced) staticFrame();
+      });
     });
     ro.observe(canvas);
 
@@ -309,6 +321,7 @@ function OceanTopographyBackground({ className = "" }) {
     return () => {
       disposed = true;
       cancelAnimationFrame(raf);
+      if (roFrame) cancelAnimationFrame(roFrame);
       ro.disconnect();
       io.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
