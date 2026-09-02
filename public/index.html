@@ -285,6 +285,20 @@
           TRACK: 1,
           PICTURE: 1,
         };
+        // The browser fires this as a global error when a ResizeObserver
+        // callback leaves it more work than the frame allows, then skips the
+        // next delivery to recover. It carries no error object and no stack,
+        // so it names nothing an operator can act on; a third-party script
+        // observing the page can trip it as easily as a first-party one.
+        function isBenignBrowserWarning(message) {
+          var text = String(message || "");
+          return (
+            text.indexOf("ResizeObserver loop") === 0 ||
+            text.indexOf(
+              "ResizeObserver loop completed with undelivered notifications",
+            ) === 0
+          );
+        }
         // Capture phase, because element load failures fire error events that do not bubble.
         window.addEventListener(
           "error",
@@ -304,6 +318,7 @@
                     (event.target.src || event.target.href || ""),
                 );
               } else {
+                if (isBenignBrowserWarning(event.message)) return;
                 report(
                   "uncaught",
                   event.message,
