@@ -16,6 +16,7 @@ import RouteFallback from "../components/RouteFallback";
 import RouteBoundary, {
   clearChunkReloadFlag,
 } from "../components/RouteBoundary";
+import HomeView from "../views/HomeView";
 import { RouterProvider, useRouter, normalisePath } from "./router/Router";
 import { findRoute } from "./router/routes";
 import { MAIN_ID } from "./constants/landmarks";
@@ -27,7 +28,13 @@ import { useSearchShortcut } from "./hooks/useSearchShortcut";
 
 // A visitor to any one route downloads that route and no other. The shell —
 // bar, footer and inquiry panel — is in the entry because every route shows it.
-const HomeView = lazy(() => import("../views/HomeView"));
+//
+// Home is the exception, and it is in the entry too. A split route is not on
+// the page until a second file has been asked for, fetched and run, and the
+// browser cannot even ask until the entry has been read, so the one route
+// almost everybody arrives on paid a whole round trip to show a placeholder
+// before it showed itself. It is the smallest of the six, and carrying it
+// costs the other five a few kilobytes they download once.
 const ServicesView = lazy(() => import("../views/ServicesView"));
 const AboutView = lazy(() => import("../views/AboutView"));
 const ContactView = lazy(() => import("../views/ContactView"));

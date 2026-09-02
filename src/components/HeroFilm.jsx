@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 // The plate behind the hero: twelve seconds of a tow pushing downriver after
 // dark, cut from the yard's own footage. It sits where the drawn sea sat, under
@@ -20,9 +20,15 @@ import { useEffect, useRef, useState } from "react";
 const GRADE =
   "[filter:grayscale(1)_blur(0.5px)_brightness(0.88)_contrast(1.24)] " +
   "motion-reduce:[filter:grayscale(1)_brightness(0.88)_contrast(1.18)]";
+
+// The plate comes up on the poster and holds the film when the file catches
+// up, which is the same picture twice: the poster is a frame of the clip, and
+// it is what a reader who has asked for less motion is left looking at. Waiting
+// for the first frame of video to decode before showing either of them left the
+// band empty for as long as the clip took to arrive, and the fade then landed
+// somewhere in the second half of the load rather than at the start of it.
 function HeroFilm({ className = "" }) {
   const videoRef = useRef(null);
-  const [painted, setPainted] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -51,13 +57,10 @@ function HeroFilm({ className = "" }) {
     <video
       ref={videoRef}
       aria-hidden="true"
-      className={`absolute inset-0 block h-full w-full scale-[1.02] object-cover [min-height:100%] transition-opacity duration-settle ease-settle ${GRADE} ${
-        painted ? "opacity-100" : "opacity-0"
-      } ${className}`.trim()}
+      className={`absolute inset-0 block h-full w-full scale-[1.02] animate-film-in object-cover [min-height:100%] ${GRADE} ${className}`.trim()}
       height="432"
       loop
       muted
-      onLoadedData={() => setPainted(true)}
       playsInline
       poster="/video/hero-poster.jpg"
       preload="metadata"

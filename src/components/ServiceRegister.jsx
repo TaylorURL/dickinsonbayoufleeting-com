@@ -32,7 +32,7 @@ function ServiceRegister() {
             </Button>
           </Reveal>
 
-          <Stagger className="m-0 flex list-none flex-col p-0">
+          <Stagger as="ul" className="m-0 flex list-none flex-col p-0">
             {SERVICES.map((s, i) => (
               <li key={s.id} className={`min-w-0 ${staggerChild(i)}`}>
                 <Link
