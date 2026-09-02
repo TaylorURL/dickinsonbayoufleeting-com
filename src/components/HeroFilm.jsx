@@ -21,12 +21,29 @@ const GRADE =
   "[filter:grayscale(1)_blur(0.5px)_brightness(0.88)_contrast(1.24)] " +
   "motion-reduce:[filter:grayscale(1)_brightness(0.88)_contrast(1.18)]";
 
+const FILM = "/video/hero.mp4";
+
+// A browser that is not told to wait still asks for enough of a clip to know
+// what is in it, and for this one that is most of the file. A timeout stands in
+// where the callback is not understood, so the film always arrives.
+function whenIdle(run) {
+  const idle = window.requestIdleCallback;
+  if (typeof idle === "function") return idle(run, { timeout: 2000 });
+  return window.setTimeout(run, 200);
+}
+
 // The plate comes up on the poster and holds the film when the file catches
 // up, which is the same picture twice: the poster is a frame of the clip, and
 // it is what a reader who has asked for less motion is left looking at. Waiting
 // for the first frame of video to decode before showing either of them left the
 // band empty for as long as the clip took to arrive, and the fade then landed
 // somewhere in the second half of the load rather than at the start of it.
+//
+// The file is the heaviest thing the site owns, so the markup does not name it:
+// the element ships with the poster alone and the clip is asked for once the
+// page has loaded and the main thread has gone quiet. Named in the markup it
+// was on the wire beside the type and the picture the plate opens on, taking
+// the connection those needed to arrive.
 function HeroFilm({ className = "" }) {
   const videoRef = useRef(null);
 
@@ -39,6 +56,7 @@ function HeroFilm({ className = "" }) {
     // size and nothing below it shifts.
     const query = window.matchMedia("(prefers-reduced-motion: reduce)");
     const settle = () => {
+      if (!video.src) return;
       if (query.matches) {
         video.pause();
         return;
@@ -48,9 +66,23 @@ function HeroFilm({ className = "" }) {
         started.catch(() => {});
     };
 
-    settle();
+    let cancelled = false;
+    const attach = () => {
+      if (cancelled || video.src) return;
+      video.src = FILM;
+      settle();
+    };
+    const queue = () => whenIdle(attach);
+
+    if (document.readyState === "complete") queue();
+    else window.addEventListener("load", queue, { once: true });
+
     query.addEventListener("change", settle);
-    return () => query.removeEventListener("change", settle);
+    return () => {
+      cancelled = true;
+      window.removeEventListener("load", queue);
+      query.removeEventListener("change", settle);
+    };
   }, []);
 
   return (
@@ -63,11 +95,9 @@ function HeroFilm({ className = "" }) {
       muted
       playsInline
       poster="/video/hero-poster.jpg"
-      preload="metadata"
+      preload="none"
       width="1280"
-    >
-      <source src="/video/hero.mp4" type="video/mp4" />
-    </video>
+    />
   );
 }
 

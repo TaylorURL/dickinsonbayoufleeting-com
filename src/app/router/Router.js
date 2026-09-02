@@ -16,8 +16,14 @@ function readLocation() {
   return { path: window.location.pathname, hash: window.location.hash };
 }
 
-export function RouterProvider({ children }) {
-  const [{ path, hash }, setLocation] = useState(readLocation);
+// The build renders every route into a document of its own, and the render has
+// no address bar to read the path out of, so the path is handed in. In the
+// browser nothing passes it and the location is read as it always was, which is
+// the same path the document was stamped for.
+export function RouterProvider({ children, path: initialPath }) {
+  const [{ path, hash }, setLocation] = useState(() =>
+    initialPath ? { path: initialPath, hash: "" } : readLocation(),
+  );
 
   useEffect(() => {
     const onPop = () => setLocation(readLocation());
