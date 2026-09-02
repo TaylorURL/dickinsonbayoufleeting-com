@@ -74,22 +74,6 @@ export function ArrowUpIcon({ size = DEFAULT_SIZE, className }) {
   );
 }
 
-export function ChevronDownIcon({ size = DEFAULT_SIZE, className }) {
-  return (
-    <svg
-      {...BASE}
-      aria-hidden="true"
-      focusable="false"
-      className={className}
-      width={size}
-      height={size}
-      strokeWidth="1.8"
-    >
-      <path d="M6 9l6 6 6-6" />
-    </svg>
-  );
-}
-
 // The phone and the tick are the two marks drawn with round ends: both are
 // pictures of an object rather than a rule, and a mitred corner on either
 // reads as a drafting mark instead.
