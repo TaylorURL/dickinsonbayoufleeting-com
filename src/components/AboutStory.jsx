@@ -97,7 +97,10 @@ function Timeline() {
           </h2>
         </Reveal>
 
-        <Stagger className="m-0 flex list-none flex-col border-l border-border p-0">
+        <Stagger
+          as="ul"
+          className="m-0 flex list-none flex-col border-l border-border p-0"
+        >
           {ABOUT_TIMELINE.map((entry, i) => (
             <li
               key={entry.period}

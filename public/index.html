@@ -70,10 +70,17 @@
       name="twitter:image"
     />
     <meta content="Dickinson Bayou Fleeting logo" name="twitter:image:alt" />
+    <!-- The wordmark ships at three widths and the bar picks one from the same
+         candidates the preload carries, so the file fetched here is the file
+         the bar draws. A preload naming the widest one alone fetched half a
+         phone's worth of bytes ahead of everything else and then went unused,
+         because the bar had already chosen the small one. -->
     <link
       rel="preload"
       as="image"
       href="/images/DBF-Logo-White.png"
+      imagesrcset="/images/DBF-Logo-White-120.png 120w, /images/DBF-Logo-White-240.png 240w, /images/DBF-Logo-White.png 476w"
+      imagesizes="(max-width: 720px) 140px, 200px"
       fetchpriority="high"
     />
     <link
@@ -89,6 +96,17 @@
       type="font/woff2"
       href="/fonts/ibm-plex-sans-latin.woff2"
       crossorigin="anonymous"
+    />
+    <!-- The frame the hero plate opens on. It is named by a component the
+         browser cannot see until the bundle has run, so the document names it
+         instead and the band has a picture in it a round trip earlier. It is
+         asked for behind the two faces because the words on the plate are set
+         in them and the picture sits underneath the words. -->
+    <link
+      rel="preload"
+      as="image"
+      href="/video/hero-poster.jpg"
+      fetchpriority="high"
     />
     <link
       href="https://gujgtjqqurildqurpffh.supabase.co"

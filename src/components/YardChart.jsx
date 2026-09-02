@@ -264,24 +264,30 @@ function YardChart() {
               })}
             </div>
 
-            <dl
+            {/* The panel and the sheet are two elements rather than one. A
+                description list told to be a tab panel is no longer a
+                description list, and the terms and values inside it are then
+                loose in a box that has no list around them. The panel holds
+                the tab wiring; the sheet inside it is left as the list it is. */}
+            <div
               id={panelId}
               role="tabpanel"
               aria-labelledby={`${panelId}-tab-${activeId}`}
               aria-live="polite"
-              className="m-0 border-t border-hairline"
             >
-              <Spec label="Waterway" value={yard.waterway} />
-              <Spec label="Reaches" value={yard.reach} />
-              <Spec label="Address" value={yard.address} />
-              <Spec label="Position" value={yard.coord} note="approximate" />
-              <Spec label="Yard" value={yard.acreage} note="waterfront" />
-              <Spec
-                label="Lease"
-                value={`$${yard.price.toLocaleString()}`}
-                note="per month"
-              />
-            </dl>
+              <dl className="m-0 border-t border-hairline">
+                <Spec label="Waterway" value={yard.waterway} />
+                <Spec label="Reaches" value={yard.reach} />
+                <Spec label="Address" value={yard.address} />
+                <Spec label="Position" value={yard.coord} note="approximate" />
+                <Spec label="Yard" value={yard.acreage} note="waterfront" />
+                <Spec
+                  label="Lease"
+                  value={`$${yard.price.toLocaleString()}`}
+                  note="per month"
+                />
+              </dl>
+            </div>
 
             <ul className="m-0 grid list-none grid-cols-[minmax(0,1fr)] gap-x-10 gap-y-3 p-0 sm:grid-cols-2">
               {yard.included.map((item) => (

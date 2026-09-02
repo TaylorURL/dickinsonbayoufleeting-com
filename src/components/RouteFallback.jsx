@@ -12,6 +12,12 @@ import { Container } from "./ui/Layout";
 // wrapper that fills the fold keeps the footer under it, where a push costs the
 // reader nothing.
 //
+// A viewport on its own is a wave short of that. The footer opens on a seam
+// pulled up over whatever it follows, so the top of the footer sits one wave
+// above the end of this box and that much of it is on screen waiting to be
+// pushed off. The wave is added back here, and the whole of the footer is then
+// under the fold where the push is free.
+//
 // The paint is inset inside each box, which is what keeps a heading reading as
 // a line of type instead of a slab.
 const PLACEHOLDER_BAR =
@@ -48,7 +54,7 @@ function RouteFallback({ actions = false }) {
       role="status"
       aria-busy="true"
       aria-label="Loading the page"
-      className="flex min-h-plate flex-col [min-height:100svh]"
+      className="flex min-h-plate flex-col [min-height:calc(100svh+theme(spacing.wave))]"
     >
       {/* The plate is the same box as the real page header - same ground, same
           top padding, same height - so nothing on screen moves when the route
