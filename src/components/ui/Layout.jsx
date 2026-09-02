@@ -22,12 +22,6 @@ export const PANEL_TINT = "rounded-sm bg-surface";
 export const PANEL = `${PANEL_TINT} outline outline-1 -outline-offset-1 outline-border`;
 export const PANEL_RAISED = `${PANEL} shadow-raise`;
 
-// What a control does under the finger. The ink drops rather than the control
-// shrinking: a scale press moves the thing the finger is already on, and at
-// the two or three percent that reads as restrained it moves it by an amount
-// nothing registers. Stated once, so no two controls press differently.
-export const PRESS = "";
-
 // One step between the blocks of a band. A margin on each block is how two
 // gaps in the same stack end up different sizes.
 export const BAND = "flex flex-col gap-8";
