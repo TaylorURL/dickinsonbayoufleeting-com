@@ -433,6 +433,11 @@ module.exports = {
         // delay, which is what stops a fast route flashing a placeholder on
         // its way past.
         arrive: `arrive ${ms(DURATION.settle)} ${ms(6 * DURATION.step)} ${CURVE.settle} both`,
+        // The same fade with nothing held in front of it, for the plate behind
+        // the hero. Nothing is standing in for the film while it loads, so
+        // there is no placeholder to keep off the screen and the picture comes
+        // up the moment the element has one to show.
+        "film-in": `arrive ${ms(DURATION.settle)} ${CURVE.settle} both`,
         // Driven by a scroll timeline rather than a clock, so the duration is
         // the range the host declares and not a value here.
         "plate-drift": "plate-drift linear both",

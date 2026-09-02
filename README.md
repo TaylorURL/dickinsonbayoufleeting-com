@@ -14,9 +14,12 @@
   The marketing and lead-generation site for a two-yard fleeting operation on Galveston Bay and the GIWW.<br />
   Live at <a href="https://dickinsonbayoufleeting.com">dickinsonbayoufleeting.com</a>.
 </p>
+<p align="center">
+  <sub>Published for reading. Proprietary — see <a href="LICENSE.md">LICENSE.md</a>. Outside contributions are not accepted.</sub>
+</p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2026.36.21-f0a045?style=for-the-badge" alt="Version 2026.36.21" />
+  <img src="https://img.shields.io/badge/version-2026.36.22-f0a045?style=for-the-badge" alt="Version 2026.36.22" />
   <img src="https://img.shields.io/badge/React-19-07101c?style=for-the-badge&logo=react&logoColor=white" alt="React 19" />
   <img src="https://img.shields.io/badge/Create_React_App-5-07101c?style=for-the-badge&logo=createreactapp&logoColor=white" alt="Create React App 5" />
   <img src="https://img.shields.io/badge/Tailwind-3-07101c?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 3" />
@@ -31,20 +34,21 @@ Fleeting is a phone-call business, so the site is built to put a dispatcher on t
 
 ## Stack
 
-| Layer       | Technology                                                                                                                                                          |
-| :---------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| UI          | React 19                                                                                                                                                            |
-| Build & dev | Create React App (`react-scripts` 5)                                                                                                                                |
-| Routing     | Custom History-API router in `src/app/router`                                                                                                                       |
-| Styling     | Tailwind, over one custom-property token set in `src/app/styles/tailwind.css`; the scales it reads are in `tailwind.config.js`                                      |
-| Type        | Barlow Condensed, IBM Plex Sans and JetBrains Mono, self-hosted; the two faces the first screen sets are preloaded from `public/fonts`                              |
-| Theming     | Fixed dark page; per-section `[data-surface="light" \| "dark"]` flipping                                                                                            |
-| Hero        | Canvas 2D procedural ocean-topography animation (reduced-motion and off-screen aware)                                                                               |
-| Footer bar  | `@taylorurl/split-rail`, the shared credit bar every TaylorURL site mounts                                                                                          |
-| Inquiries   | A Supabase edge function, called straight from the browser                                                                                                          |
-| Analytics   | First-party and cookieless, from one hosted tracker                                                                                                                 |
-| SEO & PWA   | Per-route titles, descriptions, canonicals and share tags from a head-sync hook; Schema.org JSON-LD, geo meta, web manifest and icon set, sitemap, robots, llms.txt |
-| Hosting     | Vercel                                                                                                                                                              |
+| Layer        | Technology                                                                                                                                                          |
+| :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| UI           | React 19                                                                                                                                                            |
+| Build & dev  | Create React App (`react-scripts` 5)                                                                                                                                |
+| Routing      | Custom History-API router in `src/app/router`                                                                                                                       |
+| Styling      | Tailwind, over one custom-property token set in `src/app/styles/tailwind.css`; the scales it reads are in `tailwind.config.js`                                      |
+| Type         | Barlow Condensed, IBM Plex Sans and JetBrains Mono, self-hosted; the two faces the first screen sets are preloaded from `public/fonts`                              |
+| Theming      | Fixed dark page; per-section `[data-surface="light" \| "dark"]` flipping                                                                                            |
+| Hero         | A muted, graded, looping clip from `public/video`, held on its poster frame under reduced motion                                                                    |
+| Page headers | Canvas 2D procedural ocean-topography animation (reduced-motion and off-screen aware)                                                                               |
+| Footer bar   | `@taylorurl/split-rail`, the shared credit bar every TaylorURL site mounts                                                                                          |
+| Inquiries    | A Supabase edge function, called straight from the browser                                                                                                          |
+| Analytics    | First-party and cookieless, from one hosted tracker                                                                                                                 |
+| SEO & PWA    | Per-route titles, descriptions, canonicals and share tags from a head-sync hook; Schema.org JSON-LD, geo meta, web manifest and icon set, sitemap, robots, llms.txt |
+| Hosting      | Vercel                                                                                                                                                              |
 
 ## Getting started
 
@@ -62,7 +66,7 @@ No environment configuration is required. The three services the browser talks t
 | :--------------------- | :---------------------------------------------------------------------------------- |
 | `npm start`            | Start the CRA dev server.                                                           |
 | `npm run build`        | Production build to `build/`.                                                       |
-| `npm run lint`         | ESLint over `src`, warnings treated as fatal.                                       |
+| `npm run lint`         | ESLint over `src` with warnings treated as fatal, then the spacing-scale check.     |
 | `npm run format`       | Rewrite `src`, the `public` documents and the root JSON and Markdown with Prettier. |
 | `npm run format:check` | Check the same set without rewriting.                                               |
 | `npm test`             | Jest runner (no suites committed yet).                                              |
@@ -72,15 +76,15 @@ No environment configuration is required. The three services the browser talks t
 
 `NavBar`, `Footer`, and the global `InquiryModal` persist across every route.
 
-| Route         | Renders                                                                                                               |
-| :------------ | :-------------------------------------------------------------------------------------------------------------------- |
-| `/`           | Hero, services preview, lease rates, amenities, service area, facilities and maps, CTA, with a right-rail `ScrollSpy` |
-| `/services`   | Seven-service catalog, lease rates, FAQ accordion, CTA                                                                |
-| `/about`      | Company story, values, timeline, service area, CTA                                                                    |
-| `/contact`    | Contact form, direct lines, both facility maps                                                                        |
-| `/privacy`    | What the site collects, held in `src/app/constants/legal.js`                                                          |
-| `/terms`      | Terms of use, from the same module                                                                                    |
-| anything else | `NotFound`, served with a 404 status by `vercel.json` and marked `noindex`                                            |
+| Route         | Renders                                                                                                                                          |
+| :------------ | :----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`           | Hero, the two-yard schematic with its spec sheet and lease rates, the seven-service index, the standing band, CTA, with a right-rail `ScrollSpy` |
+| `/services`   | Seven-service catalog, lease rates, FAQ accordion, CTA                                                                                           |
+| `/about`      | Company story, values, timeline, service area, CTA                                                                                               |
+| `/contact`    | Contact form, direct lines, how a lease runs and what to have ready, both facility maps                                                          |
+| `/privacy`    | What the site collects, held in `src/app/constants/legal.js`                                                                                     |
+| `/terms`      | Terms of use, from the same module                                                                                                               |
+| anything else | `NotFound`, served with a 404 status by `vercel.json` and marked `noindex`                                                                       |
 
 ## Architecture
 
@@ -95,17 +99,18 @@ flowchart TD
     Outlet --> Legal["/privacy, /terms"]
     Outlet --> Missing["anything else: 404"]
     Chrome -->|"inquiry:open event"| Modal["Global InquiryModal"]
-    Home -->|"Request a Quote"| Modal
+    Home -->|"Get Lease Terms"| Modal
 ```
 
 ## How it works
 
 - **The router is three files.** `Router.js`, `Link.js`, and a `routes.js` table drive History-API navigation.
-- **Content lives in constants.** Facilities, services, lease options, FAQ, nav links, service area, and about copy are each a module under `src/app/constants`. The views only render them.
+- **Content lives in constants.** Facilities, services, FAQ, nav links, service area, and about copy are each a module under `src/app/constants`. The views only render them.
 - **One form, two places.** The five inquiry fields, their rules and their error wording live in `src/app/constants/inquiryForm.js`; `InquiryFields` renders them for both the modal and the contact page. Both forms post to a Supabase function through the shared submit, which gives up after 15 seconds and shows a failure instead of a confirmation.
-- **The water draws itself.** `OceanTopographyBackground` rides a dot field and its contour lines on one shared flow field over a Canvas 2D context, behind the home hero and behind every inner page header. It stops while off-screen or in a hidden tab, and paints a single static frame under `prefers-reduced-motion`.
-- **Two yards, one record.** Dickinson (2629 Avenue R, Dickinson, TX) at $4,100/month and Freeport (906 Marlin Ln, Freeport, TX) at $4,800/month, both 5-acre waterfront facilities, come from `src/app/constants/facilities.js`, which the lease cards, the maps, the footer and the contact page all read. The hero console keeps its own short list because it shows coordinates the record does not carry.
-- **Measurement is one module and two identifiers.** `src/app/constants/tracking.js` holds the Google Ads account, the GA4 property and a conversion label for each of the three actions worth counting; `src/app/tracking/google.js` loads the tag and sends them. An empty identifier switches that piece off, so a build with none filled in attaches no script at all. The inquiry conversion fires inside the shared submit, after the throw, so a submission the office never received is never counted; calls and directions are caught by one delegated listener rather than a handler on each of the site's nine phone links. The ad click identifier is read on arrival and held for the tab, because the router drops the query string on the first in-site navigation.
+- **The water draws itself.** `OceanTopographyBackground` rides a dot field and its contour lines on one shared flow field over a Canvas 2D context, behind every inner page header. It stops while off-screen or in a hidden tab, and paints a single static frame under `prefers-reduced-motion`.
+- **The home hero is footage.** `HeroFilm` runs a silent, controlless clip from `public/video` behind the plate's scrim and vignette, graded in CSS so it holds inside a palette that carries no hue anywhere else. A reader who has asked for less motion gets the poster frame and nothing moving.
+- **Two yards, one record.** Dickinson (2629 Avenue R, Dickinson, TX) at $4,100/month and Freeport (906 Marlin Ln, Freeport, TX) at $4,800/month, both 5-acre waterfront facilities, come from `src/app/constants/facilities.js`, which the hero readings, the yard chart, the lease cards, the maps, the bar, the footer and the contact page all read.
+- **Measurement is one module and two identifiers.** `src/app/constants/tracking.js` holds the Google Ads account, the GA4 property and a conversion label for each of the three actions worth counting; `src/app/tracking/google.js` loads the tag and sends them. An empty identifier switches that piece off, so a build with none filled in attaches no script at all. The inquiry conversion fires inside the shared submit, after the throw, so a submission the office never received is never counted; calls and directions are caught by one delegated listener rather than a handler on each of the site's phone and map links. The ad click identifier is read on arrival and held for the tab, because the router drops the query string on the first in-site navigation.
 - **A broken page reports itself.** An inline script in `public/index.html` catches uncaught errors, rejected promises, failed resource loads and 5xx responses, caps itself at ten reports a visit and beacons them to the collector. The privacy page says so, because those reports are one of the three things the site records.
 - **Routes are downloaded one at a time.** Each view is a `lazy` import behind a `Suspense` fallback, and `RouteBoundary` reloads once when a chunk goes missing, which is the shape of a deploy landing while a tab is still open.
 
@@ -117,11 +122,13 @@ dickinsonbayoufleeting-com/
 ├── tailwind.config.js         The design system: colours, type scale, spacing, motion, layers
 ├── performance-budget.json    The recorded weight budget for the built bundle
 ├── vercel.json                Route rewrites, asset caching, the 404 status
+├── api/                       version.js, the commit this deployment was built from
+├── scripts/                   check-spacing-scale.js, run as the second half of the lint
 ├── public/
-│   ├── art/                   The drawn plates, one set on one viewBox and one palette
 │   ├── favicon*, apple-touch-icon.png, android-chrome-*.png
 │   ├── fonts/                 The two faces the first screen sets, preloaded
 │   ├── images/                DBF wordmark, black and white, at three sizes
+│   ├── video/                 The hero clip and the poster frame it holds on
 │   ├── index.html             Head metadata, error reporter, analytics, JSON-LD
 │   ├── manifest.json          PWA manifest and icon set
 │   ├── release.json           Deployed version marker
@@ -132,11 +139,12 @@ dickinsonbayoufleeting-com/
     │   ├── App.js             AppShell: nav, routed outlet, footer, inquiry modal
     │   ├── router/            History-API router (Router, Link, routes)
     │   ├── tracking/          Google tag, the three conversions, ad click capture
-    │   ├── constants/         facilities, services, leaseOptions, faq, inquiryForm, …
+    │   ├── constants/         facilities, services, faq, inquiryForm, searchIndex, …
     │   ├── fonts/             The remaining subsets and weights as woff2
     │   ├── hooks/             useSeoMeta, useBreadcrumbSchema, useReveal, useCountUp,
-    │   │                      useScrolled, useClickRipple
+    │   │                      useScrolled, useClickRipple, useSearchShortcut
     │   └── styles/            fonts.css faces, tailwind.css tokens + base layer
+    ├── lib/                   localTime, the clock the footer reads its year off
     ├── views/                 Home, Services, About, Contact, Privacy, Terms
     ├── pages/                 NotFound
     └── components/            Section components, and the primitives under ui/
