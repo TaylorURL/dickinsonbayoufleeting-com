@@ -1,6 +1,6 @@
 {
   "name": "dickinsonbayoufleeting",
-  "version": "2026.36.24",
+  "version": "2026.36.25",
   "private": true,
   "license": "UNLICENSED",
   "engines": {
@@ -23,7 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "node scripts/prerender.js",
+    "postbuild": "node scripts/start-bundle-after-paint.js && node scripts/prerender.js",
     "test": "react-scripts test --passWithNoTests",
     "lint": "ESLINT_USE_FLAT_CONFIG=true eslint src --max-warnings=0 && node scripts/check-spacing-scale.js",
     "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"public/*.{html,json}\" \"*.{json,md}\"",
