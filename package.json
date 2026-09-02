@@ -12,6 +12,7 @@
     "react-dom": "^19.1.1"
   },
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "eslint": "^8.57.1",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.1.1",
@@ -22,6 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "node scripts/prerender.js",
     "test": "react-scripts test --passWithNoTests",
     "lint": "ESLINT_USE_FLAT_CONFIG=true eslint src --max-warnings=0 && node scripts/check-spacing-scale.js",
     "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"public/*.{html,json}\" \"*.{json,md}\"",

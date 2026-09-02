@@ -109,7 +109,11 @@ const PANEL_HEADING = "m-0 font-body text-3xs font-semibold text-muted";
 const TOGGLE_BAR =
   "absolute left-1/2 top-6 h-[1.5px] w-tick origin-center transition-[transform,opacity,background-color] duration-settle ease-settle motion-reduce:transition-none";
 
-const NAV_LOGO_SIZES = "(max-width: 720px) 140px, 200px";
+// The width the mark actually draws at, which is its height times its own
+// aspect: clamp(30px, 3vw, 38px) across the bar's three states. A slot
+// described wider than it is fetches a raster nothing needs.
+const NAV_LOGO_SIZES =
+  "(max-width: 1000px) 98px, (max-width: 1266px) 9.8vw, 124px";
 
 const CHROME_ROW = "mx-auto flex w-full max-w-container items-center px-gutter";
 

@@ -10,9 +10,9 @@
     { "handle": "filesystem" },
     {
       "src": "^/(services|about|contact|terms|privacy)/?$",
-      "dest": "/index.html"
+      "dest": "/$1/index.html"
     },
     { "src": "^/$", "dest": "/index.html" },
-    { "src": "^/.*$", "dest": "/index.html", "status": 404 }
+    { "src": "^/.*$", "dest": "/404.html", "status": 404 }
   ]
 }
