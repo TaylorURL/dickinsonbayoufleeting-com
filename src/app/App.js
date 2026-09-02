@@ -263,9 +263,12 @@ function AppShell() {
   );
 }
 
-function App() {
+// The build stamps each route into a document of its own and hands the path in,
+// because there is no address bar at that point. The browser passes nothing and
+// the router reads the location itself.
+function App({ path }) {
   return (
-    <RouterProvider>
+    <RouterProvider path={path}>
       <AppShell />
     </RouterProvider>
   );

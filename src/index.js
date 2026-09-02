@@ -30,5 +30,14 @@ function paintBrowserChrome() {
 
 paintBrowserChrome();
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App />);
+const container = document.getElementById("root");
+
+// The build writes each route's first screen into the document it serves, so
+// the page is on the glass before this file has been fetched. React adopts that
+// markup rather than drawing it a second time. The development server sends the
+// empty shell, so both paths have to work.
+if (container.firstElementChild) {
+  ReactDOM.hydrateRoot(container, <App />);
+} else {
+  ReactDOM.createRoot(container).render(<App />);
+}
