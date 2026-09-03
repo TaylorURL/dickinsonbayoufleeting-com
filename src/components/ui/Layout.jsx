@@ -84,9 +84,7 @@ export const Section = forwardRef(function Section(
       {...rest}
     >
       {children}
-      {seam ? (
-        <Seam shape={shape} className="absolute inset-x-0 bottom-0" />
-      ) : null}
+      {seam ? <Seam shape={shape} place="pinned" /> : null}
     </Tag>
   );
 });

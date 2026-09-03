@@ -30,17 +30,34 @@ export const INTO_GRAY =
 export const INTO_DARK =
   "[--seam-into:var(--hull-900)] [--wave-ink-back:var(--hull-950)] [--wave-ink-mid:var(--hull-850)] [--wave-ink:var(--hull-900)]";
 
-const BASE = "relative z-raised m-0 block w-full flex-none pointer-events-none";
+const BASE = "z-raised m-0 block w-full flex-none pointer-events-none";
+
+// Where the seam sits on its host. A seam in flow is the host's own last block
+// and takes height off it; a pinned one rides the host's bottom edge and costs
+// no layout, which is what lets a band reserve the wave's height as padding and
+// still have the wave land on the join. The two are one choice rather than two
+// classes stacked, because `relative` and `absolute` both on the same element
+// resolve by stylesheet order and the loser is silently ignored.
+const PLACE = {
+  flow: "relative",
+  pinned: "absolute inset-x-0 bottom-0",
+};
 
 const FADE_LAYER =
   "h-[var(--seam-fade-height)] bg-gradient-to-b from-transparent to-[color:var(--seam-into)]";
 
-function Seam({ shape = "wave", flip = false, className = "" }) {
+function Seam({
+  shape = "wave",
+  place = "flow",
+  flip = false,
+  className = "",
+}) {
+  const at = PLACE[place];
   if (shape === "fade") {
     return (
       <div
         aria-hidden="true"
-        className={`${BASE} ${FADE_LAYER} ${
+        className={`${BASE} ${at} ${FADE_LAYER} ${
           flip ? "-scale-y-100" : ""
         } ${className}`.trim()}
       />
@@ -50,7 +67,7 @@ function Seam({ shape = "wave", flip = false, className = "" }) {
   return (
     <div
       aria-hidden="true"
-      className={`${BASE} h-wave text-[color:var(--wave-ink)] ${className}`.trim()}
+      className={`${BASE} ${at} h-wave text-[color:var(--wave-ink)] ${className}`.trim()}
     >
       <svg
         aria-hidden="true"
