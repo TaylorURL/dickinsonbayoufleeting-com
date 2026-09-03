@@ -69,5 +69,3 @@ export function Stagger({
     </Tag>
   );
 }
-
-export default Reveal;

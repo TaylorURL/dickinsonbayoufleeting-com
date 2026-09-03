@@ -62,15 +62,15 @@ No environment configuration is required. The three services the browser talks t
 
 ### Scripts
 
-| Script                 | Does                                                                                |
-| :--------------------- | :---------------------------------------------------------------------------------- |
-| `npm start`            | Start the CRA dev server.                                                           |
-| `npm run build`        | Production build to `build/`.                                                       |
-| `npm run lint`         | ESLint over `src` with warnings treated as fatal, then the spacing-scale check.     |
-| `npm run format`       | Rewrite `src`, the `public` documents and the root JSON and Markdown with Prettier. |
-| `npm run format:check` | Check the same set without rewriting.                                               |
-| `npm test`             | Jest runner (no suites committed yet).                                              |
-| `npm run eject`        | One-way CRA eject.                                                                  |
+| Script                 | Does                                                                                                                                                          |
+| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `npm start`            | Start the CRA dev server.                                                                                                                                     |
+| `npm run build`        | Production build to `build/`, then the postbuild writes each route's first screen into a document of its own and holds the bundle back until the first frame. |
+| `npm run lint`         | ESLint over `src` with warnings treated as fatal, then the spacing-scale check.                                                                               |
+| `npm run format`       | Rewrite `src`, the `public` documents and the root JSON and Markdown with Prettier.                                                                           |
+| `npm run format:check` | Check the same set without rewriting.                                                                                                                         |
+| `npm test`             | Jest runner (no suites committed yet).                                                                                                                        |
+| `npm run eject`        | One-way CRA eject.                                                                                                                                            |
 
 ## Pages
 
@@ -112,7 +112,7 @@ flowchart TD
 - **Two yards, one record.** Dickinson (2629 Avenue R, Dickinson, TX) at $4,100/month and Freeport (906 Marlin Ln, Freeport, TX) at $4,800/month, both 5-acre waterfront facilities, come from `src/app/constants/facilities.js`, which the hero readings, the yard chart, the lease cards, the maps, the bar, the footer and the contact page all read.
 - **Measurement is one module and two identifiers.** `src/app/constants/tracking.js` holds the Google Ads account, the GA4 property and a conversion label for each of the three actions worth counting; `src/app/tracking/google.js` loads the tag and sends them. An empty identifier switches that piece off, so a build with none filled in attaches no script at all. The inquiry conversion fires inside the shared submit, after the throw, so a submission the office never received is never counted; calls and directions are caught by one delegated listener rather than a handler on each of the site's phone and map links. The ad click identifier is read on arrival and held for the tab, because the router drops the query string on the first in-site navigation.
 - **A broken page reports itself.** An inline script in `public/index.html` catches uncaught errors, rejected promises, failed resource loads and 5xx responses, caps itself at ten reports a visit and beacons them to the collector. The privacy page says so, because those reports are one of the three things the site records.
-- **Routes are downloaded one at a time.** Each view is a `lazy` import behind a `Suspense` fallback, and `RouteBoundary` reloads once when a chunk goes missing, which is the shape of a deploy landing while a tab is still open.
+- **Routes are downloaded one at a time.** Each view but Home is a `lazy` import behind a `Suspense` fallback, and `RouteBoundary` reloads once when a chunk goes missing, which is the shape of a deploy landing while a tab is still open.
 
 ## Project structure
 
@@ -123,11 +123,13 @@ dickinsonbayoufleeting-com/
 ├── performance-budget.json    The recorded weight budget for the built bundle
 ├── vercel.json                Route rewrites, asset caching, the 404 status
 ├── api/                       version.js, the commit this deployment was built from
-├── scripts/                   check-spacing-scale.js, run as the second half of the lint
+├── scripts/                   check-spacing-scale.js, the second half of the lint;
+│                              start-bundle-after-paint.js, prerender.js and its
+│                              prerender-entry.jsx, the postbuild
 ├── public/
 │   ├── favicon*, apple-touch-icon.png, android-chrome-*.png
 │   ├── fonts/                 The two faces the first screen sets, preloaded
-│   ├── images/                DBF wordmark, black and white, at three sizes
+│   ├── images/                DBF wordmark, black and white, PNG at three widths and WebP at four
 │   ├── video/                 The hero clip and the poster frame it holds on
 │   ├── index.html             Head metadata, error reporter, analytics, JSON-LD
 │   ├── manifest.json          PWA manifest and icon set
