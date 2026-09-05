@@ -288,6 +288,28 @@
           TRACK: 1,
           PICTURE: 1,
         };
+        // A speculative link is a hint the browser is free to decline, and
+        // declining one fires the same error event a failed fetch does. The
+        // faces are asked for a second time by @font-face, so a dropped
+        // preload takes nothing off the page; the request that would matter
+        // is the one the stylesheet makes, and it fires its own error. A hint
+        // the browser chose not to act on is the feature working.
+        var SPECULATIVE_LINK_RELS = {
+          preload: 1,
+          modulepreload: 1,
+          prefetch: 1,
+          prerender: 1,
+          preconnect: 1,
+          "dns-prefetch": 1,
+        };
+        function isSpeculativeLink(target) {
+          if (target.tagName !== "LINK") return false;
+          var rel = String(target.rel || "").toLowerCase();
+          for (var i = 0, parts = rel.split(/\s+/); i < parts.length; i++) {
+            if (SPECULATIVE_LINK_RELS[parts[i]]) return true;
+          }
+          return false;
+        }
         // The browser fires this as a global error when a ResizeObserver
         // callback leaves it more work than the frame allows, then skips the
         // next delivery to recover. It carries no error object and no stack,
@@ -313,6 +335,7 @@
                 event.target.tagName
               ) {
                 if (MEDIA_LIFECYCLE_TAGS[event.target.tagName]) return;
+                if (isSpeculativeLink(event.target)) return;
                 report(
                   "resource",
                   "Failed to load " +
