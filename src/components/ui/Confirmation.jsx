@@ -16,8 +16,8 @@ function Confirmation({ phone, className = "" }) {
       </span>
       <h3 className="m-0 text-h4 text-primary">We have your note.</h3>
       <p className="m-0 max-w-prose-tight text-base text-secondary">
-        Someone will reach back inside one business day. If your timeline is
-        tighter than that, please call {phone}. The on-call line is always
+        Someone will get back to you inside one business day. If your timeline
+        is tighter than that, please call {phone}. The on-call line is always
         answered.
       </p>
     </>

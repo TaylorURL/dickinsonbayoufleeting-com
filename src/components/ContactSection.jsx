@@ -95,8 +95,8 @@ function ContactSection({ seam = null }) {
                 Talk to a person who knows the dock.
               </h2>
               <p className="max-w-prose text-lead text-secondary">
-                Single-barge job or year-long lease, we are happy to talk. Phone
-                is fastest. The form reaches whoever is on shift.
+                Single-barge job or year-long lease, we take both. Phone is
+                fastest. The form reaches whoever is on shift.
               </p>
             </div>
 
@@ -115,8 +115,8 @@ function ContactSection({ seam = null }) {
               <div className="flex flex-col gap-1">
                 <dt className={`${MICRO} text-faint`}>Hours</dt>
                 <dd className="max-w-prose-tight text-md text-secondary">
-                  Shore presence 24 / 7. The office is staffed weekdays, with
-                  the on-call line monitored at all other hours.
+                  Shore presence 24 / 7. The office is staffed Mon-Fri 7a-5p CT,
+                  with the on-call line monitored at all other hours.
                 </dd>
               </div>
             </dl>
@@ -160,8 +160,12 @@ function ContactSection({ seam = null }) {
                   <p className="m-0 font-mono text-xs font-medium text-highlight">
                     Send a Note
                   </p>
+                  <p className="m-0 font-body text-base text-secondary">
+                    Tell us the footprint you need and the reach your tow runs.
+                    Terms come back inside one business day.
+                  </p>
                   <p className="m-0 font-body text-sm text-faint">
-                    All fields are required.
+                    All fields are required. We do not sell what you send us.
                   </p>
                   {attempted ? (
                     <InquiryErrorSummary idPrefix={FORM_ID} errors={errors} />

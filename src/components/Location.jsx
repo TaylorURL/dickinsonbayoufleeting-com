@@ -210,7 +210,7 @@ function FacilityCard({ facility, index, mapsMounted }) {
           onClick={openInquiry}
           className="w-full xs:ml-auto xs:w-auto"
         >
-          Lease Inquiry
+          Get Lease Terms
         </Button>
       </div>
     </article>

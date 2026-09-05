@@ -1,4 +1,5 @@
 import { clickId, trackInquiry } from "../tracking/google";
+import { PHONE_NUMBER } from "./phoneNumber";
 
 // The one shape both inquiry forms take: the panel in the modal and the form on
 // the contact page ask for the same five things, so the fields, the rules, the
@@ -29,7 +30,7 @@ export const INQUIRY_FIELDS = [
     type: "tel",
     inputMode: "tel",
     autoComplete: "tel",
-    hint: "Digits only or formatted, either works.",
+    hint: "So somebody can reach back on it.",
   },
   {
     key: "message",
@@ -103,8 +104,8 @@ export async function submitInquiry(data) {
 // both messages because a failed form is the moment the phone number matters.
 export function inquiryErrorMessage(error) {
   return error && error.name === "TimeoutError"
-    ? "Nothing came back in time. Try again, or call the direct line."
-    : "That did not send. Try again, or call the direct line.";
+    ? `Nothing came back in time. Try again, or call ${PHONE_NUMBER}.`
+    : `That did not send. Try again, or call ${PHONE_NUMBER}.`;
 }
 
 // US formatting up to ten digits, then a country code in front of the last ten.
