@@ -113,6 +113,28 @@ function PageOutlet({ onLanded }) {
   const { path } = useRouter();
   const View = viewFor(normalisePath(path));
   const hasActions = Boolean(findRoute(normalisePath(path)).actions);
+
+  // Whether the reader has asked for a page yet, which decides how the page
+  // under this comes in.
+  //
+  // The entrance holds a route at nothing for six delay steps before bringing
+  // it up. That hold is the length of a cached chunk's arrival and it is what
+  // stops a fast route flashing its placeholder on the way past. The route the
+  // document was stamped for has no chunk coming: its markup is in the file
+  // the reader was served, so the hold is spent on a page that is already
+  // drawn, and everything in it - the plate, the headline, the lede - is
+  // withheld from the screen while a round trip that never happens is waited
+  // out. It comes up on the same fade over the same length instead, starting
+  // as soon as the stylesheet has been read.
+  //
+  // The build renders every route from the path the browser opens on, so the
+  // served markup and the first client render agree here and hydration has
+  // nothing to reconcile.
+  const openedOn = useRef(path);
+  const navigated = useRef(false);
+  if (path !== openedOn.current) navigated.current = true;
+  const entrance = navigated.current ? "animate-arrive" : "animate-arrive-now";
+
   return (
     <RouteBoundary path={path}>
       <Suspense fallback={<RouteFallback actions={hasActions} />}>
@@ -121,7 +143,7 @@ function PageOutlet({ onLanded }) {
             once per landing rather than once per session. A route that simply
             appears is the one moment the whole site is otherwise animated
             through. */}
-        <div key={path} className="animate-arrive motion-reduce:animate-none">
+        <div key={path} className={`${entrance} motion-reduce:animate-none`}>
           <View />
         </div>
         <RouteLanded path={path} onLanded={onLanded} />
