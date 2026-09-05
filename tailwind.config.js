@@ -50,6 +50,10 @@ const rise = Object.fromEntries(
   ]),
 );
 
+// The fade with no hold in front of it, written once because two things use it
+// and a second copy of the string is a second thing to keep in step.
+const arriveNow = `arrive ${ms(DURATION.settle)} ${CURVE.settle} both`;
+
 // The type scale as one table. Every step declares size, leading, tracking and
 // weight, so no call site has to finish the definition. Across the display
 // steps leading and tracking both compress as the size grows: type set at seven
@@ -433,11 +437,16 @@ module.exports = {
         // delay, which is what stops a fast route flashing a placeholder on
         // its way past.
         arrive: `arrive ${ms(DURATION.settle)} ${ms(6 * DURATION.step)} ${CURVE.settle} both`,
-        // The same fade with nothing held in front of it, for the plate behind
-        // the hero. Nothing is standing in for the film while it loads, so
-        // there is no placeholder to keep off the screen and the picture comes
-        // up the moment the element has one to show.
-        "film-in": `arrive ${ms(DURATION.settle)} ${CURVE.settle} both`,
+        // The same fade with nothing held in front of it, for the route whose
+        // markup came down in the document. There is no chunk on the way and
+        // no placeholder standing in for it, so the hold covers a page that is
+        // already on the glass and keeps it off the screen for the length of a
+        // round trip that never happened.
+        "arrive-now": arriveNow,
+        // And for the plate behind the hero. Nothing is standing in for the
+        // film while it loads, so the picture comes up the moment the element
+        // has one to show.
+        "film-in": arriveNow,
         // Driven by a scroll timeline rather than a clock, so the duration is
         // the range the host declares and not a value here.
         "plate-drift": "plate-drift linear both",
