@@ -55,9 +55,10 @@ export function useCountUp(target, options = {}) {
       raf = requestAnimationFrame(step);
     };
 
-    // Hero stats are typically above the fold — if so, start immediately
-    // so the user never sees a stale 0. Otherwise defer until the row
-    // scrolls into view.
+    // An element already on screen at mount has no arrival to wait for, so the
+    // count starts at once rather than holding the figure at zero under a reader
+    // who is already looking at it. A browser with no observer counts straight
+    // away for the same reason.
     const rect = el.getBoundingClientRect();
     const alreadyVisible = rect.top < window.innerHeight && rect.bottom > 0;
     if (alreadyVisible || !("IntersectionObserver" in window)) {

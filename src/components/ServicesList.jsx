@@ -15,7 +15,7 @@ function ServicesList({ surface = "dark", seam = null }) {
         <Reveal>
           <SectionHead
             title="Seven jobs the crew already covers."
-            subtitle="A lease here comes with the people who work the dock. Each one below says what it covers and who it is for; anything not on the list, call and ask."
+            subtitle="A lease here comes with the people who work the dock. Anything not on the list, call and ask."
           />
         </Reveal>
 

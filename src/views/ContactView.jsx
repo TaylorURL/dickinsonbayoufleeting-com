@@ -8,12 +8,12 @@ import { useSeoMeta } from "../app/hooks/useSeoMeta";
 export const metadata = {
   title: "Ask About a Dock Lease | Dickinson Bayou Fleeting",
   description:
-    "One number covers both yards. Call it or send the form for lease terms, a yard walk, or whether a slip is open.",
+    "One number covers both barge fleeting yards, Dickinson and Freeport. Call 713-859-0169 or send the form for lease terms, a yard walk, or whether a slip is open.",
   canonical: "https://dickinsonbayoufleeting.com/contact",
   openGraph: {
     title: "Ask About a Dock Lease | Dickinson Bayou Fleeting",
     description:
-      "One number covers both yards. Call it or send the form for lease terms, a yard walk, or whether a slip is open.",
+      "One number covers both barge fleeting yards, Dickinson and Freeport. Call 713-859-0169 or send the form for lease terms, a yard walk, or whether a slip is open.",
     url: "https://dickinsonbayoufleeting.com/contact",
   },
 };

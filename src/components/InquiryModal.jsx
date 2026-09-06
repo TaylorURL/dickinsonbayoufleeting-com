@@ -124,8 +124,8 @@ function InquiryModal({ open, onClose, onSubmit }) {
       setSubmitting(false);
       setSubmitError(
         err && err.name === "TimeoutError"
-          ? "Nothing came back in time. Try again, or call the direct line."
-          : "That did not send. Try again, or call the direct line.",
+          ? `Nothing came back in time. Try again, or call ${PHONE_NUMBER}.`
+          : `That did not send. Try again, or call ${PHONE_NUMBER}.`,
       );
     }
   }
@@ -299,7 +299,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
                   arrow={false}
                   href={`tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`}
                 >
-                  Call
+                  Call Instead
                 </Button>
                 <Button
                   variant="ghost"
@@ -315,7 +315,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
                   type="submit"
                   disabled={submitting}
                 >
-                  {submitting ? "Sending…" : "Submit"}
+                  {submitting ? "Sending…" : "Send Request"}
                 </Button>
               </div>
               {submitError ? (

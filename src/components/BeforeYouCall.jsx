@@ -32,7 +32,7 @@ const LEASE_STEPS = [
 const PAPERWORK = [
   {
     title: "Barge particulars",
-    body: "Dimensions, draft, and the reach your tow runs.",
+    body: "Dimensions, draft, and the reach your tow runs. We send the template if you do not have one.",
   },
   {
     title: "Certificate of insurance",

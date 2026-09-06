@@ -45,16 +45,16 @@ export const ABOUT_TIMELINE = [
   {
     period: "The Bay Yard",
     title: "Five acres on Galveston Bay",
-    body: "Acquired the Galveston Bay waterfront yard and expanded into long-term barge fleeting for repeat customers.",
+    body: "Bought the Galveston Bay waterfront yard and expanded into long-term barge fleeting for repeat customers.",
   },
   {
     period: "Freeport",
     title: "Freeport facility opens",
-    body: "Added a second five-acre yard on the Gulf Intracoastal Waterway, extending coverage south along the upper Texas coast.",
+    body: "Added a second five-acre yard on the Gulf Intracoastal Waterway, which carried the operation south along the upper Texas coast.",
   },
   {
     period: "Now",
-    title: "A full coastal operation",
+    title: "Two coastal yards, both staffed",
     body: "Two yards, a shore crew on duty year-round, and an office you can reach on the direct line during the working day.",
   },
 ];

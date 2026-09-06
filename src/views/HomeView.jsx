@@ -9,12 +9,12 @@ import { useSeoMeta } from "../app/hooks/useSeoMeta";
 export const metadata = {
   title: "Dock Space for Lease | Dickinson Bayou Fleeting, Texas Gulf Coast",
   description:
-    "Five-acre gated waterfront yards for long-term lease at Dickinson on Galveston Bay and Freeport on the GIWW. Bulkhead frontage, shore crew on site, from $4,100 a month.",
+    "Five-acre gated waterfront yards, long-term lease: Dickinson on Galveston Bay, Freeport on the GIWW. Bulkhead frontage, shore crew on site, from $4,100 a month.",
   canonical: "https://dickinsonbayoufleeting.com/",
   openGraph: {
     title: "Dock Space for Lease | Dickinson Bayou Fleeting, Texas Gulf Coast",
     description:
-      "Five-acre gated waterfront yards for long-term lease at Dickinson on Galveston Bay and Freeport on the GIWW. Bulkhead frontage, shore crew on site, from $4,100 a month.",
+      "Five-acre gated waterfront yards, long-term lease: Dickinson on Galveston Bay, Freeport on the GIWW. Bulkhead frontage, shore crew on site, from $4,100 a month.",
     url: "https://dickinsonbayoufleeting.com/",
   },
 };
@@ -30,6 +30,7 @@ function HomeView() {
       <CtaStrip
         title="Walk the yard before you sign."
         body="Operators can see either dock before anything is signed. Call ahead and we will have the person who works it there to walk it with you."
+        primary={{ label: "Book a Yard Walk", to: "/contact" }}
       />
     </main>
   );

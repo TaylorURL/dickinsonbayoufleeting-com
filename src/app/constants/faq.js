@@ -1,11 +1,11 @@
 export const FAQ_ITEMS = [
   {
     q: "Do you take single-barge customers or only long-term contracts?",
-    a: "Both. We have customers who hold the same slip year-round and customers who call us when a single barge needs a place for a week. We are happy to talk either way.",
+    a: "Both. We have customers who hold the same slip year-round and customers who call us when a single barge needs a place for a week.",
   },
   {
     q: "What size barges can you fleet?",
-    a: "Both yards are designed around standard inland hopper, tank and deck barges typical to Gulf coast and inland operators. For unusual dimensions or drafts give us a call. We can usually accommodate or point you to a partner who can.",
+    a: "Both yards are designed around standard inland hopper, tank and deck barges typical to Gulf coast and inland operators. For unusual dimensions or drafts give us a call. We can usually take it, or point you to a partner who can.",
   },
   {
     q: "Do you provide the towboat?",
@@ -13,7 +13,7 @@ export const FAQ_ITEMS = [
   },
   {
     q: "Do you handle barge cleaning on site?",
-    a: "Not directly. Cleaning is a regulated specialty. We work with established cleaning contractors and provide the slip, the shore access and the coordination so your barge is cleaned and back in service quickly.",
+    a: "Not directly. Cleaning is a regulated specialty. We work with established cleaning contractors and provide the slip, the shore access and the coordination, and hand the barge back load-ready with the paperwork done.",
   },
   {
     q: "What are your operating hours?",

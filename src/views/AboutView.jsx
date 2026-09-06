@@ -26,13 +26,13 @@ function AboutView() {
       <PagePlate
         eyebrow="About"
         title="The people who will be on your dock."
-        subtitle="Two yards on the upper Texas Gulf Coast, and a shore crew that lives close enough to be at either one in the time it takes you to call."
+        subtitle="Two yards on the upper Texas Gulf Coast, and a shore crew already on site at both of them."
       >
         <Button variant="primary" to="/contact">
-          Get in Touch
+          Get Lease Terms
         </Button>
         <Button variant="ghost" to="/services">
-          See Our Services
+          See All Services
         </Button>
       </PagePlate>
       <AboutStory />
@@ -40,6 +40,7 @@ function AboutView() {
       <CtaStrip
         title="Come and walk the yard."
         body="Operators see either dock before signing anything. Call ahead and we will have the person who works it there to walk it with you."
+        primary={{ label: "Book a Yard Walk", to: "/contact" }}
       />
     </main>
   );

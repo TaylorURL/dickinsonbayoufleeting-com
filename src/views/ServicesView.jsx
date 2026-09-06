@@ -41,7 +41,7 @@ function ServicesView() {
       <Faq surface="light" seam={{ into: "dark" }} />
       <CtaStrip
         title="Take a yard, or just the service."
-        body="Most operators lease the dock and use the crew that comes with it. If you only need one job doing, call and we will say whether it is ours."
+        body="The lease comes with the crew that works the dock. If you only need one job doing, call and we will say whether it is ours."
         primary={{ label: "Get a Written Quote", to: "/contact" }}
       />
     </main>
