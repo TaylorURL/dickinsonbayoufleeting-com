@@ -37,6 +37,7 @@ function PrivacyView() {
       <CtaStrip
         title="Want something removed?"
         body="Call the direct line and ask. There is no form for this and no ticket queue. Whoever picks up handles it."
+        primary={{ label: "Get in Touch", to: "/contact" }}
       />
     </main>
   );

@@ -24,7 +24,7 @@ function LeasePackage({ surface = "gray", seam = null }) {
       <Container className={BAND}>
         <Reveal className="flex max-w-head flex-col gap-5">
           <h2 className="m-0 max-w-title text-h2 text-primary">
-            Five acres, either coast.
+            Five acres, either yard.
           </h2>
           <p className="m-0 max-w-prose text-lead text-secondary">
             Gated frontage, room to lay down spuds and deck barges, and power

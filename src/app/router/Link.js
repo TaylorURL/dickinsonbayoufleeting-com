@@ -1,9 +1,9 @@
 import { forwardRef } from "react";
 import { useRouter } from "./Router";
 
-// Drop-in <a> replacement that pushes through the router instead of
-// triggering a full document load. Modifier-clicks (cmd/ctrl/shift/middle)
-// fall through to the browser so users keep open-in-new-tab.
+// An anchor that navigates through the router rather than reloading the
+// document. A modifier or a middle click is left to the browser, so a reader
+// who wants the page in a new tab still gets one.
 export const Link = forwardRef(function Link(
   { to, onClick, replace = false, scroll = true, children, ...rest },
   ref,

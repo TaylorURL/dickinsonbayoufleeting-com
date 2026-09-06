@@ -38,7 +38,7 @@ function NotFound() {
           Back to Home
         </Button>
         <Button variant="ghost" to="/contact">
-          Call the Yard
+          Contact the Yard
         </Button>
       </PagePlate>
 

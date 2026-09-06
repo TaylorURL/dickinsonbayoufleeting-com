@@ -4,19 +4,20 @@ import { useEffect, useRef } from "react";
 // one shared, smooth flow field, so the grid reads as a single living sea
 // rather than a static lattice or independent jitter.
 //
-// The flow is a sum of layered traveling sine waves (a cheap Perlin-style
-// field) sampled by each dot's (x, y) and time t. From it we derive:
-// - a height channel  → vertical lift + crest brightness/size banding
-// - an orbital channel → horizontal sway, 90° out of phase with height,
-// so each dot traces the small ellipse a real water particle follows
-// as a swell rolls through.
+// The flow is a sum of layered traveling sine waves, a cheap Perlin-style
+// field, sampled by each dot's (x, y) and time t. It yields two channels: a
+// height that lifts a dot and sets which brightness and size band it is drawn
+// in, and an orbital sway ninety degrees out of phase with that height, so
+// each dot traces the small ellipse a water particle follows as a swell rolls
+// through.
 // Neighbouring dots share wavefronts, producing rolling swells, crests and
 // troughs that sweep across the field. Pure sinusoids close on themselves,
 // so the field never resets or jumps.
 //
-// Canvas 2D, DPR-capped at 2, ~60 FPS, GPU-light (flat arcs). Paused when the
-// tab is hidden or the hero scrolls out of view, and rendered as a single
-// static frame when prefers-reduced-motion is set.
+// It draws on a 2D canvas capped at a device pixel ratio of 2, redrawing at
+// roughly 60 frames a second out of flat arcs that ask little of the GPU. The
+// loop pauses while the tab is hidden or the hero is scrolled out of view, and
+// renders a single static frame when prefers-reduced-motion is set.
 
 const DPR_CAP = 2;
 // ~60 FPS ceiling. The 65-target headroom guarantees a true 60 Hz display's
@@ -43,8 +44,8 @@ const CONTOUR_AMP_Y = 0.055;
 // (kx, ky) in radians across the normalised field, angular speed omega in
 // rad/s, amplitude and a phase offset. A dominant long swell carries a
 // diagonal cross-swell and a finer surface ripple, giving calm ocean chop.
-// Periods (2π / omega) are ~17 s / ~13 s / ~9.5 s — a slow, premium cadence
-// that clearly travels without ever reading as fast jitter.
+// Periods (2π / omega) are ~17 s / ~13 s / ~9.5 s — a slow cadence that
+// clearly travels without ever reading as fast jitter.
 const SWELLS = [
   { kx: 1.8, ky: 0.55, omega: 0.37, amp: 0.6, phase: 0.0 },
   { kx: -1.25, ky: 1.7, omega: 0.48, amp: 0.3, phase: 1.7 },
@@ -57,11 +58,11 @@ const SWELL_DIRS = SWELLS.map((w) => {
 });
 
 // Sample the shared flow field at normalised coordinate (x, y in 0..1) and
-// time t (seconds). Returns:
-// height ∈ [-1, 1] — surface elevation; +1 crest, -1 trough
-// swayX           — horizontal orbital displacement (quadrature with height)
-// Height uses sin(phase); sway uses cos(phase) projected onto each wave's
-// direction — the 90° offset is what turns vertical bob into orbital roll.
+// time t (seconds). It returns a height running from -1 at a trough to +1 at a
+// crest, and swayX, the horizontal orbital displacement that sits in
+// quadrature with it. Height uses sin(phase); sway uses cos(phase) projected
+// onto each wave's direction, and that ninety-degree offset is what turns
+// vertical bob into orbital roll.
 function flowAt(x, y, t) {
   let height = 0;
   let swayX = 0;
