@@ -2,9 +2,9 @@ import {
   ABOUT_STORY,
   ABOUT_TIMELINE,
   ABOUT_VALUES,
-} from "../app/constants/about";
-import { BAND, Container, MICRO, MICRO_SM, Section } from "./ui/Layout";
-import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
+} from "../../app/content/about";
+import { BAND, Container, MICRO, MICRO_SM, Section } from "../ui/Layout";
+import { Reveal, Stagger, staggerChild } from "../ui/Reveal";
 
 // Set as an essay with its headings in the margin. The prose keeps one measure
 // the whole way down instead of being cut into three columns, which is what

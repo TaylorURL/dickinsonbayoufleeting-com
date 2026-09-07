@@ -1,7 +1,7 @@
-import { PHONE_NUMBER } from "../app/constants/phoneNumber";
-import Button from "./ui/Button";
-import { Container, MICRO_SM, Section } from "./ui/Layout";
-import { Reveal } from "./ui/Reveal";
+import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import Button from "../ui/Button";
+import { Container, MICRO_SM, Section } from "../ui/Layout";
+import { Reveal } from "../ui/Reveal";
 
 // The close. The number is the largest thing on it because calling is the
 // action this business actually wants, and a button labelled with a phone

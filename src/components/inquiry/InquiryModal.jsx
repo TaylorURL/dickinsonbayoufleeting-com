@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
-import { PHONE_NUMBER } from "../app/constants/phoneNumber";
+import { PHONE_NUMBER } from "../../app/content/phoneNumber";
 import InquiryFields from "./InquiryFields";
 import InquiryErrorSummary from "./InquiryErrorSummary";
-import Button from "./ui/Button";
-import Confirmation from "./ui/Confirmation";
-import { Eyebrow, HULL_PLATE } from "./ui/Layout";
-import { formatPhone, validateInquiry } from "../app/constants/inquiryForm";
+import Button from "../ui/Button";
+import Confirmation from "../ui/Confirmation";
+import { Eyebrow, HULL_PLATE } from "../ui/Layout";
+import { formatPhone, validateInquiry } from "../../lib/inquiryForm";
 
 // The panel animates in; taking focus before it lands makes the browser scroll
 // to a field that is still moving.

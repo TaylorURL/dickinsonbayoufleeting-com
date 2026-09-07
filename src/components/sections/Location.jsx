@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { FACILITIES } from "../app/constants/facilities";
-import Button from "./ui/Button";
+import { FACILITIES } from "../../app/content/facilities";
+import Button from "../ui/Button";
 import {
   BAND,
   CORNER_TICK,
@@ -8,8 +8,8 @@ import {
   MICRO_SM,
   Section,
   SectionHead,
-} from "./ui/Layout";
-import { Reveal } from "./ui/Reveal";
+} from "../ui/Layout";
+import { Reveal } from "../ui/Reveal";
 
 const buildEmbedSrc = (address) =>
   `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;

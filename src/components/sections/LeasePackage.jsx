@@ -1,7 +1,7 @@
-import { FACILITIES } from "../app/constants/facilities";
-import Button from "./ui/Button";
-import { BAND, Container, MICRO_SM, Section } from "./ui/Layout";
-import { Reveal } from "./ui/Reveal";
+import { FACILITIES } from "../../app/content/facilities";
+import Button from "../ui/Button";
+import { BAND, Container, MICRO_SM, Section } from "../ui/Layout";
+import { Reveal } from "../ui/Reveal";
 
 // Every row the sheet states, in the order somebody comparing two yards asks
 // for them. Reading a value off a facility rather than storing it twice is what

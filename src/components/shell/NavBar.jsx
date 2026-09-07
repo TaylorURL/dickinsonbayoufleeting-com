@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { NAV_LINKS } from "../app/constants/navLinks";
-import { PHONE_NUMBER } from "../app/constants/phoneNumber";
-import { HOURS_SHORT } from "../app/constants/hours";
-import { FACILITIES } from "../app/constants/facilities";
-import { useScrolled } from "../app/hooks/useScrolled";
-import { useRouter, normalisePath } from "../app/router/Router";
-import { Link } from "../app/router/Link";
-import { ArrowRightIcon, PhoneIcon, SearchIcon } from "./Icons";
-import { shortcutLabel } from "../app/hooks/useSearchShortcut";
-import Logo from "./ui/Logo";
+import { NAV_LINKS } from "../../app/content/navLinks";
+import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import { HOURS_SHORT } from "../../app/content/hours";
+import { FACILITIES } from "../../app/content/facilities";
+import { useScrolled } from "../../app/hooks/useScrolled";
+import { useRouter, normalisePath } from "../../app/router/Router";
+import { Link } from "../../app/router/Link";
+import { ArrowRightIcon, PhoneIcon, SearchIcon } from "../ui/Icons";
+import { shortcutLabel } from "../../app/hooks/useSearchShortcut";
+import Logo from "../ui/Logo";
 
 /* nav: n7-brutal-slab */
 /* panel: mm3-grouped-columns */

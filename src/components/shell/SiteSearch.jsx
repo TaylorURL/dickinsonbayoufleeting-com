@@ -6,9 +6,9 @@ import {
   useRef,
   useState,
 } from "react";
-import { SEARCH_DEFAULTS, searchSite } from "../app/constants/searchIndex";
-import { useRouter } from "../app/router/Router";
-import { ArrowRightIcon, SearchIcon } from "./Icons";
+import { SEARCH_DEFAULTS, searchSite } from "../../lib/searchIndex";
+import { useRouter } from "../../app/router/Router";
+import { ArrowRightIcon, SearchIcon } from "../ui/Icons";
 
 // The matched span, marked by weight and ink rather than by a highlighter. A
 // <mark> arrives with a yellow ground on it, which is a colour this palette

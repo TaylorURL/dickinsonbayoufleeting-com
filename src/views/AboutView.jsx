@@ -1,7 +1,7 @@
-import PagePlate from "../components/PagePlate";
-import AboutStory from "../components/AboutStory";
-import ServiceArea from "../components/ServiceArea";
-import CtaStrip from "../components/CtaStrip";
+import PagePlate from "../components/page/PagePlate";
+import AboutStory from "../components/sections/AboutStory";
+import ServiceArea from "../components/sections/ServiceArea";
+import CtaStrip from "../components/page/CtaStrip";
 import Button from "../components/ui/Button";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";

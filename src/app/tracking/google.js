@@ -3,7 +3,7 @@
 // weeks later back to the ad that produced it.
 //
 // Nothing here reaches the network until an identifier in
-// ../constants/tracking is filled in, and a missing conversion label silences
+// ./config is filled in, and a missing conversion label silences
 // that one action rather than the module.
 
 import {
@@ -14,7 +14,7 @@ import {
   GA4_MEASUREMENT_ID,
   GOOGLE_ADS_ID,
   INQUIRY_VALUE,
-} from "../constants/tracking";
+} from "./config";
 
 const GTAG_SRC = "https://www.googletagmanager.com/gtag/js";
 

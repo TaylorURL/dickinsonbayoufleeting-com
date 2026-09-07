@@ -1,5 +1,5 @@
 import { Link } from "../../app/router/Link";
-import { ArrowRightIcon } from "../Icons";
+import { ArrowRightIcon } from "./Icons";
 
 // One button per section carries `primary`. With no hue in the palette the
 // filled control is the only thing on a band wearing its ground inverted, so a

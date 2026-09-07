@@ -7,22 +7,22 @@ import {
   useState,
 } from "react";
 import SplitRail from "@taylorurl/split-rail";
-import NavBar from "../components/NavBar";
-import Footer from "../components/Footer";
-import InquiryModal from "../components/InquiryModal";
-import SiteSearch from "../components/SiteSearch";
-import ScrollSpy from "../components/ScrollSpy";
-import RouteFallback from "../components/RouteFallback";
+import NavBar from "../components/shell/NavBar";
+import Footer from "../components/shell/Footer";
+import InquiryModal from "../components/inquiry/InquiryModal";
+import SiteSearch from "../components/shell/SiteSearch";
+import ScrollSpy from "../components/shell/ScrollSpy";
+import RouteFallback from "../components/shell/RouteFallback";
 import RouteBoundary, {
   clearChunkReloadFlag,
-} from "../components/RouteBoundary";
+} from "../components/shell/RouteBoundary";
 import HomeView from "../views/HomeView";
 import { RouterProvider, useRouter, normalisePath } from "./router/Router";
 import { findRoute } from "./router/routes";
 import { MAIN_ID } from "./constants/landmarks";
-import { submitInquiry } from "./constants/inquiryForm";
-import { PHONE_NUMBER } from "./constants/phoneNumber";
-import { PhoneIcon } from "../components/Icons";
+import { submitInquiry } from "../lib/inquiryForm";
+import { PHONE_NUMBER } from "./content/phoneNumber";
+import { PhoneIcon } from "../components/ui/Icons";
 import { useClickRipple } from "./hooks/useClickRipple";
 import { useSearchShortcut } from "./hooks/useSearchShortcut";
 
@@ -40,7 +40,7 @@ const AboutView = lazy(() => import("../views/AboutView"));
 const ContactView = lazy(() => import("../views/ContactView"));
 const PrivacyView = lazy(() => import("../views/PrivacyView"));
 const TermsView = lazy(() => import("../views/TermsView"));
-const NotFound = lazy(() => import("../pages/NotFound"));
+const NotFound = lazy(() => import("../views/NotFound"));
 
 // Sample point sits a few pixels below the rendered nav so the surface
 // reading reflects the section the nav is overlapping — never the nav

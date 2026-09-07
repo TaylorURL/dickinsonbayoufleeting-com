@@ -1,8 +1,8 @@
 import Breadcrumbs from "./Breadcrumbs";
 import OceanTopographyBackground from "./OceanTopographyBackground";
-import { rise } from "./ui/Reveal";
-import Seam, { INTO_LIGHT } from "./ui/Seam";
-import { Container, Eyebrow } from "./ui/Layout";
+import { rise } from "../ui/Reveal";
+import Seam, { INTO_LIGHT } from "../ui/Seam";
+import { Container, Eyebrow } from "../ui/Layout";
 
 // The header every route but Home opens on. The auto block margins take the
 // plate's spare height, which sets the copy against the bottom edge rather

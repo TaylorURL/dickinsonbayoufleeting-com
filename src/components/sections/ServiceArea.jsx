@@ -1,7 +1,7 @@
-import { SERVICE_AREA_CITIES } from "../app/constants/serviceArea";
-import { PHONE_NUMBER } from "../app/constants/phoneNumber";
-import { BAND, Container, MICRO_SM, Section } from "./ui/Layout";
-import { Reveal } from "./ui/Reveal";
+import { SERVICE_AREA_CITIES } from "../../app/content/serviceArea";
+import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import { BAND, Container, MICRO_SM, Section } from "../ui/Layout";
+import { Reveal } from "../ui/Reveal";
 
 // Set as a run rather than as a grid. Twelve towns in twelve ruled cells asks
 // to be read as twelve separate things when the only fact in it is the extent

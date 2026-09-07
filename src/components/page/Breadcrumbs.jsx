@@ -1,7 +1,7 @@
-import { Link } from "../app/router/Link";
-import { ROUTES } from "../app/router/routes";
-import { useRouter, normalisePath } from "../app/router/Router";
-import { useBreadcrumbSchema } from "../app/hooks/useBreadcrumbSchema";
+import { Link } from "../../app/router/Link";
+import { ROUTES } from "../../app/router/routes";
+import { useRouter, normalisePath } from "../../app/router/Router";
+import { useBreadcrumbSchema } from "../../app/hooks/useBreadcrumbSchema";
 
 // Home, then the page. Two levels is the whole depth of this site, so a longer
 // trail would be describing a hierarchy that is not there.

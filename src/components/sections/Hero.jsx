@@ -1,9 +1,9 @@
 import HeroFilm from "./HeroFilm";
-import Seam, { INTO_LIGHT } from "./ui/Seam";
-import Button from "./ui/Button";
-import { Container, Eyebrow, MICRO_SM } from "./ui/Layout";
-import { FACILITIES } from "../app/constants/facilities";
-import { useCountUp } from "../app/hooks/useCountUp";
+import Seam, { INTO_LIGHT } from "../ui/Seam";
+import Button from "../ui/Button";
+import { Container, Eyebrow, MICRO_SM } from "../ui/Layout";
+import { FACILITIES } from "../../app/content/facilities";
+import { useCountUp } from "../../app/hooks/useCountUp";
 
 const HERO_EYEBROW = "Barge fleeting & dock leases · Texas Gulf Coast";
 const HERO_TITLE_LEAD = "Lease the yard.";
