@@ -1,5 +1,5 @@
-import { BAND, Container, Section } from "./ui/Layout";
-import { Stagger, staggerChild } from "./ui/Reveal";
+import { BAND, Container, Section } from "../ui/Layout";
+import { Stagger, staggerChild } from "../ui/Reveal";
 
 // Numbered prose sections with the same rule-and-index treatment the services
 // and capability lists use, so a legal page reads as part of the site rather

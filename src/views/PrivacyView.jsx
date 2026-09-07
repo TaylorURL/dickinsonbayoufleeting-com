@@ -1,7 +1,7 @@
-import PagePlate from "../components/PagePlate";
-import LegalBody from "../components/LegalBody";
-import CtaStrip from "../components/CtaStrip";
-import { PRIVACY_SECTIONS, PRIVACY_UPDATED } from "../app/constants/legal";
+import PagePlate from "../components/page/PagePlate";
+import LegalBody from "../components/sections/LegalBody";
+import CtaStrip from "../components/page/CtaStrip";
+import { PRIVACY_SECTIONS, PRIVACY_UPDATED } from "../app/content/legal";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";
 

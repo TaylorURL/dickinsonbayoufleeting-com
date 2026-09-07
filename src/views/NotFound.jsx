@@ -1,8 +1,8 @@
-import PagePlate from "../components/PagePlate";
-import CtaStrip from "../components/CtaStrip";
-import { NAV_LINKS } from "../app/constants/navLinks";
+import PagePlate from "../components/page/PagePlate";
+import CtaStrip from "../components/page/CtaStrip";
+import { NAV_LINKS } from "../app/content/navLinks";
 import { Link } from "../app/router/Link";
-import { ArrowRightIcon } from "../components/Icons";
+import { ArrowRightIcon } from "../components/ui/Icons";
 import Button from "../components/ui/Button";
 import { BAND, Container, Section, SectionHead } from "../components/ui/Layout";
 import { MAIN_ID } from "../app/constants/landmarks";

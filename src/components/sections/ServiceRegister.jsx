@@ -1,8 +1,8 @@
-import { SERVICES } from "../app/constants/services";
-import { Link } from "../app/router/Link";
-import Button from "./ui/Button";
-import { Container, MICRO_SM, Section } from "./ui/Layout";
-import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
+import { SERVICES } from "../../app/content/services";
+import { Link } from "../../app/router/Link";
+import Button from "../ui/Button";
+import { Container, MICRO_SM, Section } from "../ui/Layout";
+import { Reveal, Stagger, staggerChild } from "../ui/Reveal";
 
 // The seven jobs, set as an index rather than as a table or a grid of cards.
 // Nothing here is ruled or boxed: the rows are held apart by space and by the

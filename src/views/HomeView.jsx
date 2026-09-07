@@ -1,8 +1,8 @@
-import HeroSection from "../components/Hero";
-import YardChart from "../components/YardChart";
-import ServiceRegister from "../components/ServiceRegister";
-import Standing from "../components/Standing";
-import CtaStrip from "../components/CtaStrip";
+import HeroSection from "../components/sections/Hero";
+import YardChart from "../components/sections/YardChart";
+import ServiceRegister from "../components/sections/ServiceRegister";
+import Standing from "../components/sections/Standing";
+import CtaStrip from "../components/page/CtaStrip";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";
 

@@ -1,19 +1,19 @@
 import { useCallback, useMemo, useState } from "react";
-import { PHONE_NUMBER } from "../app/constants/phoneNumber";
-import { FACILITIES } from "../app/constants/facilities";
-import InquiryFields from "./InquiryFields";
-import InquiryErrorSummary from "./InquiryErrorSummary";
-import Button from "./ui/Button";
-import Confirmation from "./ui/Confirmation";
-import { Container, Eyebrow, MICRO, PANEL_RAISED, Section } from "./ui/Layout";
-import { FIELD } from "./ui/Field";
-import { Reveal } from "./ui/Reveal";
+import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import { FACILITIES } from "../../app/content/facilities";
+import InquiryFields from "../inquiry/InquiryFields";
+import InquiryErrorSummary from "../inquiry/InquiryErrorSummary";
+import Button from "../ui/Button";
+import Confirmation from "../ui/Confirmation";
+import { Container, Eyebrow, MICRO, PANEL_RAISED, Section } from "../ui/Layout";
+import { FIELD } from "../ui/Field";
+import { Reveal } from "../ui/Reveal";
 import {
   formatPhone,
   inquiryErrorMessage,
   submitInquiry,
   validateInquiry,
-} from "../app/constants/inquiryForm";
+} from "../../lib/inquiryForm";
 
 const MAX_MESSAGE = 1200;
 const FORM_ID = "contactForm";

@@ -1,7 +1,7 @@
-import PagePlate from "../components/PagePlate";
-import ContactSection from "../components/ContactSection";
-import BeforeYouCall from "../components/BeforeYouCall";
-import Location from "../components/Location";
+import PagePlate from "../components/page/PagePlate";
+import ContactSection from "../components/sections/ContactSection";
+import BeforeYouCall from "../components/sections/BeforeYouCall";
+import Location from "../components/sections/Location";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";
 

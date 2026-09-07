@@ -58,7 +58,7 @@ npm start                # CRA dev server at localhost:3000
 npm run build            # production build to build/
 ```
 
-No environment configuration is required. The three services the browser talks to (the inquiry function, the analytics tracker and the error collector) are addressed by URL in `src/app/constants/inquiryForm.js` and `public/index.html`. The only credential among them is the tracker's public site key, which sits beside its script tag, so there is no `.env` to fill in. The build runs on Node 22, and `CI=true npm run build` matches the Vercel build, where warnings fail the build.
+No environment configuration is required. The three services the browser talks to (the inquiry function, the analytics tracker and the error collector) are addressed by URL in `src/lib/inquiryForm.js` and `public/index.html`. The only credential among them is the tracker's public site key, which sits beside its script tag, so there is no `.env` to fill in. The build runs on Node 22, and `CI=true npm run build` matches the Vercel build, where warnings fail the build.
 
 ### Scripts
 
@@ -82,7 +82,7 @@ No environment configuration is required. The three services the browser talks t
 | `/services`   | Seven-service catalog, lease rates, FAQ accordion, CTA                                                                                           |
 | `/about`      | Company story, values, timeline, service area, CTA                                                                                               |
 | `/contact`    | Contact form, direct lines, how a lease runs and what to have ready, both facility maps                                                          |
-| `/privacy`    | What the site collects, held in `src/app/constants/legal.js`                                                                                     |
+| `/privacy`    | What the site collects, held in `src/app/content/legal.js`                                                                                       |
 | `/terms`      | Terms of use, from the same module                                                                                                               |
 | anything else | `NotFound`, served with a 404 status by `vercel.json` and marked `noindex`                                                                       |
 
@@ -105,12 +105,12 @@ flowchart TD
 ## How it works
 
 - **The router is three files.** `Router.js`, `Link.js`, and a `routes.js` table drive History-API navigation.
-- **Content lives in constants.** Facilities, services, FAQ, nav links, service area, and about copy are each a module under `src/app/constants`. The views only render them.
-- **One form, two places.** The five inquiry fields, their rules and their error wording live in `src/app/constants/inquiryForm.js`; `InquiryFields` renders them for both the modal and the contact page. Both forms post to a Supabase function through the shared submit, which gives up after 15 seconds and shows a failure instead of a confirmation.
+- **Content lives in one folder.** Facilities, services, FAQ, nav links, service area, and about copy are each a module under `src/app/content`. The views only render them.
+- **One form, two places.** The five inquiry fields, their rules and their error wording live in `src/lib/inquiryForm.js`; `InquiryFields` renders them for both the modal and the contact page. Both forms post to a Supabase function through the shared submit, which gives up after 15 seconds and shows a failure instead of a confirmation.
 - **The water draws itself.** `OceanTopographyBackground` rides a dot field and its contour lines on one shared flow field over a Canvas 2D context, behind every inner page header. It stops while off-screen or in a hidden tab, and paints a single static frame under `prefers-reduced-motion`.
 - **The home hero is footage.** `HeroFilm` runs a silent, controlless clip from `public/video` behind the plate's scrim and vignette, graded in CSS so it holds inside a palette that carries no hue anywhere else. A reader who has asked for less motion gets the poster frame and nothing moving.
-- **Two yards, one record.** Dickinson (2629 Avenue R, Dickinson, TX) at $4,100/month and Freeport (906 Marlin Ln, Freeport, TX) at $4,800/month, both 5-acre waterfront facilities, come from `src/app/constants/facilities.js`, which the hero readings, the yard chart, the lease cards, the maps, the bar, the footer and the contact page all read.
-- **Measurement is one module and two identifiers.** `src/app/constants/tracking.js` holds the Google Ads account, the GA4 property and a conversion label for each of the three actions worth counting; `src/app/tracking/google.js` loads the tag and sends them. An empty identifier switches that piece off, so a build with none filled in attaches no script at all. The inquiry conversion fires inside the shared submit, after the throw, so a submission the office never received is never counted; calls and directions are caught by one delegated listener rather than a handler on each of the site's phone and map links. The ad click identifier is read on arrival and held for the tab, because the router drops the query string on the first in-site navigation.
+- **Two yards, one record.** Dickinson (2629 Avenue R, Dickinson, TX) at $4,100/month and Freeport (906 Marlin Ln, Freeport, TX) at $4,800/month, both 5-acre waterfront facilities, come from `src/app/content/facilities.js`, which the hero readings, the yard chart, the lease cards, the maps, the bar, the footer and the contact page all read.
+- **Measurement is one module and two identifiers.** `src/app/tracking/config.js` holds the Google Ads account, the GA4 property and a conversion label for each of the three actions worth counting; `src/app/tracking/google.js` loads the tag and sends them. An empty identifier switches that piece off, so a build with none filled in attaches no script at all. The inquiry conversion fires inside the shared submit, after the throw, so a submission the office never received is never counted; calls and directions are caught by one delegated listener rather than a handler on each of the site's phone and map links. The ad click identifier is read on arrival and held for the tab, because the router drops the query string on the first in-site navigation.
 - **A broken page reports itself.** An inline script in `public/index.html` catches uncaught errors, rejected promises, failed resource loads and 5xx responses, caps itself at ten reports a visit and beacons them to the collector. The privacy page says so, because those reports are one of the three things the site records.
 - **Routes are downloaded one at a time.** Each view but Home is a `lazy` import behind a `Suspense` fallback, and `RouteBoundary` reloads once when a chunk goes missing, which is the shape of a deploy landing while a tab is still open.
 
@@ -140,16 +140,21 @@ dickinsonbayoufleeting-com/
     ├── app/
     │   ├── App.js             AppShell: nav, routed outlet, footer, inquiry modal
     │   ├── router/            History-API router (Router, Link, routes)
-    │   ├── tracking/          Google tag, the three conversions, ad click capture
-    │   ├── constants/         facilities, services, faq, inquiryForm, searchIndex, …
+    │   ├── tracking/          Google tag and its identifiers (config, google)
+    │   ├── content/           facilities, services, faq, navLinks, legal, hours, …
+    │   ├── constants/         MAIN_ID, SITE_ORIGIN, HOME_SECTIONS
     │   ├── fonts/             The remaining subsets and weights as woff2
     │   ├── hooks/             useSeoMeta, useBreadcrumbSchema, useReveal, useCountUp,
     │   │                      useScrolled, useClickRipple, useSearchShortcut
     │   └── styles/            fonts.css faces, tailwind.css tokens + base layer
-    ├── lib/                   localTime, the clock the footer reads its year off
-    ├── views/                 Home, Services, About, Contact, Privacy, Terms
-    ├── pages/                 NotFound
-    └── components/            Section components, and the primitives under ui/
+    ├── lib/                   inquiryForm, searchIndex, localTime
+    ├── views/                 Home, Services, About, Contact, Privacy, Terms, NotFound
+    └── components/
+        ├── shell/             NavBar, Footer, SiteSearch, ScrollSpy, route machinery
+        ├── page/              PagePlate, CtaStrip, Breadcrumbs, the header canvas
+        ├── sections/          The fourteen content bands the views compose
+        ├── inquiry/           The quote form, its fields and its modal
+        └── ui/                Shared primitives, and the icon set
 ```
 
 ## License

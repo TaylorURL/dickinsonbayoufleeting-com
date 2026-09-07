@@ -1,8 +1,8 @@
-import PagePlate from "../components/PagePlate";
-import ServicesList from "../components/ServicesList";
-import LeasePackage from "../components/LeasePackage";
-import Faq from "../components/Faq";
-import CtaStrip from "../components/CtaStrip";
+import PagePlate from "../components/page/PagePlate";
+import ServicesList from "../components/sections/ServicesList";
+import LeasePackage from "../components/sections/LeasePackage";
+import Faq from "../components/sections/Faq";
+import CtaStrip from "../components/page/CtaStrip";
 import Button from "../components/ui/Button";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";

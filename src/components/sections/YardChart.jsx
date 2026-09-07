@@ -1,9 +1,9 @@
 import { useId, useState } from "react";
-import { FACILITIES } from "../app/constants/facilities";
-import { PHONE_NUMBER } from "../app/constants/phoneNumber";
-import Button from "./ui/Button";
-import { Container, Eyebrow, MICRO, MICRO_SM, Section } from "./ui/Layout";
-import { Reveal } from "./ui/Reveal";
+import { FACILITIES } from "../../app/content/facilities";
+import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import Button from "../ui/Button";
+import { Container, Eyebrow, MICRO, MICRO_SM, Section } from "../ui/Layout";
+import { Reveal } from "../ui/Reveal";
 
 // Where the two yards sit on the schematic, as a fraction of the waterway
 // spine. The diagram is a schematic and says so: it puts the yards in order
