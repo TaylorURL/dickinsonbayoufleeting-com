@@ -1,5 +1,5 @@
-import { BAND, Container, Section } from "./ui/Layout";
-import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
+import { BAND, Container, Section } from "../ui/Layout";
+import { Reveal, Stagger, staggerChild } from "../ui/Reveal";
 
 const CLAIMS = [
   {

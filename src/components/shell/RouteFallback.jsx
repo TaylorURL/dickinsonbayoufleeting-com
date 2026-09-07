@@ -1,5 +1,5 @@
-import Seam from "./ui/Seam";
-import { Container } from "./ui/Layout";
+import Seam from "../ui/Seam";
+import { Container } from "../ui/Layout";
 
 // Stands in for a route while its chunk is in flight. It holds the four slots
 // every page header has - trail, eyebrow, title, lede - each box the size of

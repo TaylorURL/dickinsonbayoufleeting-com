@@ -1,8 +1,8 @@
-import { SERVICES } from "./services";
-import { FACILITIES } from "./facilities";
-import { FAQ_ITEMS } from "./faq";
-import { SERVICE_AREA_CITIES } from "./serviceArea";
-import { PHONE_NUMBER } from "./phoneNumber";
+import { SERVICES } from "../app/content/services";
+import { FACILITIES } from "../app/content/facilities";
+import { FAQ_ITEMS } from "../app/content/faq";
+import { SERVICE_AREA_CITIES } from "../app/content/serviceArea";
+import { PHONE_NUMBER } from "../app/content/phoneNumber";
 
 // Everything the site can take somebody to, derived from the same content the
 // pages are built from rather than listed a second time. A hand-kept index goes

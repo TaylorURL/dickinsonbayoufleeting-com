@@ -1,5 +1,5 @@
-import { Container, MICRO_SM, Section } from "./ui/Layout";
-import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
+import { Container, MICRO_SM, Section } from "../ui/Layout";
+import { Reveal, Stagger, staggerChild } from "../ui/Reveal";
 
 // What happens between a first call and a barge tied up, and the three
 // documents that have to exist before it can. Both were already on the site,

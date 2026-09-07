@@ -1,7 +1,7 @@
-import { FAQ_ITEMS } from "../app/constants/faq";
-import { PHONE_NUMBER } from "../app/constants/phoneNumber";
-import { BAND, Container, Eyebrow, MICRO_SM, Section } from "./ui/Layout";
-import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
+import { FAQ_ITEMS } from "../../app/content/faq";
+import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import { BAND, Container, Eyebrow, MICRO_SM, Section } from "../ui/Layout";
+import { Reveal, Stagger, staggerChild } from "../ui/Reveal";
 
 // Printed as a spread rather than as an accordion. Seven answers of three lines
 // each fit in two columns without asking anybody to click, and a question whose

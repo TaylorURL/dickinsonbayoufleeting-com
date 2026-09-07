@@ -1,5 +1,5 @@
-import { clickId, trackInquiry } from "../tracking/google";
-import { PHONE_NUMBER } from "./phoneNumber";
+import { clickId, trackInquiry } from "../app/tracking/google";
+import { PHONE_NUMBER } from "../app/content/phoneNumber";
 
 // The one shape both inquiry forms take: the panel in the modal and the form on
 // the contact page ask for the same five things, so the fields, the rules, the

@@ -1,7 +1,7 @@
-import { SERVICES } from "../app/constants/services";
-import { BAND, Container, Section, SectionHead } from "./ui/Layout";
-import { Reveal, Stagger, staggerChild } from "./ui/Reveal";
-import { ROW, ROW_INNER, ROW_MARKER, SLOT } from "./ui/Row";
+import { SERVICES } from "../../app/content/services";
+import { BAND, Container, Section, SectionHead } from "../ui/Layout";
+import { Reveal, Stagger, staggerChild } from "../ui/Reveal";
+import { ROW, ROW_INNER, ROW_MARKER, SLOT } from "../ui/Row";
 
 function ServicesList({ surface = "dark", seam = null }) {
   return (

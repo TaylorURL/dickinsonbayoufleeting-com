@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { HOME_SECTIONS } from "../app/constants/homeSections";
+import { HOME_SECTIONS } from "../../app/constants/homeSections";
 
 // Collapses the observer root to a 1px line at viewport centre. Only the
 // section whose body crosses that line reports as intersecting, so picking the

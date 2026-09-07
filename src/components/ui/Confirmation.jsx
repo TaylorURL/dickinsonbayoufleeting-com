@@ -1,4 +1,4 @@
-import { CheckIcon } from "../Icons";
+import { CheckIcon } from "./Icons";
 
 // What the reader sees once the note has gone. The same form is asked for in
 // two places - the panel on the contact page and the dialog - and a

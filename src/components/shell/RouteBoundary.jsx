@@ -1,7 +1,7 @@
 import { Component } from "react";
-import { PHONE_NUMBER } from "../app/constants/phoneNumber";
-import Button from "./ui/Button";
-import { Container, Eyebrow } from "./ui/Layout";
+import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import Button from "../ui/Button";
+import { Container, Eyebrow } from "../ui/Layout";
 
 // A route arrives as its own file, which means a deploy can land while a tab
 // is still open: the document in that tab names files the server has just

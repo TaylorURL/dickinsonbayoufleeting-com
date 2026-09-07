@@ -1,14 +1,14 @@
-import { NAV_LINKS } from "../app/constants/navLinks";
-import { FACILITIES } from "../app/constants/facilities";
-import { PHONE_NUMBER } from "../app/constants/phoneNumber";
-import { HOURS } from "../app/constants/hours";
-import { Link } from "../app/router/Link";
-import Seam from "./ui/Seam";
-import { ArrowUpIcon, PhoneIcon } from "./Icons";
-import Button from "./ui/Button";
-import { Container, Eyebrow, HULL_PLATE, MICRO_SM } from "./ui/Layout";
-import Logo from "./ui/Logo";
-import { currentYear } from "../lib/localTime";
+import { NAV_LINKS } from "../../app/content/navLinks";
+import { FACILITIES } from "../../app/content/facilities";
+import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import { HOURS } from "../../app/content/hours";
+import { Link } from "../../app/router/Link";
+import Seam from "../ui/Seam";
+import { ArrowUpIcon, PhoneIcon } from "../ui/Icons";
+import Button from "../ui/Button";
+import { Container, Eyebrow, HULL_PLATE, MICRO_SM } from "../ui/Layout";
+import Logo from "../ui/Logo";
+import { currentYear } from "../../lib/localTime";
 
 /* footer: ft1-mast-headed */
 

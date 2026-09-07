@@ -1,5 +1,5 @@
-import { INQUIRY_FIELDS } from "../app/constants/inquiryForm";
-import { FIELD } from "./ui/Field";
+import { INQUIRY_FIELDS } from "../../lib/inquiryForm";
+import { FIELD } from "../ui/Field";
 
 // The message box grows with what is in it, so a long note is read back whole
 // rather than through a four-line window.

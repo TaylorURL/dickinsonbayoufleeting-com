@@ -1,4 +1,4 @@
-import { INQUIRY_FIELDS } from "../app/constants/inquiryForm";
+import { INQUIRY_FIELDS } from "../../lib/inquiryForm";
 
 // Shown once a submit has been tried and more than one field still needs work,
 // so the reader gets the whole list in one place with a way into each field
