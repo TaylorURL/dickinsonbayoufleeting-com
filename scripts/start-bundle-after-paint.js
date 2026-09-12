@@ -18,6 +18,14 @@
 // drawing frames, because it opened in the background, starts the bundle on a
 // timer instead, so the page is never left uninteractive.
 //
+// An injected tag has nothing standing behind it, and that matters more here
+// than it would anywhere else: every route is prerendered, so a request the
+// network drops leaves the whole first screen on the glass with every control
+// drawn and none of them attached to anything, the document reporting itself
+// complete, and no sign to the reader that the page never finished. The tag
+// therefore carries an error handler, and a load that fails is asked for twice
+// more over a widening gap before the page is given up on.
+//
 // This runs before the prerender, so the document every route is stamped from
 // already carries the bootstrap.
 const fs = require("fs");
@@ -58,12 +66,16 @@ html = html.replace(ENTRY_TAG, "");
 
 const bootstrap =
   `<script data-bundle-start>(function(){` +
-  `var started=false;` +
-  `function start(){` +
-  `if(started)return;started=true;` +
+  `var started=false,tries=0;` +
+  `function load(){` +
   `var script=document.createElement("script");` +
   `script.src=${JSON.stringify(entryUrl)};` +
+  // Only a request that never arrived reaches this; a bundle that runs and
+  // throws raises a window error instead, and asking for it again would not
+  // help it.
+  `script.onerror=function(){if(++tries<3)setTimeout(load,600*tries)};` +
   `document.head.appendChild(script)}` +
+  `function start(){if(started)return;started=true;load()}` +
   // Two frames: the first is the paint itself, the second proves it landed.
   `requestAnimationFrame(function(){requestAnimationFrame(start)});` +
   `setTimeout(start,3000)})()</script>`;
