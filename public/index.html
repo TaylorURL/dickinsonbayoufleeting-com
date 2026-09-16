@@ -385,7 +385,10 @@
                   event.target.hasAttribute("data-retrying")
                 )
                   return;
-                if (isStylesheet(event.target) && retryStylesheet(event.target.href))
+                if (
+                  isStylesheet(event.target) &&
+                  retryStylesheet(event.target.href)
+                )
                   return;
                 report(
                   "resource",
