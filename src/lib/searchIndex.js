@@ -2,7 +2,7 @@ import { SERVICES } from "../app/content/services";
 import { FACILITIES } from "../app/content/facilities";
 import { FAQ_ITEMS } from "../app/content/faq";
 import { SERVICE_AREA_CITIES } from "../app/content/serviceArea";
-import { PHONE_NUMBER } from "../app/content/phoneNumber";
+import { PHONE_NUMBER, telHref } from "../app/content/phoneNumber";
 
 // Everything the site can take somebody to, derived from the same content the
 // pages are built from rather than listed a second time. A hand-kept index goes
@@ -74,7 +74,7 @@ const PAGES = [
 
 const money = (n) => `$${n.toLocaleString()}`;
 
-export const SEARCH_ENTRIES = [
+const SEARCH_ENTRIES = [
   ...PAGES,
 
   ...SERVICES.map((s) => ({
@@ -123,7 +123,7 @@ export const SEARCH_ENTRIES = [
     code: "TEL",
     label: `Call the Yard · ${PHONE_NUMBER}`,
     hint: "Answered through the working day, on call the rest of the time",
-    href: `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`,
+    href: telHref(),
     terms: `call phone ring dial number ${PHONE_NUMBER}`,
   },
 ];

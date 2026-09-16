@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import "./app/styles/fonts.css";
 import "./app/styles/tailwind.css";

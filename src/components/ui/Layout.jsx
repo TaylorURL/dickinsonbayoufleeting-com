@@ -18,8 +18,8 @@ const CONTAINER =
 // has nothing lifted. The hairline is an outline rather than a border so it
 // costs no layout box and a panel can gain or lose it without moving what is
 // inside it.
-export const PANEL_TINT = "rounded-sm bg-surface";
-export const PANEL = `${PANEL_TINT} outline outline-1 -outline-offset-1 outline-border`;
+const PANEL_TINT = "rounded-sm bg-surface";
+const PANEL = `${PANEL_TINT} outline outline-1 -outline-offset-1 outline-border`;
 export const PANEL_RAISED = `${PANEL} shadow-raise`;
 
 // One step between the blocks of a band. A margin on each block is how two
@@ -139,7 +139,7 @@ export function SectionHead({
   // Title and supporting line sit beside each other on a twelve-column grid
   // rather than stacking, the title taking the first seven and the line running
   // from the eighth to the edge.
-  const head = (
+  return (
     <div
       className={`grid grid-cols-[minmax(0,1fr)] gap-x-gap gap-y-6 lg:grid-cols-12 ${className}`.trim()}
     >
@@ -155,6 +155,4 @@ export function SectionHead({
       {children}
     </div>
   );
-
-  return head;
 }

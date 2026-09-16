@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NAV_LINKS } from "../../app/content/navLinks";
-import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import { PHONE_NUMBER, telHref } from "../../app/content/phoneNumber";
 import { HOURS_SHORT } from "../../app/content/hours";
 import { FACILITIES } from "../../app/content/facilities";
 import { useScrolled } from "../../app/hooks/useScrolled";
@@ -178,7 +178,7 @@ function NavBar({ surface = "dark", onSearch }) {
     };
   }, [openMenu]);
 
-  const phoneHref = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`;
+  const phoneHref = telHref();
   const closeMenu = () => setOpen(false);
 
   const openInquiry = (e) => {

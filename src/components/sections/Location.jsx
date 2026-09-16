@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { FACILITIES } from "../../app/content/facilities";
+import { telHref } from "../../app/content/phoneNumber";
 import Button from "../ui/Button";
 import {
   BAND,
@@ -16,8 +17,6 @@ const buildEmbedSrc = (address) =>
 
 const buildMapsHref = (address) =>
   `https://maps.google.com/?q=${encodeURIComponent(address)}`;
-
-const buildTelHref = (phone) => `tel:1${phone.replace(/[^0-9]/g, "")}`;
 
 // Google Maps iframes are heavy, so they stay unmounted until the section is in
 // view. Once mounted they stay mounted - remounting them on scroll costs far
@@ -201,7 +200,7 @@ function FacilityCard({ facility, index, mapsMounted }) {
         >
           Open in Maps
         </Button>
-        <Button variant="inline" href={buildTelHref(facility.phone)}>
+        <Button variant="inline" href={telHref(facility.phone)}>
           Call Facility
         </Button>
         <Button

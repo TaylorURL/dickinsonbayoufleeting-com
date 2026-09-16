@@ -19,7 +19,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2026.38.0-f0a045?style=for-the-badge" alt="Version 2026.38.0" />
+  <img src="https://img.shields.io/badge/version-2026.38.1-f0a045?style=for-the-badge" alt="Version 2026.38.1" />
   <img src="https://img.shields.io/badge/React-19-07101c?style=for-the-badge&logo=react&logoColor=white" alt="React 19" />
   <img src="https://img.shields.io/badge/Create_React_App-5-07101c?style=for-the-badge&logo=createreactapp&logoColor=white" alt="Create React App 5" />
   <img src="https://img.shields.io/badge/Tailwind-3-07101c?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 3" />
@@ -105,13 +105,13 @@ flowchart TD
 ## How it works
 
 - **The router is three files.** `Router.js`, `Link.js`, and a `routes.js` table drive History-API navigation.
-- **Content lives in one folder.** Facilities, services, FAQ, nav links, service area, and about copy are each a module under `src/app/content`. The views only render them.
+- **Content lives in one folder.** Facilities, services, FAQ, nav links, service area, and about copy are each a module under `src/app/content`. The views only render them. The office number is there too, beside the one function that turns it into a `tel:` link, so every phone link on the site dials the same string.
 - **One form, two places.** The five inquiry fields, their rules and their error wording live in `src/lib/inquiryForm.js`; `InquiryFields` renders them for both the modal and the contact page. Both forms post to a Supabase function through the shared submit, which gives up after 15 seconds and shows a failure instead of a confirmation.
 - **The water draws itself.** `OceanTopographyBackground` rides a dot field and its contour lines on one shared flow field over a Canvas 2D context, behind every inner page header. It stops while off-screen or in a hidden tab, and paints a single static frame under `prefers-reduced-motion`.
 - **The home hero is footage.** `HeroFilm` runs a silent, controlless clip from `public/video` behind the plate's scrim and vignette, graded in CSS so it holds inside a palette that carries no hue anywhere else. A reader who has asked for less motion gets the poster frame and nothing moving.
 - **Two yards, one record.** Dickinson (2629 Avenue R, Dickinson, TX) at $4,100/month and Freeport (906 Marlin Ln, Freeport, TX) at $4,800/month, both 5-acre waterfront facilities, come from `src/app/content/facilities.js`, which the hero readings, the yard chart, the lease cards, the maps, the bar, the footer and the contact page all read.
 - **Measurement is one module and two identifiers.** `src/app/tracking/config.js` holds the Google Ads account, the GA4 property and a conversion label for each of the three actions worth counting; `src/app/tracking/google.js` loads the tag and sends them. An empty identifier switches that piece off, so a build with none filled in attaches no script at all. The inquiry conversion fires inside the shared submit, after the throw, so a submission the office never received is never counted; calls and directions are caught by one delegated listener rather than a handler on each of the site's phone and map links. The ad click identifier is read on arrival and held for the tab, because the router drops the query string on the first in-site navigation.
-- **A broken page reports itself.** An inline script in `public/index.html` catches uncaught errors, rejected promises, failed resource loads and 5xx responses, caps itself at ten reports a visit and beacons them to the collector. The privacy page says so, because those reports are one of the three things the site records.
+- **A broken page reports itself.** An inline script in `public/index.html` catches uncaught errors, rejected promises, failed resource loads and 5xx responses, caps itself at ten reports a visit and beacons them to the collector. The stylesheet and the entry bundle are asked for twice more over a widening gap before either is reported, so a request the network dropped once and served on the second ask files nothing. The privacy page says so, because those reports are one of the three things the site records.
 - **Routes are downloaded one at a time.** Each view but Home is a `lazy` import behind a `Suspense` fallback, and `RouteBoundary` reloads once when a chunk goes missing, which is the shape of a deploy landing while a tab is still open.
 
 ## Project structure

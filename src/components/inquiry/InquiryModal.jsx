@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
-import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import { PHONE_NUMBER, telHref } from "../../app/content/phoneNumber";
 import InquiryFields from "./InquiryFields";
 import InquiryErrorSummary from "./InquiryErrorSummary";
 import Button from "../ui/Button";
@@ -294,11 +294,7 @@ function InquiryModal({ open, onClose, onSubmit }) {
               className={`flex flex-col gap-3 border-t border-hairline pb-5 pt-5 xs:pb-7 ${GUTTER}`}
             >
               <div className="flex flex-wrap items-center justify-end gap-3">
-                <Button
-                  variant="inline"
-                  arrow={false}
-                  href={`tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`}
-                >
+                <Button variant="inline" arrow={false} href={telHref()}>
                   Call Instead
                 </Button>
                 <Button

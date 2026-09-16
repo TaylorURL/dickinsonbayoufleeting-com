@@ -1,4 +1,4 @@
-import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import { PHONE_NUMBER, telHref } from "../../app/content/phoneNumber";
 import Button from "../ui/Button";
 import { Container, MICRO_SM, Section } from "../ui/Layout";
 import { Reveal } from "../ui/Reveal";
@@ -14,7 +14,7 @@ function CtaStrip({
   body = "Tell us the footprint you need and the reach your tow runs. Written lease terms come back inside one business day, and the line is faster still.",
   primary = { label: "Get Lease Terms", to: "/contact" },
 }) {
-  const phoneHref = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`;
+  const phoneHref = telHref();
   return (
     <Section
       surface="dark"
