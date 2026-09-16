@@ -70,10 +70,18 @@ const bootstrap =
   `function load(){` +
   `var script=document.createElement("script");` +
   `script.src=${JSON.stringify(entryUrl)};` +
+  // The tag says it is being retried, so the page's error handler leaves it
+  // alone and this is what reports. A drop the next ask recovers from took
+  // nothing off the reader's page and belongs in no report; only a bundle
+  // that never arrived at all does.
+  `script.setAttribute("data-retrying","");` +
   // Only a request that never arrived reaches this; a bundle that runs and
   // throws raises a window error instead, and asking for it again would not
   // help it.
-  `script.onerror=function(){if(++tries<3)setTimeout(load,600*tries)};` +
+  `script.onerror=function(){` +
+  `if(++tries<3){setTimeout(load,600*tries);return}` +
+  `var r=window.__reporter;` +
+  `if(r&&r.report)r.report("resource","Failed to load script: "+script.src)};` +
   `document.head.appendChild(script)}` +
   `function start(){if(started)return;started=true;load()}` +
   // Two frames: the first is the paint itself, the second proves it landed.
