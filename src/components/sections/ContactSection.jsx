@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import { PHONE_NUMBER, telHref } from "../../app/content/phoneNumber";
 import { FACILITIES } from "../../app/content/facilities";
 import InquiryFields from "../inquiry/InquiryFields";
 import InquiryErrorSummary from "../inquiry/InquiryErrorSummary";
@@ -82,7 +82,7 @@ function ContactSection({ seam = null }) {
     }
   }
 
-  const phoneHref = `tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`;
+  const phoneHref = telHref();
 
   return (
     <Section surface="light" seam={seam} id="contact" aria-label="Contact">

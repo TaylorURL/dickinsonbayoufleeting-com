@@ -1,5 +1,5 @@
 import { FAQ_ITEMS } from "../../app/content/faq";
-import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import { PHONE_NUMBER, telHref } from "../../app/content/phoneNumber";
 import { BAND, Container, Eyebrow, MICRO_SM, Section } from "../ui/Layout";
 import { Reveal, Stagger, staggerChild } from "../ui/Reveal";
 
@@ -28,7 +28,7 @@ function Faq({ surface = "light", seam = null }) {
             Anything not here, ask on the line.
             <br />
             <a
-              href={`tel:1${PHONE_NUMBER.replace(/\D/g, "")}`}
+              href={telHref()}
               className={`${MICRO_SM} -mb-3 mt-2 inline-flex min-h-control-sm items-center rounded-sm text-secondary underline decoration-border-strong underline-offset-4 transition-[color,transform,opacity] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none`}
             >
               {PHONE_NUMBER}

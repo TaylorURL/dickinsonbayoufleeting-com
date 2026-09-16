@@ -127,7 +127,7 @@ export function trackInquiry(values) {
   sendGa4Event("inquiry", payload);
 }
 
-export function trackCall() {
+function trackCall() {
   if (!started) return;
   const payload = { value: CALL_VALUE, currency: CONVERSION_CURRENCY };
   sendAdsConversion("call", payload);
@@ -136,7 +136,7 @@ export function trackCall() {
 
 // Carries no value. A visitor opening the map has not reached the office, and a
 // secondary action priced like a lead teaches the bidder to buy map clicks.
-export function trackDirections() {
+function trackDirections() {
   if (!started) return;
   sendAdsConversion("directions", {});
   sendGa4Event("directions", {});
