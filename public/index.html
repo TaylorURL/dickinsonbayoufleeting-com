@@ -239,6 +239,11 @@
           replay: function () {
             return held.slice();
           },
+          // The bootstrap at the end of the body owns the entry bundle's
+          // retries, so it is what says whether that load finally failed.
+          report: function (kind, message, stack) {
+            report(kind, message, stack);
+          },
         };
         function report(kind, message, stack) {
           hold(kind, message, stack);
@@ -324,6 +329,41 @@
             ) === 0
           );
         }
+        // The stylesheet is the whole of the page's appearance, and it arrives
+        // as a tag the document parses, so nothing stands behind it. Every
+        // route here is prerendered, so one dropped request leaves the reader
+        // the entire first screen with none of its styling and no way back:
+        // the copy the page hides is dumped onto the glass and the colours go
+        // with the sheet. It is therefore asked for twice more over a widening
+        // gap, the same way the entry bundle is.
+        var sheetTries = {};
+        function retryStylesheet(href) {
+          if (!href || href.indexOf(location.origin + "/") !== 0) return false;
+          var made = sheetTries[href] || 1; // the document's own tag is the first
+          if (made >= 3) return false;
+          sheetTries[href] = made + 1;
+          setTimeout(function () {
+            var again = document.createElement("link");
+            again.rel = "stylesheet";
+            again.href = href;
+            again.setAttribute("data-retrying", "");
+            again.onerror = function () {
+              if (!retryStylesheet(href))
+                report("resource", "Failed to load link: " + href);
+            };
+            document.head.appendChild(again);
+          }, 600 * made);
+          return true;
+        }
+        function isStylesheet(target) {
+          return (
+            target.tagName === "LINK" &&
+            String(target.rel || "")
+              .toLowerCase()
+              .split(/\s+/)
+              .indexOf("stylesheet") > -1
+          );
+        }
         // Capture phase, because element load failures fire error events that do not bubble.
         window.addEventListener(
           "error",
@@ -336,6 +376,17 @@
               ) {
                 if (MEDIA_LIFECYCLE_TAGS[event.target.tagName]) return;
                 if (isSpeculativeLink(event.target)) return;
+                // Something is already asking again for this one, and it is
+                // what reports if every attempt fails. A request the network
+                // dropped once and served on the second ask cost the reader
+                // nothing, and a page that recovered has nothing to report.
+                if (
+                  event.target.hasAttribute &&
+                  event.target.hasAttribute("data-retrying")
+                )
+                  return;
+                if (isStylesheet(event.target) && retryStylesheet(event.target.href))
+                  return;
                 report(
                   "resource",
                   "Failed to load " +
