@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import { PHONE_NUMBER, telHref } from "../../app/content/phoneNumber";
 import Button from "../ui/Button";
 import { Container, Eyebrow } from "../ui/Layout";
 
@@ -91,10 +91,7 @@ class RouteBoundary extends Component {
             <Button variant="primary" onClick={() => window.location.reload()}>
               Reload the Page
             </Button>
-            <Button
-              variant="ghost"
-              href={`tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`}
-            >
+            <Button variant="ghost" href={telHref()}>
               {PHONE_NUMBER}
             </Button>
           </div>

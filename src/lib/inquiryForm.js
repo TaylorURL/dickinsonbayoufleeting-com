@@ -41,7 +41,7 @@ export const INQUIRY_FIELDS = [
   },
 ];
 
-export const MESSAGE_MIN_WORDS = 5;
+const MESSAGE_MIN_CHARS = 5;
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SEVEN_DIGITS = /[0-9]{7,}/;
@@ -64,7 +64,7 @@ export function validateInquiry(values) {
   if (!SEVEN_DIGITS.test(values.phone.replace(/[^0-9]/g, ""))) {
     errors.phone = "Enter a phone number with at least seven digits.";
   }
-  if (values.message.trim().length < MESSAGE_MIN_WORDS) {
+  if (values.message.trim().length < MESSAGE_MIN_CHARS) {
     errors.message = "Say a few words about the job so we can quote it.";
   }
   return errors;

@@ -1,6 +1,6 @@
 import { useId, useState } from "react";
 import { FACILITIES } from "../../app/content/facilities";
-import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import { PHONE_NUMBER, telHref } from "../../app/content/phoneNumber";
 import Button from "../ui/Button";
 import { Container, Eyebrow, MICRO, MICRO_SM, Section } from "../ui/Layout";
 import { Reveal } from "../ui/Reveal";
@@ -303,7 +303,7 @@ function YardChart() {
             <div className="flex flex-wrap items-center gap-4">
               <Button to="/contact">Ask About {yard.shortName}</Button>
               <a
-                href={`tel:${PHONE_NUMBER.replace(/\D/g, "")}`}
+                href={telHref()}
                 className={`${MICRO} -my-3 inline-flex min-h-control-sm items-center rounded-sm text-secondary underline decoration-border-strong underline-offset-4 transition-[color,transform,opacity] duration-quick ease-settle hover:text-primary focus-visible:text-primary focus-visible:shadow-focus focus-visible:outline-none`}
               >
                 {PHONE_NUMBER}

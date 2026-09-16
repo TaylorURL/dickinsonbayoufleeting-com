@@ -1,6 +1,6 @@
 import { NAV_LINKS } from "../../app/content/navLinks";
 import { FACILITIES } from "../../app/content/facilities";
-import { PHONE_NUMBER } from "../../app/content/phoneNumber";
+import { PHONE_NUMBER, telHref } from "../../app/content/phoneNumber";
 import { HOURS } from "../../app/content/hours";
 import { Link } from "../../app/router/Link";
 import Seam from "../ui/Seam";
@@ -38,8 +38,7 @@ const FOOTER_LEGAL = [
 
 function Footer({ children }) {
   const year = currentYear();
-  const phoneDigits = PHONE_NUMBER.replace(/[^0-9]/g, "");
-  const phoneHref = `tel:1${phoneDigits}`;
+  const phoneHref = telHref();
 
   // The document scrolls, not a container, so this is the whole of it. Reduced
   // motion is honoured by the root's own scroll-behavior rather than by a
@@ -213,7 +212,7 @@ function Footer({ children }) {
                         {facility.address}
                       </a>
                       <a
-                        href={`tel:1${facility.phone.replace(/[^0-9]/g, "")}`}
+                        href={telHref(facility.phone)}
                         className="inline-flex min-h-control-sm items-center font-mono text-xs font-medium tabular-nums text-faint no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none"
                       >
                         {facility.phone}

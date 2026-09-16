@@ -21,7 +21,7 @@ import { RouterProvider, useRouter, normalisePath } from "./router/Router";
 import { findRoute } from "./router/routes";
 import { MAIN_ID } from "./constants/landmarks";
 import { submitInquiry } from "../lib/inquiryForm";
-import { PHONE_NUMBER } from "./content/phoneNumber";
+import { PHONE_NUMBER, telHref } from "./content/phoneNumber";
 import { PhoneIcon } from "../components/ui/Icons";
 import { useClickRipple } from "./hooks/useClickRipple";
 import { useSearchShortcut } from "./hooks/useSearchShortcut";
@@ -269,7 +269,7 @@ function AppShell() {
           shell reserves its height below the footer, so it never covers the end
           of the page. */}
       <a
-        href={`tel:1${PHONE_NUMBER.replace(/[^0-9]/g, "")}`}
+        href={telHref()}
         className="fixed inset-x-0 bottom-0 z-rail inline-flex min-h-control select-none items-center justify-center gap-3 bg-highlight px-5 pb-[env(safe-area-inset-bottom)] font-body text-sm font-medium text-on-highlight no-underline transition-colors duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus focus-visible:outline-none active:bg-highlight-hover md:hidden"
       >
         <PhoneIcon size={14} className="flex-none" />
