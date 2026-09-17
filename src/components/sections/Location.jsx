@@ -198,7 +198,6 @@ function Location() {
       <Container className="flex flex-col gap-7 md:gap-9">
         <Reveal>
           <SectionHead
-            eyebrow="The yards"
             title="Two yards, one number."
             subtitle="Dickinson sits on Galveston Bay. Freeport sits on the Gulf Intracoastal Waterway, south of Houston. The same crew runs both."
           />

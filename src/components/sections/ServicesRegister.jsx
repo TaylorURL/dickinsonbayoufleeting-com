@@ -13,7 +13,6 @@ function ServicesRegister({ surface = "dark" }) {
       <Container className="flex flex-col gap-7 md:gap-9">
         <Reveal>
           <SectionHead
-            eyebrow="What we do"
             title="Seven jobs the crew already covers."
             subtitle="A lease here comes with the people who work the dock. Anything not on the list, call and ask."
           />
