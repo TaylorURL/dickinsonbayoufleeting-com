@@ -149,8 +149,8 @@ function InquiryModal({ open, onClose, onSubmit }) {
               <Eyebrow>Get a Quote</Eyebrow>
               <h2 className="m-0 text-h3 text-primary">Lease Inquiry</h2>
               <p className="m-0 font-body text-base text-secondary">
-                Tell us the footprint you need and the reach your tow runs.
-                Terms come back inside one business day.
+                Tell us the footprint you need and the reach your tow runs. We
+                send terms inside one business day.
               </p>
               <p className="m-0 font-body text-small text-faint">
                 All fields are required.
