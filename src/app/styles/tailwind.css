@@ -4,18 +4,19 @@
 
 /*
  * The token block. It is the only place a colour is stated, which is what lets
- * one utility carry three themes: `bg-bg` compiles to var(--color-bg), and the
- * surface an element sits inside decides which theme's --color-bg that is.
+ * one utility carry both modes: `bg-bg` compiles to var(--color-bg), and the
+ * surface an element sits inside decides which mode's --color-bg that is.
  *
  * Two keys reach the same declarations: [data-theme] on the document sets the
  * whole page, and [data-surface] on any wrapper sets one band inside it.
  * Either way the tokens cascade to the descendants, so components never need a
- * per-theme fork of their own. Three themes are carried in full - dark, light
- * and gray - and every token resolves in all three.
+ * per-mode fork of their own. Two modes are carried in full - dark and light -
+ * and every token resolves in both.
  *
- * Colour roles are load-bearing. Highlight (safety orange) is reserved for the
- * primary action; accent carries links and focus; rust is tier-two only. The
- * wrong one stops the page telling the eye where to go.
+ * The palette carries no hue anywhere. Action is the strongest ink the band
+ * has: white on hull, black on foam. A band that needs to sit between two of
+ * its own mode without a rule takes surface/sunken, which is the same variable
+ * in both modes rather than a third theme.
  */
 @layer components {
   /*
@@ -41,6 +42,20 @@
    * makes the element: the radius scale describes corners, and this has none. */
   .click-ripple {
     border-radius: 50%;
+  }
+
+  /* The grade every frame of footage wears, held on the element rather than
+   * baked into the file, so a colour master can be dropped in behind it. It is
+   * one declaration because the plate and the hero are the same picture at two
+   * sizes and a second copy is a second thing to keep in step. */
+  .film-grade {
+    filter: grayscale(1) brightness(0.88) contrast(1.24);
+  }
+
+  /* The same grade for footage shot in daylight, taken down until it sits
+   * where the dusk clip already does. */
+  .film-grade-day {
+    filter: grayscale(1) brightness(0.5) contrast(1.16);
   }
 
   /* The finished arrow, drawn rather than assembled. */
@@ -75,12 +90,6 @@
     --foam-150: #ebebeb;
     --foam-200: #e2e2e2;
 
-    /* Paper - the three steps the gray band is cut from, sitting between foam
-     * and the ink so the band reads as a second sheet rather than a shadow. */
-    --paper-100: #eeeeee;
-    --paper-150: #e6e6e6;
-    --paper-250: #d8d8d8;
-
     /* Signal - the action, carried by ink against its ground rather than by a
      * hue. White where the band is black, black where the band is paper. */
     --signal-800: #0a0a0a;
@@ -94,11 +103,6 @@
     --signal-350: #ffffff;
     --signal-ink: #000000;
 
-    /* Rust - tier-two marks. Timeline rules, spec callouts. */
-    --rust-700: #5c5c5c;
-    --rust-500: #8a8a8a;
-    --rust-400: #b0b0b0;
-
     /* Mist - type on dark ground. */
     --mist-050: #fafafa;
     --mist-060: #f7f7f7;
@@ -107,97 +111,84 @@
     --mist-380: #9e9e9e;
     --mist-400: #949494;
     --mist-500: #a3a3a3;
-    --mist-600: #878787;
+    --mist-600: #8a8a8a;
 
     /* Graphite - type on paper. */
     --graphite-800: #262626;
     --graphite-600: #525252;
-    --graphite-400: #636363;
+    --graphite-400: #6b6b6b;
 
-    /* State reads by weight, marker and rule rather than by hue, so these two
-     * are the ends of the same grey scale: danger takes the strongest ink the
-     * band has, success sits back off it. */
-    --moss-600: #525252;
-    --moss-400: #a3a3a3;
-    --moss-350: #b8b8b8;
-    --flare-600: #000000;
+    /* State reads by weight, marker and rule rather than by hue, so danger is
+     * simply the strongest ink the band has rather than a second colour. */
+    --flare-600: #0a0a0a;
     --flare-400: #ffffff;
     --flare-350: #ffffff;
   }
 
   /*
-   * Geometry, motion and measure. These do not fork per theme, so they are
-   * stated once and read by the Tailwind config rather than by components.
+   * Geometry and measure. These do not fork per mode, so they are stated once
+   * and read by the Tailwind config rather than by components.
+   *
+   * The values here are the phone's. One breakpoint hands over the desktop set
+   * further down, and it is the only one: 900 is where the utility strip
+   * appears, the bar keeps its destinations in a row, band padding steps up and
+   * the mobile type styles hand over. Anything measured off the chrome follows
+   * without a second breakpoint of its own.
    */
   :root {
-    /* The hero step is the one size a component re-derives: the headline is
-     * capped against its own column with a container query, and a query cannot
-     * read the Tailwind scale. */
-    --text-hero: clamp(2.5rem, 5.2vw, 3.9rem);
-    --text-hero-leading: 1;
-    --text-hero-tracking: -0.005em;
-    --text-hero-weight: 700;
-
     --container-max: 1280px;
-    --container-pad: clamp(20px, 4.5vw, 56px);
-    --section-py: clamp(56px, 7vw, 104px);
-    --nav-height: clamp(60px, 5vw, 68px);
-    --nav-logo-height: clamp(30px, 3vw, 38px);
-    --footer-logo-height: clamp(48px, 5vw, 68px);
-    --wave-height: clamp(40px, 6vw, 84px);
-    /* A fade needs less room than a wave because it has no shape to show. Run
-     * at a wave's height the gradient is slack enough to read as the band
-     * having lost its colour rather than as a join between two of them. */
-    --seam-fade-height: clamp(32px, 4vw, 64px);
-    /* The utility strip above the bar, which is drawn only where the bar keeps
-     * its destinations in a row. Below that it is not rendered and the height
-     * is zero, so everything measured off the chrome follows without a second
-     * breakpoint of its own. */
-    --rail-height: 0px;
-    --chrome-height: calc(var(--nav-height) + var(--rail-height));
+    /* The column gutter of the twelve-column grid every head and band is set
+     * on. The page gutter is --gutter; this is the gap between columns. */
+    --grid-gutter: 24px;
+
+    --gutter: 20px;
+    --band-pad: 64px;
+    --nav-bar: 56px;
+    /* The strip above the bar is drawn only where the bar keeps its
+     * destinations in a row. Below that it is not rendered and its height is
+     * zero, so the chrome measures the same way at both widths. */
+    --nav-strip: 0px;
+    --plate-hero: 560px;
+    --plate-page: 300px;
+
+    --chrome-height: calc(var(--nav-bar) + var(--nav-strip));
     --anchor-offset: calc(var(--chrome-height) + 32px);
-    --plate-pad-top: calc(var(--chrome-height) + 24px);
+    /* A plate is under a bar that floats over it, so its top padding is the
+     * chrome plus the clearance the design draws below it. */
+    --plate-pad-top: calc(var(--chrome-height) + 44px);
 
-    --arrow-travel: 5px;
-    --arrow-duration: 300ms;
-    --arrow-curve: cubic-bezier(0.25, 1, 0.5, 1);
+    --control-lg: 48px;
+    --control-md: 40px;
+    --control-sm: 32px;
 
-    --control-height: 56px;
-    --control-height-sm: 44px;
-    /* The bar's own control step. A forty-four pixel box in a sixty pixel bar
-     * leaves eight pixels either side of it and reads as something wedged in
-     * rather than something sitting in it. The taller step is still what a
-     * thumb gets, because below the bar's wide layout the trigger is an icon
-     * on its own. */
-    --control-height-xs: 36px;
+    --nav-logo-height: 26px;
+    --footer-logo-height: 56px;
+
     --field-min-height: 132px;
     --field-max-height: 320px;
-    --plate-min-height: 560px;
-    --header-min-height: 340px;
     --map-height: 280px;
     --map-height-sm: 240px;
 
+    /* The index and code columns the register, the legal body and the search
+     * palette still measure a gutter from rather than reading off a track. */
     --col-index: 60px;
     --col-index-wide: 80px;
     --col-code: 140px;
     --col-code-sm: 40px;
     --col-label: 90px;
 
-    /* The focus ring, shaped once so every control wears the same one. */
-    --tracking-label: 0.06em;
-    --tracking-control: 0.12em;
-    --tracking-eyebrow: 0.32em;
+    --arrow-travel: 5px;
+    --arrow-duration: 300ms;
+    --arrow-curve: cubic-bezier(0.25, 1, 0.5, 1);
+
+    /* A field sets its own tracking rather than inheriting whatever the band
+     * around it is set in, because what is typed into one is read back a
+     * character at a time. */
     --tracking-field: 0em;
 
+    /* The focus ring, shaped once so every control wears the same one. */
     --ring-focus:
       0 0 0 1px var(--color-bg), 0 0 0 3px var(--color-highlight-ring);
-    /* Mixed from whichever danger the surface is carrying, so the wash behind
-     * an error follows the state colour instead of being restated per theme. */
-    --color-danger-soft: color-mix(
-      in srgb,
-      var(--color-danger) 12%,
-      transparent
-    );
   }
 
   /* Dark, and the document default. */
@@ -210,308 +201,102 @@
     --color-bg-deep: var(--hull-950);
     --color-field-surface: var(--hull-975);
 
-    --color-accent: var(--signal-400);
-    --color-accent-ring: rgba(255, 255, 255, 0.36);
-
-    --color-highlight: var(--signal-500);
-    --color-highlight-hover: var(--signal-300);
-    --color-highlight-soft: rgba(255, 255, 255, 0.16);
+    --color-highlight: var(--signal-400);
+    --color-highlight-hover: var(--mist-200);
     --color-highlight-ring: rgba(255, 255, 255, 0.36);
 
-    --color-rust: var(--rust-500);
-
-    --color-border: rgba(255, 255, 255, 0.12);
-    --color-border-strong: rgba(255, 255, 255, 0.24);
-    --color-hairline: rgba(255, 255, 255, 0.16);
+    /* One rule weight separates and one divides. A third weight between them
+     * is what made the yard chart, the register and the footer rule at three
+     * different strengths with no reason a reader could name. */
+    --color-border: rgba(255, 255, 255, 0.14);
+    --color-border-strong: rgba(255, 255, 255, 0.28);
     --color-field-border: rgba(255, 255, 255, 0.4);
 
     --color-text-primary: var(--mist-050);
     --color-text-secondary: var(--mist-200);
-    --color-text-faint: var(--mist-400);
+    --color-text-faint: var(--mist-380);
     --color-text-muted: var(--mist-600);
-    --color-text-on-accent: var(--hull-900);
-    --color-text-on-highlight: var(--signal-ink);
+    --color-text-on-highlight: var(--hull-900);
 
-    --color-success: var(--moss-400);
     --color-danger: var(--flare-400);
+    --color-danger-soft: rgba(255, 255, 255, 0.1);
 
-    --color-layer-1: rgba(255, 255, 255, 0.03);
-    --color-layer-2: rgba(255, 255, 255, 0.055);
+    --color-layer-1: rgba(255, 255, 255, 0.04);
+    --color-layer-2: rgba(255, 255, 255, 0.07);
 
-    --color-overlay-nav: rgba(0, 0, 0, 0.88);
     --color-overlay-scrim: rgba(0, 0, 0, 0.86);
 
-    --color-surface-console: rgba(10, 10, 10, 0.62);
-    --color-surface-console-inset: rgba(0, 0, 0, 0.4);
-
     /* Depth comes from absence of light, so these stay minimal. */
-    --shadow-md:
-      0 0 0 1px rgba(255, 255, 255, 0.06), 0 14px 32px -8px rgba(0, 0, 0, 0.75);
     --shadow-lg:
       0 0 0 1px rgba(255, 255, 255, 0.09), 0 30px 70px -12px rgba(0, 0, 0, 0.85);
-    --shadow-inset-card: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
-
-    /* Faint by design. Pushed stronger it stops reading as riveted steel and
-     * starts reading as a pattern in its own right. */
-    --texture-hull: radial-gradient(
-      circle at 1px 1px,
-      rgba(255, 255, 255, 0.05) 0.6px,
-      transparent 1.4px
-    );
-    --texture-hull-size: 14px 14px;
-
-    /* Only the hero vignette lifts, and it lifts toward the highlight so the
-     * eye lands on the CTA. */
-    --gradient-hero-vignette:
-      radial-gradient(
-        130% 90% at 50% 100%,
-        rgba(0, 0, 0, 0.55) 0%,
-        rgba(0, 0, 0, 0) 60%
-      ),
-      radial-gradient(
-        90% 70% at 82% 6%,
-        rgba(255, 255, 255, 0.08) 0%,
-        rgba(255, 255, 255, 0) 60%
-      );
-
-    /* The hero and page-header plates read through this rather than composing
-     * a scrim inline, so no section can grade its plate differently from the
-     * one above it. */
-    --gradient-plate-scrim:
-      radial-gradient(
-        130% 90% at 50% 110%,
-        rgba(0, 0, 0, 0.7) 0%,
-        rgba(0, 0, 0, 0.4) 40%,
-        rgba(0, 0, 0, 0.1) 70%,
-        rgba(0, 0, 0, 0) 100%
-      ),
-      linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.55) 0%,
-        rgba(0, 0, 0, 0.3) 50%,
-        rgba(0, 0, 0, 0.7) 100%
-      );
-
-    /* The ocean canvas paints from this ramp: trough at 1, crest at 6. The
-     * ramp living here rather than in the render loop makes the water's colour
-     * a design decision in the token block instead of a constant in a shader. */
-    --ocean-dot-1: var(--mist-600);
-    --ocean-dot-2: var(--mist-400);
-    --ocean-dot-3: var(--mist-380);
-    --ocean-dot-4: var(--mist-500);
-    --ocean-dot-5: var(--mist-200);
-    --ocean-dot-6: var(--mist-220);
-    --ocean-line: var(--mist-400);
 
     --shadow-raise:
       0 0 0 1px rgba(255, 255, 255, 0.07), 0 15px 40px -2px rgba(0, 0, 0, 0.5),
       0 5px 20px -2px rgba(0, 0, 0, 0.35);
   }
 
-  /* Light. Accent and highlight both darken here - the dark-theme values fail
-   * AA contrast against foam paper. */
+  /* Light. Action darkens here - the dark-mode value fails AA contrast against
+   * foam paper. */
   [data-surface="light"],
   [data-theme="light"] {
     --color-app-bg: var(--foam-050);
     --color-bg: var(--foam-050);
     --color-surface: var(--foam-000);
     --color-bg-deep: var(--foam-200);
-    --color-field-surface: var(--foam-200);
+    --color-field-surface: var(--foam-000);
 
-    --color-accent: var(--signal-800);
-    --color-accent-ring: rgba(0, 0, 0, 0.32);
-
-    --color-highlight: var(--signal-700);
+    --color-highlight: var(--signal-800);
     --color-highlight-hover: var(--signal-600);
-    --color-highlight-soft: rgba(0, 0, 0, 0.1);
     --color-highlight-ring: rgba(0, 0, 0, 0.32);
-
-    --color-rust: var(--rust-700);
 
     --color-border: rgba(0, 0, 0, 0.14);
     --color-border-strong: rgba(0, 0, 0, 0.3);
-    --color-hairline: rgba(0, 0, 0, 0.13);
     --color-field-border: rgba(0, 0, 0, 0.45);
 
     --color-text-primary: var(--hull-900);
     --color-text-secondary: var(--graphite-800);
     --color-text-faint: var(--graphite-600);
     --color-text-muted: var(--graphite-400);
-    --color-text-on-accent: var(--foam-050);
     --color-text-on-highlight: var(--foam-050);
 
-    --color-success: var(--moss-600);
     --color-danger: var(--flare-600);
+    --color-danger-soft: rgba(0, 0, 0, 0.07);
 
     --color-layer-1: rgba(0, 0, 0, 0.03);
     --color-layer-2: rgba(0, 0, 0, 0.055);
 
-    --color-overlay-nav: rgba(244, 244, 244, 0.92);
     --color-overlay-scrim: rgba(0, 0, 0, 0.6);
 
-    --color-surface-console: rgba(255, 255, 255, 0.72);
-    --color-surface-console-inset: rgba(244, 244, 244, 0.6);
-
-    --shadow-md: 0 14px 32px rgba(0, 0, 0, 0.08);
     --shadow-lg: 0 30px 70px rgba(0, 0, 0, 0.12);
-    --shadow-inset-card: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
-
-    --texture-hull: radial-gradient(
-      circle at 1px 1px,
-      rgba(0, 0, 0, 0.05) 0.6px,
-      transparent 1.4px
-    );
-
-    --gradient-hero-vignette:
-      radial-gradient(
-        130% 90% at 50% 100%,
-        rgba(0, 0, 0, 0.06) 0%,
-        rgba(0, 0, 0, 0) 60%
-      ),
-      radial-gradient(
-        90% 70% at 82% 6%,
-        rgba(0, 0, 0, 0.06) 0%,
-        rgba(0, 0, 0, 0) 60%
-      );
-
-    --gradient-plate-scrim:
-      radial-gradient(
-        130% 90% at 50% 110%,
-        rgba(0, 0, 0, 0.38) 0%,
-        rgba(0, 0, 0, 0.2) 40%,
-        rgba(0, 0, 0, 0.06) 70%,
-        rgba(0, 0, 0, 0) 100%
-      ),
-      linear-gradient(
-        180deg,
-        rgba(244, 244, 244, 0.4) 0%,
-        rgba(244, 244, 244, 0.2) 50%,
-        rgba(244, 244, 244, 0.6) 100%
-      );
-
-    --ocean-dot-1: var(--graphite-800);
-    --ocean-dot-2: var(--graphite-600);
-    --ocean-dot-3: var(--graphite-400);
-    --ocean-dot-4: var(--mist-600);
-    --ocean-dot-5: var(--mist-400);
-    --ocean-dot-6: var(--mist-380);
-    --ocean-line: var(--graphite-600);
 
     --shadow-raise:
       0 15px 40px -2px rgba(0, 0, 0, 0.1), 0 5px 20px -2px rgba(0, 0, 0, 0.06);
   }
 
-  /* Gray. A working-deck gunmetal that sits between the hull and the foam -
-   * the surface for a reader who finds the dark band heavy and the paper band
-   * bright. Accent and highlight lift a step here: the dark-theme values sit
-   * too close to the ground to hold AA against it. */
-  /* Gray. The third band tone, and on the paper side of the scale rather than
-   * the dark one: with no hue in the palette a second dark grey sits too close
-   * to black to read as a different band, and a page that answers every change
-   * of subject by going dark again ends up all weather and no daylight. */
-  [data-surface="gray"],
-  [data-theme="gray"] {
-    --color-app-bg: var(--paper-150);
-    --color-bg: var(--paper-150);
-    --color-surface: var(--paper-100);
-    --color-bg-deep: var(--paper-250);
-    --color-field-surface: var(--paper-250);
-
-    --color-accent: var(--signal-800);
-    --color-accent-ring: rgba(0, 0, 0, 0.32);
-
-    --color-highlight: var(--signal-700);
-    --color-highlight-hover: var(--signal-600);
-    --color-highlight-soft: rgba(0, 0, 0, 0.08);
-    --color-highlight-ring: rgba(0, 0, 0, 0.32);
-
-    --color-rust: var(--rust-700);
-
-    --color-border: rgba(0, 0, 0, 0.16);
-    --color-border-strong: rgba(0, 0, 0, 0.32);
-    --color-hairline: rgba(0, 0, 0, 0.13);
-    --color-field-border: rgba(0, 0, 0, 0.45);
-
-    --color-text-primary: var(--hull-900);
-    --color-text-secondary: var(--graphite-800);
-    --color-text-faint: var(--graphite-600);
-    --color-text-muted: var(--graphite-400);
-    --color-text-on-accent: var(--foam-000);
-    --color-text-on-highlight: var(--foam-000);
-
-    --color-success: var(--moss-600);
-    --color-danger: var(--flare-600);
-
-    --color-layer-1: rgba(0, 0, 0, 0.035);
-    --color-layer-2: rgba(0, 0, 0, 0.06);
-
-    --color-overlay-nav: rgba(232, 232, 232, 0.92);
-    --color-overlay-scrim: rgba(0, 0, 0, 0.6);
-
-    --color-surface-console: rgba(255, 255, 255, 0.7);
-    --color-surface-console-inset: rgba(232, 232, 232, 0.6);
-
-    --shadow-md: 0 14px 32px rgba(0, 0, 0, 0.09);
-    --shadow-lg: 0 30px 70px rgba(0, 0, 0, 0.13);
-    --shadow-inset-card: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
-
-    --texture-hull: radial-gradient(
-      circle at 1px 1px,
-      rgba(0, 0, 0, 0.05) 0.6px,
-      transparent 1.4px
-    );
-
-    --gradient-hero-vignette:
-      radial-gradient(
-        130% 90% at 50% 100%,
-        rgba(0, 0, 0, 0.06) 0%,
-        rgba(0, 0, 0, 0) 60%
-      ),
-      radial-gradient(
-        90% 70% at 82% 6%,
-        rgba(0, 0, 0, 0.05) 0%,
-        rgba(0, 0, 0, 0) 60%
-      );
-
-    --gradient-plate-scrim:
-      radial-gradient(
-        130% 90% at 50% 110%,
-        rgba(0, 0, 0, 0.38) 0%,
-        rgba(0, 0, 0, 0.2) 40%,
-        rgba(0, 0, 0, 0.06) 70%,
-        rgba(0, 0, 0, 0) 100%
-      ),
-      linear-gradient(
-        180deg,
-        rgba(232, 232, 232, 0.4) 0%,
-        rgba(232, 232, 232, 0.2) 50%,
-        rgba(232, 232, 232, 0.6) 100%
-      );
-
-    --ocean-dot-1: var(--graphite-800);
-    --ocean-dot-2: var(--graphite-600);
-    --ocean-dot-3: var(--graphite-400);
-    --ocean-dot-4: var(--mist-600);
-    --ocean-dot-5: var(--mist-400);
-    --ocean-dot-6: var(--mist-380);
-    --ocean-line: var(--graphite-600);
-
-    --shadow-raise:
-      0 15px 40px -2px rgba(0, 0, 0, 0.11), 0 5px 20px -2px rgba(0, 0, 0, 0.07);
+  /* The film reads through the same wash on the hero and on every inner plate,
+   * in both modes, so no plate can be graded differently from another. It is a
+   * flat fill rather than a gradient: a gradient over footage moves the
+   * headline's contrast around as the picture under it changes. */
+  :root {
+    --color-plate-scrim: rgba(0, 0, 0, 0.58);
   }
 
-  /* Each surface paints its own ground rather than letting the page colour
-   * through, so a surface nested inside another renders as its own band. The
-   * hairline seam where two meet is intentional. */
-  /* The bar keeps its destinations in a row from this width up, which is
-   * also where the strip above it is drawn. Stated once, here, so the strip's
-   * own media query and every offset measured off the chrome cannot disagree. */
   @media (min-width: 900px) {
     :root {
-      --rail-height: 34px;
+      --gutter: 80px;
+      --band-pad: 96px;
+      --nav-bar: 64px;
+      --nav-strip: 32px;
+      --plate-hero: 720px;
+      --plate-page: 380px;
+      --nav-logo-height: 32px;
     }
   }
 
+  /* Each surface paints its own ground rather than letting the page colour
+   * through, so a surface nested inside another renders as its own band. Two
+   * bands of the same mode meet on a rule the upper one draws along its top
+   * edge; two of different modes meet on the colour change alone. */
   [data-surface],
   [data-theme] {
     background-color: var(--color-bg);
@@ -533,7 +318,7 @@
    * inside is not what it reads. */
   @media (max-width: 899.98px) {
     body {
-      padding-bottom: calc(var(--control-height) + env(safe-area-inset-bottom));
+      padding-bottom: calc(var(--control-lg) + env(safe-area-inset-bottom));
     }
   }
 
@@ -638,7 +423,7 @@
   }
 
   /* A field is somewhere to type rather than a label with a border, so it takes
-   * a ground of its own in every theme. The utility says the same thing on each
+   * a ground of its own in every mode. The utility says the same thing on each
    * control; this is what holds if one is added without it. */
   input,
   textarea,
@@ -653,7 +438,7 @@
   }
 
   /* Chrome repaints an autofilled field on its own schedule, and a transition
-   * that never lands is what keeps the field wearing the theme's colours. */
+   * that never lands is what keeps the field wearing the mode's colours. */
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,

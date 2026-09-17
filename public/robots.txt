@@ -26,3 +26,4 @@ User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://dickinsonbayoufleeting.com/sitemap.xml
+Llms: https://dickinsonbayoufleeting.com/llms.txt

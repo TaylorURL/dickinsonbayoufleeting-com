@@ -4,22 +4,10 @@ import CtaStrip from "../components/page/CtaStrip";
 import { TERMS_SECTIONS, TERMS_UPDATED } from "../app/content/legal";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";
-
-export const metadata = {
-  title: "Terms of Use | Dickinson Bayou Fleeting",
-  description:
-    "These terms are the rules for use of this website. The lease itself is a separate agreement, signed for a slip or a yard at either facility.",
-  canonical: "https://dickinsonbayoufleeting.com/terms",
-  openGraph: {
-    title: "Terms of Use | Dickinson Bayou Fleeting",
-    description:
-      "These terms are the rules for use of this website. The lease itself is a separate agreement, signed for a slip or a yard at either facility.",
-    url: "https://dickinsonbayoufleeting.com/terms",
-  },
-};
+import { ROUTE_META } from "../app/router/routes";
 
 function TermsView() {
-  useSeoMeta(metadata);
+  useSeoMeta(ROUTE_META.terms);
   return (
     <main id={MAIN_ID} tabIndex={-1}>
       <PagePlate
@@ -32,7 +20,6 @@ function TermsView() {
         updated={TERMS_UPDATED}
         label="Terms of Use"
         id="terms-body"
-        seam={{ into: "dark" }}
       />
       <CtaStrip
         title="Looking for the lease terms?"

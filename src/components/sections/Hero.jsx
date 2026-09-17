@@ -1,66 +1,25 @@
-import HeroFilm from "./HeroFilm";
-import Seam, { INTO_LIGHT } from "../ui/Seam";
+import Film, { HERO_FILM } from "../ui/Film";
 import Button from "../ui/Button";
-import { Container, Eyebrow, MICRO_SM } from "../ui/Layout";
+import { Container, Eyebrow } from "../ui/Layout";
+import { rise } from "../ui/Reveal";
 import { FACILITIES } from "../../app/content/facilities";
-import { useCountUp } from "../../app/hooks/useCountUp";
+import { openInquiry } from "../../app/openInquiry";
 
 const HERO_EYEBROW = "Barge fleeting & dock leases · Texas Gulf Coast";
 const HERO_TITLE_LEAD = "Lease the yard.";
-const HERO_TITLE_ACCENT = "The crew";
+const HERO_TITLE_RULED = "The crew";
 const HERO_TITLE_TRAIL = "comes with it.";
 const HERO_SUBTITLE =
   "Five gated acres at Dickinson or Freeport, a barge slip held for the term, and line handling on the dock. From $4,100 a month.";
 
 const ACRES = FACILITIES.reduce((sum, f) => sum + f.acres, 0);
-const COUNT_UP_MS = 1600;
-
-// The plate slides by a quarter of its own height over the range where the hero
-// leaves the viewport, which is the whole of the parallax. The scroll timeline
-// drives it off the compositor, so nothing runs on the main thread as the page
-// moves; a browser without one gets a still plate.
-const PARALLAX = [
-  "motion-safe:supports-[animation-timeline]:animate-plate-drift",
-  "motion-safe:supports-[animation-timeline]:[animation-timeline:view()]",
-  "motion-safe:supports-[animation-timeline]:[animation-range:exit_0%_exit_100%]",
-].join(" ");
-
-// The register marks a chart is trimmed to, at the four corners of the plate.
-function HeroMarks() {
-  return (
-    <svg
-      viewBox="0 0 1200 700"
-      preserveAspectRatio="xMidYMid slice"
-      aria-hidden="true"
-      focusable="false"
-      className="pointer-events-none absolute inset-0 h-full w-full"
-    >
-      <g
-        fill="none"
-        strokeWidth="1.2"
-        className="stroke-primary opacity-[0.35]"
-      >
-        <path d="M40 80 h28 M40 80 v28" />
-        <path d="M1160 80 h-28 M1160 80 v28" />
-        <path d="M40 620 h28 M40 620 v-28" />
-        <path d="M1160 620 h-28 M1160 620 v-28" />
-      </g>
-    </svg>
-  );
-}
-
-function AcreFigure() {
-  const { ref, display } = useCountUp(ACRES, { duration: COUNT_UP_MS });
-  return (
-    <span ref={ref} className="tabular-nums">
-      {display} ac
-    </span>
-  );
-}
 
 // The readings, ruled across the foot of the plate rather than boxed beside the
 // headline. A strip along the bottom edge reads as instrumentation on the
 // picture; the same facts in a panel read as a card sitting on top of it.
+//
+// Four cells across at desktop and two by two on a phone, divided by the one
+// rule weight the rest of the page is ruled at.
 function HeroDatum() {
   const cells = [
     ...FACILITIES.map((f) => ({
@@ -68,25 +27,28 @@ function HeroDatum() {
       label: `${f.shortName} Yard`,
       value: `${f.acreage} on ${f.waterway}`,
     })),
-    { key: "acres", label: "Waterfront", value: <AcreFigure /> },
+    // Set as typed rather than counted up to. A number that animates on a page
+    // selling five acres of dock reads as a marketing device, and it is the
+    // one piece of motion that would carry a fact.
+    { key: "acres", label: "Waterfront", value: `${ACRES} ac` },
     { key: "crew", label: "Shore Crew", value: "24 / 7 on site" },
   ];
 
   return (
     <div className="relative border-t border-border">
       <Container>
-        <dl className="m-0 grid grid-cols-2 lg:grid-cols-4">
+        <dl className="m-0 grid grid-cols-2 md:grid-cols-4">
           {cells.map((c, i) => (
             <div
               key={c.key}
-              className={`min-w-0 py-5 lg:py-6 ${
-                i % 2 === 1 ? "border-l border-hairline pl-5" : ""
-              } ${i > 1 ? "border-t border-hairline" : ""} ${
-                i > 0 ? "lg:border-l lg:border-hairline lg:pl-6" : ""
-              } lg:border-t-0`}
+              className={`min-w-0 py-4 md:py-5 ${
+                i % 2 === 1 ? "border-l border-border pl-5" : ""
+              } ${i > 1 ? "border-t border-border" : ""} ${
+                i > 0 ? "md:border-l md:border-border md:pl-6" : ""
+              } md:border-t-0`}
             >
-              <dt className={`${MICRO_SM} m-0 text-faint`}>{c.label}</dt>
-              <dd className="m-0 mt-2 font-body text-sm text-secondary">
+              <dt className="m-0 font-mono text-code text-faint">{c.label}</dt>
+              <dd className="m-0 mt-2 font-body text-small tabular-nums text-secondary">
                 {c.value}
               </dd>
             </div>
@@ -98,79 +60,57 @@ function HeroDatum() {
 }
 
 function HeroSection() {
-  const openInquiry = (e) => {
-    e.preventDefault();
-    window.dispatchEvent(new Event("inquiry:open"));
-  };
-
   return (
     <section
       data-hero
       data-surface="dark"
       aria-label="Introduction"
       id="overview"
-      className={`relative isolate flex min-h-plate flex-col items-stretch gap-0 overflow-hidden text-primary [min-height:88svh] ${INTO_LIGHT}`}
+      className="relative isolate flex min-h-plate-hero flex-col items-stretch overflow-hidden text-primary"
     >
-      <div
-        aria-hidden="true"
-        className={`absolute inset-0 z-behind h-[115%] overflow-hidden bg-bg-deep will-change-transform ${PARALLAX}`}
-      >
-        <HeroFilm />
+      <div aria-hidden="true" className="absolute inset-0 z-behind bg-bg-deep">
+        <Film film={HERO_FILM} />
         <span className="absolute inset-0 bg-plate-scrim" />
-        <span className="pointer-events-none absolute inset-0 bg-hero-vignette" />
-        <HeroMarks />
       </div>
 
-      <Container className="relative flex flex-1 items-center pb-12 pt-plate-top">
-        {/* The headline is sized against its own column rather than against the
-            window, so the measure it was set for survives a viewport the type
-            scale never anticipated. */}
-        <div className="flex w-full max-w-hero flex-col items-start gap-7 [container-type:inline-size] laptop:gap-5">
-          <Eyebrow strong className="animate-rise motion-reduce:animate-none">
-            {HERO_EYEBROW}
-          </Eyebrow>
+      {/* The copy sits on the bottom edge of the plate, above the strip, so the
+          picture is read first and the words are read against it. */}
+      <Container className="relative flex flex-1 flex-col items-start justify-end gap-5 pb-8 pt-plate-top md:gap-7 md:pb-9">
+        <Eyebrow className={rise()}>{HERO_EYEBROW}</Eyebrow>
 
-          <h1 className="flex min-w-0 max-w-display flex-col gap-1 text-hero text-primary [font-size:min(var(--text-hero),8.2cqw)]">
-            <span className="block overflow-hidden">
-              <span className="inline-block animate-rise-1 motion-reduce:animate-none">
-                {HERO_TITLE_LEAD}
-              </span>
-            </span>
-            {/* The mask that hides a line before it rises would cut the rule
-                off with it, so the box is opened by the depth of the rule and
-                pulled back by the same amount. */}
-            <span className="-mb-[10px] block overflow-hidden pb-[10px]">
-              <span className="inline-block animate-rise-2 motion-reduce:animate-none">
-                {/* With no hue in the palette the emphasis is carried by a rule
-                    under the words rather than by a colour on them. */}
-                {/* Laid out as a block so the rule under it belongs to the line
-                    box; on an inline span it hangs below one and the mask above
-                    cuts it off. */}
-                <span className="inline-block border-b-3 border-accent pb-1 font-bold">
-                  {HERO_TITLE_ACCENT}
-                </span>{" "}
-                {HERO_TITLE_TRAIL}
-              </span>
-            </span>
-          </h1>
+        <h1 className="m-0 min-w-0 text-hero-mobile text-primary md:text-hero">
+          <span className={`block ${rise(1)}`}>{HERO_TITLE_LEAD}</span>
+          {/* With no hue in the palette the emphasis is carried by a rule under
+              the words rather than by a colour on them. It is laid out as an
+              inline block so the rule belongs to that line box; on a plain
+              inline span it hangs below one. */}
+          <span className={`block ${rise(2)}`}>
+            <span className="inline-block border-b-3 border-highlight pb-1">
+              {HERO_TITLE_RULED}
+            </span>{" "}
+            {HERO_TITLE_TRAIL}
+          </span>
+        </h1>
 
-          <p className="max-w-prose animate-rise-3 text-lead text-secondary motion-reduce:animate-none laptop:text-base">
-            {HERO_SUBTITLE}
-          </p>
+        <p
+          className={`m-0 max-w-hero-lede text-lead-mobile text-secondary md:text-lead ${rise(3)}`}
+        >
+          {HERO_SUBTITLE}
+        </p>
 
-          <div className="flex animate-rise-4 flex-wrap items-center gap-3 motion-reduce:animate-none">
-            <Button variant="primary" href="#contact" onClick={openInquiry}>
-              Get Lease Terms
-            </Button>
-            <Button variant="ghost" href="#yards">
-              See Both Yards
-            </Button>
-          </div>
+        <div
+          className={`flex w-full flex-col gap-3 pt-1 xs:w-auto xs:flex-row xs:items-center ${rise(4)}`}
+        >
+          <Button variant="primary" href="#quote" onClick={openInquiry}>
+            Get Lease Terms
+          </Button>
+          <Button variant="ghost" href="#yards">
+            See Both Yards
+          </Button>
         </div>
       </Container>
 
       <HeroDatum />
-      <Seam />
     </section>
   );
 }

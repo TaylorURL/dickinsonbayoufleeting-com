@@ -1,23 +1,34 @@
 import { useReveal } from "../../app/hooks/useReveal";
 
-// One delay rhythm, four steps. The first four children of a staggered block
-// count these off and everything after them shares the last, so a long list
-// finishes arriving rather than trailing off. A step of a tenth of a second is
-// long enough to read as one thing following another and short enough that the
-// fourth child has started before the reader has finished the first line.
-const DELAY = ["delay-1", "delay-2", "delay-3", "delay-4"];
+// One delay rhythm, six steps, counted off the step the config carries. The
+// first six children of a staggered block take one each and everything after
+// them shares the last, so a long list finishes arriving rather than trailing
+// off. Eighty milliseconds is long enough to read as one thing following
+// another and short enough that the sixth child has started before the reader
+// has finished the first line.
+const DELAY = [
+  "delay-1",
+  "delay-2",
+  "delay-3",
+  "delay-4",
+  "delay-5",
+  "delay-6",
+];
 
 const MOTION =
   "transition-[opacity,transform] duration-reveal ease-reveal motion-reduce:transition-none";
 
 const SETTLED = "translate-y-0 opacity-100";
+// Sixteen pixels. It is the smallest rise that still reads as arriving, and
+// anything further turns a band of type into something the reader watches
+// land rather than something already there to be read.
 const HELD =
-  "translate-y-[30px] opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100";
+  "translate-y-4 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100";
 
-// The entrance a block plays on arrival, counted off the same four steps as
-// the stagger. Step 0 is the unstaggered one. The reduced-motion escape rides
-// along, because a call site that has to remember it is a call site that will
-// not.
+// The entrance a block plays on mount rather than on scroll, counted off the
+// same six steps. Step 0 is the unstaggered one. The reduced-motion escape
+// rides along, because a call site that has to remember it is a call site that
+// will not.
 export function rise(step = 0) {
   return `animate-rise${step ? `-${step}` : ""} motion-reduce:animate-none`;
 }
@@ -35,6 +46,9 @@ export function staggerChild(index) {
 // account for. It reports its state on an attribute for the same reason the
 // stagger does: print scrolls nothing, so a band nobody has reached is held at
 // zero opacity on paper unless a rule can find it.
+//
+// Nothing here runs per scroll frame. One IntersectionObserver per block fires
+// once, on the way in, and the transition it switches on is composited.
 export function Reveal({ as: Tag = "div", className = "", children, ...rest }) {
   const { ref, revealed } = useReveal();
   return (
@@ -50,7 +64,9 @@ export function Reveal({ as: Tag = "div", className = "", children, ...rest }) {
 }
 
 // The container half of the stagger. It reveals as one block and reports that
-// to its children through the group, each of which counts off its own step.
+// to its children through the group, each of which counts off its own step. A
+// stagger belongs inside one band: two bands counting off the same rhythm
+// arrive as one long list rather than as two blocks.
 export function Stagger({
   as: Tag = "div",
   className = "",

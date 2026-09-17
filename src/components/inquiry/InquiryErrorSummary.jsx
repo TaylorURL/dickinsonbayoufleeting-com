@@ -13,7 +13,7 @@ function InquiryErrorSummary({ className = "", idPrefix, errors }) {
       role="alert"
       className={`flex flex-col gap-2 border border-l-3 border-danger bg-danger-soft px-5 py-4 ${className}`.trim()}
     >
-      <p className="font-condensed text-h6 uppercase text-primary [overflow-wrap:anywhere]">
+      <p className="font-condensed text-h5 uppercase text-primary [overflow-wrap:anywhere]">
         {failing.length} fields still need something.
       </p>
       <ul className="m-0 flex list-none flex-wrap gap-x-5 gap-y-2 p-0">
@@ -21,7 +21,7 @@ function InquiryErrorSummary({ className = "", idPrefix, errors }) {
           <li key={field.key}>
             <a
               href={`#${idPrefix}-${field.key}`}
-              className="font-body text-xs font-semibold text-danger underline-offset-[3px] transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-primary focus-visible:shadow-focus focus-visible:outline-none"
+              className="font-body text-micro font-semibold text-danger underline-offset-[3px] transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-primary focus-visible:shadow-focus focus-visible:outline-none"
             >
               {field.label}
             </a>

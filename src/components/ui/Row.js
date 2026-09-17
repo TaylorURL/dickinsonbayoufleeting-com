@@ -1,6 +1,7 @@
-// The ruled row. Services and capabilities are the same shape - an index, a
-// code, a name, a body, a note and a tag - so they are laid out by one set of
-// slots rather than by two grids that have to be kept in step.
+// The ruled row: an index, a code, a name, a body, a note and a tag. The
+// services list is the only thing set in it, and the slots are named here
+// rather than written into that list so what the row is can be read without
+// reading the grid.
 //
 // It reads as a stack on a phone, gains its index column once there is room
 // beside the stack, and opens out into a line of a table when the whole row

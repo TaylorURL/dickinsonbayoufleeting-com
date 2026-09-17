@@ -98,14 +98,14 @@ function ScrollSpy({ generation = 0 }) {
                   }`}
                 />
                 <span
-                  className={`text-2xs font-semibold tabular-nums transition-colors duration-settle ease-settle ${
+                  className={`text-micro font-semibold tabular-nums transition-colors duration-settle ease-settle ${
                     isActive ? "text-highlight" : "text-muted"
                   }`}
                 >
                   {String(idx + 1).padStart(2, "0")}
                 </span>
                 <span
-                  className={`whitespace-nowrap text-xs font-medium text-current ${
+                  className={`whitespace-nowrap text-micro font-medium text-current ${
                     isActive ? "opacity-100" : FADE
                   }`}
                 >

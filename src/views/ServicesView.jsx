@@ -1,27 +1,15 @@
 import PagePlate from "../components/page/PagePlate";
-import ServicesList from "../components/sections/ServicesList";
+import ServicesRegister from "../components/sections/ServicesRegister";
 import LeasePackage from "../components/sections/LeasePackage";
 import Faq from "../components/sections/Faq";
 import CtaStrip from "../components/page/CtaStrip";
 import Button from "../components/ui/Button";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";
-
-export const metadata = {
-  title: "Dock Lease Rates & Marine Services | Dickinson Bayou Fleeting",
-  description:
-    "Monthly lease rates for the Dickinson and Freeport yards, what each lease carries, and the seven jobs the shore crew covers on both docks.",
-  canonical: "https://dickinsonbayoufleeting.com/services",
-  openGraph: {
-    title: "Dock Lease Rates & Marine Services | Dickinson Bayou Fleeting",
-    description:
-      "Monthly lease rates for the Dickinson and Freeport yards, what each lease carries, and the seven jobs the shore crew covers on both docks.",
-    url: "https://dickinsonbayoufleeting.com/services",
-  },
-};
+import { ROUTE_META } from "../app/router/routes";
 
 function ServicesView() {
-  useSeoMeta(metadata);
+  useSeoMeta(ROUTE_META.services);
   return (
     <main id={MAIN_ID} tabIndex={-1}>
       <PagePlate
@@ -36,9 +24,9 @@ function ServicesView() {
           See Lease Rates
         </Button>
       </PagePlate>
-      <LeasePackage surface="light" seam={{ shape: "fade", into: "gray" }} />
-      <ServicesList surface="gray" seam={{ shape: "fade", into: "light" }} />
-      <Faq surface="light" seam={{ into: "dark" }} />
+      <LeasePackage surface="light" />
+      <ServicesRegister surface="dark" />
+      <Faq surface="light" />
       <CtaStrip
         title="Take a yard, or just the service."
         body="The lease comes with the crew that works the dock. If you only need one job doing, call and we will say whether it is ours."

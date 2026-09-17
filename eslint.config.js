@@ -1,9 +1,11 @@
-// Lint rules for the application source.
+// Lint rules for the whole project: the application source, the build scripts
+// and the one serverless function.
 //
 // React-specific and accessibility rules come from the react-app config that
 // react-scripts runs during the build, so this file carries the rules that
 // hold whether or not the build is running: the ones that catch a mistake
-// rather than a style preference.
+// rather than a style preference. The build only ever looks at src, which is
+// why the scripts that write the shipped documents answer to this file alone.
 
 const react = require("eslint-plugin-react");
 const reactHooks = require("eslint-plugin-react-hooks");
@@ -36,6 +38,45 @@ const browserGlobals = {
   process: "readonly",
 };
 
+const nodeGlobals = {
+  console: "readonly",
+  process: "readonly",
+  globalThis: "readonly",
+  URL: "readonly",
+  setTimeout: "readonly",
+  clearTimeout: "readonly",
+};
+
+// The build scripts are CommonJS, because they are run by node directly rather
+// than compiled by anything.
+const commonjsGlobals = {
+  ...nodeGlobals,
+  require: "readonly",
+  module: "writable",
+  exports: "writable",
+  __dirname: "readonly",
+  __filename: "readonly",
+};
+
+// What every file here answers to, whichever side of the wire it runs on.
+const CORRECTNESS = {
+  eqeqeq: ["error", "smart"],
+  "no-debugger": "error",
+  "no-var": "error",
+  "prefer-const": "error",
+  "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+  "no-undef": "error",
+  "no-alert": "error",
+  "no-implied-eval": "error",
+  "no-return-await": "error",
+  "no-duplicate-imports": "error",
+  "no-self-compare": "error",
+  "no-unreachable-loop": "error",
+  "no-constant-binary-expression": "error",
+  "no-promise-executor-return": "error",
+  "require-atomic-updates": "error",
+};
+
 module.exports = [
   {
     ignores: ["build/**", "coverage/**", "node_modules/**"],
@@ -65,22 +106,58 @@ module.exports = [
       "react/no-danger": "error",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
-      eqeqeq: ["error", "smart"],
+      // Nothing the page can intercept should reach a visitor's console.
       "no-console": ["error", { allow: ["warn", "error"] }],
-      "no-debugger": "error",
-      "no-var": "error",
-      "prefer-const": "error",
-      "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
-      "no-undef": "error",
-      "no-alert": "error",
-      "no-implied-eval": "error",
-      "no-return-await": "error",
-      "no-duplicate-imports": "error",
-      "no-self-compare": "error",
-      "no-unreachable-loop": "error",
-      "no-constant-binary-expression": "error",
-      "no-promise-executor-return": "error",
-      "require-atomic-updates": "error",
+      ...CORRECTNESS,
     },
+  },
+  {
+    files: ["scripts/**/*.js"],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "commonjs",
+      globals: commonjsGlobals,
+    },
+    linterOptions: {
+      reportUnusedDisableDirectives: true,
+    },
+    // A build script's output is the only account anybody gets of what the
+    // build did, so printing is the job rather than a leftover.
+    rules: CORRECTNESS,
+  },
+  {
+    // The prerender's entry point is the one script that is application code:
+    // it imports the app and renders it, so it is a module and it carries JSX.
+    files: ["scripts/**/*.jsx"],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "module",
+      globals: nodeGlobals,
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+      },
+    },
+    plugins: { react },
+    settings: { react: { version: "detect" } },
+    linterOptions: {
+      reportUnusedDisableDirectives: true,
+    },
+    rules: {
+      "react/jsx-uses-vars": "error",
+      "react/jsx-uses-react": "error",
+      ...CORRECTNESS,
+    },
+  },
+  {
+    files: ["api/**/*.js"],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: "module",
+      globals: nodeGlobals,
+    },
+    linterOptions: {
+      reportUnusedDisableDirectives: true,
+    },
+    rules: CORRECTNESS,
   },
 ];

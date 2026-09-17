@@ -43,6 +43,11 @@ export const INQUIRY_FIELDS = [
 
 const MESSAGE_MIN_CHARS = 5;
 
+// The ceiling on the note, held here with the floor rather than beside each
+// counter: a cap the field enforces and a number printed under it that came
+// from somewhere else is a counter that eventually lies.
+export const MESSAGE_CAP = 1200;
+
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SEVEN_DIGITS = /[0-9]{7,}/;
 

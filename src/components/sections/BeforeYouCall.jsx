@@ -1,4 +1,4 @@
-import { Container, MICRO_SM, Section } from "../ui/Layout";
+import { CODE, Container, MICRO, Section } from "../ui/Layout";
 import { Reveal, Stagger, staggerChild } from "../ui/Reveal";
 
 // What happens between a first call and a barge tied up, and the three
@@ -9,7 +9,7 @@ import { Reveal, Stagger, staggerChild } from "../ui/Reveal";
 //
 // The run is laid out as a sequence rather than as another column of claims:
 // four states in order, each named by what happens rather than by its number,
-// with the rule between them carrying the direction.
+// with the rule above each one carrying the direction.
 const LEASE_STEPS = [
   {
     title: "Call",
@@ -44,20 +44,20 @@ const PAPERWORK = [
   },
 ];
 
-function BeforeYouCall({ seam = null }) {
+function BeforeYouCall() {
   return (
     <Section
-      surface="gray"
+      surface="light"
       id="before-you-call"
-      seam={seam}
       aria-label="Before you call"
+      className="bg-bg-deep"
     >
-      <Container className="flex flex-col gap-10">
-        <Reveal className="flex flex-col gap-5">
-          <h2 className="m-0 max-w-title text-h2 text-primary">
+      <Container className="flex flex-col gap-7 md:gap-9">
+        <Reveal className="flex max-w-head flex-col gap-4 md:gap-5">
+          <h2 className="m-0 text-h2-mobile text-primary md:max-w-[900px] md:text-h2">
             How a lease actually starts.
           </h2>
-          <p className="m-0 max-w-prose text-lead text-secondary">
+          <p className="m-0 max-w-plate-lede font-body text-lead-mobile text-secondary md:text-lead">
             Four steps, none of them a meeting. The paperwork below is all we
             ask for, and two of the three are ours to send.
           </p>
@@ -66,37 +66,35 @@ function BeforeYouCall({ seam = null }) {
         {/* The step's own count is drawn as a mark rather than written as a
             label, because the order is the information and the number is only
             how the eye follows it. */}
-        <Stagger className="grid grid-cols-[minmax(0,1fr)] gap-y-8 md:grid-cols-4 md:gap-x-6">
+        <Stagger className="grid grid-cols-[minmax(0,1fr)] gap-y-6 md:grid-cols-4 md:gap-x-grid-gutter">
           {LEASE_STEPS.map((step, i) => (
             <div
               key={step.title}
-              className={`flex min-w-0 flex-col gap-4 border-t-2 border-border-strong pt-5 ${staggerChild(i)}`}
+              className={`flex min-w-0 flex-col gap-3 border-t-2 border-border-strong pt-4 md:gap-[14px] md:pt-5 ${staggerChild(i)}`}
             >
-              <p
-                className={`${MICRO_SM} m-0 tabular-nums text-highlight`}
-                aria-hidden="true"
-              >
+              <p className={`${CODE} m-0 tabular-nums text-primary`}>
                 {String(i + 1).padStart(2, "0")}
               </p>
-              <h3 className="m-0 text-h5 tracking-tight text-primary">
-                {step.title}
-              </h3>
-              <p className="m-0 max-w-prose-tight text-md text-secondary">
+              <h3 className="m-0 text-h5 text-primary">{step.title}</h3>
+              <p className="m-0 font-body text-small text-secondary">
                 {step.body}
               </p>
             </div>
           ))}
         </Stagger>
 
-        <div className="flex flex-col gap-5 border-t border-hairline pt-8">
-          <p className={`${MICRO_SM} m-0 text-faint`}>What to have ready</p>
-          <dl className="m-0 grid grid-cols-[minmax(0,1fr)] gap-x-9 gap-y-6 md:grid-cols-3">
+        <div className="flex flex-col gap-5 border-t border-border pt-6 md:pt-7">
+          <p className={`${MICRO} m-0 text-faint`}>What to have ready</p>
+          <dl className="m-0 grid grid-cols-[minmax(0,1fr)] gap-y-5 md:grid-cols-3 md:gap-x-8">
             {PAPERWORK.map((item) => (
-              <div key={item.title} className="flex min-w-0 flex-col gap-2">
-                <dt className="font-condensed text-h6 uppercase text-primary">
+              <div
+                key={item.title}
+                className="flex min-w-0 flex-col gap-2 md:gap-[10px]"
+              >
+                <dt className="font-condensed text-h5 uppercase text-primary">
                   {item.title}
                 </dt>
-                <dd className="m-0 max-w-prose-tight text-sm text-secondary">
+                <dd className="m-0 font-body text-small text-secondary">
                   {item.body}
                 </dd>
               </div>

@@ -23,11 +23,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "node scripts/start-bundle-after-paint.js && node scripts/prerender.js",
+    "postbuild": "node scripts/start-bundle-after-paint.js && node scripts/build-jsonld.js && node scripts/stamp-sitemap.js && node scripts/prerender.js",
     "test": "react-scripts test --passWithNoTests",
-    "lint": "ESLINT_USE_FLAT_CONFIG=true eslint src --max-warnings=0 && node scripts/check-spacing-scale.js",
-    "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"public/*.{html,json}\" \"*.{json,md}\"",
-    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\" \"public/*.{html,json}\" \"*.{json,md}\"",
+    "lint": "ESLINT_USE_FLAT_CONFIG=true eslint src scripts api --max-warnings=0 && node scripts/check-spacing-scale.js",
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"scripts/**/*.{js,jsx}\" \"api/**/*.js\" \"public/**/*.{html,json}\" \"*.{json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\" \"scripts/**/*.{js,jsx}\" \"api/**/*.js\" \"public/**/*.{html,json}\" \"*.{json,md}\"",
     "eject": "react-scripts eject"
   },
   "browserslist": {
@@ -51,6 +51,17 @@
     "@tootallnate/once": "^2.0.1",
     "sockjs": {
       "uuid": "^11.1.1"
+    },
+    "fast-uri": "^3.1.6",
+    "qs": "^6.16.0",
+    "eslint": {
+      "js-yaml": "^4.3.2"
+    },
+    "@eslint/eslintrc": {
+      "js-yaml": "^4.3.2"
+    },
+    "@istanbuljs/load-nyc-config": {
+      "js-yaml": "^3.15.2"
     }
   },
   "eslintConfig": {
