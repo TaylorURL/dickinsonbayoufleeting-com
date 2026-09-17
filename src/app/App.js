@@ -21,6 +21,7 @@ import { RouterProvider, useRouter, normalisePath } from "./router/Router";
 import { findRoute } from "./router/routes";
 import { MAIN_ID } from "./constants/landmarks";
 import { submitInquiry } from "../lib/inquiryForm";
+import { INQUIRY_OPEN } from "./openInquiry";
 import { PHONE_NUMBER, telHref } from "./content/phoneNumber";
 import { PhoneIcon } from "../components/ui/Icons";
 import { useClickRipple } from "./hooks/useClickRipple";
@@ -181,24 +182,17 @@ function AppShell() {
   useClickRipple();
   useSearchShortcut(() => setSearchOpen(true));
 
-  // The browser chrome takes its colour from the theme rather than from a
-  // literal in the document head, so the two cannot drift apart.
+  // The page is a fixed dark theme. The browser chrome is painted from the
+  // same token before the render, in src/index.js, so it is not written a
+  // second time here.
   useEffect(() => {
-    const root = document.documentElement;
-    root.setAttribute("data-theme", "dark");
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) {
-      meta.setAttribute(
-        "content",
-        getComputedStyle(root).getPropertyValue("--color-app-bg").trim(),
-      );
-    }
+    document.documentElement.setAttribute("data-theme", "dark");
   }, []);
 
   useEffect(() => {
     const handler = () => setInquiryOpen(true);
-    window.addEventListener("inquiry:open", handler);
-    return () => window.removeEventListener("inquiry:open", handler);
+    window.addEventListener(INQUIRY_OPEN, handler);
+    return () => window.removeEventListener(INQUIRY_OPEN, handler);
   }, []);
 
   const recomputeSurface = useCallback(() => {
@@ -252,7 +246,7 @@ function AppShell() {
     <div className="isolate">
       <a
         href={`#${MAIN_ID}`}
-        className="fixed left-3 top-3 z-modal inline-flex min-h-control-sm -translate-y-[calc(100%+theme(spacing.6))] items-center rounded-sm bg-highlight px-5 font-body text-sm font-medium text-on-highlight no-underline transition-[transform,opacity] duration-quick ease-settle hover:bg-highlight-hover focus-visible:translate-y-0 focus-visible:shadow-focus focus-visible:outline-none motion-reduce:transition-none"
+        className="fixed left-3 top-3 z-modal inline-flex min-h-control-md -translate-y-[calc(100%+theme(spacing.6))] items-center rounded-sm bg-highlight px-5 font-body text-small font-medium text-on-highlight no-underline transition-[transform,opacity] duration-quick ease-settle hover:bg-highlight-hover focus-visible:translate-y-0 focus-visible:shadow-focus focus-visible:outline-none motion-reduce:transition-none"
       >
         Skip to Main Content
       </a>
@@ -270,7 +264,7 @@ function AppShell() {
           of the page. */}
       <a
         href={telHref()}
-        className="fixed inset-x-0 bottom-0 z-rail inline-flex min-h-control select-none items-center justify-center gap-3 bg-highlight px-5 pb-[env(safe-area-inset-bottom)] font-body text-sm font-medium text-on-highlight no-underline transition-colors duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus focus-visible:outline-none active:bg-highlight-hover md:hidden"
+        className="fixed inset-x-0 bottom-0 z-rail inline-flex min-h-control-lg select-none items-center justify-center gap-3 bg-highlight px-5 pb-[env(safe-area-inset-bottom)] font-body text-small font-medium text-on-highlight no-underline transition-colors duration-quick ease-settle hover:bg-highlight-hover focus-visible:shadow-focus focus-visible:outline-none active:bg-highlight-hover md:hidden"
       >
         <PhoneIcon size={14} className="flex-none" />
         <span className="tabular-nums">Call the Yard · {PHONE_NUMBER}</span>

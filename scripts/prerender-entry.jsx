@@ -15,6 +15,11 @@
 import { prerenderToNodeStream } from "react-dom/static";
 import App from "../src/app/App";
 
+// The route table rides along on the same bundle. The head each route carries
+// is written in the application's own source, and this is the only way a Node
+// script can read it without a second copy of the table living in the build.
+export { ROUTES, NOT_FOUND_META } from "../src/app/router/routes";
+
 // A boundary larger than this budget is streamed apart: the frame goes in the
 // shell and the page follows it in a hidden div for a script at the end of the
 // document to swap in. That is worth doing down a live connection and worth

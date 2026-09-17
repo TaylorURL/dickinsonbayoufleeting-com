@@ -4,22 +4,10 @@ import CtaStrip from "../components/page/CtaStrip";
 import { PRIVACY_SECTIONS, PRIVACY_UPDATED } from "../app/content/legal";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";
-
-export const metadata = {
-  title: "Privacy Policy | Dickinson Bayou Fleeting",
-  description:
-    "An inquiry form, a page counter and an error log are everything this site collects. What each holds, how it is stored and how to have it removed.",
-  canonical: "https://dickinsonbayoufleeting.com/privacy",
-  openGraph: {
-    title: "Privacy Policy | Dickinson Bayou Fleeting",
-    description:
-      "An inquiry form, a page counter and an error log are everything this site collects. What each holds, how it is stored and how to have it removed.",
-    url: "https://dickinsonbayoufleeting.com/privacy",
-  },
-};
+import { ROUTE_META } from "../app/router/routes";
 
 function PrivacyView() {
-  useSeoMeta(metadata);
+  useSeoMeta(ROUTE_META.privacy);
   return (
     <main id={MAIN_ID} tabIndex={-1}>
       <PagePlate
@@ -32,7 +20,6 @@ function PrivacyView() {
         updated={PRIVACY_UPDATED}
         label="Privacy Policy"
         id="privacy-body"
-        seam={{ into: "dark" }}
       />
       <CtaStrip
         title="Want something removed?"

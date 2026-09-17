@@ -5,22 +5,10 @@ import CtaStrip from "../components/page/CtaStrip";
 import Button from "../components/ui/Button";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";
-
-export const metadata = {
-  title: "Who Runs the Yards | Dickinson Bayou Fleeting",
-  description:
-    "Dickinson Bayou Fleeting is a small coastal fleeting company: two yards on the upper Texas Gulf Coast and a shore crew close enough to reach either dock.",
-  canonical: "https://dickinsonbayoufleeting.com/about",
-  openGraph: {
-    title: "Who Runs the Yards | Dickinson Bayou Fleeting",
-    description:
-      "Dickinson Bayou Fleeting is a small coastal fleeting company: two yards on the upper Texas Gulf Coast and a shore crew close enough to reach either dock.",
-    url: "https://dickinsonbayoufleeting.com/about",
-  },
-};
+import { ROUTE_META } from "../app/router/routes";
 
 function AboutView() {
-  useSeoMeta(metadata);
+  useSeoMeta(ROUTE_META.about);
   return (
     <main id={MAIN_ID} tabIndex={-1}>
       <PagePlate
@@ -36,7 +24,7 @@ function AboutView() {
         </Button>
       </PagePlate>
       <AboutStory />
-      <ServiceArea surface="gray" seam={{ into: "dark" }} />
+      <ServiceArea />
       <CtaStrip
         title="Come and walk the yard."
         body="Operators see either dock before signing anything. Call ahead and we will have the person who works it there to walk it with you."

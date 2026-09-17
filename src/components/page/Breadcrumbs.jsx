@@ -9,11 +9,9 @@ import { useBreadcrumbSchema } from "../../app/hooks/useBreadcrumbSchema";
 // A path that matches no route renders nothing: the 404 shares this header, and
 // a trail ending in a page that does not exist is worse than no trail.
 //
-// The trail sits above the page's eyebrow and reads as the smallest label on
-// the plate, so it orients without competing with the heading under it. The
-// separator is a rule rather than a glyph, matching the ticks the rest of the
-// layout is drawn with.
-const LABEL = "font-body text-2xs font-semibold";
+// The separator is a rule rather than a glyph, matching the marks the rest of
+// the layout is drawn with.
+const LABEL = "font-body text-micro";
 
 function Breadcrumbs({ ...rest }) {
   const { path } = useRouter();
@@ -29,7 +27,7 @@ function Breadcrumbs({ ...rest }) {
         <li className="inline-flex items-center gap-3">
           <Link
             to="/"
-            className={`${LABEL} text-faint no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight`}
+            className={`${LABEL} text-faint no-underline transition-colors duration-quick ease-settle hover:text-primary focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-highlight`}
           >
             Home
           </Link>
@@ -37,7 +35,7 @@ function Breadcrumbs({ ...rest }) {
         <li className="inline-flex items-center gap-3">
           <span
             aria-hidden="true"
-            className="h-px w-tick flex-none bg-border-strong"
+            className="h-px w-rule-crumb flex-none bg-border-strong"
           />
           <span className={`${LABEL} text-secondary`} aria-current="page">
             {current.label}

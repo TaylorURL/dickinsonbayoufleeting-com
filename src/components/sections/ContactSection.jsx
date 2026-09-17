@@ -1,139 +1,99 @@
-import { useCallback, useMemo, useState } from "react";
 import { PHONE_NUMBER, telHref } from "../../app/content/phoneNumber";
 import { FACILITIES } from "../../app/content/facilities";
+import { HOURS } from "../../app/content/hours";
 import InquiryFields from "../inquiry/InquiryFields";
 import InquiryErrorSummary from "../inquiry/InquiryErrorSummary";
 import Button from "../ui/Button";
 import Confirmation from "../ui/Confirmation";
-import { Container, Eyebrow, MICRO, PANEL_RAISED, Section } from "../ui/Layout";
+import { CODE, Container, Eyebrow, MICRO, Section } from "../ui/Layout";
 import { FIELD } from "../ui/Field";
 import { Reveal } from "../ui/Reveal";
-import {
-  formatPhone,
-  inquiryErrorMessage,
-  submitInquiry,
-  validateInquiry,
-} from "../../lib/inquiryForm";
+import { MESSAGE_CAP } from "../../lib/inquiryForm";
+import { useInquiryForm } from "../../lib/useInquiryForm";
 
-const MAX_MESSAGE = 1200;
 const FORM_ID = "contactForm";
 
-// The rule across the top of the panel, which is the one mark that says the
-// form is the thing on this band to act on.
-const CONTACT_PANEL_RULE =
-  "before:absolute before:-top-px before:left-0 before:h-accent before:w-rule-long before:bg-highlight before:content-['']";
+// The card is the only lifted thing on the band, and the tab across its
+// top-left corner is the one mark that says it is the thing here to act on.
+// It sits over the corner rather than inside it, so the stroke it interrupts
+// is the card's own border.
+const FORM_CARD =
+  "relative rounded-md border border-border bg-surface before:absolute before:-left-px before:-top-px before:h-[2px] before:w-rule-long before:bg-highlight before:content-['']";
 
-function ContactSection({ seam = null }) {
-  const [values, setValues] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    message: "",
-  });
-  const [touched, setTouched] = useState({});
-  const [attempted, setAttempted] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState("");
-
-  const errors = useMemo(() => validateInquiry(values), [values]);
-
-  // A field speaks up once the reader has left it, or once a submit has been
-  // tried. Marking a field wrong while it is still being typed into calls it
-  // wrong before it is finished.
-  const showError = useCallback(
-    (key) => Boolean((attempted || touched[key]) && errors[key]),
-    [attempted, touched, errors],
-  );
-
-  const change = useCallback((key, raw) => {
-    const value =
-      key === "phone"
-        ? formatPhone(raw)
-        : key === "message"
-          ? raw.slice(0, MAX_MESSAGE)
-          : raw;
-    setValues((prev) => ({ ...prev, [key]: value }));
-  }, []);
-
-  const blur = useCallback((key) => {
-    setTouched((prev) => (prev[key] ? prev : { ...prev, [key]: true }));
-  }, []);
-
-  async function submit(e) {
-    e.preventDefault();
-    setAttempted(true);
-    const failing = Object.keys(errors);
-    if (failing.length) {
-      const first = document.getElementById(`${FORM_ID}-${failing[0]}`);
-      if (first) first.focus();
-      return;
-    }
-    setSubmitting(true);
-    setSubmitError("");
-    try {
-      await submitInquiry(values);
-      setSubmitting(false);
-      setSubmitted(true);
-    } catch (err) {
-      setSubmitting(false);
-      setSubmitError(inquiryErrorMessage(err));
-    }
-  }
+function ContactSection() {
+  const {
+    values,
+    errors,
+    attempted,
+    showError,
+    change,
+    blur,
+    submit,
+    submitting,
+    submitted,
+    submitError,
+  } = useInquiryForm({ formId: FORM_ID });
 
   const phoneHref = telHref();
 
   return (
-    <Section surface="light" seam={seam} id="contact" aria-label="Contact">
+    <Section surface="light" id="contact" aria-label="Contact">
       <Container>
-        <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-7 md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:gap-9">
-          <Reveal as="aside" className="flex flex-col gap-7">
-            <div className="flex max-w-head flex-col items-start gap-5">
-              <Eyebrow strong>Reach the office</Eyebrow>
-              <h2 className="min-w-0 max-w-title text-h2 text-primary">
+        <div className="grid grid-cols-[minmax(0,1fr)] items-start gap-8 md:grid-cols-12 md:gap-x-grid-gutter">
+          <Reveal as="aside" className="flex flex-col gap-7 md:col-span-5">
+            <div className="flex flex-col items-start gap-5">
+              <Eyebrow>Reach the office</Eyebrow>
+              <h2 className="m-0 min-w-0 text-h2-mobile text-primary md:text-h2">
                 Talk to a person who knows the dock.
               </h2>
-              <p className="max-w-prose text-lead text-secondary">
+              <p className="m-0 font-body text-lead-mobile text-secondary md:text-lead">
                 Single-barge job or year-long lease, we take both. Phone is
                 fastest. The form reaches whoever is on shift.
               </p>
             </div>
 
-            <dl className="m-0 flex flex-col gap-5 border-t-2 border-highlight p-0 pt-6">
-              <div className="flex flex-col gap-1">
+            {/* The number is the largest thing in the column, because calling
+                is the action this band actually wants. */}
+            <dl className="m-0 flex flex-col gap-6 border-t-2 border-highlight p-0 pt-6">
+              <div className="flex flex-col gap-[6px]">
                 <dt className={`${MICRO} text-faint`}>Direct Line</dt>
-                <dd>
+                <dd className="m-0">
                   <a
                     href={phoneHref}
-                    className="inline-flex min-h-control-sm items-center whitespace-nowrap font-condensed text-h5 uppercase tabular-nums text-primary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:text-highlight focus-visible:outline-none"
+                    className="inline-flex items-center rounded-sm font-mono text-figure tabular-nums text-primary no-underline transition-colors duration-quick ease-settle hover:text-highlight focus-visible:shadow-focus focus-visible:outline-none"
                   >
                     {PHONE_NUMBER}
                   </a>
                 </dd>
               </div>
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-3">
                 <dt className={`${MICRO} text-faint`}>Hours</dt>
-                <dd className="max-w-prose-tight text-md text-secondary">
-                  Shore presence 24 / 7. The office is staffed Mon-Fri 7a-5p CT,
-                  with the on-call line monitored at all other hours.
+                <dd className="m-0 flex flex-col gap-3">
+                  {HOURS.map((h) => (
+                    <span key={h.label} className="flex flex-col gap-1">
+                      <span className="font-body text-small-strong text-primary">
+                        {h.label}
+                      </span>
+                      <span className="font-body text-small text-secondary">
+                        {h.value}
+                      </span>
+                    </span>
+                  ))}
                 </dd>
               </div>
             </dl>
 
-            <ul className="m-0 grid list-none grid-cols-[minmax(0,1fr)] gap-4 border-t border-border p-0 pt-6 sm:grid-cols-2">
+            <ul className="m-0 flex list-none flex-wrap gap-x-6 gap-y-5 border-t border-border p-0 pt-6">
               {FACILITIES.map((f) => (
                 <li
                   key={f.id}
-                  className="flex flex-col gap-1 border-l-2 border-hairline pl-3 transition-colors duration-quick ease-settle hover:border-highlight"
+                  className="flex min-w-[250px] flex-1 flex-col gap-[6px] border-l-2 border-border-strong pl-3"
                 >
-                  <span className={`${MICRO} text-highlight`}>
-                    {f.shortName} Facility
-                  </span>
-                  <span className="font-body text-base font-semibold text-primary">
+                  <span className={`${CODE} text-primary`}>{f.name}</span>
+                  <span className="font-body text-small-strong text-secondary">
                     {f.address}
                   </span>
-                  <span className="font-body text-sm text-faint">
+                  <span className="font-body text-small text-faint">
                     {f.region}
                   </span>
                 </li>
@@ -141,11 +101,11 @@ function ContactSection({ seam = null }) {
             </ul>
           </Reveal>
 
-          <Reveal>
+          <Reveal className="md:col-span-7">
             {submitted ? (
               <div
                 role="status"
-                className={`relative flex animate-rise flex-col gap-3 p-7 motion-reduce:animate-none ${PANEL_RAISED} ${CONTACT_PANEL_RULE} before:top-0`}
+                className={`flex animate-rise flex-col gap-3 p-5 motion-reduce:animate-none md:p-7 ${FORM_CARD}`}
               >
                 <Confirmation phone={PHONE_NUMBER} />
               </div>
@@ -154,51 +114,66 @@ function ContactSection({ seam = null }) {
                 onSubmit={submit}
                 noValidate
                 aria-label="Quote Request"
-                className={`relative flex flex-col gap-6 p-6 md:p-7 ${PANEL_RAISED} ${CONTACT_PANEL_RULE}`}
+                className={`flex flex-col gap-6 p-5 md:p-7 ${FORM_CARD}`}
               >
-                <div className="flex flex-col gap-5">
-                  <p className="m-0 font-mono text-xs font-medium text-highlight">
+                <div className="flex flex-col gap-[14px]">
+                  <p className="m-0 font-mono text-eyebrow uppercase text-primary">
                     Send a Note
                   </p>
                   <p className="m-0 font-body text-base text-secondary">
                     Tell us the footprint you need and the reach your tow runs.
                     Terms come back inside one business day.
                   </p>
-                  <p className="m-0 font-body text-sm text-faint">
+                  <p className="m-0 font-body text-small text-faint">
                     All fields are required. We do not sell what you send us.
                   </p>
-                  {attempted ? (
-                    <InquiryErrorSummary idPrefix={FORM_ID} errors={errors} />
-                  ) : null}
-                  <div className="grid grid-cols-[minmax(0,1fr)] gap-5 xs:grid-cols-2">
-                    <InquiryFields
-                      idPrefix={FORM_ID}
-                      values={values}
-                      errors={errors}
-                      shown={showError}
-                      onChange={change}
-                      onBlur={blur}
-                      counter={
-                        <span className={FIELD.counter}>
-                          {values.message.length} / {MAX_MESSAGE}
-                        </span>
-                      }
-                    />
-                  </div>
                 </div>
 
-                <div className="flex flex-col-reverse flex-wrap items-stretch justify-end gap-3 xs:flex-row xs:items-center">
-                  <Button variant="ghost" href={phoneHref}>
+                {attempted ? (
+                  <InquiryErrorSummary idPrefix={FORM_ID} errors={errors} />
+                ) : null}
+
+                {/* The fields bottom-align inside a row, so a hint under one
+                    label does not leave the two controls beside each other at
+                    different heights. */}
+                <div className="grid grid-cols-[minmax(0,1fr)] items-end gap-5 xs:grid-cols-2">
+                  <InquiryFields
+                    idPrefix={FORM_ID}
+                    values={values}
+                    errors={errors}
+                    shown={showError}
+                    onChange={change}
+                    onBlur={blur}
+                    counter={
+                      <span className={FIELD.counter}>
+                        {values.message.length} / {MESSAGE_CAP}
+                      </span>
+                    }
+                  />
+                </div>
+
+                <div className="flex flex-col-reverse items-stretch gap-3 xs:flex-row xs:items-center xs:justify-end">
+                  <Button
+                    variant="ghost"
+                    href={phoneHref}
+                    className="w-full xs:w-auto"
+                  >
                     Call Instead
                   </Button>
-                  <Button variant="primary" type="submit" disabled={submitting}>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    disabled={submitting}
+                    className="w-full xs:w-auto"
+                  >
                     {submitting ? "Sending…" : "Send Request"}
                   </Button>
                 </div>
+
                 {submitError ? (
                   <p
                     role="alert"
-                    className="m-0 font-body text-sm leading-normal text-danger"
+                    className="m-0 font-body text-small text-danger"
                   >
                     {submitError}
                   </p>

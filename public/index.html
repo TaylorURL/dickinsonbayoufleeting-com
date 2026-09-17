@@ -26,8 +26,13 @@
     <meta content="en-US" name="language" />
     <meta content="US-TX" name="geo.region" />
     <meta content="Dickinson, Texas" name="geo.placename" />
-    <meta content="29.471936;-94.962547" name="geo.position" />
-    <meta content="29.471936,-94.962547" name="ICBM" />
+    <!-- The two tags below are filled by scripts/build-jsonld.js from the same
+         records the pages print a yard's position from. Typed in here instead,
+         they sat four kilometres from what the structured data at the end of
+         the body was telling Google. The placeholder is what the development
+         server shows, because the postbuild only runs on a real build. -->
+    <meta content="stamped at build time" name="geo.position" />
+    <meta content="stamped at build time" name="ICBM" />
     <meta content="Dickinson Bayou Fleeting" name="author" />
     <meta
       content="Dickinson Bayou Fleeting"
@@ -83,7 +88,7 @@
       type="image/webp"
       href="/images/DBF-Logo-White.webp"
       imagesrcset="/images/DBF-Logo-White-120.webp 120w, /images/DBF-Logo-White-240.webp 240w, /images/DBF-Logo-White-320.webp 320w, /images/DBF-Logo-White.webp 476w"
-      imagesizes="(max-width: 1000px) 98px, (max-width: 1266px) 9.8vw, 124px"
+      imagesizes="(max-width: 899px) 85px, 104px"
       fetchpriority="high"
     />
     <link
@@ -100,17 +105,13 @@
       href="/fonts/ibm-plex-sans-latin.woff2"
       crossorigin="anonymous"
     />
-    <!-- The frame the hero plate opens on. It is named by a component the
-         browser cannot see until the bundle has run, so the document names it
-         instead and the band has a picture in it a round trip earlier. It is
-         asked for behind the two faces because the words on the plate are set
-         in them and the picture sits underneath the words. -->
-    <link
-      rel="preload"
-      as="image"
-      href="/video/hero-poster.jpg"
-      fetchpriority="high"
-    />
+    <!-- No preload for the frame the plate opens on. Two pages open on two
+         different frames - the hero on the towboat, every inner page on the
+         channel - and one document serves both, so a hint here would fetch the
+         wrong picture on six routes out of seven. The build stamps each route's
+         own markup into its own document, so the picture element naming the
+         right frame is in the file the reader is served and the preload
+         scanner has it in the same parse. -->
     <link
       href="https://gujgtjqqurildqurpffh.supabase.co"
       rel="preconnect"
@@ -501,264 +502,14 @@
       inquiries. Please enable JavaScript to view the full site.
     </noscript>
     <div id="root"></div>
+    <!-- The Schema.org graph, written into the tag below by
+         scripts/build-jsonld.js. The addresses, the rates, the number and the
+         positions in it are the facility records the pages themselves render,
+         so a fact stated to a reader and the same fact stated to a search
+         engine cannot part. The development server runs no postbuild, so the
+         graph is empty there. -->
     <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "WebSite",
-            "@id": "https://dickinsonbayoufleeting.com/#website",
-            "name": "Dickinson Bayou Fleeting",
-            "url": "https://dickinsonbayoufleeting.com/",
-            "inLanguage": "en-US",
-            "publisher": {
-              "@id": "https://dickinsonbayoufleeting.com/#organization"
-            },
-            "author": {
-              "@id": "https://dickinsonbayoufleeting.com/#organization"
-            }
-          },
-          {
-            "@type": "Organization",
-            "@id": "https://dickinsonbayoufleeting.com/#organization",
-            "name": "Dickinson Bayou Fleeting",
-            "alternateName": "DBF",
-            "description": "Coastal barge fleeting and marine services company providing barge mooring, vessel staging, marine fleet support and long-term waterfront dock leasing on Galveston Bay, the Houston Ship Channel and the upper Texas Gulf Coast.",
-            "url": "https://dickinsonbayoufleeting.com/",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://dickinsonbayoufleeting.com/images/DBF-Logo-White.png",
-              "width": 476,
-              "height": 146,
-              "caption": "Dickinson Bayou Fleeting logo"
-            },
-            "telephone": "+1-713-859-0169",
-            "areaServed": [
-              { "@type": "City", "name": "Dickinson, Texas" },
-              { "@type": "City", "name": "Texas City, Texas" },
-              { "@type": "City", "name": "Houston, Texas" },
-              { "@type": "City", "name": "Pasadena, Texas" },
-              { "@type": "City", "name": "League City, Texas" },
-              { "@type": "City", "name": "La Marque, Texas" },
-              { "@type": "City", "name": "Kemah, Texas" },
-              { "@type": "City", "name": "Bacliff, Texas" },
-              { "@type": "City", "name": "Seabrook, Texas" },
-              { "@type": "City", "name": "Galveston, Texas" },
-              { "@type": "City", "name": "Freeport, Texas" },
-              {
-                "@type": "AdministrativeArea",
-                "name": "Galveston County, Texas"
-              },
-              { "@type": "AdministrativeArea", "name": "Harris County, Texas" },
-              {
-                "@type": "AdministrativeArea",
-                "name": "Brazoria County, Texas"
-              },
-              { "@type": "Place", "name": "Houston Ship Channel" },
-              { "@type": "Place", "name": "Galveston Bay" },
-              { "@type": "Place", "name": "Gulf Intracoastal Waterway" }
-            ]
-          },
-          {
-            "@type": "LocalBusiness",
-            "@id": "https://dickinsonbayoufleeting.com/#dickinson",
-            "name": "Dickinson Bayou Fleeting Dickinson Facility",
-            "description": "Coastal barge fleeting, marine services, vessel mooring and waterfront dock leasing on Galveston Bay near Dickinson, Texas City and the greater Houston area, with direct access to the Houston Ship Channel and upper Texas Gulf Coast waterways.",
-            "url": "https://dickinsonbayoufleeting.com/contact#dickinson",
-            "image": "https://dickinsonbayoufleeting.com/images/DBF-Logo-White.png",
-            "logo": "https://dickinsonbayoufleeting.com/images/DBF-Logo-White.png",
-            "parentOrganization": {
-              "@id": "https://dickinsonbayoufleeting.com/#organization"
-            },
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "2629 Avenue R",
-              "addressLocality": "Dickinson",
-              "addressRegion": "TX",
-              "postalCode": "77539",
-              "addressCountry": "US"
-            },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": 29.471936,
-              "longitude": -94.962547
-            },
-            "telephone": "+1-713-859-0169",
-            "openingHoursSpecification": [
-              {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": [
-                  "Monday",
-                  "Tuesday",
-                  "Wednesday",
-                  "Thursday",
-                  "Friday",
-                  "Saturday",
-                  "Sunday"
-                ],
-                "opens": "00:00",
-                "closes": "23:59"
-              }
-            ],
-            "areaServed": [
-              { "@type": "City", "name": "Dickinson, Texas" },
-              { "@type": "City", "name": "Texas City, Texas" },
-              { "@type": "City", "name": "Houston, Texas" },
-              { "@type": "City", "name": "League City, Texas" },
-              { "@type": "City", "name": "La Marque, Texas" },
-              { "@type": "City", "name": "Kemah, Texas" },
-              { "@type": "City", "name": "Bacliff, Texas" },
-              { "@type": "City", "name": "Seabrook, Texas" },
-              { "@type": "City", "name": "Galveston, Texas" },
-              { "@type": "Place", "name": "Houston Ship Channel" },
-              { "@type": "Place", "name": "Galveston Bay" },
-              { "@type": "Place", "name": "Gulf Intracoastal Waterway" }
-            ],
-            "hasMap": "https://maps.google.com/?q=2629%20Avenue%20R%2C%20Dickinson%2C%20TX%2077539",
-            "makesOffer": [
-              {
-                "@type": "Offer",
-                "name": "Long-term Coastal Barge Fleeting, Marine Services & Dock Lease at Dickinson (Galveston Bay)",
-                "priceCurrency": "USD",
-                "price": "4100",
-                "priceSpecification": {
-                  "@type": "UnitPriceSpecification",
-                  "price": "4100",
-                  "priceCurrency": "USD",
-                  "unitText": "MONTH"
-                },
-                "itemOffered": {
-                  "@type": "Service",
-                  "serviceType": "Coastal barge fleeting, marine services and waterfront dock leasing"
-                }
-              }
-            ]
-          },
-          {
-            "@type": "LocalBusiness",
-            "@id": "https://dickinsonbayoufleeting.com/#freeport",
-            "name": "Dickinson Bayou Fleeting Freeport Facility",
-            "description": "Coastal barge fleeting, marine services, mooring and waterfront dock leasing on the upper Texas Gulf Coast near Freeport and the Gulf Intracoastal Waterway, with direct access to the Texas coastal waterways.",
-            "url": "https://dickinsonbayoufleeting.com/contact#freeport",
-            "image": "https://dickinsonbayoufleeting.com/images/DBF-Logo-White.png",
-            "logo": "https://dickinsonbayoufleeting.com/images/DBF-Logo-White.png",
-            "parentOrganization": {
-              "@id": "https://dickinsonbayoufleeting.com/#organization"
-            },
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "906 Marlin Ln",
-              "addressLocality": "Freeport",
-              "addressRegion": "TX",
-              "postalCode": "77541",
-              "addressCountry": "US"
-            },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": 28.968043,
-              "longitude": -95.288293
-            },
-            "telephone": "+1-713-859-0169",
-            "openingHoursSpecification": [
-              {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": [
-                  "Monday",
-                  "Tuesday",
-                  "Wednesday",
-                  "Thursday",
-                  "Friday",
-                  "Saturday",
-                  "Sunday"
-                ],
-                "opens": "00:00",
-                "closes": "23:59"
-              }
-            ],
-            "areaServed": [
-              { "@type": "City", "name": "Freeport, Texas" },
-              {
-                "@type": "AdministrativeArea",
-                "name": "Brazoria County, Texas"
-              },
-              { "@type": "Place", "name": "Gulf Intracoastal Waterway" }
-            ],
-            "hasMap": "https://maps.google.com/?q=906%20Marlin%20Ln%2C%20Freeport%2C%20TX%2077541",
-            "makesOffer": [
-              {
-                "@type": "Offer",
-                "name": "Long-term Coastal Barge Fleeting, Marine Services & Dock Lease at Freeport (Intracoastal Waterway)",
-                "priceCurrency": "USD",
-                "price": "4800",
-                "priceSpecification": {
-                  "@type": "UnitPriceSpecification",
-                  "price": "4800",
-                  "priceCurrency": "USD",
-                  "unitText": "MONTH"
-                },
-                "itemOffered": {
-                  "@type": "Service",
-                  "serviceType": "Coastal barge fleeting, marine services and waterfront dock leasing"
-                }
-              }
-            ]
-          },
-          {
-            "@type": "Service",
-            "@id": "https://dickinsonbayoufleeting.com/#service-fleeting",
-            "name": "Barge Fleeting & Marine Services",
-            "alternateName": [
-              "Barge Fleeting",
-              "Barge Mooring",
-              "Marine Services",
-              "Marine Fleeting",
-              "Coastal Barge Fleeting",
-              "Waterfront Dock Leasing"
-            ],
-            "serviceType": "Coastal barge fleeting, marine services and waterfront dock leasing",
-            "provider": {
-              "@id": "https://dickinsonbayoufleeting.com/#organization"
-            },
-            "description": "Long-term coastal barge fleeting, marine services, vessel mooring and waterfront dock leasing on Galveston Bay, the Houston Ship Channel and the Gulf Intracoastal Waterway. Dedicated slip access, gated waterfront acreage, marine fleet support and on-site assistance for commercial barge operators across the upper Texas Gulf Coast.",
-            "areaServed": [
-              { "@type": "City", "name": "Dickinson, Texas" },
-              { "@type": "City", "name": "Texas City, Texas" },
-              { "@type": "City", "name": "Houston, Texas" },
-              { "@type": "City", "name": "Pasadena, Texas" },
-              { "@type": "City", "name": "League City, Texas" },
-              { "@type": "City", "name": "La Marque, Texas" },
-              { "@type": "City", "name": "Kemah, Texas" },
-              { "@type": "City", "name": "Bacliff, Texas" },
-              { "@type": "City", "name": "Seabrook, Texas" },
-              { "@type": "City", "name": "Galveston, Texas" },
-              { "@type": "City", "name": "Freeport, Texas" },
-              { "@type": "Place", "name": "Houston Ship Channel" },
-              { "@type": "Place", "name": "Galveston Bay" },
-              { "@type": "Place", "name": "Gulf Intracoastal Waterway" }
-            ],
-            "hasOfferCatalog": {
-              "@type": "OfferCatalog",
-              "name": "Coastal Barge Fleeting, Marine Services & Dock Lease Packages",
-              "itemListElement": [
-                {
-                  "@type": "Offer",
-                  "name": "Dickinson Facility: Galveston Bay coastal barge fleeting, marine services \u0026 5-acre dock lease",
-                  "priceCurrency": "USD",
-                  "price": "4100",
-                  "url": "https://dickinsonbayoufleeting.com/services#rates"
-                },
-                {
-                  "@type": "Offer",
-                  "name": "Freeport Facility: Intracoastal Waterway coastal barge fleeting, marine services & 5-acre dock lease",
-                  "priceCurrency": "USD",
-                  "price": "4800",
-                  "url": "https://dickinsonbayoufleeting.com/services#rates"
-                }
-              ]
-            }
-          }
-        ]
-      }
+      {}
     </script>
   </body>
 </html>

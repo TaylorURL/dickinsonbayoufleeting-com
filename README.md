@@ -34,21 +34,21 @@ Fleeting is a phone-call business, so the site is built to put a dispatcher on t
 
 ## Stack
 
-| Layer        | Technology                                                                                                                                                          |
-| :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| UI           | React 19                                                                                                                                                            |
-| Build & dev  | Create React App (`react-scripts` 5)                                                                                                                                |
-| Routing      | Custom History-API router in `src/app/router`                                                                                                                       |
-| Styling      | Tailwind, over one custom-property token set in `src/app/styles/tailwind.css`; the scales it reads are in `tailwind.config.js`                                      |
-| Type         | Barlow Condensed, IBM Plex Sans and JetBrains Mono, self-hosted; the two faces the first screen sets are preloaded from `public/fonts`                              |
-| Theming      | Fixed dark page; per-section `[data-surface="light" \| "dark"]` flipping                                                                                            |
-| Hero         | A muted, graded, looping clip from `public/video`, held on its poster frame under reduced motion                                                                    |
-| Page headers | Canvas 2D procedural ocean-topography animation (reduced-motion and off-screen aware)                                                                               |
-| Footer bar   | `@taylorurl/split-rail`, the shared credit bar every TaylorURL site mounts                                                                                          |
-| Inquiries    | A Supabase edge function, called straight from the browser                                                                                                          |
-| Analytics    | First-party and cookieless, from one hosted tracker                                                                                                                 |
-| SEO & PWA    | Per-route titles, descriptions, canonicals and share tags from a head-sync hook; Schema.org JSON-LD, geo meta, web manifest and icon set, sitemap, robots, llms.txt |
-| Hosting      | Vercel                                                                                                                                                              |
+| Layer        | Technology                                                                                                                                                                                                                                                                      |
+| :----------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| UI           | React 19                                                                                                                                                                                                                                                                        |
+| Build & dev  | Create React App (`react-scripts` 5)                                                                                                                                                                                                                                            |
+| Routing      | Custom History-API router in `src/app/router`                                                                                                                                                                                                                                   |
+| Styling      | Tailwind, over one custom-property token set in `src/app/styles/tailwind.css`; the scales it reads are in `tailwind.config.js`                                                                                                                                                  |
+| Type         | Barlow Condensed, IBM Plex Sans and JetBrains Mono, self-hosted; the two faces the first screen sets are preloaded from `public/fonts`                                                                                                                                          |
+| Theming      | Fixed dark page; per-section `[data-surface="light" \| "dark"]` flipping                                                                                                                                                                                                        |
+| Hero         | A muted, graded, looping clip of the yard's own footage from `public/video`, held on its poster frame under reduced motion                                                                                                                                                      |
+| Page headers | The channel clip from the same folder, behind the same scrim, in the same component                                                                                                                                                                                             |
+| Footer bar   | `@taylorurl/split-rail`, the shared credit bar every TaylorURL site mounts                                                                                                                                                                                                      |
+| Inquiries    | A Supabase edge function, called straight from the browser                                                                                                                                                                                                                      |
+| Analytics    | First-party and cookieless, from one hosted tracker                                                                                                                                                                                                                             |
+| SEO & PWA    | Per-route titles, descriptions, canonicals and share tags, stamped into each document at build time and kept in step in the browser by a head-sync hook; Schema.org JSON-LD generated from the facility records, geo meta, web manifest and icon set, sitemap, robots, llms.txt |
+| Hosting      | Vercel                                                                                                                                                                                                                                                                          |
 
 ## Getting started
 
@@ -58,19 +58,21 @@ npm start                # CRA dev server at localhost:3000
 npm run build            # production build to build/
 ```
 
+The `overrides` block in `package.json` pins the transitive dependencies that carry an advisory with a fix. The `svgo` pin cannot move above 2.8.3, because the SVG-to-component loader that pulls it in needs the v1/v2 API; the remaining advisories all name `react-scripts` itself as the fix, so they stay until the project leaves Create React App.
+
 No environment configuration is required. The three services the browser talks to (the inquiry function, the analytics tracker and the error collector) are addressed by URL in `src/lib/inquiryForm.js` and `public/index.html`. The only credential among them is the tracker's public site key, which sits beside its script tag, so there is no `.env` to fill in. The build runs on Node 22, and `CI=true npm run build` matches the Vercel build, where warnings fail the build.
 
 ### Scripts
 
-| Script                 | Does                                                                                                                                                          |
-| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `npm start`            | Start the CRA dev server.                                                                                                                                     |
-| `npm run build`        | Production build to `build/`, then the postbuild writes each route's first screen into a document of its own and holds the bundle back until the first frame. |
-| `npm run lint`         | ESLint over `src` with warnings treated as fatal, then the spacing-scale check.                                                                               |
-| `npm run format`       | Rewrite `src`, the `public` documents and the root JSON and Markdown with Prettier.                                                                           |
-| `npm run format:check` | Check the same set without rewriting.                                                                                                                         |
-| `npm test`             | Jest runner (no suites committed yet).                                                                                                                        |
-| `npm run eject`        | One-way CRA eject.                                                                                                                                            |
+| Script                 | Does                                                                                                                                                                                                                       |
+| :--------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm start`            | Start the CRA dev server.                                                                                                                                                                                                  |
+| `npm run build`        | Production build to `build/`, then the postbuild holds the bundle back until the first frame, writes the structured data, dates the sitemap, and stamps each route's own first screen and head into a document of its own. |
+| `npm run lint`         | ESLint over `src`, `scripts` and `api` with warnings treated as fatal, then the design-scale check.                                                                                                                        |
+| `npm run format`       | Rewrite `src`, `scripts`, `api`, the `public` documents and the root JSON and Markdown with Prettier.                                                                                                                      |
+| `npm run format:check` | Check the same set without rewriting.                                                                                                                                                                                      |
+| `npm test`             | Jest runner (no suites committed yet).                                                                                                                                                                                     |
+| `npm run eject`        | One-way CRA eject.                                                                                                                                                                                                         |
 
 ## Pages
 
@@ -79,7 +81,7 @@ No environment configuration is required. The three services the browser talks t
 | Route         | Renders                                                                                                                                          |
 | :------------ | :----------------------------------------------------------------------------------------------------------------------------------------------- |
 | `/`           | Hero, the two-yard schematic with its spec sheet and lease rates, the seven-service index, the standing band, CTA, with a right-rail `ScrollSpy` |
-| `/services`   | Seven-service catalog, lease rates, FAQ accordion, CTA                                                                                           |
+| `/services`   | Seven-service catalog, lease rates, the FAQ spread, CTA                                                                                          |
 | `/about`      | Company story, values, timeline, service area, CTA                                                                                               |
 | `/contact`    | Contact form, direct lines, how a lease runs and what to have ready, both facility maps                                                          |
 | `/privacy`    | What the site collects, held in `src/app/content/legal.js`                                                                                       |
@@ -106,9 +108,8 @@ flowchart TD
 
 - **The router is three files.** `Router.js`, `Link.js`, and a `routes.js` table drive History-API navigation.
 - **Content lives in one folder.** Facilities, services, FAQ, nav links, service area, and about copy are each a module under `src/app/content`. The views only render them. The office number is there too, beside the one function that turns it into a `tel:` link, so every phone link on the site dials the same string.
-- **One form, two places.** The five inquiry fields, their rules and their error wording live in `src/lib/inquiryForm.js`; `InquiryFields` renders them for both the modal and the contact page. Both forms post to a Supabase function through the shared submit, which gives up after 15 seconds and shows a failure instead of a confirmation.
-- **The water draws itself.** `OceanTopographyBackground` rides a dot field and its contour lines on one shared flow field over a Canvas 2D context, behind every inner page header. It stops while off-screen or in a hidden tab, and paints a single static frame under `prefers-reduced-motion`.
-- **The home hero is footage.** `HeroFilm` runs a silent, controlless clip from `public/video` behind the plate's scrim and vignette, graded in CSS so it holds inside a palette that carries no hue anywhere else. A reader who has asked for less motion gets the poster frame and nothing moving.
+- **One form, two places.** The five inquiry fields, their rules and their error wording live in `src/lib/inquiryForm.js` and `useInquiryForm` holds what a form does with them, so the modal and the contact page share their state machine as well as their fields. Both post to a Supabase function through the shared submit, which gives up after 15 seconds and shows a failure instead of a confirmation.
+- **Every plate is footage.** `Film` runs a silent, controlless clip behind the plate's scrim, graded in CSS so it holds inside a palette that carries no hue anywhere else. The home hero takes the aerial of a towboat and every inner page header takes the cargo barge in the channel. The poster frame is a `<picture>` in the served markup, and the clip is asked for after the page has loaded and the main thread has gone quiet, at the one encode the device's pixel width actually needs. A reader who has asked for less motion, or whose browser is asking to save data, keeps the poster and nothing is fetched.
 - **Two yards, one record.** Dickinson (2629 Avenue R, Dickinson, TX) at $4,100/month and Freeport (906 Marlin Ln, Freeport, TX) at $4,800/month, both 5-acre waterfront facilities, come from `src/app/content/facilities.js`, which the hero readings, the yard chart, the lease cards, the maps, the bar, the footer and the contact page all read.
 - **Measurement is one module and two identifiers.** `src/app/tracking/config.js` holds the Google Ads account, the GA4 property and a conversion label for each of the three actions worth counting; `src/app/tracking/google.js` loads the tag and sends them. An empty identifier switches that piece off, so a build with none filled in attaches no script at all. The inquiry conversion fires inside the shared submit, after the throw, so a submission the office never received is never counted; calls and directions are caught by one delegated listener rather than a handler on each of the site's phone and map links. The ad click identifier is read on arrival and held for the tab, because the router drops the query string on the first in-site navigation.
 - **A broken page reports itself.** An inline script in `public/index.html` catches uncaught errors, rejected promises, failed resource loads and 5xx responses, caps itself at ten reports a visit and beacons them to the collector. The stylesheet and the entry bundle are asked for twice more over a widening gap before either is reported, so a request the network dropped once and served on the second ask files nothing. The privacy page says so, because those reports are one of the three things the site records.
@@ -122,15 +123,17 @@ dickinsonbayoufleeting-com/
 ├── tailwind.config.js         The design system: colours, type scale, spacing, motion, layers
 ├── performance-budget.json    The recorded weight budget for the built bundle
 ├── vercel.json                Route rewrites, asset caching, the 404 status
-├── api/                       version.js, the commit this deployment was built from
+├── api/                       version.js, the commit this deployment was built from,
+│                              answered at /api/version for the release tooling
 ├── scripts/                   check-spacing-scale.js, the second half of the lint;
-│                              start-bundle-after-paint.js, prerender.js and its
+│                              start-bundle-after-paint.js, build-jsonld.js,
+│                              stamp-sitemap.js, prerender.js and its
 │                              prerender-entry.jsx, the postbuild
 ├── public/
 │   ├── favicon*, apple-touch-icon.png, android-chrome-*.png
 │   ├── fonts/                 The two faces the first screen sets, preloaded
 │   ├── images/                DBF wordmark, black and white, PNG at three widths and WebP at four
-│   ├── video/                 The hero clip and the poster frame it holds on
+│   ├── video/                 The two clips at three encodes, and the frame each holds on
 │   ├── index.html             Head metadata, error reporter, analytics, JSON-LD
 │   ├── manifest.json          PWA manifest and icon set
 │   ├── release.json           Deployed version marker
@@ -144,14 +147,14 @@ dickinsonbayoufleeting-com/
     │   ├── content/           facilities, services, faq, navLinks, legal, hours, …
     │   ├── constants/         MAIN_ID, SITE_ORIGIN, HOME_SECTIONS
     │   ├── fonts/             The remaining subsets and weights as woff2
-    │   ├── hooks/             useSeoMeta, useBreadcrumbSchema, useReveal, useCountUp,
+    │   ├── hooks/             useSeoMeta, useBreadcrumbSchema, useReveal,
     │   │                      useScrolled, useClickRipple, useSearchShortcut
     │   └── styles/            fonts.css faces, tailwind.css tokens + base layer
     ├── lib/                   inquiryForm, searchIndex, localTime
     ├── views/                 Home, Services, About, Contact, Privacy, Terms, NotFound
     └── components/
         ├── shell/             NavBar, Footer, SiteSearch, ScrollSpy, route machinery
-        ├── page/              PagePlate, CtaStrip, Breadcrumbs, the header canvas
+        ├── page/              PagePlate, CtaStrip, Breadcrumbs
         ├── sections/          The fourteen content bands the views compose
         ├── inquiry/           The quote form, its fields and its modal
         └── ui/                Shared primitives, and the icon set

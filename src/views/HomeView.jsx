@@ -1,31 +1,19 @@
 import HeroSection from "../components/sections/Hero";
 import YardChart from "../components/sections/YardChart";
-import ServiceRegister from "../components/sections/ServiceRegister";
+import HomeRegister from "../components/sections/HomeRegister";
 import Standing from "../components/sections/Standing";
 import CtaStrip from "../components/page/CtaStrip";
 import { MAIN_ID } from "../app/constants/landmarks";
 import { useSeoMeta } from "../app/hooks/useSeoMeta";
-
-export const metadata = {
-  title: "Dock Space for Lease | Dickinson Bayou Fleeting, Texas Gulf Coast",
-  description:
-    "Five-acre gated waterfront yards, long-term lease: Dickinson on Galveston Bay, Freeport on the GIWW. Bulkhead frontage, shore crew on site, from $4,100 a month.",
-  canonical: "https://dickinsonbayoufleeting.com/",
-  openGraph: {
-    title: "Dock Space for Lease | Dickinson Bayou Fleeting, Texas Gulf Coast",
-    description:
-      "Five-acre gated waterfront yards, long-term lease: Dickinson on Galveston Bay, Freeport on the GIWW. Bulkhead frontage, shore crew on site, from $4,100 a month.",
-    url: "https://dickinsonbayoufleeting.com/",
-  },
-};
+import { ROUTE_META } from "../app/router/routes";
 
 function HomeView() {
-  useSeoMeta(metadata);
+  useSeoMeta(ROUTE_META.home);
   return (
     <main id={MAIN_ID} tabIndex={-1}>
       <HeroSection />
       <YardChart />
-      <ServiceRegister />
+      <HomeRegister />
       <Standing />
       <CtaStrip
         title="Walk the yard before you sign."

@@ -3,9 +3,9 @@
 // values and nothing is decided in the middle of a render.
 //
 // Colours resolve to custom properties rather than literals. That is what lets
-// one utility carry three themes: `bg-bg` reads --color-bg, and the surface the
-// element happens to sit inside is what decides which theme's --color-bg that
-// is. A component never forks per theme because it never names a theme.
+// one utility carry both modes: `bg-bg` reads --color-bg, and the surface the
+// element happens to sit inside is what decides which mode's --color-bg that
+// is. A component never forks per mode because it never names a mode.
 
 const colour = (token) => `var(--color-${token})`;
 
@@ -31,10 +31,12 @@ const CURVE = {
 
 const ms = (n) => `${n}ms`;
 
-// Four entrance steps. An animation cannot read transition-delay, so the same
-// four are spent twice - once as delay utilities, once baked into a named
-// animation - and are counted from one place so the two never part.
-const STEPS = [1, 2, 3, 4];
+// Six entrance steps, which is where a stagger is capped: past the sixth
+// child the delay is longer than the entrance and the list trails off rather
+// than finishing. An animation cannot read transition-delay, so the same six
+// are spent twice - once as delay utilities, once baked into a named animation
+// - and are counted from one place so the two never part.
+const STEPS = [1, 2, 3, 4, 5, 6];
 
 const stagger = Object.fromEntries(
   STEPS.map((step) => [step, ms(step * DURATION.step)]),
@@ -54,42 +56,47 @@ const rise = Object.fromEntries(
 // and a second copy of the string is a second thing to keep in step.
 const arriveNow = `arrive ${ms(DURATION.settle)} ${CURVE.settle} both`;
 
-// The type scale as one table. Every step declares size, leading, tracking and
-// weight, so no call site has to finish the definition. Across the display
-// steps leading and tracking both compress as the size grows: type set at seven
-// rem needs less air between lines and less between letters than type set at
-// one.
+// The type scale as one table: twenty styles, one utility each, every one of
+// them declaring size, leading, tracking and weight so no call site has to
+// finish the definition. The family is not in here, because Tailwind's
+// fontSize carries no family - a step is always worn with font-condensed,
+// font-body or font-mono, and which one goes with which is in the comment
+// above each block.
+//
+// Four of the twenty are a mobile counterpart rather than a step of their own.
+// They are not clamps: a clamp returns a different size at every viewport, so
+// no two screens share a vertical rhythm and a band that looks right on a
+// laptop is cramped on a tablet. The pairs hand over at 900 and nowhere else,
+// written at the call site as `text-h2-mobile md:text-h2`.
 const TYPE = {
-  figure: ["clamp(2.8rem, 6vw, 3.75rem)", "0.94", "-0.02em", "700"],
-  "figure-sm": ["clamp(2.2rem, 8vw, 2.8rem)", "0.96", "-0.015em", "700"],
-  h1: ["clamp(2.4rem, 5vw, 3.4rem)", "0.98", "-0.005em", "700"],
-  h2: ["clamp(2rem, 4.2vw, 2.8rem)", "1", "0em", "700"],
-  // The one step whose size a container query re-derives, so all four of its
-  // values sit in the token block together rather than the size alone going
-  // there and the other three staying here.
-  hero: [
-    "var(--text-hero)",
-    "var(--text-hero-leading)",
-    "var(--text-hero-tracking)",
-    "var(--text-hero-weight)",
-  ],
-  h3: ["clamp(1.7rem, 3.2vw, 2.2rem)", "1.06", "0.01em", "700"],
-  h4: ["clamp(1.45rem, 2.5vw, 1.85rem)", "1.1", "0.015em", "700"],
-  h5: ["clamp(1.25rem, 2vw, 1.5rem)", "1.16", "0.02em", "600"],
-  h6: ["clamp(1.1rem, 1.6vw, 1.25rem)", "1.24", "0.02em", "600"],
+  // Condensed, uppercase. The display faces are Bold throughout except h5.
+  hero: ["4.75rem", "72px", "-0.01em", "700"],
+  "hero-mobile": ["2.75rem", "44px", "-0.01em", "700"],
+  h1: ["3.5rem", "56px", "-0.005em", "700"],
+  "h1-mobile": ["2.25rem", "38px", "-0.005em", "700"],
+  h2: ["2.5rem", "42px", "0em", "700"],
+  "h2-mobile": ["1.875rem", "32px", "0em", "700"],
+  h3: ["1.75rem", "32px", "0.01em", "700"],
+  h4: ["1.375rem", "26px", "0.015em", "700"],
+  h5: ["1.125rem", "24px", "0.02em", "600"],
 
-  lead: ["clamp(1.04rem, 1.45vw, 1.2rem)", "1.55", "0em", "400"],
-  xl: ["1.3rem", "1.5", "0em", "400"],
-  lg: ["1.14rem", "1.55", "0em", "400"],
-  base: ["1rem", "1.6", "0em", "400"],
-  md: ["0.96rem", "1.62", "0em", "400"],
-  sm: ["0.875rem", "1.6", "0em", "400"],
-  // The three label steps. Sentence case in the body face, so none of them
-  // needs tracking opened up to stay readable, and none goes below the size a
-  // label can be read at.
-  xs: ["0.8125rem", "1.5", "0em", "500"],
-  "2xs": ["0.75rem", "1.45", "0em", "500"],
-  "3xs": ["0.6875rem", "1.4", "0em", "500"],
+  // Body face, sentence case.
+  lead: ["1.1875rem", "30px", "0em", "400"],
+  "lead-mobile": ["1.0625rem", "27px", "0em", "400"],
+  base: ["1rem", "26px", "0em", "400"],
+  small: ["0.875rem", "22px", "0em", "400"],
+  "small-strong": ["0.875rem", "22px", "0em", "600"],
+  // The one label step. A page whose labels come in three sizes has three
+  // labels doing one job and no ranking among them.
+  micro: ["0.8125rem", "18px", "0em", "600"],
+
+  // Mono. Eyebrows and codes are set in caps and opened up; data and figures
+  // are set as typed, because they are read a character at a time.
+  eyebrow: ["0.75rem", "16px", "0.14em", "500"],
+  code: ["0.75rem", "16px", "0.06em", "500"],
+  data: ["0.875rem", "22px", "0em", "400"],
+  figure: ["2rem", "34px", "-0.01em", "700"],
+  "figure-sm": ["1.25rem", "24px", "-0.01em", "700"],
 };
 
 const fontSize = Object.fromEntries(
@@ -101,15 +108,6 @@ const fontSize = Object.fromEntries(
   ),
 );
 
-// The height of one line at a given step. The route placeholder reserves its
-// boxes from these, so a change to the scale moves the placeholder with it.
-const lineBox = Object.fromEntries(
-  Object.entries(TYPE).map(([step, [size, lineHeight]]) => [
-    `line-${step}`,
-    `calc(${size} * ${lineHeight})`,
-  ]),
-);
-
 module.exports = {
   content: ["./src/**/*.{js,jsx}", "./public/index.html"],
   // A touch screen reports a hover it cannot take back, which leaves a tapped
@@ -119,37 +117,26 @@ module.exports = {
   future: { hoverOnlyWhenSupported: true },
   theme: {
     // Replaces Tailwind's palette outright. A literal like `bg-slate-800`
-    // would be a colour no theme voted for, and the utility would go on
+    // would be a colour no mode voted for, and the utility would go on
     // meaning slate whichever surface it landed on.
     colors: {
       transparent: "transparent",
       current: "currentColor",
-      inherit: "inherit",
 
-      "app-bg": colour("app-bg"),
       bg: colour("bg"),
       "bg-deep": colour("bg-deep"),
       surface: colour("surface"),
 
-      // Safety orange. The primary action and active state, and nothing else:
-      // spend it twice on a screen and it stops meaning anything.
+      // The action. With no hue in the palette it is simply the strongest ink
+      // the band has, so it is spent once per band: twice on a screen and it
+      // stops meaning anything.
       highlight: colour("highlight"),
       "highlight-hover": colour("highlight-hover"),
-      "highlight-soft": colour("highlight-soft"),
       "highlight-ring": colour("highlight-ring"),
 
-      // Links, focus rings and hairline ticks. One step off the highlight,
-      // because a second hue competing with the primary action is a second
-      // thing for the eye to rank.
-      accent: colour("accent"),
-      "accent-ring": colour("accent-ring"),
-
-      // Tier-two marks only: timeline rules, spec callouts. Never a CTA.
-      rust: colour("rust"),
-
+      // One weight separates and one divides. Nothing sits between them.
       border: colour("border"),
       "border-strong": colour("border-strong"),
-      hairline: colour("hairline"),
       "field-border": colour("field-border"),
       // The well a field sits in. Its own role rather than bg-deep borrowed,
       // because the two answer to different questions: how deep the hull goes,
@@ -160,101 +147,84 @@ module.exports = {
       secondary: colour("text-secondary"),
       faint: colour("text-faint"),
       muted: colour("text-muted"),
-      "on-accent": colour("text-on-accent"),
       "on-highlight": colour("text-on-highlight"),
 
-      success: colour("success"),
       danger: colour("danger"),
       "danger-soft": colour("danger-soft"),
 
       "layer-1": colour("layer-1"),
       "layer-2": colour("layer-2"),
-      "overlay-nav": colour("overlay-nav"),
       "overlay-scrim": colour("overlay-scrim"),
-      console: colour("surface-console"),
-      "console-inset": colour("surface-console-inset"),
+      // The wash the hero and every inner plate read their footage through.
+      "plate-scrim": colour("plate-scrim"),
     },
 
-    // Four steps and a circle, and nothing above sixteen. A card and the
-    // control inside it cannot share one value without the control looking
-    // swollen, so each rung names the thing it is for: a chip, a control, a
-    // panel, and the rare large plate. An inner element inside a one-pixel
-    // border takes its parent's value less that pixel so the two curves stay
-    // concentric.
+    // Bands and plates are square. Fields and buttons take the small step,
+    // cards and the dialog the medium one, and a hairline chip the extra
+    // small. The one circle the site draws is the click ripple, which states
+    // its own radius beside the rest of its shape.
     borderRadius: {
       none: "0px",
       xs: "2px",
       sm: "4px",
-      md: "6px",
-      lg: "16px",
-      full: "50%",
+      md: "8px",
+      full: "999px",
     },
 
-    // 4px base, named rather than numbered past the first few steps, so a
-    // section's rhythm is picked from a scale instead of typed.
+    // Fifteen rungs on a 4px base, doubling cleanly from 16 up. The only
+    // unusual one is 5, at 20, which is the phone's page gutter.
+    //
+    // Everything below the numbers is a length rather than a space: the page's
+    // own measurements, which fork at 900 and are read from the token block,
+    // and the handful of rules and marks the layout is drawn with.
     spacing: {
       0: "0px",
       px: "1px",
-      // Half steps, for the two-pixel nudges the rules and marks are set by.
-      0.5: "2px",
       1: "4px",
-      1.5: "6px",
       2: "8px",
       3: "12px",
       4: "16px",
       5: "20px",
       6: "24px",
       7: "32px",
-      8: "44px",
-      9: "64px",
-      10: "88px",
-      11: "120px",
-      12: "160px",
-      13: "200px",
+      8: "40px",
+      9: "48px",
+      10: "64px",
+      11: "80px",
+      12: "96px",
+      13: "128px",
+      14: "160px",
+
+      gutter: "var(--gutter)",
+      band: "var(--band-pad)",
+      "grid-gutter": "var(--grid-gutter)",
+      nav: "var(--nav-bar)",
+      strip: "var(--nav-strip)",
+      chrome: "var(--chrome-height)",
+      anchor: "var(--anchor-offset)",
+      "plate-top": "var(--plate-pad-top)",
+      "control-lg": "var(--control-lg)",
+      "control-md": "var(--control-md)",
+      "control-sm": "var(--control-sm)",
+      "nav-logo": "var(--nav-logo-height)",
+      "footer-logo": "var(--footer-logo-height)",
+      map: "var(--map-height)",
+      "map-sm": "var(--map-height-sm)",
+      // The index and code columns the register, the legal body and the
+      // search palette measure a gutter from rather than reading off a track.
+      index: "var(--col-index)",
+      "code-sm": "var(--col-code-sm)",
+
+      // Marks. The 1px rule is the site's whole border language, and these are
+      // the lengths it is cut to and the two depths a mark is drawn at.
       "icon-sm": "14px",
       "icon-md": "18px",
       "icon-lg": "32px",
-      // Rule runs. The 1px seam is the site's whole border language, and these
-      // are the lengths it is cut to.
-      accent: "2px",
-      marker: "3px",
-      tick: "18px",
-      "rule-short": "36px",
-      rule: "56px",
+      rule: "12px",
+      "rule-crumb": "18px",
+      "rule-eyebrow": "36px",
       "rule-long": "84px",
-      "rule-wide": "96px",
-      nav: "var(--nav-height)",
-      wave: "var(--wave-height)",
-      rail: "var(--rail-height)",
-      chrome: "var(--chrome-height)",
-      "nav-logo": "var(--nav-logo-height)",
-      "footer-logo": "var(--footer-logo-height)",
-      control: "var(--control-height)",
-      "control-sm": "var(--control-height-sm)",
-      "control-xs": "var(--control-height-xs)",
-      gutter: "var(--container-pad)",
-      // The column gap the twelve-column heads are set on.
-      gap: "16px",
-      section: "var(--section-py)",
-      anchor: "var(--anchor-offset)",
-      "plate-top": "var(--plate-pad-top)",
-      // The index column, and the indent that lines an answer up under the
-      // question it belongs to.
-      index: "var(--col-index)",
-      "index-wide": "var(--col-index-wide)",
-      code: "var(--col-code)",
-      "code-sm": "var(--col-code-sm)",
-      label: "var(--col-label)",
-      "answer-indent": "92px",
-      // The shortcut chip, held at the width of the longest label it can wear.
-      shortcut: "52px",
-      // The height a button comes out at: its label, the block padding either
-      // side of it, and the transparent border it holds so a filled control
-      // and an outlined one are the same size. The route placeholder reserves
-      // the actions row from this rather than from a number of its own.
-      action: "48px",
-      map: "var(--map-height)",
-      "map-sm": "var(--map-height-sm)",
+      marker: "3px",
     },
 
     // Three faces, each with one job: condensed sets every heading and figure,
@@ -288,15 +258,11 @@ module.exports = {
 
     fontSize,
 
-    // Three steps and no more. Display type set large closes up, running text
-    // and labels sit at zero, and the one open step is for the mono codes that
-    // are read a character at a time rather than as a word.
+    // One step, and it closes display type up. Everything else on the site is
+    // set at the tracking its own type step already carries, which is what the
+    // type scale states a tracking for.
     letterSpacing: {
       tight: "-0.01em",
-      normal: "0em",
-      label: "var(--tracking-label)",
-      control: "var(--tracking-control)",
-      eyebrow: "var(--tracking-eyebrow)",
     },
 
     // Named depths, so the bar can never end up under its own drawer.
@@ -314,10 +280,10 @@ module.exports = {
     },
 
     // Prose is capped in ch, which tracks the body face; headline caps are in
-    // em, which tracks the display face they are actually set in.
+    // em, which tracks the display face they are actually set in. The four
+    // pixel measures are the widths the plate, the hero and the legal body are
+    // drawn to.
     maxWidth: {
-      none: "none",
-      full: "100%",
       prose: "52ch",
       "prose-tight": "46ch",
       title: "12em",
@@ -325,10 +291,11 @@ module.exports = {
       head: "980px",
       palette: "620px",
       hero: "920px",
+      "plate-title": "1100px",
+      "plate-lede": "720px",
+      "hero-lede": "620px",
+      legal: "640px",
       container: "var(--container-max)",
-      // The measure plus the two rules that fence it, so fencing a band does
-      // not narrow the column inside it.
-      "container-ruled": "calc(var(--container-max) + 2px)",
     },
 
     // Written literally rather than read from a token: a media query cannot
@@ -336,13 +303,16 @@ module.exports = {
     screens: {
       xs: "540px",
       sm: "720px",
+      // The one break the design is drawn either side of: the utility strip
+      // appears, the bar keeps its destinations in a row, band padding steps
+      // from 64 to 96 and the mobile type styles hand over to the desktop ones.
       md: "900px",
       lg: "1080px",
       xl: "1240px",
       // The width at which the page gutter is finally wider than the scroll
       // rail. Narrower than this the rail stands on the text, which is what
-      // the number has to be measured against rather than guessed: the ruled
-      // container is 1442px, and the rail runs about 150px in from the edge
+      // the number has to be measured against rather than guessed: the
+      // container is 1280px and the rail runs about 150px in from the edge
       // once its longest label is set. Both gutters have to clear that, so the
       // step is the container plus twice the rail, with a little to spare.
       rail: "1800px",
@@ -361,31 +331,16 @@ module.exports = {
         3: "3px",
       },
 
-      // Five names, each with a job. On the dark side depth is bought with a
+      // Four names, each with a job. On the dark side depth is bought with a
       // lit edge rather than with a blur: a black shadow over a near-black
       // ground composites to the ground.
       boxShadow: {
         lg: "var(--shadow-lg)",
         raise: "var(--shadow-raise)",
-        // A plate reads as both lifted off the page and lit along its own top
-        // edge, which is two shadows rather than one.
-        plate: "var(--shadow-md), var(--shadow-inset-card)",
         focus: "var(--ring-focus)",
         // A one-pixel edge drawn as a shadow rather than a border, for a
         // control that must not gain a layout box when it gains its outline.
         edge: "0 0 0 1px var(--color-border)",
-        "edge-inset": "inset 0 0 0 1px var(--color-border-strong)",
-        none: "none",
-      },
-
-      backgroundImage: {
-        hull: "var(--texture-hull)",
-        "plate-scrim": "var(--gradient-plate-scrim)",
-        "hero-vignette": "var(--gradient-hero-vignette)",
-      },
-
-      backgroundSize: {
-        "hull-grid": "var(--texture-hull-size)",
       },
 
       // --curve-settle for state changes and entrances, --curve-swell for
@@ -398,20 +353,15 @@ module.exports = {
         reveal: ms(DURATION.reveal),
         quick: ms(DURATION.quick),
         settle: ms(DURATION.settle),
-        // Long enough that the transition never arrives. The one use is
-        // holding Chrome's autofill background off a field: the browser
-        // repaints it on its own schedule, and a transition that never lands
-        // is what keeps the field wearing the theme's colours instead.
-        never: "600000s",
       },
 
-      // One delay rhythm, four steps. Every entrance on the page counts off
+      // One delay rhythm, six steps. Every entrance on the page counts off
       // these and no others, so two bands never arrive on different clocks.
       transitionDelay: stagger,
 
       keyframes: {
         rise: {
-          from: { opacity: "0", transform: "translateY(22px)" },
+          from: { opacity: "0", transform: "translateY(16px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
         arrive: {
@@ -421,13 +371,9 @@ module.exports = {
         "click-ripple": {
           to: { transform: "scale(4.5)", opacity: "0" },
         },
-        "plate-drift": {
-          from: { transform: "translate3d(0, 0, 0)" },
-          to: { transform: "translate3d(0, 28%, 0)" },
-        },
       },
 
-      // The entrance, counted off the four delay steps. An animation cannot
+      // The entrance, counted off the same six delay steps. An animation cannot
       // read transition-delay, so each step is its own named animation rather
       // than a utility stacked on top of one.
       animation: {
@@ -443,51 +389,34 @@ module.exports = {
         // already on the glass and keeps it off the screen for the length of a
         // round trip that never happened.
         "arrive-now": arriveNow,
-        // And for the plate behind the hero. Nothing is standing in for the
-        // film while it loads, so the picture comes up the moment the element
-        // has one to show.
+        // And for the film over the poster it replaces. The two are the same
+        // picture, so the clip comes up rather than cutting in.
         "film-in": arriveNow,
-        // Driven by a scroll timeline rather than a clock, so the duration is
-        // the range the host declares and not a value here.
-        "plate-drift": "plate-drift linear both",
         "click-ripple": `click-ripple ${ms(DURATION.settle)} ${CURVE.settle} forwards`,
       },
 
-      // A thumb needs the same reach across a control as down it, so the two
-      // scales carry the same steps.
+      // A thumb needs the same reach across a control as down it, so the step
+      // a tap target is held to is the same one in both directions.
       minWidth: {
-        control: "var(--control-height)",
-        "control-sm": "var(--control-height-sm)",
+        "control-lg": "var(--control-lg)",
+        "control-md": "var(--control-md)",
+        "control-sm": "var(--control-sm)",
       },
-
-      height: lineBox,
 
       minHeight: {
         // The height of one line of whatever the element is set in, so an
         // error slot holds its place whether or not it has words in it.
         line: "1lh",
-        control: "var(--control-height)",
-        "control-sm": "var(--control-height-sm)",
-        action: "48px",
+        "control-lg": "var(--control-lg)",
+        "control-md": "var(--control-md)",
+        "control-sm": "var(--control-sm)",
         field: "var(--field-min-height)",
-        plate: "var(--plate-min-height)",
-        header: "var(--header-min-height)",
+        "plate-hero": "var(--plate-hero)",
+        "plate-page": "var(--plate-page)",
       },
 
       maxHeight: {
         field: "var(--field-max-height)",
-      },
-
-      gridTemplateColumns: {
-        index: "var(--col-index) minmax(0, 1fr)",
-        "index-wide": "var(--col-index-wide) minmax(0, 1fr)",
-        code: "var(--col-code) minmax(0, 1fr)",
-        label: "var(--col-label) minmax(0, 1fr)",
-      },
-
-      blur: {
-        sm: "6px",
-        md: "16px",
       },
     },
   },

@@ -1,22 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { FACILITIES } from "../../app/content/facilities";
-import { telHref } from "../../app/content/phoneNumber";
-import Button from "../ui/Button";
 import {
-  BAND,
-  CORNER_TICK,
-  Container,
-  MICRO_SM,
-  Section,
-  SectionHead,
-} from "../ui/Layout";
+  buildEmbedSrc,
+  buildMapsHref,
+  telHref,
+} from "../../app/content/phoneNumber";
+import { openInquiry } from "../../app/openInquiry";
+import Button from "../ui/Button";
+import { CODE, Container, MICRO, Section, SectionHead } from "../ui/Layout";
 import { Reveal } from "../ui/Reveal";
-
-const buildEmbedSrc = (address) =>
-  `https://www.google.com/maps?q=${encodeURIComponent(address)}&output=embed`;
-
-const buildMapsHref = (address) =>
-  `https://maps.google.com/?q=${encodeURIComponent(address)}`;
 
 // Google Maps iframes are heavy, so they stay unmounted until the section is in
 // view. Once mounted they stay mounted - remounting them on scroll costs far
@@ -28,7 +20,7 @@ const rootMargin = "240px 0px";
 // the address instead.
 const MAP_TIMEOUT_MS = 8000;
 
-// One filter pass, applied once at mount. The paper band lightens it, because
+// One filter pass, applied once at mount. The light band lightens it, because
 // the dark grade reads as a hole in a light card.
 const MAP_GRADE =
   "[filter:grayscale(1)_brightness(0.58)_contrast(1.22)_sepia(0.06)_hue-rotate(-10deg)] [[data-surface='light']_&]:[filter:grayscale(0.85)_brightness(0.96)_contrast(1.05)]";
@@ -61,7 +53,7 @@ function useDeferredMount(rootRef) {
   return mounted;
 }
 
-function FacilityCard({ facility, index, mapsMounted }) {
+function FacilityCard({ facility, mapsMounted }) {
   // The plate stays until the map has actually painted, not until the iframe
   // has been mounted: the map host can take a second to answer, and the box
   // would sit empty for that second. It also stops waiting: a map that never
@@ -79,53 +71,49 @@ function FacilityCard({ facility, index, mapsMounted }) {
     return () => clearTimeout(timer);
   }, [mapsMounted, mapState]);
 
-  const openInquiry = (e) => {
-    e.preventDefault();
-    window.dispatchEvent(new Event("inquiry:open"));
-  };
-
   const mapTitle = `Map of Dickinson Bayou Fleeting ${facility.name}, ${facility.address}`;
 
   return (
     <article
       id={facility.id}
       aria-label={facility.name}
-      className="relative flex min-w-0 flex-col gap-5 rounded-md border border-border bg-surface px-5 py-6 transition-[border-color,box-shadow,transform] duration-settle ease-settle hover:-translate-y-1 hover:border-border-strong hover:shadow-raise motion-reduce:transition-none xs:px-6 xs:py-7"
+      className="flex min-w-0 flex-col gap-5 rounded-md border border-border bg-surface p-6"
     >
-      <header className="flex items-center justify-between gap-3 border-b border-hairline pb-4">
-        <span className="font-body text-xs font-semibold text-highlight">
-          F-{String(index + 1).padStart(2, "0")}
-        </span>
-        <span className={`${MICRO_SM} text-faint`}>On-Site Crew</span>
+      <header className="flex items-center justify-between gap-3 border-b border-border pb-[14px]">
+        <span className={`${CODE} text-primary`}>{facility.code}</span>
+        <span className={`${MICRO} text-faint`}>On-Site Crew</span>
       </header>
 
-      <div className="flex flex-col gap-1">
-        <p className={`${MICRO_SM} text-highlight`}>{facility.region}</p>
-        <h3 className="text-h5 text-primary">{facility.name}</h3>
-        <p className="font-body text-base text-secondary">{facility.address}</p>
+      <div className="flex flex-col gap-[6px]">
+        <p className={`${CODE} m-0 text-faint`}>{facility.region}</p>
+        <h3 className="m-0 text-h4 text-primary">{facility.name}</h3>
+        <p className="m-0 font-body text-base text-secondary">
+          {facility.address}
+        </p>
       </div>
 
-      <dl className="m-0 grid grid-cols-[minmax(0,1fr)] gap-3 border-t border-hairline pt-4 xs:grid-cols-2 xs:gap-4">
-        <div className="m-0 flex flex-col gap-1">
-          <dt className={`${MICRO_SM} m-0 text-faint`}>Direct Line</dt>
-          <dd className="m-0 whitespace-nowrap font-mono text-md tabular-nums text-primary">
+      {/* The two readings a caller compares yard to yard, both set in the mono
+          face for that reason. */}
+      <dl className="m-0 flex flex-wrap gap-x-6 gap-y-4 border-t border-border p-0 pt-[14px]">
+        <div className="m-0 flex min-w-[160px] flex-1 flex-col gap-1">
+          <dt className={`${MICRO} m-0 text-faint`}>Direct Line</dt>
+          <dd className="m-0 whitespace-nowrap font-mono text-data tabular-nums text-primary">
             {facility.phone}
           </dd>
         </div>
-        <div className="m-0 flex flex-col gap-1">
-          <dt className={`${MICRO_SM} m-0 text-faint`}>Acreage</dt>
-          <dd className="m-0 whitespace-nowrap font-mono text-md tabular-nums text-primary">
+        <div className="m-0 flex min-w-[160px] flex-1 flex-col gap-1">
+          <dt className={`${MICRO} m-0 text-faint`}>Acreage</dt>
+          <dd className="m-0 whitespace-nowrap font-mono text-data tabular-nums text-primary">
             {facility.acreage}
           </dd>
         </div>
       </dl>
 
-      {/* The wrap holds its short height, then the tall one from the medium
-          step, so the box is at its final size before the embed measures
-          anything. */}
+      {/* The box holds its height before the embed measures anything, so the
+          card is at its final size whether or not the map ever arrives. */}
       <div
         aria-busy={mapState === "loading"}
-        className="relative h-map-sm overflow-hidden border border-border bg-bg-deep bg-hull bg-hull-grid [min-height:var(--map-height-sm)] md:h-map md:[min-height:var(--map-height)]"
+        className="relative h-map-sm overflow-hidden border border-border bg-bg-deep [min-height:var(--map-height-sm)]"
       >
         {mapsMounted ? (
           <iframe
@@ -149,65 +137,46 @@ function FacilityCard({ facility, index, mapsMounted }) {
                 setPlateRetired(true);
               }
             }}
-            className="visible absolute inset-0 z-raised flex items-center justify-center gap-0 bg-bg-deep bg-hull bg-hull-grid text-faint opacity-100 transition-[opacity,visibility] duration-settle ease-settle data-[state=ready]:invisible data-[state=ready]:opacity-0 data-[state=ready]:delay-[0ms,280ms]"
+            className="visible absolute inset-0 z-raised flex items-center justify-center gap-0 bg-bg-deep text-faint opacity-100 transition-[opacity,visibility] duration-settle ease-settle data-[state=ready]:invisible data-[state=ready]:opacity-0 data-[state=ready]:delay-[0ms,280ms]"
           >
             {mapState === "failed" ? (
               <a
                 href={buildMapsHref(facility.address)}
                 target="_blank"
                 rel="noreferrer"
-                className="flex flex-col items-center gap-3 p-5 text-center text-secondary no-underline transition-[color,background-color,border-color,transform,opacity] duration-quick ease-settle hover:text-highlight focus-visible:shadow-focus focus-visible:outline-none"
+                className="flex flex-col items-center gap-3 p-5 text-center text-secondary no-underline transition-colors duration-quick ease-settle hover:text-highlight focus-visible:shadow-focus focus-visible:outline-none"
               >
-                <span className="max-w-prose-tight font-body text-sm leading-normal">
-                  {facility.address}
-                </span>
-                <span className="font-body text-xs font-semibold">
-                  Open in Maps
-                </span>
+                <span className="font-body text-small">{facility.address}</span>
+                <span className={CODE}>Open in Maps</span>
               </a>
             ) : (
-              <span className="font-body text-xs font-semibold">
-                Loading map · {facility.shortName}
-              </span>
+              <span className={CODE}>Loading map · {facility.shortName}</span>
             )}
           </div>
         )}
-
-        <span
-          aria-hidden="true"
-          className={`${CORNER_TICK} z-overlay left-2 top-2 border-l border-t border-highlight`}
-        />
-        <span
-          aria-hidden="true"
-          className={`${CORNER_TICK} z-overlay right-2 top-2 border-r border-t border-highlight`}
-        />
-        <span
-          aria-hidden="true"
-          className={`${CORNER_TICK} z-overlay bottom-2 left-2 border-b border-l border-highlight`}
-        />
-        <span
-          aria-hidden="true"
-          className={`${CORNER_TICK} z-overlay bottom-2 right-2 border-b border-r border-highlight`}
-        />
       </div>
 
-      <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-hairline pt-4">
+      <div className="mt-auto flex flex-wrap items-center justify-between gap-y-3 border-t border-border pt-4">
+        <div className="flex min-w-[240px] items-center gap-3">
+          <Button
+            variant="inline"
+            size="sm"
+            href={buildMapsHref(facility.address)}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open in Maps
+          </Button>
+          <Button variant="inline" size="sm" href={telHref(facility.phone)}>
+            Call Facility
+          </Button>
+        </div>
         <Button
-          variant="inline"
-          href={buildMapsHref(facility.address)}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Open in Maps
-        </Button>
-        <Button variant="inline" href={telHref(facility.phone)}>
-          Call Facility
-        </Button>
-        <Button
-          variant="solid"
+          variant="primary"
+          size="sm"
           href="#contact"
           onClick={openInquiry}
-          className="w-full xs:ml-auto xs:w-auto"
+          className="min-w-[180px]"
         >
           Get Lease Terms
         </Button>
@@ -226,9 +195,10 @@ function Location() {
 
   return (
     <Section ref={rootRef} surface="dark" id="location" aria-label="Facilities">
-      <Container className={BAND}>
+      <Container className="flex flex-col gap-7 md:gap-9">
         <Reveal>
           <SectionHead
+            eyebrow="The yards"
             title="Two yards, one number."
             subtitle="Dickinson sits on Galveston Bay. Freeport sits on the Gulf Intracoastal Waterway, south of Houston. The same crew runs both."
           />
@@ -236,13 +206,12 @@ function Location() {
 
         <Reveal
           aria-label="Facility Roster"
-          className="relative grid grid-cols-[minmax(0,1fr)] items-stretch gap-6 border-t border-border pt-8 before:absolute before:-top-px before:left-0 before:h-accent before:w-rule-long before:bg-highlight before:content-[''] md:grid-cols-2 md:gap-7"
+          className="grid grid-cols-[minmax(0,1fr)] items-stretch gap-6 md:grid-cols-2"
         >
-          {FACILITIES.map((facility, idx) => (
+          {FACILITIES.map((facility) => (
             <FacilityCard
               key={facility.id}
               facility={facility}
-              index={idx}
               mapsMounted={mapsMounted}
             />
           ))}
