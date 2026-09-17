@@ -21,7 +21,7 @@ const LEASE_STEPS = [
   },
   {
     title: "Terms in writing",
-    body: "Lease terms come back inside one business day, with the rate and what the term carries stated on them.",
+    body: "We send lease terms inside one business day, with the rate and what the term carries stated on them.",
   },
   {
     title: "Tie up",

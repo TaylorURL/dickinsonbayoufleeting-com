@@ -122,7 +122,7 @@ function ContactSection() {
                   </p>
                   <p className="m-0 font-body text-base text-secondary">
                     Tell us the footprint you need and the reach your tow runs.
-                    Terms come back inside one business day.
+                    We send terms inside one business day.
                   </p>
                   <p className="m-0 font-body text-small text-faint">
                     All fields are required. We do not sell what you send us.

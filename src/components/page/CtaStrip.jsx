@@ -11,7 +11,7 @@ import { Reveal } from "../ui/Reveal";
 // dark foot to the page rather than as two closes stacked.
 function CtaStrip({
   title = "Take a yard on a lease.",
-  body = "Tell us the footprint you need and the reach your tow runs. Written lease terms come back inside one business day, and the line is faster still.",
+  body = "Tell us the footprint you need and the reach your tow runs. We send written lease terms inside one business day, and the line is faster still.",
   primary = { label: "Get Lease Terms", to: "/contact" },
 }) {
   const phoneHref = telHref();
