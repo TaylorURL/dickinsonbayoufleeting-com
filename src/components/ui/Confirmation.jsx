@@ -10,7 +10,7 @@ function Confirmation({ phone, className = "" }) {
     <>
       <span
         aria-hidden="true"
-        className={`inline-flex h-control w-control animate-rise-1 items-center justify-center rounded-sm bg-accent text-on-accent motion-reduce:animate-none ${className}`.trim()}
+        className={`inline-flex h-control-lg w-control-lg animate-rise-1 items-center justify-center rounded-sm bg-highlight text-on-highlight motion-reduce:animate-none ${className}`.trim()}
       >
         <CheckIcon size={22} />
       </span>

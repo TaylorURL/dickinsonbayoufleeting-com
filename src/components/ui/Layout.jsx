@@ -1,46 +1,43 @@
 import { forwardRef } from "react";
-import Seam, { INTO_DARK, INTO_GRAY, INTO_LIGHT } from "./Seam";
 
 // The band and the measure it holds. Every section on the site is one of
 // these, so the gutter, the maximum width and the rhythm between bands are
 // decided once instead of per section.
 
-// The measure, and the two rules that fence it. The rules are on the container
-// rather than on the page, so every band draws its own pair at the same offset
-// and they stack into one unbroken line down the whole document. The extra two
-// pixels of width are the rules themselves, so the content column keeps the
-// measure it was given.
-const CONTAINER =
-  "mx-auto w-full max-w-container-ruled border-x border-hairline px-gutter";
+// The measure. 1280 with 80 either side at desktop and 20 on a phone, which is
+// the whole of the page's horizontal geometry.
+const CONTAINER = "mx-auto w-full max-w-container px-gutter";
 
-// Depth in three rungs, each adding one thing to the one below it. A panel
-// takes the lowest rung that reads, because a page where everything is lifted
-// has nothing lifted. The hairline is an outline rather than a border so it
-// costs no layout box and a panel can gain or lose it without moving what is
-// inside it.
-const PANEL_TINT = "rounded-sm bg-surface";
-const PANEL = `${PANEL_TINT} outline outline-1 -outline-offset-1 outline-border`;
+// Depth in two rungs. A panel takes the lower one, because a page where
+// everything is lifted has nothing lifted. The hairline is an outline rather
+// than a border so it costs no layout box and a panel can gain or lose it
+// without moving what is inside it.
+const PANEL =
+  "rounded-md bg-surface outline outline-1 -outline-offset-1 outline-border";
 export const PANEL_RAISED = `${PANEL} shadow-raise`;
 
-// One step between the blocks of a band. A margin on each block is how two
-// gaps in the same stack end up different sizes.
-export const BAND = "flex flex-col gap-8";
+// The step between a band's head and what it introduces. A margin on each
+// block is how two gaps in the same stack end up different sizes.
+export const BAND = "flex flex-col gap-9";
 
 // content-visibility keeps a band the reader has not reached out of style and
 // layout; the stored size keeps the scrollbar honest while it is skipped, so
 // approaching one does not move what is already on screen.
 const SECTION =
-  "relative py-section [contain-intrinsic-size:auto_640px] [content-visibility:auto]";
+  "relative py-band [contain-intrinsic-size:auto_640px] [content-visibility:auto]";
 
-// A band's seam sits on its bottom edge rather than in its flow, so the
-// section keeps the rhythm py-section gives it and the join costs no layout.
-// The clearance below the last block is the seam's own height, which is what
-// stops a wave from being drawn across the end of the copy.
-const SEAM_INK = { light: INTO_LIGHT, gray: INTO_GRAY, dark: INTO_DARK };
-const SEAM_CLEARANCE = {
-  wave: "pb-[calc(var(--section-py)+var(--wave-height))]",
-  fade: "pb-[calc(var(--section-py)+var(--seam-fade-height))]",
-};
+// The small label a value is filed under: body face, sentence case, no
+// tracking.
+export const MICRO = "font-body text-micro";
+
+// The code a thing is filed under, and the only place caps and open tracking
+// are spent below heading size.
+export const CODE = "font-mono text-code uppercase";
+
+// The register mark a chart plate is trimmed to, one at each corner. The
+// borders that draw the two visible edges are the caller's, because which two
+// they are is what says which corner this is.
+export const CORNER_TICK = "pointer-events-none absolute h-icon-sm w-icon-sm";
 
 export function Container({
   as: Tag = "div",
@@ -58,97 +55,95 @@ export function Container({
 // Takes a ref because a band that defers work until the reader reaches it has
 // to observe itself.
 //
-// `seam` names the band underneath this one and how the two join: every
-// boundary on the site is a tone change, so the band above owns the join and
-// no band draws a rule along its own top edge. A band given no seam is the
-// last one before the footer.
+// Bands meet on a straight edge. Where the mode changes the colour change is
+// the join and nothing is drawn; where two bands share a mode the lower one
+// takes `ruled` and draws the single hairline between them on its own top
+// edge. A band drawing a rule it does not need is what puts two lines on one
+// join.
 export const Section = forwardRef(function Section(
   {
     as: Tag = "section",
     surface = "dark",
-    seam = null,
+    ruled = false,
     className = "",
     children,
     ...rest
   },
   ref,
 ) {
-  const shape = seam?.shape === "fade" ? "fade" : "wave";
   return (
     <Tag
       ref={ref}
       data-surface={surface}
-      className={`${SECTION} ${
-        seam ? `${SEAM_CLEARANCE[shape]} ${SEAM_INK[seam.into]}` : ""
-      } ${className}`.trim()}
+      className={`${SECTION} ${ruled ? "border-t border-border" : ""} ${className}`.trim()}
       {...rest}
     >
       {children}
-      {seam ? <Seam shape={shape} place="pinned" /> : null}
     </Tag>
   );
 });
 
-// The one thing that opens a band. Every section on the site uses this rather
-// than setting its own, because a page whose eyebrows come in three sizes has
-// three labels doing one job and no ranking among them.
+// The one thing that opens a band. A rule and a mono label: at this size a
+// condensed cap with nothing beside it reads as a mis-set heading, and the
+// rule in front of it is what makes it read as a label instead.
 //
-// The rule that opens it is markup rather than a pseudo-element, so it takes
-// the eyebrow's own colour without a second rule to keep in step.
-export function Eyebrow({ strong = false, className = "", children, ...rest }) {
+// Strong is for the band that is speaking; quiet is for the one that is only
+// being named. The rule is markup rather than a pseudo-element, so it takes a
+// colour of its own without a second rule to keep in step.
+export function Eyebrow({
+  as: Tag = "p",
+  tone = "strong",
+  className = "",
+  children,
+  ...rest
+}) {
+  const quiet = tone === "quiet";
   return (
-    <p
+    <Tag
       {...rest}
-      className={`m-0 inline-flex items-center gap-3 font-body text-xs font-semibold ${
-        strong ? "text-primary" : "text-faint"
+      className={`m-0 inline-flex items-center gap-3 font-mono text-eyebrow ${
+        quiet ? "text-faint" : "text-primary"
       } ${className}`.trim()}
     >
       <span
         aria-hidden="true"
-        className={`inline-block h-px flex-none ${
-          strong ? "w-rule-short bg-primary" : "w-icon-lg bg-border-strong"
+        className={`inline-block h-px w-rule-eyebrow flex-none ${
+          quiet ? "bg-border-strong" : "bg-highlight"
         }`}
       />
       {children}
-    </p>
+    </Tag>
   );
 }
 
-// The small label a value is filed under: body face, sentence case, no
-// tracking. Two steps, because a dense panel sets them a size below a section,
-// and naming the step is what keeps the two from being the same label at two
-// sizes by accident.
-export const MICRO = "font-body text-xs font-semibold";
-export const MICRO_SM = "font-body text-2xs font-semibold";
-
-// The register mark a chart plate is trimmed to, one at each corner. The
-// borders that draw the two visible edges are the caller's, because which two
-// they are is what says which corner this is.
-export const CORNER_TICK = "pointer-events-none absolute h-icon-sm w-icon-sm";
-
-// Riveted steel at the faintest reading that still registers.
-export const HULL_PLATE = "bg-hull bg-hull-grid bg-left-top";
-
+// Every band on every page opens with this. That is the fix to the two heads
+// the build was carrying: a component on three bands and a hand-written
+// heading on the other ten, with no way to tell which a new band should copy.
+//
+// Twelve columns, the head on the first seven and the lede on the last five,
+// their tops aligned. The lede's own top padding is what aligns the two
+// baselines rather than the two boxes. Below the break they stack.
 export function SectionHead({
   eyebrow,
+  eyebrowTone = "strong",
   title,
   subtitle,
+  as: Tag = "h2",
   className = "",
   children,
 }) {
-  // Title and supporting line sit beside each other on a twelve-column grid
-  // rather than stacking, the title taking the first seven and the line running
-  // from the eighth to the edge.
   return (
     <div
-      className={`grid grid-cols-[minmax(0,1fr)] gap-x-gap gap-y-6 lg:grid-cols-12 ${className}`.trim()}
+      className={`grid grid-cols-[minmax(0,1fr)] gap-x-grid-gutter gap-y-4 md:grid-cols-12 ${className}`.trim()}
     >
-      <div className="flex min-w-0 flex-col items-start gap-5 lg:col-span-7">
-        {eyebrow ? <Eyebrow strong>{eyebrow}</Eyebrow> : null}
-        <h2 className="min-w-0 max-w-title text-h2 text-primary">{title}</h2>
+      <div className="flex min-w-0 flex-col items-start gap-5 md:col-span-7">
+        {eyebrow ? <Eyebrow tone={eyebrowTone}>{eyebrow}</Eyebrow> : null}
+        <Tag className="m-0 min-w-0 text-h2-mobile text-primary md:text-h2">
+          {title}
+        </Tag>
       </div>
       {subtitle ? (
-        <p className="m-0 max-w-prose self-start font-body text-md font-normal normal-case text-secondary lg:col-start-8 lg:col-end-[-1]">
+        <p className="m-0 self-start font-body text-lead-mobile normal-case text-secondary md:col-span-5 md:pt-2 md:text-lead">
           {subtitle}
         </p>
       ) : null}

@@ -1,4 +1,4 @@
-import { BAND, Container, Section } from "../ui/Layout";
+import { Container, Section } from "../ui/Layout";
 import { Reveal, Stagger, staggerChild } from "../ui/Reveal";
 
 const CLAIMS = [
@@ -16,38 +16,31 @@ const CLAIMS = [
   },
 ];
 
-// A statement band: three claims separated by rules that run the full height of
-// the row. No panels and no ground of its own, so it reads as a spread in a
-// magazine rather than as three more cards. The rules are the whole structure,
-// which is why they are on the columns and not around them.
+// A statement band: three claims held apart by the rules between them and
+// nothing else. No panels and no ground of its own, so it reads as a spread
+// rather than as three more cards. The rules turn a quarter when the columns
+// stack, because a divider between two things side by side is the same divider
+// above the second of them once they are one under the other.
 function Standing() {
   return (
-    <Section
-      surface="light"
-      aria-label="Why operators lease here"
-      seam={{ into: "dark" }}
-    >
-      <Container className={BAND}>
+    <Section surface="light" aria-label="Why operators lease here">
+      <Container className="flex flex-col gap-7 md:gap-9">
         <Reveal>
-          <h2 className="m-0 max-w-title text-h2 text-primary">
+          <h2 className="m-0 max-w-[900px] text-h2-mobile text-primary md:text-h2">
             Why operators lease here.
           </h2>
         </Reveal>
 
-        <Stagger className="grid grid-cols-[minmax(0,1fr)] gap-y-12 md:grid-cols-3 md:gap-x-0">
-          {CLAIMS.map((c, i) => (
+        <Stagger className="grid grid-cols-[minmax(0,1fr)] gap-7 md:grid-cols-3 md:gap-0">
+          {CLAIMS.map((claim, i) => (
             <div
-              key={c.lead}
-              className={`flex min-w-0 flex-col gap-6 border-t border-border-strong pt-7 md:border-t-0 md:px-9 md:pt-0 md:first:pl-0 md:last:pr-0 ${
-                i > 0 ? "md:border-l md:border-border" : ""
-              } ${staggerChild(i)}`}
+              key={claim.lead}
+              className={`flex min-w-0 flex-col gap-4 border-t border-border pt-6 md:border-l md:border-t-0 md:px-9 md:pt-0 md:first:border-l-0 md:first:pl-0 md:last:pr-0 md:gap-5 ${staggerChild(i)}`}
             >
-              <p className="m-0 max-w-title font-condensed text-h3 uppercase tracking-tight text-primary">
-                {c.lead}
-              </p>
-              <p className="m-0 max-w-prose-tight text-md text-secondary">
-                {c.body}
-              </p>
+              <h3 className="m-0 text-h4 text-primary md:text-h3">
+                {claim.lead}
+              </h3>
+              <p className="m-0 text-small text-secondary">{claim.body}</p>
             </div>
           ))}
         </Stagger>

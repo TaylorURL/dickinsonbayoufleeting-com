@@ -3,13 +3,18 @@
 // drawn with. Every mark is hidden from assistive tech, because each one sits
 // inside a control that already carries its own name.
 //
-// Size is a number of pixels and defaults to the small step. Two marks that
-// need to be a different size are the two the layout sizes explicitly.
+// Size is a number of pixels and defaults to the small step. The phone and the
+// tick carry a larger default of their own: each is a picture of an object
+// rather than a rule, and at the small step a picture reads as a smudge.
+//
+// Everything every mark shares is here and nowhere else. A mark that restates
+// one of these is a mark that can be given a different answer by accident.
 
 const BASE = {
   viewBox: "0 0 24 24",
   fill: "none",
   stroke: "currentColor",
+  strokeWidth: "1.8",
   strokeLinecap: "square",
   strokeLinejoin: "miter",
   "aria-hidden": "true",
@@ -26,15 +31,7 @@ const DEFAULT_SIZE = 14;
 // card is there. Under reduced motion the finished arrow is simply drawn.
 export function ArrowRightIcon({ size = DEFAULT_SIZE, className = "" }) {
   return (
-    <svg
-      {...BASE}
-      aria-hidden="true"
-      focusable="false"
-      className={className}
-      width={size}
-      height={size}
-      strokeWidth="1.8"
-    >
+    <svg {...BASE} className={className} width={size} height={size}>
       <path d="M3 12h17" className="arrow-shaft" />
       <path d="M9 6l6 6-6 6" className="arrow-head" />
     </svg>
@@ -43,15 +40,7 @@ export function ArrowRightIcon({ size = DEFAULT_SIZE, className = "" }) {
 
 export function SearchIcon({ size = DEFAULT_SIZE, className }) {
   return (
-    <svg
-      {...BASE}
-      aria-hidden="true"
-      focusable="false"
-      className={className}
-      width={size}
-      height={size}
-      strokeWidth="1.8"
-    >
+    <svg {...BASE} className={className} width={size} height={size}>
       <circle cx="11" cy="11" r="6.5" />
       <path d="M16 16l4.5 4.5" />
     </svg>
@@ -60,15 +49,7 @@ export function SearchIcon({ size = DEFAULT_SIZE, className }) {
 
 export function ArrowUpIcon({ size = DEFAULT_SIZE, className }) {
   return (
-    <svg
-      {...BASE}
-      aria-hidden="true"
-      focusable="false"
-      className={className}
-      width={size}
-      height={size}
-      strokeWidth="1.8"
-    >
+    <svg {...BASE} className={className} width={size} height={size}>
       <path d="M12 19V5M5 12l7-7 7 7" />
     </svg>
   );
@@ -81,12 +62,9 @@ export function PhoneIcon({ size = 18, className }) {
   return (
     <svg
       {...BASE}
-      aria-hidden="true"
-      focusable="false"
       className={className}
       width={size}
       height={size}
-      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -95,16 +73,14 @@ export function PhoneIcon({ size = 18, className }) {
   );
 }
 
-export function CheckIcon({ size = 22, strokeWidth = "2.4", className }) {
+export function CheckIcon({ size = 22, className }) {
   return (
     <svg
       {...BASE}
-      aria-hidden="true"
-      focusable="false"
       className={className}
       width={size}
       height={size}
-      strokeWidth={strokeWidth}
+      strokeWidth="2.4"
       strokeLinecap="round"
       strokeLinejoin="round"
     >

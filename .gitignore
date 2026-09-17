@@ -35,6 +35,7 @@ INTELLIGENCE.md
 .vscode/
 .fleet/
 .junie/
+.claude/
 *.iml
 *.pem
 *.p12

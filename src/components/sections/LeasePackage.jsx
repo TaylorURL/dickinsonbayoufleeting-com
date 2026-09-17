@@ -1,42 +1,46 @@
-import { FACILITIES } from "../../app/content/facilities";
+import { FACILITIES, FACILITY_SPEC_ROWS } from "../../app/content/facilities";
 import Button from "../ui/Button";
-import { BAND, Container, MICRO_SM, Section } from "../ui/Layout";
-import { Reveal } from "../ui/Reveal";
+import { CODE, Container, MICRO, Section } from "../ui/Layout";
+import { Reveal, Stagger, staggerChild } from "../ui/Reveal";
+import LeaseCard, { IncludedItem, rate } from "./LeaseCard";
 
-// Every row the sheet states, in the order somebody comparing two yards asks
-// for them. Reading a value off a facility rather than storing it twice is what
-// keeps the two columns describing the same six things.
-const ROWS = [
-  { label: "Waterway", read: (f) => f.waterway },
-  { label: "Reaches", read: (f) => f.reach },
-  { label: "Yard", read: (f) => f.acreage },
-  { label: "Address", read: (f) => f.address },
-  { label: "Position", read: (f) => f.coord },
-];
+// The rate sheet: both yards in one table, in the columns a quote would put
+// them in. By the time somebody is on this page they are comparing, and five
+// particulars restated twice in two cards is not a comparison.
+//
+// A phone is the exception. Two value columns inside a 350px measure stop being
+// readable as columns, so below 900 the table gives way to the same pair of
+// lease cards the home page carries.
 
-// A rate sheet: both yards in view at once, in columns, the way a quote would
-// put them. The home page has the chart that walks a reader to one yard; by the
-// time somebody is on this page they are comparing, and a control that shows
-// one at a time is in the way of that.
-function LeasePackage({ surface = "gray", seam = null }) {
+// The particulars read a character at a time. Same distinction the lease card
+// draws, and it lives in both places for the same reason: the spec rows do not
+// carry a face of their own yet.
+const TABULAR = new Set(["Address", "Position"]);
+
+function LeasePackage({ surface = "light" }) {
   return (
-    <Section surface={surface} seam={seam} id="rates" aria-label="Lease rates">
-      <Container className={BAND}>
-        <Reveal className="flex max-w-head flex-col gap-5">
-          <h2 className="m-0 max-w-title text-h2 text-primary">
+    <Section surface={surface} id="rates" aria-label="Lease rates">
+      <Container className="flex flex-col gap-7 md:gap-9">
+        <Reveal className="flex max-w-head flex-col gap-4 md:gap-5">
+          <h2 className="m-0 max-w-[900px] text-h2-mobile text-primary md:text-h2">
             Five acres, either yard.
           </h2>
-          <p className="m-0 max-w-prose text-lead text-secondary">
+          <p className="m-0 max-w-plate-lede text-lead-mobile text-secondary md:text-lead">
             Gated frontage, room to lay down spuds and deck barges, and power
             drops on request. Both rates are monthly and both are what we quote.
           </p>
         </Reveal>
 
-        {/* Wide enough to need its own scroll on a handset, which is the honest
-            answer for a comparison table: a table that reflows into stacked
-            cards has stopped being a comparison. */}
-        <Reveal className="-mx-gutter overflow-x-auto px-gutter">
-          <table className="w-full min-w-[620px] border-separate border-spacing-0 text-left">
+        <Stagger className="flex flex-col md:hidden">
+          {FACILITIES.map((facility, i) => (
+            <div key={facility.id} className={`min-w-0 ${staggerChild(i)}`}>
+              <LeaseCard facility={facility} />
+            </div>
+          ))}
+        </Stagger>
+
+        <Reveal className="hidden md:block">
+          <table className="w-full border-separate border-spacing-0 text-left">
             <caption className="sr-only">
               Lease rates and particulars for the Dickinson and Freeport yards
             </caption>
@@ -44,41 +48,50 @@ function LeasePackage({ surface = "gray", seam = null }) {
               <tr>
                 <th
                   scope="col"
-                  className="w-[var(--col-code)] border-b border-border-strong pb-4 pr-6 align-bottom"
+                  className={`${MICRO} w-[200px] border-b border-border-strong pb-4 pr-6 align-bottom font-semibold text-faint`}
                 >
-                  <span className="sr-only">Particular</span>
+                  Particular
                 </th>
-                {FACILITIES.map((f) => (
+                {FACILITIES.map((facility) => (
                   <th
-                    key={f.id}
+                    key={facility.id}
                     scope="col"
                     className="border-b border-border-strong pb-4 pr-6 align-bottom last:pr-0"
                   >
-                    <span className={`${MICRO_SM} block text-faint`}>
-                      {f.code}
+                    <span className={`${CODE} block text-faint`}>
+                      {facility.code}
                     </span>
                     <span className="mt-2 block font-condensed text-h4 uppercase text-primary">
-                      {f.shortName}
+                      {facility.shortName}
                     </span>
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {ROWS.map((row) => (
+              {FACILITY_SPEC_ROWS.map((row) => (
                 <tr key={row.label}>
                   <th
                     scope="row"
-                    className={`${MICRO_SM} border-b border-hairline py-5 pr-6 align-top font-medium text-faint`}
+                    className={`${MICRO} border-b border-border py-5 pr-6 align-top font-semibold text-faint`}
                   >
                     {row.label}
                   </th>
-                  {FACILITIES.map((f) => (
+                  {FACILITIES.map((facility) => (
                     <td
-                      key={f.id}
-                      className="border-b border-hairline py-5 pr-6 align-top text-md tabular-nums text-secondary last:pr-0"
+                      key={facility.id}
+                      className={`border-b border-border py-5 pr-6 align-top text-secondary last:pr-0 ${
+                        TABULAR.has(row.label)
+                          ? "font-mono text-data"
+                          : "text-small"
+                      }`}
                     >
-                      {row.read(f)}
+                      {row.read(facility)}
+                      {row.note ? (
+                        <span className="ml-2 font-body text-small text-muted">
+                          {row.note}
+                        </span>
+                      ) : null}
                     </td>
                   ))}
                 </tr>
@@ -86,18 +99,16 @@ function LeasePackage({ surface = "gray", seam = null }) {
               <tr>
                 <th
                   scope="row"
-                  className={`${MICRO_SM} border-b border-border-strong py-6 pr-6 align-bottom font-medium text-faint`}
+                  className={`${MICRO} border-b border-border-strong py-6 pr-6 align-bottom font-semibold text-faint`}
                 >
                   Monthly
                 </th>
-                {FACILITIES.map((f) => (
+                {FACILITIES.map((facility) => (
                   <td
-                    key={f.id}
-                    className="border-b border-border-strong py-6 pr-6 align-bottom last:pr-0"
+                    key={facility.id}
+                    className="border-b border-border-strong py-6 pr-6 align-bottom font-mono text-figure tabular-nums text-primary last:pr-0"
                   >
-                    <span className="block font-condensed text-figure-sm tabular-nums text-primary">
-                      {`$${f.price.toLocaleString()}`}
-                    </span>
+                    {rate(facility.price)}
                   </td>
                 ))}
               </tr>
@@ -105,20 +116,17 @@ function LeasePackage({ surface = "gray", seam = null }) {
           </table>
         </Reveal>
 
-        <div className="grid grid-cols-[minmax(0,1fr)] gap-8 md:grid-cols-2">
-          {FACILITIES.map((f) => (
-            <Reveal key={f.id} className="flex min-w-0 flex-col gap-4">
-              <p className={`${MICRO_SM} text-faint`}>
-                {f.shortName} · what the lease carries
+        {/* What each term carries, under the column it belongs to, so the
+            table above and the lists below are read as one sheet. */}
+        <div className="hidden gap-x-10 gap-y-7 md:grid md:grid-cols-2">
+          {FACILITIES.map((facility) => (
+            <Reveal key={facility.id} className="flex min-w-0 flex-col gap-4">
+              <p className={`${MICRO} m-0 text-faint`}>
+                {facility.shortName} · what the lease carries
               </p>
-              <ul className="m-0 flex list-none flex-col gap-2 p-0">
-                {f.included.map((item) => (
-                  <li
-                    key={item}
-                    className="flex gap-3 text-sm text-secondary before:mt-[0.55em] before:h-px before:w-4 before:shrink-0 before:bg-border-strong before:content-['']"
-                  >
-                    {item}
-                  </li>
+              <ul className="m-0 flex list-none flex-col gap-4 p-0">
+                {facility.included.map((item) => (
+                  <IncludedItem key={item}>{item}</IncludedItem>
                 ))}
               </ul>
             </Reveal>
@@ -126,7 +134,9 @@ function LeasePackage({ surface = "gray", seam = null }) {
         </div>
 
         <Reveal>
-          <Button to="/contact">Ask About a Lease</Button>
+          <Button variant="ghost" to="/contact" className="w-full xs:w-auto">
+            Ask About a Lease
+          </Button>
         </Reveal>
       </Container>
     </Section>

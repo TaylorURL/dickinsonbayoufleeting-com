@@ -1,49 +1,48 @@
 import { Link } from "../../app/router/Link";
 import { ArrowRightIcon } from "./Icons";
 
-// One button per section carries `primary`. With no hue in the palette the
-// filled control is the only thing on a band wearing its ground inverted, so a
-// second one beside it splits the eye instead of leading it.
+// One button per band carries `primary`. With no hue in the palette the filled
+// control is the only thing on a band wearing its ground inverted, so a second
+// one beside it splits the eye instead of leading it.
 //
-// The label sets the control rather than the control setting the label: a
-// sixteen-pixel word with twenty-four pixels of padding either side of it and
-// sixteen above and below, which is what a button reads as at arm's length. A
-// fixed height with a small label rattling around inside it does not.
+// Three variants and two sizes, and the three are a ranking rather than three
+// appearances: a fill, a strong stroke, a hairline stroke. The size is the
+// band's, not the label's - large where the control is the point of the block,
+// small where it sits in a row of chrome.
 
 const BASE = [
   "group relative isolate inline-flex items-center justify-center gap-2",
   "hover:[--arrow-live:1] focus-visible:[--arrow-live:1]",
   "select-none whitespace-nowrap",
-  "rounded-sm border border-transparent no-underline",
-  "font-body font-medium leading-none",
+  "rounded-sm border no-underline",
+  "font-body text-small-strong",
   "transition-[background-color,color,border-color,box-shadow] duration-quick ease-settle",
   "focus-visible:shadow-focus focus-visible:outline-none",
-  "disabled:pointer-events-none disabled:opacity-45 aria-disabled:pointer-events-none aria-disabled:opacity-45",
+  "disabled:pointer-events-none disabled:opacity-40 aria-disabled:pointer-events-none aria-disabled:opacity-40",
 ].join(" ");
 
-// The block padding is two pixels short at the top and two long at the bottom,
-// because centring the line box leaves a cap-height label sitting low in the
-// control. The two together plus the label and the border come out at the
-// height the route placeholder reserves for an actions row.
+// The block padding, the 22px label and the 1px stroke come out at the two
+// control heights the layout is measured on: 48 and 40. A fixed height with a
+// small label rattling around inside it does not read as a button.
 const SIZE = {
-  default: "px-6 pb-[16px] pt-[14px] text-base",
-  inline: "px-5 pb-[13px] pt-[11px] text-sm",
+  lg: "px-6 py-3",
+  sm: "px-4 py-2",
 };
 
 const VARIANT = {
   primary:
-    "bg-highlight text-on-highlight hover:bg-highlight-hover active:bg-accent active:text-on-accent",
-  // For an action sitting on a band the primary fill would disappear into.
-  solid:
-    "bg-primary text-on-accent hover:bg-highlight-hover hover:text-on-highlight active:bg-accent",
+    "border-highlight bg-highlight text-on-highlight hover:border-highlight-hover hover:bg-highlight-hover",
   ghost:
-    "bg-transparent text-primary border-border-strong hover:border-primary hover:bg-layer-1 active:bg-layer-2",
+    "border-border-strong bg-transparent text-primary hover:border-highlight hover:bg-layer-1 active:bg-layer-2",
+  // The third rank, for an action that has to be reachable without asking to
+  // be taken. A hairline where the ghost has a stroke.
   inline:
-    "bg-transparent text-secondary border-border-strong hover:border-primary hover:bg-layer-1 hover:text-primary active:bg-layer-2",
+    "border-border bg-transparent text-primary hover:border-border-strong hover:bg-layer-1 active:bg-layer-2",
 };
 
-// The mark carries its own motion now, off the property the control sets, so
-// there is nothing left for the button to do to it but hold its place.
+// The mark carries its own motion, off the property the control sets, and it
+// is drawn in currentColor, so it reads against the fill on a primary and
+// against the band on the other two.
 const ARROW = "flex-none";
 
 // Renders as a router link, a plain anchor or a button, whichever the call
@@ -51,29 +50,25 @@ const ARROW = "flex-none";
 // right appearance.
 function Button({
   variant = "ghost",
+  size = "lg",
   to,
   href,
-  block = false,
-  arrow = true,
+  arrow,
   className = "",
   children,
   ...rest
 }) {
-  const size = variant === "inline" ? SIZE.inline : SIZE.default;
-  const classes = [
-    BASE,
-    size,
-    VARIANT[variant],
-    block ? "w-full" : "",
-    className,
-  ]
+  // The hairline rank is the one that carries no mark: it is already the
+  // quietest thing on the band, and an arrow on it puts it back up a rank.
+  const marked = arrow ?? variant !== "inline";
+  const classes = [BASE, SIZE[size], VARIANT[variant], className]
     .filter(Boolean)
     .join(" ");
 
   const body = (
     <>
       {children}
-      {arrow ? <ArrowRightIcon className={ARROW} /> : null}
+      {marked ? <ArrowRightIcon className={ARROW} /> : null}
     </>
   );
 
