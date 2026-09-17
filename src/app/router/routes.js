@@ -27,7 +27,7 @@ export const ROUTES = [
     path: "/",
     label: "Home",
     id: "home",
-    title: "Dock Space for Lease | Dickinson Bayou Fleeting, Texas Gulf Coast",
+    title: "Gulf Coast Dock Space for Lease | Dickinson Bayou Fleeting",
     description:
       "Five-acre gated waterfront yards, long-term lease: Dickinson on Galveston Bay, Freeport on the GIWW. Bulkhead frontage, shore crew on site, from $4,100 a month.",
   }),

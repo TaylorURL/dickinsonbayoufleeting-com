@@ -55,6 +55,7 @@ async function content() {
       contents: [
         'export { FACILITIES } from "../src/app/content/facilities";',
         'export { PHONE_NUMBER, buildMapsHref } from "../src/app/content/phoneNumber";',
+        'export { HOURS } from "../src/app/content/hours";',
       ].join("\n"),
       resolveDir: __dirname,
       loader: "js",
@@ -135,26 +136,35 @@ const YARD_COPY = {
   },
 };
 
-// Both docks are worked around the clock, which is the one opening hour the
-// site has and the reason it is stated the same way for each.
-const ALWAYS_OPEN = [
-  {
+// The site prints two sets of hours and the graph carries both. The docks are
+// worked around the clock, so each yard opens on the shore crew's row; the
+// office row is when the line is staffed, which is a fact about reaching the
+// company rather than about either dock, so it goes on the contact point.
+function hoursFor(hours, id) {
+  const row = hours.find((h) => h.id === id);
+  if (!row) fail(`hours.js holds no "${id}" row`);
+  return {
     "@type": "OpeningHoursSpecification",
-    dayOfWeek: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday",
-    ],
-    opens: "00:00",
-    closes: "23:59",
-  },
-];
+    dayOfWeek: row.days,
+    opens: row.opens,
+    closes: row.closes,
+  };
+}
 
-function localBusiness(facility, telephone, mapsHref) {
+// What a month of a yard costs, stated once for both places the graph prices
+// an offer. The unit code is the UN/CEFACT one for a month; the text beside it
+// is for a reader of the markup and nothing parses it.
+function monthly(price) {
+  return {
+    "@type": "UnitPriceSpecification",
+    price: String(price),
+    priceCurrency: "USD",
+    unitText: "MONTH",
+    unitCode: "MON",
+  };
+}
+
+function localBusiness(facility, telephone, mapsHref, hours) {
   const copy = YARD_COPY[facility.id];
   if (!copy) fail(`no structured-data copy for the ${facility.id} yard`);
   return {
@@ -180,7 +190,7 @@ function localBusiness(facility, telephone, mapsHref) {
       longitude: facility.lng,
     },
     telephone,
-    openingHoursSpecification: ALWAYS_OPEN,
+    openingHoursSpecification: [hoursFor(hours, "shore-crew")],
     areaServed: copy.areaServed,
     hasMap: mapsHref(facility.address),
     makesOffer: [
@@ -189,19 +199,14 @@ function localBusiness(facility, telephone, mapsHref) {
         name: copy.offer,
         priceCurrency: "USD",
         price: String(facility.price),
-        priceSpecification: {
-          "@type": "UnitPriceSpecification",
-          price: String(facility.price),
-          priceCurrency: "USD",
-          unitText: "MONTH",
-        },
+        priceSpecification: monthly(facility.price),
         itemOffered: { "@type": "Service", serviceType: SERVICE_TYPE },
       },
     ],
   };
 }
 
-function graphFor({ FACILITIES, PHONE_NUMBER, buildMapsHref }) {
+function graphFor({ FACILITIES, PHONE_NUMBER, buildMapsHref, HOURS }) {
   const telephone = `+1-${PHONE_NUMBER}`;
   return {
     "@context": "https://schema.org",
@@ -231,6 +236,12 @@ function graphFor({ FACILITIES, PHONE_NUMBER, buildMapsHref }) {
           caption: "Dickinson Bayou Fleeting logo",
         },
         telephone,
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "customer service",
+          telephone,
+          hoursAvailable: hoursFor(HOURS, "office"),
+        },
         areaServed: [
           ...COAST,
           area("Galveston County, Texas"),
@@ -241,7 +252,9 @@ function graphFor({ FACILITIES, PHONE_NUMBER, buildMapsHref }) {
           GIWW,
         ],
       },
-      ...FACILITIES.map((f) => localBusiness(f, telephone, buildMapsHref)),
+      ...FACILITIES.map((f) =>
+        localBusiness(f, telephone, buildMapsHref, HOURS),
+      ),
       {
         "@type": "Service",
         "@id": `${SITE}/#service-fleeting`,
@@ -267,6 +280,8 @@ function graphFor({ FACILITIES, PHONE_NUMBER, buildMapsHref }) {
             name: YARD_COPY[f.id].catalogue,
             priceCurrency: "USD",
             price: String(f.price),
+            priceSpecification: monthly(f.price),
+            itemOffered: { "@id": `${SITE}/#service-fleeting` },
             url: `${SITE}/services#rates`,
           })),
         },
