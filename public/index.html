@@ -245,6 +245,11 @@
           report: function (kind, message, stack) {
             report(kind, message, stack);
           },
+          // And this is what it does about it, shared with the stylesheet so
+          // one reload answers for both halves of a build.
+          recover: function (url, message) {
+            recover(url, message);
+          },
         };
         function report(kind, message, stack) {
           hold(kind, message, stack);
@@ -330,6 +335,57 @@
             ) === 0
           );
         }
+        // What is left when a built file has been asked for three times and
+        // never arrived. Every route here is prerendered, so the reader is
+        // holding the whole first screen with none of its styling and nothing
+        // attached to it, the document reporting itself complete, and no sign
+        // that the page never finished. Nothing on that page can mend it: the
+        // stylesheet and the bundle are both named by a content hash, so the
+        // document itself is the only thing that knows what to ask for.
+        //
+        // Asking for the document again is the way out, and whether it is one
+        // is decided by whether the file can be reached at all. Any answer at
+        // all - the file serving, or a 404 because a deploy has replaced the
+        // set this tab was opened on - means the next document names files
+        // that are there. No answer means the reader is offline, and a reload
+        // would take the words off their screen and put a browser error page
+        // there instead, so the page stands and the failure is reported the
+        // way it always was. One reload per tab, written down before it is
+        // made, so a build that is genuinely missing a file cannot loop.
+        var RECOVERED = "reporter-recovered";
+        var reloading = false;
+        function recover(url, message) {
+          if (navigator.onLine === false) return report("resource", message);
+          var probe;
+          try {
+            probe = new XMLHttpRequest();
+            probe.open("HEAD", url, true);
+          } catch (ignored) {
+            return report("resource", message);
+          }
+          function unreachable() {
+            report("resource", message);
+          }
+          probe.timeout = 5000;
+          probe.onerror = unreachable;
+          probe.ontimeout = unreachable;
+          probe.onload = function () {
+            if (reloading) return;
+            var first = false;
+            try {
+              first = !sessionStorage.getItem(RECOVERED);
+              if (first) sessionStorage.setItem(RECOVERED, "1");
+            } catch (ignored) {}
+            if (!first) return unreachable();
+            reloading = true;
+            // The worker dies with the page and the beacon does not, so this
+            // report travels the way one on the way out travels.
+            unloading = true;
+            report("resource", message + " - the page reloaded to recover");
+            location.reload();
+          };
+          probe.send();
+        }
         // The stylesheet is the whole of the page's appearance, and it arrives
         // as a tag the document parses, so nothing stands behind it. Every
         // route here is prerendered, so one dropped request leaves the reader
@@ -350,7 +406,7 @@
             again.setAttribute("data-retrying", "");
             again.onerror = function () {
               if (!retryStylesheet(href))
-                report("resource", "Failed to load link: " + href);
+                recover(href, "Failed to load link: " + href);
             };
             document.head.appendChild(again);
           }, 600 * made);
