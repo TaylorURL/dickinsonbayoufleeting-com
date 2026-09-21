@@ -78,10 +78,16 @@ const bootstrap =
   // Only a request that never arrived reaches this; a bundle that runs and
   // throws raises a window error instead, and asking for it again would not
   // help it.
+  // A bundle that never arrived leaves the whole first screen drawn with none
+  // of it attached, and nothing in this document can mend that: the file is
+  // named by a content hash, so the document is the only thing that knows what
+  // to ask for. The reporter's recovery decides between fetching the document
+  // again and standing where we are, and it reports either way.
   `script.onerror=function(){` +
   `if(++tries<3){setTimeout(load,600*tries);return}` +
-  `var r=window.__reporter;` +
-  `if(r&&r.report)r.report("resource","Failed to load script: "+script.src)};` +
+  `var r=window.__reporter,m="Failed to load script: "+script.src;` +
+  `if(r&&r.recover){r.recover(script.src,m)}` +
+  `else if(r&&r.report){r.report("resource",m)}};` +
   `document.head.appendChild(script)}` +
   `function start(){if(started)return;started=true;load()}` +
   // Two frames: the first is the paint itself, the second proves it landed.
