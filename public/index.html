@@ -421,6 +421,60 @@
               .indexOf("stylesheet") > -1
           );
         }
+        // Which file the browser actually asked for. An image here is almost
+        // never the one its src attribute names: the wordmark and the frame a
+        // plate opens on are both picture elements offering WebP first, and
+        // both carry a srcset the browser picks a width out of, so src is the
+        // last candidate on the list rather than the chosen one. Reported as
+        // src, every image failure on this site arrives under the name of a
+        // file that was never requested and that answers perfectly whenever
+        // anyone goes to check it. currentSrc is what was on the wire. It is
+        // empty on an element that never got as far as choosing, and on a link
+        // or a script, so the attribute stays behind it.
+        function loadedFrom(target) {
+          return target.currentSrc || target.src || target.href || "";
+        }
+        // The wordmark in the bar and the frame behind the hero are pictures
+        // the reader is looking at, and a dropped request for one is final:
+        // the element has finished selecting and nothing asks again. What is
+        // left is a bar with no mark in it and a band with nothing behind the
+        // scrim, on a page reporting itself complete. So an image is asked for
+        // twice more over a widening gap, the same way the stylesheet and the
+        // entry bundle are, and it is reported only if it never comes.
+        //
+        // The asking is done on a detached image, so the element the reader is
+        // looking at is touched once and only when there is something to put
+        // in it. Pointing it at the file that just answered means taking the
+        // candidates off it first: a picture element runs its selection again
+        // whenever src changes, and would choose the same source it has
+        // already failed on.
+        var imageTries = {};
+        function retryImage(target) {
+          var url = loadedFrom(target);
+          if (!url || url.indexOf(location.origin + "/") !== 0) return false;
+          var made = imageTries[url] || 1; // the markup's own request is first
+          if (made >= 3) return false;
+          imageTries[url] = made + 1;
+          setTimeout(function () {
+            var probe = new Image();
+            probe.onload = function () {
+              var picture = target.parentNode;
+              if (picture && picture.tagName === "PICTURE") {
+                while (picture.firstChild && picture.firstChild !== target)
+                  picture.removeChild(picture.firstChild);
+              }
+              target.removeAttribute("srcset");
+              target.removeAttribute("sizes");
+              target.src = url;
+            };
+            probe.onerror = function () {
+              if (!retryImage(target))
+                report("resource", "Failed to load img: " + url);
+            };
+            probe.src = url;
+          }, 600 * made);
+          return true;
+        }
         // Capture phase, because element load failures fire error events that do not bubble.
         window.addEventListener(
           "error",
@@ -447,12 +501,14 @@
                   retryStylesheet(event.target.href)
                 )
                   return;
+                if (event.target.tagName === "IMG" && retryImage(event.target))
+                  return;
                 report(
                   "resource",
                   "Failed to load " +
                     event.target.tagName.toLowerCase() +
                     ": " +
-                    (event.target.src || event.target.href || ""),
+                    loadedFrom(event.target),
                 );
               } else {
                 if (isBenignBrowserWarning(event.message)) return;
