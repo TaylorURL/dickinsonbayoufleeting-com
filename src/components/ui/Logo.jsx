@@ -30,13 +30,20 @@ function Logo({ tone = "White", sizes, priority = false, className = "" }) {
   // to go rather than sit behind: the artwork is transparent around the
   // letterforms, so a fill that stayed would draw a block around the wordmark
   // instead of standing in for it.
+  //
+  // It comes down when the artwork draws and at no other time. A file that
+  // failed is exactly the case the stand-in is there for, and clearing on the
+  // failure took it away at the moment it was needed, leaving the browser's
+  // broken-image mark in the bar. A dropped request is asked for again, so the
+  // fill also has to still be up when the answer arrives.
   const [drawn, setDrawn] = useState(false);
   const settle = useCallback(() => setDrawn(true), []);
 
   // A cached file can finish before the load handler is attached, which is the
-  // case that would otherwise leave the fill up for good.
+  // case that would otherwise leave the fill up for good. A failed one is
+  // complete too, and it has no picture in it, so the width decides.
   const check = useCallback((node) => {
-    if (node?.complete) setDrawn(true);
+    if (node?.complete && node.naturalWidth > 0) setDrawn(true);
   }, []);
 
   const fill = drawn ? "" : "bg-layer-2";
@@ -63,7 +70,6 @@ function Logo({ tone = "White", sizes, priority = false, className = "" }) {
         width={INTRINSIC.width}
         height={INTRINSIC.height}
         onLoad={settle}
-        onError={settle}
         {...loading}
         className={`w-auto object-contain ${fill} ${className}`.trim()}
       />
