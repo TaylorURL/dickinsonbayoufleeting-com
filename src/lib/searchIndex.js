@@ -72,7 +72,12 @@ const PAGES = [
   },
 ];
 
-const money = (n) => `$${n.toLocaleString()}`;
+// Grouped the way dollars are written rather than the way the reader's own
+// locale writes a number, which is the same reason the rate on a lease card
+// names its locale.
+const MONEY = new Intl.NumberFormat("en-US");
+
+const money = (n) => `$${MONEY.format(n)}`;
 
 const SEARCH_ENTRIES = [
   ...PAGES,
