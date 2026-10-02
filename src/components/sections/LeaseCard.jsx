@@ -13,8 +13,16 @@ import { CODE, MICRO } from "../ui/Layout";
 // not carry a face yet, so it is read off the label here.
 const TABULAR = new Set(["Address", "Position"]);
 
+// The grouping is named rather than left to the reader's own locale. The build
+// writes this figure into the document and the first client render has to
+// produce the same characters from it, and a browser set to Spanish or German
+// groups four digits differently or not at all - $4100 and $4.100 against the
+// $4,100 the build wrote. The price is quoted in dollars, so it is grouped the
+// way dollars are written.
+const RATE = new Intl.NumberFormat("en-US");
+
 export function rate(price) {
-  return `$${price.toLocaleString()}`;
+  return `$${RATE.format(price)}`;
 }
 
 // A particular and its reading, on one rule. The label column is fixed so the
