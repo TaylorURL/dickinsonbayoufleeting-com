@@ -350,9 +350,28 @@
         // that are there. No answer means the reader is offline, and a reload
         // would take the words off their screen and put a browser error page
         // there instead, so the page stands and the failure is reported the
-        // way it always was. One reload per tab, written down before it is
-        // made, so a build that is genuinely missing a file cannot loop.
+        // way it always was.
+        //
+        // What stops a build that is genuinely missing a file from looping is
+        // which page was reloaded and when, written down before the reload is
+        // made. A reload comes back to the page it was made on, so a loop is
+        // always the same page failing again seconds later - and that is the
+        // reload having not worked, so the page stands and reports the way it
+        // always did. One wasted reload per page, and no more.
+        //
+        // Anything else is a drop this tab has not already tried to mend: a
+        // different page, or the same page long enough later to have been
+        // whole in between. Those get the same way out as the first one. This
+        // used to be a single reload for the life of the tab, and a tab that
+        // spent it kept every later drop with nothing on the page able to mend
+        // it - and session storage is copied into each tab opened from the
+        // page, so a tab that had recovered nothing could be born with the
+        // reload already spent. One reader met both halves inside two seconds:
+        // the home page dropped the stylesheet and recovered, and the next
+        // page dropped it on the same seconds and stood with the words on the
+        // glass and no styling on them.
         var RECOVERED = "reporter-recovered";
+        var LOOP_WINDOW = 30000;
         var reloading = false;
         function recover(url, message) {
           if (navigator.onLine === false) return report("resource", message);
@@ -371,12 +390,23 @@
           probe.ontimeout = unreachable;
           probe.onload = function () {
             if (reloading) return;
-            var first = false;
+            var now = Date.now();
+            var here = location.pathname;
+            var looping = false;
             try {
-              first = !sessionStorage.getItem(RECOVERED);
-              if (first) sessionStorage.setItem(RECOVERED, "1");
+              var written = String(sessionStorage.getItem(RECOVERED) || "");
+              var mark = written.indexOf(" ");
+              var page = mark > -1 ? written.slice(mark + 1) : "";
+              var at = parseInt(written.slice(0, mark > -1 ? mark : 0), 10);
+              looping =
+                page === here &&
+                !isNaN(at) &&
+                now - at >= 0 &&
+                now - at < LOOP_WINDOW;
+              if (!looping)
+                sessionStorage.setItem(RECOVERED, String(now) + " " + here);
             } catch (ignored) {}
-            if (!first) return unreachable();
+            if (looping) return unreachable();
             reloading = true;
             // The worker dies with the page and the beacon does not, so this
             // report travels the way one on the way out travels.
