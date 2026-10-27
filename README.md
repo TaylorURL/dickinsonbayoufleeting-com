@@ -11,7 +11,7 @@
 <p align="center"><a href="https://dickinsonbayoufleeting.com">dickinsonbayoufleeting.com</a></p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/version-2026.42.0-f0a045?style=for-the-badge" alt="Version 2026.42.0" />
+  <img src="https://img.shields.io/badge/version-2026.44.0-f0a045?style=for-the-badge" alt="Version 2026.44.0" />
 </p>
 
 Dickinson Bayou Fleeting runs two waterfront barge yards. One is in Dickinson on Galveston Bay, with access to the Houston Ship Channel. The other is in Freeport on the Gulf Intracoastal Waterway. Both are leased by the month. Most of their business starts with a phone call, so the site is built to load fast on a dock with one bar of signal and put the rates and the phone number up front.
