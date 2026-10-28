@@ -9,7 +9,7 @@ Website for Dickinson Bayou Fleeting, a barge fleeting and dock leasing company 
 
 [dickinsonbayoufleeting.com](https://dickinsonbayoufleeting.com)
 
-<img src="https://img.shields.io/badge/version-2026.44.1-f0a045?style=for-the-badge" alt="Version 2026.44.1" />
+<img src="https://img.shields.io/badge/version-2026.44.2-f0a045?style=for-the-badge" alt="Version 2026.44.2" />
 
 Lease rates for both yards, the services, the phone number and a quote form. Most business starts with a phone call from a dock with one bar of signal, so the page has to draw fast.
 
